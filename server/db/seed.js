@@ -49,7 +49,8 @@ const createTables = async () => {
               photo text NOT NULL,
               languages text [] NOT NULL,
               study_habits text NOT NULL,
-              major text NOT NULL
+              major text NOT NULL,
+              gender text NOT NULL
           );
           CREATE TABLE events (
               event_id SERIAL PRIMARY KEY,
