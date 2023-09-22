@@ -5,8 +5,7 @@ import { getUserMessages } from "../../fetching";
 
 export default function AllMessages() {
     const [messages, setMessages] = useState([]);
-    const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState("");
+
     const [searchParam, setSearchParam] = useState("");
   
     useEffect(() => {
@@ -19,7 +18,7 @@ export default function AllMessages() {
         }
       }
       getAllMessages();
-    }, []);
+    }, [11]);
   
     const messagesToDisplay = searchParam
       ? messages.filter((message) =>
@@ -28,9 +27,9 @@ export default function AllMessages() {
       : messages;
   
     return (
-      <div className="match-container">
-        <div className="match-card">
-          <h3 className="all-messages-banner">messages:</h3>
+      <div className="inbox-container">
+        <div className="inbox">
+          <h3>message inbox:</h3>
           <Link to="/messages/new">send a message</Link>
   
   
@@ -53,7 +52,7 @@ export default function AllMessages() {
           ))}
         </div>
         <label>
-            ♡{" "}
+            
             <input
               type="text"
               placeholder="search by user"
