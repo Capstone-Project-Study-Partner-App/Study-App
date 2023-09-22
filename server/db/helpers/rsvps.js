@@ -50,4 +50,51 @@ const getRsvpById = async (rsvp_id) => {
   }
 };
 
-module.exports = { createRsvp, getAllRsvps, getRsvpById };
+// Get Rsvps by Event ID
+const getRsvpByEventId = async (rsvp_id) => {
+  try {
+    const {
+      rows: [rsvps],
+    } = await client.query(
+      `
+        SELECT *
+        FROM rsvps
+        WHERE event_id = $1
+      `,
+      [rsvp_id]
+    );
+    return rsvps;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Edit RSVP
+const updateRsvp = async (rsvp_id, updatedRsvpData) => {
+  try {
+    const {
+      rows: [rsvp],
+    } = await client.query(
+      `
+        UPDATE rsvps
+        SET
+        rsvp_status = $1
+        WHERE rsvp_id = $2
+        RETURNING *;
+        `,
+      [updatedRsvpData.rsvp_status,
+      rsvp_id]
+    );
+    return rsvp;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  createRsvp,
+  getAllRsvps,
+  getRsvpById,
+  getRsvpByEventId,
+  updateRsvp,
+};

@@ -73,4 +73,74 @@ const getEventById = async (event_id) => {
   }
 };
 
-module.exports = { createEvent, getAllEvents, getEventById };
+const updateEvent = async (event_id, updatedEventData) => {
+  try {
+    const {
+      rows: [event],
+    } = await client.query(
+      `
+        UPDATE events
+        SET
+        title = $1,
+        description = $2,
+        location = $3,
+        datetime = $4,
+        virtual = $5,
+        comments = $6,
+        created_at = $7,
+        topic = $8,
+        duration = $9,
+        gender = $10,
+        "group" = $11
+        WHERE event_id = $12
+        RETURNING *;
+        `,
+      [
+        updatedEventData.title,
+        updatedEventData.description,
+        updatedEventData.location,
+        updatedEventData.datetime,
+        updatedEventData.virtual,
+        updatedEventData.comments,
+        updatedEventData.created_at,
+        updatedEventData.topic,
+        updatedEventData.duration,
+        updatedEventData.gender,
+        updatedEventData.group,
+        event_id,
+      ]
+    );
+    return event;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteEvent = async (event_id) => {
+  try {
+    client.query(
+      `
+      DELETE FROM rsvps
+      WHERE event_id = $1
+      `,
+      [event_id]
+    );
+    const result = await client.query(
+      `
+        DELETE FROM events
+        WHERE event_id = $1
+      `,
+      [event_id]
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  createEvent,
+  getAllEvents,
+  getEventById,
+  updateEvent,
+  deleteEvent,
+};
