@@ -5,6 +5,7 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  getUserMessages
 } = require("../db/helpers/users");
 const {
   getAllEvents,
@@ -22,6 +23,7 @@ const {
   deleteMessage,
   createMessage,
   getMessageById,
+  getMessagesByThread
 } = require("../db/helpers/messages");
 
 // Create a subrouter for the '/api/' subroute
@@ -49,15 +51,15 @@ apiRouter.get("/users/:id", async (req, res, next) => {
   }
 });
 
-// //Get all user messages
-// apiRouter.get("/:user_id/messages", async (req, res, next) => {
-//   try {
-//     const user = await getUserMessages(req.params.user_id);
-//     res.send(user);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+//Get all user messages
+apiRouter.get("/:id/messages", async (req, res, next) => {
+  try {
+    const user = await getUserMessages(req.params.id);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //Create User -- POST
 apiRouter.post("/users", async (req, res, next) => {
@@ -74,7 +76,7 @@ apiRouter.post("/users", async (req, res, next) => {
 // Edit User -- PUT********************************************
 apiRouter.put("/edit_user/:id", async (req, res, next) => {
   try {
-    const user = await updateUser(req.params.user_id, req.body);
+    const user = await updateUser(req.params.id, req.body);
     res.send(user);
   } catch (error) {
     next(error);
@@ -123,14 +125,14 @@ apiRouter.post("/events", async (req, res, next) => {
 // Put Event ********************************************
 apiRouter.put("/edit_event/:id", async (req, res, next) => {
   try {
-    const event = await updateEvent(req.params.user_id, req.body);
+    const event = await updateEvent(req.params.id, req.body);
     res.send(event);
   } catch (error) {
     next(error);
   }
 });
 
-// Delete User ********************************************
+// Delete Event ********************************************
 apiRouter.delete("/events/:id", async (req, res, next) => {
   try {
     const event = await deleteEvent(req.params.id);
@@ -168,7 +170,7 @@ apiRouter.post("/rsvps", async (req, res, next) => {
 // Edit Rsvp --PUT  ********************************************
 apiRouter.put("/edit_rsvp/:id", async (req, res, next) => {
   try {
-    const rsvp = await updateRsvp(req.params.user_id, req.body);
+    const rsvp = await updateRsvp(req.params.id, req.body);
     res.send(rsvp);
   } catch (error) {
     next(error);
@@ -209,36 +211,14 @@ apiRouter.delete("/messages/:id", async (req, res, next) => {
 });
 
 // // Get all messages in a thread by thread_id
-// const getMessagesByThread = async (thread_id) => {
-//   try {
-//       const { rows } = await client.query(`
-//       SELECT
-//       m.message_id,
-//       m.message_content,
-//       s.user_id AS sender_id,
-//       s.first_name AS sender_first_name,
-//       s.photos AS sender_photos,
-//       r.user_id AS receiver_id,
-//       r.first_name AS receiver_first_name,
-//       r.photos AS receiver_photos,
-//       m.thread_id
-//     FROM
-//       messages m
-//     INNER JOIN
-//       users s ON m.sender_id = s.user_id
-//     INNER JOIN
-//       users r ON m.receiver_id = r.user_id
-//     WHERE
-//       m.thread_id = $1
-//     ORDER BY
-//       m.created_at;
-//       `, [thread_id]);
-
-//       return rows;
-//   } catch (error) {
-//       throw error;
-//   }
-// }
+apiRouter.get('/thread/:id', async (req, res, next) => {
+  try {     
+      const message = await getMessagesByThread(req.params.id);
+      res.send(message);
+  } catch (error) {
+      next(error);
+  }
+});
 
 apiRouter.get("/health", (req, res, next) => {
   res.send("All healthy and ready to go!");

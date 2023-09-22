@@ -91,7 +91,7 @@ const updateEvent = async (event_id, updatedEventData) => {
         topic = $8,
         duration = $9,
         gender = $10,
-        group = $11,
+        "group" = $11
         WHERE event_id = $12
         RETURNING *;
         `,

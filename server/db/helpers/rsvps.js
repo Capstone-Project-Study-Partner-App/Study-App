@@ -78,13 +78,12 @@ const updateRsvp = async (rsvp_id, updatedRsvpData) => {
       `
         UPDATE rsvps
         SET
-        rsvp_status = $1, 
-        user_id = $2, 
-        event_id = $3,
-        WHERE user_id = $4
+        rsvp_status = $1
+        WHERE rsvp_id = $2
         RETURNING *;
         `,
-      [updatedRsvpData.rsvp_status]
+      [updatedRsvpData.rsvp_status,
+      rsvp_id]
     );
     return rsvp;
   } catch (error) {

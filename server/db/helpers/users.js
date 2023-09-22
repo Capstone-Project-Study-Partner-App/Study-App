@@ -156,28 +156,68 @@ const deleteUser = async (user_id) => {
     client.query(
       `
       DELETE FROM messages
-      WHERE user_id = $1
+      WHERE sender = $1
       `,
       [user_id]
     );
     client.query(
       `
-      DELETE FROM rsvps
-      WHERE user_id = $1
+      DELETE FROM messages
+      WHERE receiver = $1
       `,
       [user_id]
     );
-    const result = await client.query(
-      `
-        DELETE FROM users
+    client.query(
+        `
+        DELETE FROM rsvps
         WHERE user_id = $1
-      `,
-      [user_id]
-    );
+        `,
+        [user_id]
+      );
+      const result = await client.query(
+          `
+            DELETE FROM users
+            WHERE user_id = $1
+          `,
+          [user_id]
+        );
   } catch (error) {
     throw error;
   }
 };
+
+const getUserMessages = async (user_id) => {
+  try {
+      const result = await client.query(`
+          SELECT
+              m.message_id,
+              m.message_content,
+              s.user_id AS sender,
+              s.first_name AS sender_first_name,
+              s.photo AS sender_photo,
+              r.user_id AS receiver,
+              r.first_name AS receiver_first_name,
+              r.photo AS receiver_photo,
+              m.thread_id
+          FROM
+              messages m
+          INNER JOIN
+              users s ON m.sender = s.user_id
+          INNER JOIN
+              users r ON m.receiver = r.user_id
+          WHERE
+              s.user_id = $1;
+      `, [user_id]);
+
+      const messages = result.rows; 
+
+      return messages;
+  } catch (error) {
+      throw error;
+  }
+}
+
+
 
 module.exports = {
   createUser,
@@ -185,4 +225,5 @@ module.exports = {
   getUserById,
   deleteUser,
   updateUser,
+  getUserMessages
 };
