@@ -51,16 +51,6 @@ apiRouter.get("/users/:id", async (req, res, next) => {
   }
 });
 
-//Get all user messages
-apiRouter.get("/:id/messages", async (req, res, next) => {
-  try {
-    const user = await getUserMessages(req.params.id);
-    res.send(user);
-  } catch (error) {
-    next(error);
-  }
-});
-
 //Create User -- POST
 apiRouter.post("/users", async (req, res, next) => {
   try {
@@ -72,8 +62,9 @@ apiRouter.post("/users", async (req, res, next) => {
   }
 });
 
+
 //GRAB HELPER FUCNTION FOR THIS
-// Edit User -- PUT********************************************
+// Edit User -- PUT
 apiRouter.put("/edit_user/:id", async (req, res, next) => {
   try {
     const user = await updateUser(req.params.id, req.body);
@@ -83,7 +74,7 @@ apiRouter.put("/edit_user/:id", async (req, res, next) => {
   }
 });
 
-// Delete User ********************************************
+// Delete User 
 apiRouter.delete("/users/:id", async (req, res, next) => {
   try {
     const user = await deleteUser(req.params.id);
@@ -92,6 +83,18 @@ apiRouter.delete("/users/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+//Get all user messages
+apiRouter.get("/:id/messages", async (req, res, next) => {
+  try {
+    const user = await getUserMessages(req.params.id);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// MISSING LOG IN USER
 
 //EVENTS
 
@@ -167,7 +170,7 @@ apiRouter.post("/rsvps", async (req, res, next) => {
   }
 });
 
-// Edit Rsvp --PUT  ********************************************
+// Edit Rsvp --PUT  
 apiRouter.put("/edit_rsvp/:id", async (req, res, next) => {
   try {
     const rsvp = await updateRsvp(req.params.id, req.body);
