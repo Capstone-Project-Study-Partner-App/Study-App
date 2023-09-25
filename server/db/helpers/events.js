@@ -4,7 +4,8 @@ const createEvent = async ({
   title,
   description,
   location,
-  datetime,
+  days_available,
+  times_available,
   virtual,
   comments,
   created_at,
@@ -18,15 +19,16 @@ const createEvent = async ({
       rows: [events],
     } = await client.query(
       `
-                INSERT INTO events(title, description, location, datetime, virtual, comments, created_at, topic, duration, gender, "group" )
-                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+                INSERT INTO events(title, description, location, days_available, times_available, virtual, comments, created_at, topic, duration, gender, "group" )
+                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
                 RETURNING *;
             `,
       [
         title,
         description,
         location,
-        datetime,
+        days_available,
+        times_available,
         virtual,
         comments,
         created_at,
@@ -84,22 +86,24 @@ const updateEvent = async (event_id, updatedEventData) => {
         title = $1,
         description = $2,
         location = $3,
-        datetime = $4,
-        virtual = $5,
-        comments = $6,
-        created_at = $7,
-        topic = $8,
-        duration = $9,
-        gender = $10,
-        "group" = $11
-        WHERE event_id = $12
+        days_available = $4,
+        times_available = $5,
+        virtual = $6,
+        comments = $7,
+        created_at = $8,
+        topic = $9,
+        duration = $10,
+        gender = $11,
+        "group" = $12
+        WHERE event_id = $13
         RETURNING *;
         `,
       [
         updatedEventData.title,
         updatedEventData.description,
         updatedEventData.location,
-        updatedEventData.datetime,
+        updatedEventData.days_available,
+        updatedEventData.times_available,
         updatedEventData.virtual,
         updatedEventData.comments,
         updatedEventData.created_at,
