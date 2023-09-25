@@ -278,9 +278,10 @@ export async function createMessage(message_content, sender, receiver) {
       }),
     });
     const json = await resp.json();
+    console.log("message sent:", json);
     return json;
   } catch (error) {
-    console.error(error);
+    console.error('error sending message:', error);
     return error;
   }
 }

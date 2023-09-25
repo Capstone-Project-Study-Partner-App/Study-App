@@ -7,7 +7,7 @@ import Buddies from './components/buddies';
 import Events from './components/events';
 import Messages from './components/messages';
 import Profile from './components/profile';
-import MessageThread from './components/thread';
+import MessageThread from './components/Thread';
 
 function App() {
   const [count, setCount] = useState(0)

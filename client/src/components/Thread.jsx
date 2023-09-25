@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getMessagesByThread } from "../../fetching";
+import NewMessage from "./NewMessage";
 
 
 
 export default function MessageThread() {
-//   const { thread_id } = useParams();
+  const { thread_id } = useParams();
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
   const [sender, setSender] = useState();
@@ -65,7 +66,12 @@ export default function MessageThread() {
 
           </div>
         ))}
-
+<NewMessage
+      
+      sender={11} 
+      thread_id={17} 
+      receiver={receiver} 
+/>
       </div>
 
 

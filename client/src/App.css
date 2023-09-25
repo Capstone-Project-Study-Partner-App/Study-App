@@ -28,3 +28,20 @@
 .read-the-docs {
   color: #888;
 }
+
+.home-container img{
+  padding: 50px
+}
+
+.home-container h1 {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.home-container h2 {
+  position: absolute;
+  bottom: 30%;
+  right: 50%;
+}

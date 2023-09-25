@@ -25,7 +25,7 @@ export default function AllMessages() {
           message.receiver_first_name.toLowerCase().includes(searchParam)
         )
       : messages;
-  
+
     return (
       <div className="inbox-container">
         <div className="inbox">
