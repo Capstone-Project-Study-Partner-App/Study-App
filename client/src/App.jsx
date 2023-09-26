@@ -28,7 +28,7 @@ function App() {
           <Route path='/:id/messages' element={<Messages/>}/>
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/users/:id" element={<Profile />} />
-          <Route path='/registration_questionnarie' element={<RegistrationForm/>}/>
+          <Route path='/registration_questionnaire' element={<RegistrationForm/>}/>
         </Routes>
       </div>
       {/* <h1 className="text-3xl font-bold text-red-500 underline text-center">
