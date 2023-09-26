@@ -19,7 +19,7 @@ export default function MessageThread() {
     async function getMessageThread() {
       try {
         // if (!thread_id) {
-        
+
         //   return;
         // }
         const response = await getMessagesByThread(id);
@@ -38,7 +38,7 @@ export default function MessageThread() {
       } catch (err) {
         console.error(err);
         setError("Error occurred fetching messages");
-      } 
+      }
     }
     getMessageThread();
   }, [id]);
@@ -64,27 +64,19 @@ export default function MessageThread() {
             {console.log('chat with: ', message.sender_first_name)}
             <p>
               <Link to={`/users/${message.sender}`}>
-                <img src={message.sender_photo} id="chat-profile-pic" style={{width: '100px'}} />
+                <img src={message.sender_photo} id="chat-profile-pic" style={{ width: '100px' }} />
               </Link>
             </p>
             <b>{message.sender_first_name}:</b> {message.message_content}
 
           </div>
         ))}
-<NewMessage
-      
-      sender={11} 
-      thread_id={17} 
-      receiver={receiver} 
-/>
+        <NewMessage
+          sender={11}
+          thread_id={id}
+          receiver={receiver}
+        />
       </div>
-
-
-      {/* <ReplyMessage 
-      thread_id={thread_id} 
-      sender={user_id} 
-      receiver={receiver} 
-      token={token} /> */}
 
     </div>
   );
