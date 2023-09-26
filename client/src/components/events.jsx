@@ -11,6 +11,7 @@ export default function Events() {
     }
     fetchAllEvents();
   }, []);
+
   return (
     // FILTER SECTION
     <div className="flex">
@@ -109,6 +110,7 @@ export default function Events() {
                     <p>{duration}</p>
                     <p>{gender}</p>
                     <p>{group}</p>
+                    <button className="details-button">View Details</button>
                   </div>
                 </Link>
               )
