@@ -1,14 +1,35 @@
 
 
-export default function Home (){
+export default function Home() {
     return (
-        <div className="home-container">
-            {/* <h1>This is Home</h1> */}
-            <img src="https://i.ibb.co/YNQ8Z8h/v-LVVLFXy5470-PDRVg37b-1-b5pxl.jpg" style={{width: '500px'}} />
-            <img src="https://i.ibb.co/2807Ccz/cute-login.png" style={{height: '500px'}}/>
-
-            <h1 className="home-text">APP NAME</h1>
-            <h2>some text abt app</h2>
+      <div className="home-container">
+        <div className="home-image">
+          <img
+            src="https://i.pinimg.com/1200x/35/a0/d9/35a0d99126faaca0d33305bd1a86ee20.jpg"
+            alt="Placeholder Image"
+            style={{width: '500px'}}
+          />
         </div>
-    )
-}
+  
+        <div className="login-form">
+          <h1>Login</h1>
+          <form action="">
+            <label htmlFor="username">Username</label>
+            <input type="text" />
+            <br />
+            <label htmlFor="password">Password</label>
+            <input type="password" />
+            <br />
+            <input type="checkbox" />
+            <label>Remember Me</label>
+            <br />
+            <a href="#">Forgot Password?</a>
+            <br />
+            <button type="submit">Login</button>
+            <br />
+          </form>
+          <a href="#">Sign up Here</a>
+        </div>
+      </div>
+    );
+  }

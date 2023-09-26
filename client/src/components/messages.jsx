@@ -5,7 +5,6 @@ import { getUserMessages } from "../fetching";
 
 export default function AllMessages() {
     const [messages, setMessages] = useState([]);
-
     const [searchParam, setSearchParam] = useState("");
   
     useEffect(() => {
@@ -13,28 +12,47 @@ export default function AllMessages() {
         try {
           const response = await getUserMessages(11);
           setMessages(response);
+          
         } catch (error) {
           setError(error.message);
         }
       }
       getAllMessages();
-    }, [11]);
+    }, []);
+  
+    //show only the most recent message of each thread
+    const getMostRecentMessages = () => {
+      const messageMap = new Map();
+  
+      for (const message of messages) {
+        if (!messageMap.has(message.thread_id)) {
+          messageMap.set(message.thread_id, message);
+        } else {
+          const existingMessage = messageMap.get(message.thread_id);
+          if (message.date_sent > existingMessage.date_sent) {
+            messageMap.set(message.thread_id, message);
+          }
+        }
+      }
+  
+      return Array.from(messageMap.values());
+    };
+  
+    const mostRecentMessages = getMostRecentMessages();
   
     const messagesToDisplay = searchParam
-      ? messages.filter((message) =>
+      ? mostRecentMessages.filter((message) =>
           message.receiver_first_name.toLowerCase().includes(searchParam)
         )
-      : messages;
+      : mostRecentMessages;
+
+
 
     return (
       <div className="inbox-container">
         <div className="inbox">
           <h3>message inbox:</h3>
-          <Link to="/messages/new">send a message</Link>
-  
-  
-  
-          {messagesToDisplay.map((message) => (
+            {messagesToDisplay.map((message) => (
             <div key={message.message_id}>
               <h4>{message.receiver_first_name}</h4>
               <p>
@@ -46,7 +64,6 @@ export default function AllMessages() {
                 <b>{message.receiver_first_name}:</b> {message.message_content}
               </p>
               {/* <DeleteMessage message_id={message.message_id} /> */}
-              <Link to={`/messages/edit/${message.message_id}`}>edit</Link>
               <hr className="rounded" />
             </div>
           ))}

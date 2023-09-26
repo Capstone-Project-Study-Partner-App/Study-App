@@ -4,6 +4,7 @@
   padding: 2rem;
   text-align: center;
 }
+
 /* 
 #nav-bar-container {
   display: flex;
@@ -29,19 +30,21 @@
   color: #888;
 }
 
-.home-container img{
-  padding: 50px
+.home-container {
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
+  height: auto;
 }
 
-.home-container h1 {
-  position: absolute;
-  top: 30%;
-  left: 40%;
-  transform: translate(-50%, -50%);
+.home-image {
+  flex: 1; 
+  padding: 20px; 
+
 }
 
-.home-container h2 {
-  position: absolute;
-  bottom: 30%;
-  right: 50%;
+.login-form {
+  flex: 1; 
+  padding: 20px;
 }
+
