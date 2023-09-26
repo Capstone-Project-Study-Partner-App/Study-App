@@ -124,6 +124,7 @@ export default function NewEventForm() {
             placeholder="Virtual"
             onChange={(e) => setVirtual(e.target.checked)}
           />
+          <br/>
           <input
             id="comments"
             className="newEventForm_comments"
