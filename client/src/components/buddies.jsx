@@ -18,20 +18,182 @@ export default function Buddies(){
         <div className="flex">
         {/* Sidebar */}
         <div className="w-1/4 bg-gray-800 text-white p-4">
-            <h2 className="text-xl font-semibold mb-4">Filter</h2>
+            <h1 className="text-xxl font-semibold mb-4">Filters</h1>
             <div className="space-y-2">
+            <h2 className="text-xl font-semibold mb-4">Age</h2>
             <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox text-indigo-600" />
-                <span className="ml-2">Option 1</span>
+                <span className="ml-2">15-17</span>
             </label>
             <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox text-indigo-600" />
-                <span className="ml-2">Option 2</span>
+                <span className="ml-2">18-25</span>
             </label>
             <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox text-indigo-600" />
-                <span className="ml-2">Option 3</span>
+                <span className="ml-2">25-30</span>
             </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">30+</span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Location</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Zipcode: </span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Education Level</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">High School</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">College Freshman</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">College Sophmore</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">College Junior</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">College Senior</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Masters</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">phD</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Other</span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Available Days</h2>
+
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Monday</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Tuesday</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Wednesday</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Thursday</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Friday</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Saturday</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Sunday</span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Language</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">English</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Spanish</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Mandarin</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">French</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Arabic</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Other</span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Study Commitment</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Chill</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Semi-Chill</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Semi-Grind</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Grind</span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Major</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">English</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Mathematics</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Science</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Social Studies</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Finance/ Economics</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Computer Science</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Business/Marketing</span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Gender</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Male</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Female</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Nonbinary</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Other</span>
+            </label>
+
             </div>
         </div>
 
