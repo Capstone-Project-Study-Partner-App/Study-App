@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getMessagesByThread } from "../../fetching";
+import { getMessagesByThread } from "../fetching";
 import NewMessage from "./NewMessage";
 
 
 
 export default function MessageThread() {
-  const { thread_id } = useParams();
+  // const { thread_id } = useParams();
+  // console.log("thread_id extracted from URL:", thread_id);
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
   const [sender, setSender] = useState();
@@ -17,6 +18,10 @@ export default function MessageThread() {
   useEffect(() => {
     async function getMessageThread() {
       try {
+        // if (!thread_id) {
+        
+        //   return;
+        // }
         const response = await getMessagesByThread(17);
         if (response) {
           setMessages(response);
@@ -36,13 +41,13 @@ export default function MessageThread() {
       } 
     }
     getMessageThread();
-  }, []);
+  }, [17]);
 
 
   if (messages.length === 0) {
     return <p>No messages found.</p>;
   }
-//   console.log("thread_id:", thread_id);
+  // console.log("thread_id:", thread_id);
 
   return (
     <div className="thread-container">

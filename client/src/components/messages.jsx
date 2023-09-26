@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUserMessages } from "../../fetching";
+import { getUserMessages } from "../fetching";
 
 
 export default function AllMessages() {

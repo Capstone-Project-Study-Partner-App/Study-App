@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { createMessage } from "../../fetching";
+import { createMessage } from "../fetching";
 
 
 export default function NewMessage({sender, receiver, thread_id}) {
@@ -15,23 +15,23 @@ export default function NewMessage({sender, receiver, thread_id}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+
+
         try {
-            const response = await createMessage(
-                message_content,
-                sender,
-                receiver,
-                thread_id
-                
-        
-            );
-            setMessageContent(response);
+            let data;
 
-            if (response && response.thread_id === null) {
-                navigate(`/messages/thread/${response.new_thread_id}`);
+            if (thread_id) {
 
-            } else {
+                data = await createMessage(message_content, sender, receiver, thread_id)
                 window.location.reload();
+            } else {
+                data = await createMessage(message_content, sender, receiver)
             }
+                console.log("message sent:", data);
+                const newThreadId = data.thread_id;
+                navigate(`/messages/thread/${newThreadId}`);
+                   
         } catch (error) {
             console.error('error:', error)
         }

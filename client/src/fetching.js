@@ -264,7 +264,7 @@ export async function getMessageById(message_id) {
   return json;
 }
 
-export async function createMessage(message_content, sender, receiver) {
+export async function createMessage(message_content, sender, receiver, thread_id) {
   try {
     const resp = await fetch(`${api_root}/messages`, {
       method: "POST",
@@ -275,6 +275,7 @@ export async function createMessage(message_content, sender, receiver) {
         message_content,
         sender,
         receiver,
+        thread_id
       }),
     });
     const json = await resp.json();
