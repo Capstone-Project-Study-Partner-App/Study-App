@@ -2,8 +2,9 @@ import { useState } from "react";
 import { createEvent } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
 
-export default function NewEventForm() {
+export default function NewEventForm({ post, setPost }) {
   const [event_id, setEvent_id] = useState("");
+  const [error, setError] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -22,27 +23,41 @@ export default function NewEventForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      await createEvent(
-        event_id,
-        title,
-        description,
-        location,
-        datetime,
-        // days_available,
-        // times_available,
-        virtual,
-        comments,
-        created_at,
-        topic,
-        duration,
-        gender,
-        group
-      );
-    //   window.location.reload();
+    const APIData = await createEvent(
+      title,
+      description,
+      location,
+      datetime,
+      virtual,
+      comments,
+      created_at,
+      topic,
+      duration,
+      gender,
+      group
+    );
+    if (APIData.success) {
+      console.log("New Event: ", APIData.data.newPost);
+      const newPostList = [...posts, APIData.data.newPost];
+      setPost(newPostList);
+
+      setTitle("");
+      setDescription("");
+      setLocation("");
+      setDatetime("");
+      setVirtual(false);
+      setComments("");
+      setCreated_at("");
+      setTopic("");
+      setDuration("");
+      setGender("");
+      setGroup(false);
+
       navigate("/events");
-    } catch (error) {
-      alert("There was an error creating a new event");
+
+    } 
+    else {
+      setError("There was an error creating a new event");
     }
   }
 
@@ -51,6 +66,7 @@ export default function NewEventForm() {
       <section className="new_event_form">
         <h3>Add a new event!</h3>
         <form onSubmit={handleSubmit}>
+          {error && <p>{error}</p>}
           <input
             id="title"
             className="newEventForm_title"
@@ -124,7 +140,7 @@ export default function NewEventForm() {
             placeholder="Virtual"
             onChange={(e) => setVirtual(e.target.checked)}
           />
-          <br/>
+          <br />
           <input
             id="comments"
             className="newEventForm_comments"
@@ -178,3 +194,65 @@ export default function NewEventForm() {
     </div>
   );
 }
+// async function handleSubmit(e) {
+//   e.preventDefault();
+//   try {
+//     await createEvent(
+//       title,
+//       description,
+//       location,
+//       datetime,
+//       // days_available,
+//       // times_available,
+//       virtual,
+//       comments,
+//       created_at,
+//       topic,
+//       duration,
+//       gender,
+//       group
+//     );
+//   //   window.location.reload();
+//     navigate("/events");
+//   } catch (error) {
+//     alert("There was an error creating a new event");
+//   }
+// }
+
+// const submitHandler = (e) => {
+//   e.preventDefault();
+//   async function newEvent() {
+//     const newPost = {
+//       title,
+//       description,
+//       location,
+//       datetime,
+//       virtual,
+//       comments,
+//       created_at,
+//       topic,
+//       duration,
+//       gender,
+//       group,
+//     }
+//     const result = await createEvent (newPost);
+//     console.log(result)
+//     const updatePost=await getAllEvents();
+//     setPost(updatePost.events)
+//     return result;
+//   }
+//   newEvent();
+
+//   setTitle('');
+//   setDescription('');
+//   setLocation('');
+//   setDatetime('');
+//   setVirtual(false);
+//   setComments('');
+//   setCreated_at('');
+//   setTopic('');
+//   setDuration('');
+//   setGender('');
+//   setGroup(false);
+
+// };

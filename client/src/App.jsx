@@ -9,6 +9,7 @@ import Messages from './components/messages';
 import Profile from './components/profile';
 import NewEventForm from './components/newevent';
 import MessageThread from "./components/Thread";
+import RegistrationForm from './components/registrationform';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -27,6 +28,7 @@ function App() {
           <Route path='/:id/messages' element={<Messages/>}/>
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/users/:id" element={<Profile />} />
+          <Route path='/registration_questionnarie' element={<RegistrationForm/>}/>
         </Routes>
       </div>
       {/* <h1 className="text-3xl font-bold text-red-500 underline text-center">
