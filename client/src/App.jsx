@@ -7,6 +7,7 @@ import Buddies from './components/buddies';
 import Events from './components/events';
 import Messages from './components/messages';
 import Profile from './components/profile';
+import NewEventForm from './components/newevent';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={<Home/>}/> 
           <Route path='/users' element={<Buddies/>}/>
           <Route path='/events' element={<Events/>}/>
+          <Route path='/events/new_event_form' element={<NewEventForm/>}/>
           <Route path='/:id/messages' element={<Messages/>}/>
           <Route path='/users/:id' element={<Profile/>}/>
         </Routes>
