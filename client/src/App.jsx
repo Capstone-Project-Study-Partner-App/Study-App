@@ -7,6 +7,7 @@ import Buddies from './components/buddies';
 import Events from './components/events';
 import Messages from './components/messages';
 import Profile from './components/profile';
+import MessageThread from './components/Thread';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
           <Route path='/users' element={<Buddies/>}/>
           <Route path='/events' element={<Events/>}/>
           <Route path='/:id/messages' element={<Messages/>}/>
+          <Route path='/thread/:id' element={<MessageThread/>} />
           <Route path='/users/:id' element={<Profile/>}/>
         </Routes>
       </div>
