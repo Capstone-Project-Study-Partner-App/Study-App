@@ -8,65 +8,52 @@ export default function NewEventForm({ post, setPost }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [address, setAddress] = useState("");
   const [datetime, setDatetime] = useState("");
-  //   const [days_available, setDays_available] = useState("");
-  //   const [times_available, setTimes_available] = useState("");
+  const [timezone, setTimezone] = useState("");
   const [virtual, setVirtual] = useState(false);
   const [comments, setComments] = useState("");
-  const [created_at, setCreated_at] = useState("");
   const [topic, setTopic] = useState("");
   const [duration, setDuration] = useState("");
   const [gender, setGender] = useState("");
   const [group, setGroup] = useState(false);
-
+  
   const navigate = useNavigate();
+  
+async function handleSubmit (e){
+  e.preventDefault();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const APIData = await createEvent(
-      title,
-      description,
-      location,
-      datetime,
-      virtual,
-      comments,
-      created_at,
-      topic,
-      duration,
-      gender,
-      group
-    );
-    if (APIData.success) {
-      console.log("New Event: ", APIData.data.newPost);
-      const newPostList = [...posts, APIData.data.newPost];
-      setPost(newPostList);
+      let eventData={
+        title: title,
+        description: description,
+        location: location,
+        address: address,
+        datetime: datetime,
+        timezone: timezone,
+        virtual: virtual,
+        comments: comments,
+        topic: topic,
+        duration: duration,
+        gender: gender,
+        group: group,
+      }
 
-      setTitle("");
-      setDescription("");
-      setLocation("");
-      setDatetime("");
-      setVirtual(false);
-      setComments("");
-      setCreated_at("");
-      setTopic("");
-      setDuration("");
-      setGender("");
-      setGroup(false);
-
-      navigate("/events");
-
-    } 
-    else {
-      setError("There was an error creating a new event");
+      try{
+        await createEvent(eventData);
+        navigate ("/events");
+      } catch (error){
+        console.error ("There was a error creating an event!", error);
+      }
     }
-  }
+
 
   return (
     <div>
       <section className="new_event_form">
-        <h3>Add a new event!</h3>
+        <h1>Add a new event!</h1>
         <form onSubmit={handleSubmit}>
           {error && <p>{error}</p>}
+          <h5>Title</h5>
           <input
             id="title"
             className="newEventForm_title"
@@ -75,7 +62,8 @@ export default function NewEventForm({ post, setPost }) {
             name="title"
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
-          />
+            />
+          <h5>Description</h5>
           <input
             id="descripton"
             className="newEventForm_description"
@@ -84,7 +72,8 @@ export default function NewEventForm({ post, setPost }) {
             name="description"
             placeholder="Description"
             onChange={(e) => setDescription(e.target.value)}
-          />
+            />
+          <h5>Location</h5>
           <input
             id="location"
             className="newEventForm_location"
@@ -93,43 +82,37 @@ export default function NewEventForm({ post, setPost }) {
             name="location"
             placeholder="Location"
             onChange={(e) => setLocation(e.target.value)}
-          />
+            />
+          <h5>Address</h5>
+          <input
+            id="address"
+            className="newEventForm_address"
+            value={address}
+            type="text"
+            name="address"
+            placeholder="Address"
+            onChange={(e) => setAddress(e.target.value)}
+            />
+          <h5>Date & Time</h5>
           <input
             id="datetime"
             className="newEventForm_datetime"
             value={datetime}
-            type="text"
+            type="datetime-local"
             name="datetime"
             placeholder="Date Time"
             onChange={(e) => setDatetime(e.target.value)}
-          />
-          {/* <input
-            id="days_available"
-            className="newEventForm_days_available"
-            value={days_available}
-            type="text"
-            name="days_available"
-            placeholder="Days Available"
-            onChange={(e) => setDays_available(e.target.value)}
-          />
+            />
+          <h5>Timezone</h5>
           <input
-            id="times_available"
-            className="newEventForm_times_available"
-            value={times_available}
+            id="timezone"
+            className="newEventForm_timezone"
+            value={timezone}
             type="text"
-            name="times_available"
-            placeholder="Times Available"
-            onChange={(e) => setTimes_available(e.target.value)}
-          /> */}
-          <input
-            id="created_at"
-            className="newEventForm_created_at"
-            value={created_at}
-            type="text"
-            name="created_at"
+            name="timezone"
             placeholder="Created At"
-            onChange={(e) => setCreated_at(e.target.value)}
-          />
+            onChange={(e) => setTimezone(e.target.value)}
+            />
           <h5>Virtual?</h5>
           <input
             id="virtual"
@@ -139,8 +122,8 @@ export default function NewEventForm({ post, setPost }) {
             name="virtual"
             placeholder="Virtual"
             onChange={(e) => setVirtual(e.target.checked)}
-          />
-          <br />
+            />
+          <h5>Comments</h5>
           <input
             id="comments"
             className="newEventForm_comments"
@@ -149,7 +132,8 @@ export default function NewEventForm({ post, setPost }) {
             name="comments"
             placeholder="Comments"
             onChange={(e) => setComments(e.target.value)}
-          />
+            />
+          <h5>Topic</h5>
           <input
             id="topic"
             className="newEventForm_topic"
@@ -158,7 +142,8 @@ export default function NewEventForm({ post, setPost }) {
             name="topic"
             placeholder="Topic"
             onChange={(e) => setTopic(e.target.value)}
-          />
+            />
+          <h5>Duration (mins)</h5>
           <input
             id="duration"
             className="newEventForm_duration"
@@ -167,7 +152,8 @@ export default function NewEventForm({ post, setPost }) {
             name="duration"
             placeholder="Duration"
             onChange={(e) => setDuration(e.target.value)}
-          />
+            />
+          <h5>Gender</h5>
           <input
             id="gender"
             className="newEventForm_gender"
@@ -176,7 +162,7 @@ export default function NewEventForm({ post, setPost }) {
             name="gender"
             placeholder="Gender"
             onChange={(e) => setGender(e.target.value)}
-          />
+            />
           <h5>Group?</h5>
           <input
             id="group"
@@ -186,7 +172,7 @@ export default function NewEventForm({ post, setPost }) {
             name="group"
             placeholder="Group"
             onChange={(e) => setGroup(e.target.checked)}
-          />
+            />
           <br />
           <button type="submit">Submit</button>
         </form>
@@ -194,65 +180,46 @@ export default function NewEventForm({ post, setPost }) {
     </div>
   );
 }
+
+
 // async function handleSubmit(e) {
 //   e.preventDefault();
-//   try {
-//     await createEvent(
-//       title,
-//       description,
-//       location,
-//       datetime,
-//       // days_available,
-//       // times_available,
-//       virtual,
-//       comments,
-//       created_at,
-//       topic,
-//       duration,
-//       gender,
-//       group
-//     );
-//   //   window.location.reload();
+//   const APIData = await createEvent(
+//     title,
+//     description,
+//     location,
+//     address,
+//     datetime,
+//     timezone,
+//     virtual,
+//     comments,
+//     topic,
+//     duration,
+//     gender,
+//     group
+//   );
+//   if (APIData.success) {
+//     console.log("New Event: ", APIData.data.newPost);
+//     const newPostList = [...post, APIData.data.newPost];
+//     setPost(newPostList);
+
+//     setTitle("");
+//     setDescription("");
+//     setLocation("");
+//     setAddress("");
+//     setDatetime("");
+//     setTimezone("");
+//     setVirtual(false);
+//     setComments("");
+//     setTopic("");
+//     setDuration("");
+//     setGender("");
+//     setGroup(false);
+
+//     setError(null)
+
 //     navigate("/events");
-//   } catch (error) {
-//     alert("There was an error creating a new event");
+//   } else {
+//     setError("There was an error creating a new event");
 //   }
 // }
-
-// const submitHandler = (e) => {
-//   e.preventDefault();
-//   async function newEvent() {
-//     const newPost = {
-//       title,
-//       description,
-//       location,
-//       datetime,
-//       virtual,
-//       comments,
-//       created_at,
-//       topic,
-//       duration,
-//       gender,
-//       group,
-//     }
-//     const result = await createEvent (newPost);
-//     console.log(result)
-//     const updatePost=await getAllEvents();
-//     setPost(updatePost.events)
-//     return result;
-//   }
-//   newEvent();
-
-//   setTitle('');
-//   setDescription('');
-//   setLocation('');
-//   setDatetime('');
-//   setVirtual(false);
-//   setComments('');
-//   setCreated_at('');
-//   setTopic('');
-//   setDuration('');
-//   setGender('');
-//   setGroup(false);
-
-// };

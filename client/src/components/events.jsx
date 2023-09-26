@@ -1,4 +1,4 @@
-import Buttonlink from './neweventbutton';
+import Buttonlink from "./neweventbutton";
 import { useState, useEffect } from "react";
 import { getAllEvents } from "../fetching";
 import { Link } from "react-router-dom";
@@ -74,7 +74,7 @@ export default function Events() {
       </div>
 
       <div>
-        <Buttonlink to='/events/new_event_form'>Create New Event</Buttonlink>
+        <Buttonlink to="/events/new_event_form">Create New Event</Buttonlink>
       </div>
 
       {/* EVENTS SECTION*/}
@@ -115,7 +115,6 @@ export default function Events() {
                     <p>{duration}</p>
                     <p>{gender}</p>
                     <p>{group}</p>
-                    <button className="details-button">View Details</button>
                   </div>
                 </Link>
               )

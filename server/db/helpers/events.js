@@ -4,36 +4,50 @@ const createEvent = async ({
   title,
   description,
   location,
+  address,
   datetime,
+  timezone,
   virtual,
   comments,
-  created_at,
   topic,
   duration,
   gender,
-  group,
+  group
 }) => {
   try {
     const {
       rows: [events],
     } = await client.query(
       `
-                INSERT INTO events(title, description, location, datetime, virtual, comments, created_at, topic, duration, gender, "group" )
-                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+                INSERT INTO events(
+                  title,
+                  description,
+                  location,
+                  address,
+                  datetime,
+                  timezone,
+                  virtual,
+                  comments,
+                  topic,
+                  duration,
+                  gender,
+                  "group")
+                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
                 RETURNING *;
             `,
       [
         title,
         description,
         location,
+        address,
         datetime,
+        timezone,
         virtual,
         comments,
-        created_at,
         topic,
         duration,
         gender,
-        group,
+        group
       ]
     );
     return events;
@@ -84,30 +98,32 @@ const updateEvent = async (event_id, updatedEventData) => {
         title = $1,
         description = $2,
         location = $3,
-        datetime = $4,
-        virtual = $5,
-        comments = $6,
-        created_at = $7,
-        topic = $8,
-        duration = $9,
-        gender = $10,
-        "group" = $11
-        WHERE event_id = $12
+        address = $4,
+        datetime = $5,
+        timezone = $6,
+        virtual = $7,
+        comments = $8,
+        topic = $9,
+        duration = $10,
+        gender = $11,
+        "group" = $12
+        WHERE event_id = $13
         RETURNING *;
         `,
       [
         updatedEventData.title,
         updatedEventData.description,
         updatedEventData.location,
+        updatedEventData.address,
         updatedEventData.datetime,
+        updatedEventData.timezone,
         updatedEventData.virtual,
         updatedEventData.comments,
-        updatedEventData.created_at,
         updatedEventData.topic,
         updatedEventData.duration,
         updatedEventData.gender,
         updatedEventData.group,
-        event_id,
+        event_id
       ]
     );
     return event;
