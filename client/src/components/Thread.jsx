@@ -6,7 +6,7 @@ import NewMessage from "./NewMessage";
 
 
 export default function MessageThread() {
-  const { thread_id } = useParams();
+  const { id } = useParams();
   // console.log("thread_id extracted from URL:", thread_id);
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ export default function MessageThread() {
         
         //   return;
         // }
-        const response = await getMessagesByThread(17);
+        const response = await getMessagesByThread(id);
         if (response) {
           setMessages(response);
 
@@ -41,7 +41,7 @@ export default function MessageThread() {
       } 
     }
     getMessageThread();
-  }, []);
+  }, [id]);
 
 
   if (messages.length === 0) {
