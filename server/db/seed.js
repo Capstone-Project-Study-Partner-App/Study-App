@@ -31,36 +31,38 @@ const createTables = async () => {
   console.log("Building tables...");
   await client.query(`
           CREATE TABLE users (
-              user_id SERIAL PRIMARY KEY,
-              email text UNIQUE NOT NULL,
-              password text NOT NULL,
-              dob text NOT NULL,
-              first_name text NOT NULL,
-              last_name text NOT NULL,
-              location text NOT NULL,
-              about_me text NOT NULL,
-              education_level text NOT NULL,
-              work text,
-              education text NOT NULL,
-              classes text [],
-              skills text [],
-              availibility text NOT NULL,
-              interests text [],
-              photo text NOT NULL,
-              languages text [] NOT NULL,
-              study_habits text NOT NULL,
-              major text NOT NULL,
-              gender text NOT NULL
+            user_id SERIAL PRIMARY KEY,
+            first_name text NOT NULL,
+            last_name text NOT NULL,
+            email text UNIQUE NOT NULL,
+            gender text NOT NULL,
+            password text NOT NULL,
+            location text NOT NULL,
+            about_me text NOT NULL,
+            education text NOT NULL,
+            education_level text NOT NULL,
+            classes text [],
+            days_available text [] NOT NULL,
+            times_available text [] NOT NULL,
+            timezone text,
+            interests text [],
+            photo text NOT NULL,
+            languages text [] NOT NULL,
+            study_habits text NOT NULL,
+            major text NOT NULL,
+            age text NOT NULL,
+            work text
           );
           CREATE TABLE events (
               event_id SERIAL PRIMARY KEY,
               title text NOT NULL,
               description text NOT NULL,
               location text,
-              datetime text NOT NULL,
+              address text, 
+              datetime TIMESTAMP NOT NULL,
+              timezone text,
               virtual boolean NOT NULL,
               comments text,
-              created_at text,
               topic text NOT NULL,
               duration int NOT NULL,
               gender text,
@@ -68,16 +70,17 @@ const createTables = async () => {
           );
             CREATE TABLE rsvps (
               rsvp_id SERIAL PRIMARY KEY,
-              rsvp_status boolean NOT NULL,
               "user_id" INTEGER REFERENCES users("user_id"),
-              "event_id" INTEGER REFERENCES events("event_id") 
+              "event_id" INTEGER REFERENCES events("event_id"),
+              rsvp_status boolean NOT NULL
           );
             CREATE TABLE messages (
               message_id SERIAL PRIMARY KEY,
+              "sender" INTEGER REFERENCES users("user_id"),
+              "receiver" INTEGER REFERENCES users("user_id"),
               message_content text,
               thread_id serial NOT NULL,
-              "sender" INTEGER REFERENCES users("user_id"),
-              "receiver" INTEGER REFERENCES users("user_id")
+              created_at TIMESTAMPTZ DEFAULT NOW()
           );
       `);
   console.log("Tables built!");
