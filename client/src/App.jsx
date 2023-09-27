@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import {Routes, Route} from 'react-router-dom';
-import './App.css';
-import Navbar from './components/navbar';
-import Home from './components/home';
-import Buddies from './components/buddies';
-import Events from './components/events';
-import Messages from './components/messages';
-import User from './components/BuddyDetails';
-import NewEventForm from './components/newevent';
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./components/navbar";
+import Home from "./components/home";
+import Buddies from "./components/buddies";
+import Events from "./components/events";
+import Event from "./components/eventDetails";
+import Messages from "./components/messages";
+import Profile from "./components/profile";
+import NewEventForm from "./components/newevent";
 import MessageThread from "./components/Thread";
 
 
@@ -21,11 +22,12 @@ function App() {
       </div>
       <div>
         <Routes>
-          <Route path='/' element={<Home/>}/> 
-          <Route path='/users' element={<Buddies/>}/>
-          <Route path='/events' element={<Events/>}/>
-          <Route path='/events/new_event_form' element={<NewEventForm/>}/>
-          <Route path='/:id/messages' element={<Messages/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<Buddies />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<Event />} />
+          <Route path="/events/new_event_form" element={<NewEventForm />} />
+          <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/users/:id" element={<User />} />
           {/* <Route path="/users/:id" element={<Profile />} /> */}

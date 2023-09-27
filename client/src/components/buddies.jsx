@@ -40,6 +40,11 @@ export default function Buddies(){
                 <input type="checkbox" className="form-checkbox text-indigo-600" />
                 <span className="ml-2">Zipcode: </span>
             </label>
+            <h2 className="text-xl font-semibold mb-4">Institution</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">University Name: </span>
+            </label>
             <h2 className="text-xl font-semibold mb-4">Education Level</h2>
             <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox text-indigo-600" />
@@ -74,7 +79,6 @@ export default function Buddies(){
                 <span className="ml-2">Other</span>
             </label>
             <h2 className="text-xl font-semibold mb-4">Available Days</h2>
-
             <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox text-indigo-600" />
                 <span className="ml-2">Monday</span>
@@ -102,6 +106,19 @@ export default function Buddies(){
             <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox text-indigo-600" />
                 <span className="ml-2">Sunday</span>
+            </label>
+            <h2 className="text-xl font-semibold mb-4">Available Times</h2>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Morning</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Afternoon</span>
+            </label>
+            <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox text-indigo-600" />
+                <span className="ml-2">Evening</span>
             </label>
             <h2 className="text-xl font-semibold mb-4">Language</h2>
             <label className="flex items-center">

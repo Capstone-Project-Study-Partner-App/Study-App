@@ -2,55 +2,76 @@ const client = require("../client");
 
 //* Potentially change "users" to just "user" for better clarification *
 const createUser = async ({
-  email,
-  password,
-  dob,
   first_name,
   last_name,
+  email,
+  gender,
+  password,
   location,
   about_me,
-  education_level,
-  work,
   education,
+  education_level,
   classes,
-  skills,
-  availibility,
+  days_available,
+  times_available,
+  timezone,
   interests,
   photo,
   languages,
   study_habits,
   major,
-  gender,
+  age,
+  work,
 }) => {
   try {
     const {
       rows: [user],
     } = await client.query(
       `
-        INSERT INTO users(email, password, dob, first_name, last_name, location, about_me, education_level, work, education, classes, skills, availibility, interests, photo, languages, study_habits, major, gender)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+        INSERT INTO users(first_name,
+          last_name,
+          email,
+          gender,
+          password,
+          location,
+          about_me,
+          education,
+          education_level,
+          classes,
+          days_available,
+          times_available,
+          timezone,
+          interests,
+          photo,
+          languages,
+          study_habits,
+          major,
+          age,
+          work)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
         RETURNING *;
       `,
       [
-        email,
-        password,
-        dob,
         first_name,
         last_name,
+        email,
+        gender,
+        password,
         location,
         about_me,
-        education_level,
-        work,
         education,
+        education_level,
         classes,
-        skills,
-        availibility,
+        days_available,
+        times_available,
+        timezone,
         interests,
         photo,
         languages,
         study_habits,
         major,
-        gender,
+        age,
+        work,
       ]
     );
     return user;
@@ -66,6 +87,91 @@ const getAllUsers = async () => {
             SELECT *
             FROM users;
         `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//FILTERING SECTION
+//Get all users, with optional filtering
+const getUsersMatchingFilters = async (filters) => {
+  try {
+    let sql_command = `
+        SELECT *
+        FROM users
+        WHERE 1 = 1
+    `;
+    let params = [];
+    function sql_param(value) {
+      params.push(value);
+      return `$${params.length}`;
+    }
+
+    // for text substring match
+    // uses LIKE expression, ie. `email LIKE '%@gmail.com%'`
+    // to support lower case, we do eg. `lower(email) LIKE '%gmail.com%`
+    // Really going to be used in for the search bar feature
+    if (filters.email) {
+      sql_command += ` AND lower(email) LIKE ${sql_param(
+        `%${filters.email.toLowerCase()}%`
+      )}`;
+    }
+
+    if (filters.first_name) {
+      sql_command += ` AND lower(first_name) LIKE ${sql_param(
+        `%${filters.first_name.toLowerCase()}%`
+      )}`;
+    }
+
+    if (filters.last_name) {
+      sql_command += ` AND lower(last_name) LIKE ${sql_param(
+        `%${filters.last_name.toLowerCase()}%`
+      )}`;
+    }
+
+    if (filters.about_me) {
+      sql_command += ` AND lower(about_me) LIKE ${sql_param(
+        `%${filters.about_me.toLowerCase()}%`
+      )}`;
+    }
+
+    // for exact string match, but support multiple acceptable options
+    // we use IN expression, ie. `education_level IN ('phD', 'highschool')
+    // note you can search for exactly one match by having a list of one,
+    // ie. `education_level IN ('phD')` filters for exactly phD only.
+    if (filters.education_level) {
+      sql_command += ` AND education_level IN (${filters.education_level
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.gender) {
+      sql_command += ` AND gender IN (${filters.gender
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.major) {
+      sql_command += ` AND major IN (${filters.major
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    // for array-of-string columns, we want to check if there's any
+    // overlap between the filter's selected options and that row's
+    // columns' values. To check overlap, we use the array-&& operator
+    // ie. `interests && ARRAY['reading', 'gardening']`
+    if (filters.interests) {
+      sql_command += ` AND interests && ARRAY[${filters.interests
+        .map(sql_param)
+        .join(", ")}]`;
+    }
+
+    console.log("filtering");
+    console.log(sql_command);
+    console.log({ filters, params });
+    const { rows } = await client.query(sql_command, params);
     return rows;
   } catch (error) {
     throw error;
@@ -100,48 +206,50 @@ const updateUser = async (user_id, updatedUserData) => {
       `
         UPDATE users
         SET
-        email = $1,
-        password = $2,
-        dob = $3,
-        first_name = $4,
-        last_name = $5,
+        first_name = $1,
+        last_name = $2,
+        email = $3,
+        gender = $4,
+        password = $5,
         location = $6,
         about_me = $7,
-        education_level = $8,
-        work = $9,
-        education = $10,
-        classes = $11,
-        skills = $12,
-        availibility = $13,
+        education = $8,
+        education_level = $9,
+        classes = $10,
+        days_available = $11,
+        times_available = $12,
+        timezone= $13,
         interests = $14,
         photo = $15,
         languages = $16,
         study_habits = $17,
         major = $18,
-        gender = $19
-        WHERE user_id = $20
+        age = $19,
+        work = $20
+        WHERE user_id = $21
         RETURNING *;
         `,
       [
-        updatedUserData.email,
-        updatedUserData.password,
-        updatedUserData.dob,
         updatedUserData.first_name,
         updatedUserData.last_name,
+        updatedUserData.email,
+        updatedUserData.gender,
+        updatedUserData.password,
         updatedUserData.location,
         updatedUserData.about_me,
-        updatedUserData.education_level,
-        updatedUserData.work,
         updatedUserData.education,
+        updatedUserData.education_level,
         updatedUserData.classes,
-        updatedUserData.skills,
-        updatedUserData.availibility,
+        updatedUserData.days_available,
+        updatedUserData.times_available,
+        updatedUserData.timezone,
         updatedUserData.interests,
         updatedUserData.photo,
         updatedUserData.languages,
         updatedUserData.study_habits,
         updatedUserData.major,
-        updatedUserData.gender,
+        updatedUserData.age,
+        updatedUserData.work,
         user_id,
       ]
     );
@@ -168,19 +276,19 @@ const deleteUser = async (user_id) => {
       [user_id]
     );
     client.query(
-        `
+      `
         DELETE FROM rsvps
         WHERE user_id = $1
         `,
-        [user_id]
-      );
-      const result = await client.query(
-          `
+      [user_id]
+    );
+    const result = await client.query(
+      `
             DELETE FROM users
             WHERE user_id = $1
           `,
-          [user_id]
-        );
+      [user_id]
+    );
   } catch (error) {
     throw error;
   }
@@ -188,7 +296,8 @@ const deleteUser = async (user_id) => {
 
 const getUserMessages = async (user_id) => {
   try {
-      const result = await client.query(`
+    const result = await client.query(
+      `
           SELECT
               m.message_id,
               m.message_content,
@@ -207,23 +316,24 @@ const getUserMessages = async (user_id) => {
               users r ON m.receiver = r.user_id
           WHERE
               s.user_id = $1;
-      `, [user_id]);
+      `,
+      [user_id]
+    );
 
-      const messages = result.rows; 
+    const messages = result.rows;
 
-      return messages;
+    return messages;
   } catch (error) {
-      throw error;
+    throw error;
   }
-}
-
-
+};
 
 module.exports = {
   createUser,
   getAllUsers,
+  getUsersMatchingFilters,
   getUserById,
   deleteUser,
   updateUser,
-  getUserMessages
+  getUserMessages,
 };
