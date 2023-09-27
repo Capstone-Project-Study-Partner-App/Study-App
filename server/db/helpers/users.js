@@ -93,6 +93,89 @@ const getAllUsers = async () => {
   }
 };
 
+//Get all users, with optional filtering
+const getUsersMatchingFilters = async (filters) => {
+  try {
+    let sql_command = `
+        SELECT *
+        FROM users
+        WHERE 1 = 1
+    `;
+    let params = [];
+    function sql_param(value) {
+      params.push(value);
+      return `$${params.length}`;
+    }
+
+    // for text substring match
+    // uses LIKE expression, ie. `email LIKE '%@gmail.com%'`
+    // to support lower case, we do eg. `lower(email) LIKE '%gmail.com%`
+    if (filters.email) {
+      sql_command += ` AND lower(email) LIKE ${sql_param(
+        `%${filters.email.toLowerCase()}%`
+      )}`;
+    }
+
+    if (filters.first_name) {
+      sql_command += ` AND lower(first_name) LIKE ${sql_param(
+        `%${filters.first_name.toLowerCase()}%`
+      )}`;
+    }
+
+    if (filters.last_name) {
+      sql_command += ` AND lower(last_name) LIKE ${sql_param(
+        `%${filters.last_name.toLowerCase()}%`
+      )}`;
+    }
+
+    if (filters.about_me) {
+      sql_command += ` AND lower(about_me) LIKE ${sql_param(
+        `%${filters.about_me.toLowerCase()}%`
+      )}`;
+    }
+
+    // for exact string match, but support multiple acceptable options
+    // we use IN expression, ie. `education_level IN ('phD', 'highschool')
+    // note you can search for exactly one match by having a list of one,
+    // ie. `education_level IN ('phD')` filters for exactly phD only.
+    if (filters.education_level) {
+      sql_command += ` AND education_level IN (${filters.education_level
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.gender) {
+      sql_command += ` AND gender IN (${filters.gender
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.major) {
+      sql_command += ` AND major IN (${filters.major
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    // for array-of-string columns, we want to check if there's any
+    // overlap between the filter's selected options and that row's
+    // columns' values. To check overlap, we use the array-&& operator
+    // ie. `interests && ARRAY['reading', 'gardening']`
+    if (filters.interests) {
+      sql_command += ` AND interests && ARRAY[${filters.interests
+        .map(sql_param)
+        .join(", ")}]`;
+    }
+
+    console.log("filtering");
+    console.log(sql_command);
+    console.log({ filters, params });
+    const { rows } = await client.query(sql_command, params);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
 //Get user by ID
 const getUserById = async (user_id) => {
   try {
@@ -191,19 +274,19 @@ const deleteUser = async (user_id) => {
       [user_id]
     );
     client.query(
-        `
+      `
         DELETE FROM rsvps
         WHERE user_id = $1
         `,
-        [user_id]
-      );
-      const result = await client.query(
-          `
+      [user_id]
+    );
+    const result = await client.query(
+      `
             DELETE FROM users
             WHERE user_id = $1
           `,
-          [user_id]
-        );
+      [user_id]
+    );
   } catch (error) {
     throw error;
   }
@@ -211,7 +294,8 @@ const deleteUser = async (user_id) => {
 
 const getUserMessages = async (user_id) => {
   try {
-      const result = await client.query(`
+    const result = await client.query(
+      `
           SELECT
               m.message_id,
               m.message_content,
@@ -230,23 +314,24 @@ const getUserMessages = async (user_id) => {
               users r ON m.receiver = r.user_id
           WHERE
               s.user_id = $1;
-      `, [user_id]);
+      `,
+      [user_id]
+    );
 
-      const messages = result.rows; 
+    const messages = result.rows;
 
-      return messages;
+    return messages;
   } catch (error) {
-      throw error;
+    throw error;
   }
-}
-
-
+};
 
 module.exports = {
   createUser,
   getAllUsers,
+  getUsersMatchingFilters,
   getUserById,
   deleteUser,
   updateUser,
-  getUserMessages
+  getUserMessages,
 };
