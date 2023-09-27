@@ -72,6 +72,7 @@ const getAllUsers = async () => {
   }
 };
 
+//FILTERING SECTION
 //Get all users, with optional filtering
 const getUsersMatchingFilters = async (filters) => {
   try {
