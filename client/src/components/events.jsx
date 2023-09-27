@@ -16,10 +16,10 @@ export default function Events() {
   return (
     // FILTER SECTION
     <div className="flex">
-      <div className="filter-section">
-        <h2 className="text-xl font-bold mb-4">Filters</h2>
+      <div className="filter-section w-1/2 bg-gray-800 text-white p-4">
+        <h1 className="text-xxl font-semibold mb-4">Filters</h1>
         <div className="space-y-2">
-          <p className="text font-semibold mb-2">Subject</p>
+          <h2 className="text-xl font-semibold mb-4">Subject</h2>
           <label className="flex items-center">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Mathematics</span>
@@ -56,7 +56,7 @@ export default function Events() {
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Computer Science</span>
           </label>
-          <p className="text font-semibold mb-2">Type of Study</p>
+          <h2 className="text-xl font-semibold mb-4">Type of Study</h2>
           <label className="flex items-center">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Group study</span>
@@ -65,7 +65,7 @@ export default function Events() {
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Partner work</span>
           </label>
-          <p className="text font-semibold mb-2">Gender</p>
+          <h2 className="text-xl font-semibold mb-4">Gender</h2>
           <label className="flex items-center">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Male</span>
@@ -82,11 +82,55 @@ export default function Events() {
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Other</span>
           </label>
+          <h2 className="text-xl font-semibold mb-4">Days</h2>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Monday</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Tuesday</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Wednesday</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Thursday</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Friday</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Saturday</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Sunday</span>
+          </label>
+          <h2 className="text-xl font-semibold mb-4">Times</h2>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Morning</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Afternoon</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Evening</span>
+          </label>
+          <br></br>
+          <div className="-translate-x-1/4">
+            <Buttonlink to="/events/new_event_form">
+              Create New Event
+            </Buttonlink>
+          </div>
         </div>
-      </div>
-
-      <div>
-        <Buttonlink to="/events/new_event_form">Create New Event</Buttonlink>
       </div>
 
       {/* EVENTS SECTION*/}
