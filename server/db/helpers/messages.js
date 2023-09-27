@@ -104,7 +104,8 @@ const getMessagesByThread = async (thread_id) => {
       r.user_id AS receiver,
       r.first_name AS receiver_first_name,
       r.photo AS receiver_photo,
-      m.thread_id
+      m.thread_id,
+      m.created_at
     FROM
       messages m
     INNER JOIN
@@ -113,6 +114,8 @@ const getMessagesByThread = async (thread_id) => {
       users r ON m.receiver = r.user_id
     WHERE
       m.thread_id = $1
+      ORDER BY
+      m.created_at;
       `, [thread_id]);
 
       return rows;

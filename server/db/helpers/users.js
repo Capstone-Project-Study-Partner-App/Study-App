@@ -2,55 +2,76 @@ const client = require("../client");
 
 //* Potentially change "users" to just "user" for better clarification *
 const createUser = async ({
-  email,
-  password,
-  dob,
   first_name,
   last_name,
+  email,
+  gender,
+  password,
   location,
   about_me,
-  education_level,
-  work,
   education,
+  education_level,
   classes,
-  skills,
-  availibility,
+  days_available,
+  times_available,
+  timezone,
   interests,
   photo,
   languages,
   study_habits,
   major,
-  gender,
+  age,
+  work
 }) => {
   try {
     const {
       rows: [user],
     } = await client.query(
       `
-        INSERT INTO users(email, password, dob, first_name, last_name, location, about_me, education_level, work, education, classes, skills, availibility, interests, photo, languages, study_habits, major, gender)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+        INSERT INTO users(first_name,
+          last_name,
+          email,
+          gender,
+          password,
+          location,
+          about_me,
+          education,
+          education_level,
+          classes,
+          days_available,
+          times_available,
+          timezone,
+          interests,
+          photo,
+          languages,
+          study_habits,
+          major,
+          age,
+          work)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
         RETURNING *;
       `,
       [
-        email,
-        password,
-        dob,
         first_name,
         last_name,
+        email,
+        gender,
+        password,
         location,
         about_me,
-        education_level,
-        work,
         education,
+        education_level,
         classes,
-        skills,
-        availibility,
+        days_available,
+        times_available,
+        timezone,
         interests,
         photo,
         languages,
         study_habits,
         major,
-        gender,
+        age,
+        work
       ]
     );
     return user;
@@ -183,49 +204,51 @@ const updateUser = async (user_id, updatedUserData) => {
       `
         UPDATE users
         SET
-        email = $1,
-        password = $2,
-        dob = $3,
-        first_name = $4,
-        last_name = $5,
+        first_name = $1,
+        last_name = $2,
+        email = $3,
+        gender = $4,
+        password = $5,
         location = $6,
         about_me = $7,
-        education_level = $8,
-        work = $9,
-        education = $10,
-        classes = $11,
-        skills = $12,
-        availibility = $13,
+        education = $8,
+        education_level = $9,
+        classes = $10,
+        days_available = $11,
+        times_available = $12,
+        timezone= $13,
         interests = $14,
         photo = $15,
         languages = $16,
         study_habits = $17,
         major = $18,
-        gender = $19
-        WHERE user_id = $20
+        age = $19,
+        work = $20
+        WHERE user_id = $21
         RETURNING *;
         `,
       [
-        updatedUserData.email,
-        updatedUserData.password,
-        updatedUserData.dob,
         updatedUserData.first_name,
         updatedUserData.last_name,
+        updatedUserData.email,
+        updatedUserData.gender,
+        updatedUserData.password,
         updatedUserData.location,
         updatedUserData.about_me,
-        updatedUserData.education_level,
-        updatedUserData.work,
         updatedUserData.education,
+        updatedUserData.education_level,
         updatedUserData.classes,
-        updatedUserData.skills,
-        updatedUserData.availibility,
+        updatedUserData.days_available,
+        updatedUserData.times_available,
+        updatedUserData.timezone,
         updatedUserData.interests,
         updatedUserData.photo,
         updatedUserData.languages,
         updatedUserData.study_habits,
         updatedUserData.major,
-        updatedUserData.gender,
-        user_id,
+        updatedUserData.age,
+        updatedUserData.work,
+        user_id
       ]
     );
     return user;
