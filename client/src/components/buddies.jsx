@@ -217,13 +217,13 @@ export default function Buddies(){
             <h1 className="text-2xl font-semibold mb-4">All Buddies</h1>
             <div className="flex flex-wrap">
             {allUsers ? (
-                allUsers.map(({ user_id, photo, first_name, last_name, gender, dob, education_level }) => (
+                allUsers.map(({ user_id, photo, first_name, last_name, gender, age, education_level }) => (
                 <Link key={user_id} to={`/users/${user_id}`} className="w-1/4 p-4">
                     <div key={user_id} className="border rounded-md p-4 hover:bg-gray-100">
                     <img src={photo} alt={`${first_name} ${last_name}`} />
                     <p>{first_name} {last_name}</p>
                     <p>Gender: {gender}</p>
-                    <p>Age: {dob}</p>
+                    <p>Age: {age}</p>
                     <p>Level of Education: {education_level}</p>
                     </div>
                 </Link>
