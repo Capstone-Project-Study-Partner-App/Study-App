@@ -7,7 +7,7 @@ import Buddies from "./components/buddies";
 import Events from "./components/events";
 import Event from "./components/eventDetails";
 import Messages from "./components/messages";
-import Profile from "./components/profile";
+import User from "./components/BuddyDetails";
 import NewEventForm from "./components/newevent";
 import MessageThread from "./components/Thread";
 
