@@ -18,10 +18,6 @@ export default function MessageThread() {
   useEffect(() => {
     async function getMessageThread() {
       try {
-        // if (!thread_id) {
-
-        //   return;
-        // }
         const response = await getMessagesByThread(id);
         if (response) {
           setMessages(response);
@@ -47,7 +43,7 @@ export default function MessageThread() {
   if (messages.length === 0) {
     return <p>No messages found.</p>;
   }
-  // console.log("thread_id:", thread_id);
+  console.log("thread_id:", id);
 
   return (
     <div className="thread-container">
