@@ -25,25 +25,26 @@ export async function getUserById(user_id) {
 }
 
 export async function createUser(
-  email,
-  password,
-  dob,
   first_name,
   last_name,
+  email,
+  gender,
+  password,
   location,
   about_me,
-  education_level,
-  work,
   education,
+  education_level,
   classes,
-  skills,
-  availibility,
+  days_available,
+  times_available,
+  timezone,
   interests,
   photo,
   languages,
   study_habits,
   major,
-  gender
+  age,
+  work
 ) {
   try {
     const resp = await fetch(`${api_root}/users`, {
@@ -52,25 +53,26 @@ export async function createUser(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        password,
-        dob,
         first_name,
         last_name,
+        email,
+        gender,
+        password,
         location,
         about_me,
-        education_level,
-        work,
         education,
+        education_level,
         classes,
-        skills,
-        availibility,
+        days_available,
+        times_available,
+        timezone,
         interests,
         photo,
         languages,
         study_habits,
         major,
-        gender,
+        age,
+        work
       }),
     });
     const json = await resp.json();
@@ -148,10 +150,11 @@ export async function createEvent(
   title,
   description,
   location,
+  address,
   datetime,
+  timezone,
   virtual,
   comments,
-  created_at,
   topic,
   duration,
   gender,
@@ -167,14 +170,15 @@ export async function createEvent(
         title,
         description,
         location,
+        address,
         datetime,
+        timezone,
         virtual,
         comments,
-        created_at,
         topic,
         duration,
         gender,
-        group,
+        group
       }),
     });
     const json = await resp.json();
@@ -218,7 +222,7 @@ export async function getRsvpByEventId(event_id) {
   return json;
 }
 
-export async function createRsvp(rsvp_status, user_id, event_id) {
+export async function createRsvp(user_id, event_id, rsvp_status) {
   try {
     const resp = await fetch(`${api_root}/events`, {
       method: "POST",
@@ -226,9 +230,9 @@ export async function createRsvp(rsvp_status, user_id, event_id) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        rsvp_status,
         user_id,
         event_id,
+        rsvp_status
       }),
     });
     const json = await resp.json();
@@ -264,7 +268,7 @@ export async function getMessageById(message_id) {
   return json;
 }
 
-export async function createMessage(message_content, sender, receiver, thread_id) {
+export async function createMessage(sender, receiver, message_content, thread_id, created_at) {
   try {
     const resp = await fetch(`${api_root}/messages`, {
       method: "POST",
@@ -272,10 +276,11 @@ export async function createMessage(message_content, sender, receiver, thread_id
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message_content,
         sender,
         receiver,
-        thread_id
+        message_content,
+        thread_id,
+        created_at
       }),
     });
     const json = await resp.json();

@@ -50,6 +50,10 @@ export default function Events() {
           </label>
           <label className="flex items-center">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Psychology</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Computer Science</span>
           </label>
           <p className="text font-semibold mb-2">Type of Study</p>
@@ -70,6 +74,14 @@ export default function Events() {
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">Female</span>
           </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Non binary</span>
+          </label>
+          <label className="flex items-center">
+            <input type="checkbox" className="form-checkbox text-indigo-600" />
+            <span className="ml-2">Other</span>
+          </label>
         </div>
       </div>
 
@@ -86,38 +98,47 @@ export default function Events() {
               ({
                 event_id,
                 title,
-                description,
                 location,
+                address,
                 datetime,
+                timezone,
                 virtual,
-                created_at,
                 topic,
                 duration,
                 gender,
                 group,
-              }) => (
-                <Link
-                  key={event_id}
-                  to={`/events/${event_id}`}
-                  className="w-1/4 p-4"
-                >
-                  <div
+              }) => {
+                const eventDate = new Date(datetime);
+                const formattedDate = eventDate.toLocaleString();
+                return (
+                  <Link
                     key={event_id}
-                    className="event-details border rounded-md p-5 hover: bg-gray-100"
+                    to={`/events/${event_id}`}
+                    className="w-1/4 p-4"
                   >
-                    <h1>{title}</h1>
-                    <p>{description}</p>
-                    <p>{location}</p>
-                    <p>{datetime}</p>
-                    <p>{virtual}</p>
-                    <p>{created_at}</p>
-                    <p>{topic}</p>
-                    <p>{duration}</p>
-                    <p>{gender}</p>
-                    <p>{group}</p>
-                  </div>
-                </Link>
-              )
+                    <div
+                      key={event_id}
+                      className="event-details border rounded-md p-5 hover: bg-gray-100"
+                    >
+                      <h1>{title}</h1>
+                      <p>Subject: {topic}</p>
+                      {location && address && (
+                        <p>
+                          Location: {location}, Zipcode: {address}
+                        </p>
+                      )}
+                      {!location && !address && virtual && (
+                        <p>Virtual {virtual}</p>
+                      )}
+                      <p>When: {formattedDate}</p>
+                      <p>Timezone: {timezone}</p>
+                      <p>Duration: {duration} minutes</p>
+                      <p>{gender}</p>
+                      <p>{group}</p>
+                    </div>
+                  </Link>
+                );
+              }
             )
           ) : (
             <p>No events available.</p>
