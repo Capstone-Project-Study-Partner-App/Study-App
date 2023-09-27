@@ -21,7 +21,7 @@ const createUser = async ({
   study_habits,
   major,
   age,
-  work
+  work,
 }) => {
   try {
     const {
@@ -71,7 +71,7 @@ const createUser = async ({
         study_habits,
         major,
         age,
-        work
+        work,
       ]
     );
     return user;
@@ -111,6 +111,7 @@ const getUsersMatchingFilters = async (filters) => {
     // for text substring match
     // uses LIKE expression, ie. `email LIKE '%@gmail.com%'`
     // to support lower case, we do eg. `lower(email) LIKE '%gmail.com%`
+    // Really going to be used in for the search bar feature
     if (filters.email) {
       sql_command += ` AND lower(email) LIKE ${sql_param(
         `%${filters.email.toLowerCase()}%`
@@ -249,7 +250,7 @@ const updateUser = async (user_id, updatedUserData) => {
         updatedUserData.major,
         updatedUserData.age,
         updatedUserData.work,
-        user_id
+        user_id,
       ]
     );
     return user;
