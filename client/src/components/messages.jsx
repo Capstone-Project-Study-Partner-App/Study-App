@@ -10,7 +10,7 @@ export default function AllMessages() {
     useEffect(() => {
       async function getAllMessages() {
         try {
-          const response = await getUserMessages(11);
+          const response = await getUserMessages(1);
           setMessages(response);
           
         } catch (error) {
@@ -19,7 +19,9 @@ export default function AllMessages() {
       }
       getAllMessages();
     }, []);
-  
+    if (messages.length === 0) {
+      return <p>No messages found.</p>;
+    }
     //show only the most recent message of each thread
     const getMostRecentMessages = () => {
       const messageMap = new Map();
@@ -154,24 +156,7 @@ export default function AllMessages() {
                   </a>
                   <div className="text-md italic text-gray-400">{message.receiver_first_name}: {message.message_content}</div>
               </li>
-              <li className="py-5 border-b px-3 transition hover:bg-indigo-100" key={message.messaged_id}>
-                  <a href="#" className="flex justify-between items-center">
-                      <Link to={`/thread/${message.thread_id}`}>
-                          <h3 className="text-lg font-semibold">{message.receiver_first_name}</h3>
-                      </Link>
-                      <p className="text-md text-gray-400">23m ago</p>
-                  </a>
-                  <div className="text-md italic text-gray-400">{message.receiver_first_name}: {message.message_content}</div>
-              </li>
-              <li className="py-5 border-b px-3 transition hover:bg-indigo-100" key={message.messaged_id}>
-                  <a href="#" className="flex justify-between items-center">
-                      <Link to={`/thread/${message.thread_id}`}>
-                          <h3 className="text-lg font-semibold">{message.receiver_first_name}</h3>
-                      </Link>
-                      <p className="text-md text-gray-400">23m ago</p>
-                  </a>
-                  <div className="text-md italic text-gray-400">{message.receiver_first_name}: {message.message_content}</div>
-              </li></>
+    </>
               ))}
             </ul>
         </section>
