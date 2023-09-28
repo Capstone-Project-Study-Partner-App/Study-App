@@ -436,7 +436,7 @@ const messages = [
   },
   {
     id: 2,
-    sender: 2,
+    sender: 1,
     receiver: 3,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
@@ -444,7 +444,7 @@ const messages = [
   },
   {
     id: 3,
-    sender: 3,
+    sender: 1,
     receiver: 4,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
@@ -452,27 +452,27 @@ const messages = [
   },
   {
     id: 4,
-    sender: 5,
-    receiver: 6,
+    sender: 4,
+    receiver: 1,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 49
+    thread_id: 31
   },
   {
     id: 5,
-    sender: 7,
-    receiver: 8,
+    sender: 2,
+    receiver: 1,
     message_content:
-      "I would love to work with you on studying history. We can share notes and discuss important events.",
-    thread_id: 9
+      "I would love to work with you on studying science. We can share notes and discuss important ideas.",
+    thread_id: 42
   },
   {
     id: 6,
-    sender: 9,
-    receiver: 10,
+    sender: 3,
+    receiver: 1,
     message_content:
       "I think we can collaborate on studying math together and help each other understand complex concepts.",
-    thread_id: 13
+    thread_id: 36
   },
   {
     id: 7,
@@ -485,18 +485,18 @@ const messages = [
   {
     id: 8,
     sender: 3,
-    receiver: 7,
+    receiver: 1,
     message_content:
       "I would love to work with you on studying history. We can share notes and discuss important events.",
     thread_id: 19
   },
   {
     id: 9,
-    sender: 6,
-    receiver: 8,
+    sender: 1,
+    receiver: 3,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 50
+    thread_id: 36
   },
   {
     id: 10,

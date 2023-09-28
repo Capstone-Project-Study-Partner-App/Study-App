@@ -314,8 +314,9 @@ const getUserMessages = async (user_id) => {
               users s ON m.sender = s.user_id
           INNER JOIN
               users r ON m.receiver = r.user_id
-          WHERE
-              s.user_id = $1;
+              WHERE 
+              s.user_id = $1 OR r.user_id = $1;
+
       `,
       [user_id]
     );
