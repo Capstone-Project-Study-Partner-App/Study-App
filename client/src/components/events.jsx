@@ -16,7 +16,7 @@ export default function Events() {
   return (
     // FILTER SECTION
     <div className="flex">
-      <div className="filter-section w-1/2 bg-gray-800 text-white p-4">
+      <div className="filter-section w-1/4 bg-gray-800 text-white p-4">
         <h1 className="text-xxl font-semibold mb-4">Filters</h1>
         <div className="space-y-2">
           <h2 className="text-xl font-semibold mb-4">Subject</h2>
@@ -125,7 +125,7 @@ export default function Events() {
             <span className="ml-2">Evening</span>
           </label>
           <br></br>
-          <div className="-translate-x-1/4">
+          <div className="-translate-x-5">
             <Buttonlink to="/events/new_event_form">
               Create New Event
             </Buttonlink>
@@ -135,6 +135,102 @@ export default function Events() {
 
       {/* EVENTS SECTION*/}
       <div className="flex-1 p-4">
+        <h1 className="text-5xl font-semibold mb-6">All Events</h1>
+        <div className="flex flex-wrap -mx-2">
+          {allEvents ? (
+            allEvents.map(
+              ({
+                event_id,
+                title,
+                location,
+                address,
+                datetime,
+                timezone,
+                virtual,
+                topic,
+                duration,
+                gender,
+                group,
+              }) => {
+                const eventDate = new Date(datetime);
+                const formattedDate = eventDate.toLocaleString();
+                return (
+                  <Link
+                    key={event_id}
+                    to={`/events/${event_id}`}
+                    className="w-1/ p-2"
+                  >
+                    <div className="w-80 h-90 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                      <a href="#">
+                        <img
+                          className="rounded-t-l w-full h-48 object-cover"
+                          src="https://media.istockphoto.com/id/594484448/vector/books-sketch-seamless.jpg?s=612x612&w=0&k=20&c=DACpDBVkXYVwafxvixLdFERAbVJMF94SyZO9gJ0FcU4="
+                          alt=""
+                        />
+                      </a>
+                      <div className="p-5">
+                        <a href="#">
+                          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            {title}
+                          </h5>
+                        </a>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          Subject: {topic}
+                        </p>
+                        {location && address && (
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            Zipcode: {location}, Location: {address}
+                          </p>
+                        )}
+                        {!location && !address && virtual && (
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            Virtual {virtual}
+                          </p>
+                        )}
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          When: {formattedDate}
+                        </p>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          Timezone: {timezone}
+                        </p>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          Duration: {duration} minutes
+                        </p>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          {gender}
+                        </p>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          {group}
+                        </p>
+                        <a
+                          href="#"
+                          className="-translate-x-4 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          View details
+                          <svg className="w-3.5 h-3.5 ml-2" viewBox="0 0 14 10">
+                            <path
+                              stroke="currentColor"
+                              d="M1 5h12m0 0L9 1m4 4L9 9"
+                            />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              }
+            )
+          ) : (
+            <p>No events available.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+{
+  /* <div className="flex-1 p-4">
         <h1 className="text-5xl font-semibold mb-6">All Events</h1>
         <div className="flex flex-wrap">
           {allEvents ? (
@@ -189,6 +285,5 @@ export default function Events() {
           )}
         </div>
       </div>
-    </div>
-  );
+    </div> */
 }

@@ -24,7 +24,7 @@ const users = [
     languages: ["English"],
     study_habits: "Grinding studying",
     major: "Psychology",
-    age: "21",
+    age: "18-25",
     work: null
   },
   {
@@ -49,7 +49,7 @@ const users = [
     languages: ["English"],
     study_habits: "Semi-relaxed",
     major: "Biology",
-    age: "21",
+    age: "18-25",
     work: null
   },
   {
@@ -74,7 +74,7 @@ const users = [
     languages: ["English"],
     study_habits: "Committed studying",
     major: "Computer Science",
-    age: "18",
+    age: "18-25",
     work: null
   },
   {
@@ -99,7 +99,7 @@ const users = [
     languages: ["English"],
     study_habits: "Committed studying",
     major: "Psychology",
-    age: "23",
+    age: "25-30",
     work: null
   },
   {
@@ -124,7 +124,7 @@ const users = [
     languages: ["English"],
     study_habits: "Committed studying",
     major: "Engineering",
-    age: "18",
+    age: "18-25",
     work: null
   },
   {
@@ -149,7 +149,7 @@ const users = [
     languages: ["English"],
     study_habits: "Relaxed",
     major: "Business Administration",
-    age: "20",
+    age: "18-25",
     work: null
   },
   {
@@ -173,7 +173,7 @@ const users = [
     languages: ["English"],
     study_habits: "Relaxed",
     major: "Political Science",
-    age: "21",
+    age: "18-25",
     work: null
   },
   {
@@ -198,7 +198,7 @@ const users = [
     languages: ["English"],
     study_habits: "Committed studying",
     major: "Humanities",
-    age: "24",
+    age: "25-30",
     work: null
   },
   {
@@ -222,7 +222,7 @@ const users = [
     languages: ["English", "German"],
     study_habits: "Committed studying",
     major: "English Literature",
-    age: "19",
+    age: "18-25",
     work: null
   },
   {
@@ -246,7 +246,7 @@ const users = [
     languages: ["English"],
     study_habits: "Semi-relaxed",
     major: "English Literature",
-    age: "20",
+    age: "18-25",
     work: null
   }
 ];
