@@ -6,7 +6,7 @@ import NewMessage from "./NewMessage";
 
 
 export default function MessageThread() {
-  const { thread_id } = useParams();
+  const { id } = useParams();
   // console.log("thread_id extracted from URL:", thread_id);
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
@@ -18,11 +18,7 @@ export default function MessageThread() {
   useEffect(() => {
     async function getMessageThread() {
       try {
-        // if (!thread_id) {
-        
-        //   return;
-        // }
-        const response = await getMessagesByThread(17);
+        const response = await getMessagesByThread(id);
         if (response) {
           setMessages(response);
 
@@ -38,16 +34,16 @@ export default function MessageThread() {
       } catch (err) {
         console.error(err);
         setError("Error occurred fetching messages");
-      } 
+      }
     }
     getMessageThread();
-  }, []);
+  }, [id]);
 
 
   if (messages.length === 0) {
     return <p>No messages found.</p>;
   }
-  // console.log("thread_id:", thread_id);
+  console.log("thread_id:", id);
 
   return (
     <div className="thread-container">
@@ -64,27 +60,19 @@ export default function MessageThread() {
             {console.log('chat with: ', message.sender_first_name)}
             <p>
               <Link to={`/users/${message.sender}`}>
-                <img src={message.sender_photo} id="chat-profile-pic" style={{width: '100px'}} />
+                <img src={message.sender_photo} id="chat-profile-pic" style={{ width: '100px' }} />
               </Link>
             </p>
             <b>{message.sender_first_name}:</b> {message.message_content}
 
           </div>
         ))}
-<NewMessage
-      
-      sender={11} 
-      thread_id={17} 
-      receiver={receiver} 
-/>
+        <NewMessage
+          sender={11}
+          thread_id={id}
+          receiver={receiver}
+        />
       </div>
-
-
-      {/* <ReplyMessage 
-      thread_id={thread_id} 
-      sender={user_id} 
-      receiver={receiver} 
-      token={token} /> */}
 
     </div>
   );
