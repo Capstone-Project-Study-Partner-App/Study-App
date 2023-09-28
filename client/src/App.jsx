@@ -7,10 +7,11 @@ import Buddies from "./components/buddies";
 import Events from "./components/events";
 import Event from "./components/eventDetails";
 import Messages from "./components/messages";
-import Profile from "./components/profile";
+import User from "./components/BuddyDetails";
 import NewEventForm from "./components/newevent";
 import MessageThread from "./components/Thread";
 import RegistrationForm from './components/registrationform';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,8 +30,8 @@ function App() {
           <Route path="/events/new_event_form" element={<NewEventForm />} />
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
-          <Route path="/users/:id" element={<Profile />} />
-          <Route path='/registration_questionnaire' element={<RegistrationForm/>}/>
+          <Route path="/users/:id" element={<User />} />
+          {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>
       </div>
       {/* <h1 className="text-3xl font-bold text-red-500 underline text-center">

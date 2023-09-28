@@ -105,7 +105,6 @@ const getMessagesByThread = async (thread_id) => {
       r.first_name AS receiver_first_name,
       r.photo AS receiver_photo,
       m.thread_id,
-      m.created_at
     FROM
       messages m
     INNER JOIN
