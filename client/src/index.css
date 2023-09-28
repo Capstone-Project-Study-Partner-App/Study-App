@@ -8,6 +8,9 @@
   text-overflow:inherit; 
 }
 
+.comments-section {
+  margin-top: 40px;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

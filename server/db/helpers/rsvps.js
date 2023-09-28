@@ -1,16 +1,16 @@
 const client = require("../client");
 
-const createRsvp = async ({ rsvp_status, user_id, event_id }) => {
+const createRsvp = async ({ user_id, event_id, rsvp_status }) => {
   try {
     const {
       rows: [rsvps],
     } = await client.query(
       `
-        INSERT INTO rsvps(rsvp_status, user_id, event_id)
+        INSERT INTO rsvps(user_id, event_id, rsvp_status)
         VALUES($1, $2, $3)
         RETURNING *;
       `,
-      [rsvp_status, user_id, event_id]
+      [user_id, event_id, rsvp_status]
     );
     return rsvps;
   } catch (error) {
@@ -82,8 +82,7 @@ const updateRsvp = async (rsvp_id, updatedRsvpData) => {
         WHERE rsvp_id = $2
         RETURNING *;
         `,
-      [updatedRsvpData.rsvp_status,
-      rsvp_id]
+      [rsvp_id, updatedRsvpData.rsvp_status]
     );
     return rsvp;
   } catch (error) {

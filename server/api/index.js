@@ -5,7 +5,8 @@ const {
   createUser,
   updateUser,
   deleteUser,
-  getUserMessages
+  getUserMessages,
+  getUsersMatchingFilters,
 } = require("../db/helpers/users");
 const {
   getAllEvents,
@@ -23,7 +24,7 @@ const {
   deleteMessage,
   createMessage,
   getMessageById,
-  getMessagesByThread
+  getMessagesByThread,
 } = require("../db/helpers/messages");
 
 // Create a subrouter for the '/api/' subroute
@@ -39,6 +40,16 @@ apiRouter.get("/foo", (req, res) => {
 apiRouter.get("/users", async (req, res) => {
   const users = await getAllUsers();
   res.json(users);
+});
+
+// Search for users matching filter
+apiRouter.post("/users/search", async (req, res, next) => {
+  try {
+    const users = await getUsersMatchingFilters(req.body.filters);
+    res.send(users);
+  } catch (err) {
+    next(err);
+  }
 });
 
 //Get User by ID
@@ -62,7 +73,6 @@ apiRouter.post("/users", async (req, res, next) => {
   }
 });
 
-
 //GRAB HELPER FUCNTION FOR THIS
 // Edit User -- PUT
 apiRouter.put("/edit_user/:id", async (req, res, next) => {
@@ -74,7 +84,7 @@ apiRouter.put("/edit_user/:id", async (req, res, next) => {
   }
 });
 
-// Delete User 
+// Delete User
 apiRouter.delete("/users/:id", async (req, res, next) => {
   try {
     const user = await deleteUser(req.params.id);
@@ -170,7 +180,7 @@ apiRouter.post("/rsvps", async (req, res, next) => {
   }
 });
 
-// Edit Rsvp --PUT  
+// Edit Rsvp --PUT
 apiRouter.put("/edit_rsvp/:id", async (req, res, next) => {
   try {
     const rsvp = await updateRsvp(req.params.id, req.body);
@@ -214,12 +224,12 @@ apiRouter.delete("/messages/:id", async (req, res, next) => {
 });
 
 // // Get all messages in a thread by thread_id
-apiRouter.get('/thread/:id', async (req, res, next) => {
-  try {     
-      const message = await getMessagesByThread(req.params.id);
-      res.send(message);
+apiRouter.get("/thread/:id", async (req, res, next) => {
+  try {
+    const message = await getMessagesByThread(req.params.id);
+    res.send(message);
   } catch (error) {
-      next(error);
+    next(error);
   }
 });
 
