@@ -2,9 +2,7 @@ import { useState } from "react";
 import { createEvent } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
 
-export default function NewEventForm({ post, setPost }) {
-  const [event_id, setEvent_id] = useState("");
-  const [error, setError] = useState(null);
+export default function NewEventForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -20,8 +18,8 @@ export default function NewEventForm({ post, setPost }) {
   
   const navigate = useNavigate();
   
-async function handleSubmit (e){
-  e.preventDefault();
+async function handleSubmit (event){
+  event.preventDefault();
 
       let eventData={
         title: title,
@@ -35,11 +33,12 @@ async function handleSubmit (e){
         topic: topic,
         duration: duration,
         gender: gender,
-        group: group,
+        group: group
       }
 
       try{
         await createEvent(eventData);
+        console.log(eventData)
         navigate ("/events");
       } catch (error){
         console.error ("There was a error creating an event!", error);
@@ -47,12 +46,12 @@ async function handleSubmit (e){
     }
 
 
+  
   return (
     <div>
       <section className="new_event_form">
         <h1>Add a new event!</h1>
         <form onSubmit={handleSubmit}>
-          {error && <p>{error}</p>}
           <h5>Title</h5>
           <input
             id="title"
@@ -110,7 +109,7 @@ async function handleSubmit (e){
             value={timezone}
             type="text"
             name="timezone"
-            placeholder="Created At"
+            placeholder="Timezone"
             onChange={(e) => setTimezone(e.target.value)}
             />
           <h5>Virtual?</h5>
