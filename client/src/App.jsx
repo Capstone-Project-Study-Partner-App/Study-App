@@ -10,6 +10,7 @@ import Messages from "./components/messages";
 import User from "./components/BuddyDetails";
 import NewEventForm from "./components/newevent";
 import MessageThread from "./components/Thread";
+import RegistrationForm from './components/registrationform';
 
 
 function App() {
