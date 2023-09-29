@@ -58,26 +58,7 @@ export async function getUserById(user_id) {
 }
 
 export async function createUser(
-  first_name,
-  last_name,
-  email,
-  gender,
-  password,
-  location,
-  about_me,
-  education,
-  education_level,
-  classes,
-  days_available,
-  times_available,
-  timezone,
-  interests,
-  photo,
-  languages,
-  study_habits,
-  major,
-  age,
-  work
+userData
 ) {
   try {
     const resp = await fetch(`${api_root}/users`, {
@@ -85,28 +66,9 @@ export async function createUser(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        first_name,
-        last_name,
-        email,
-        gender,
-        password,
-        location,
-        about_me,
-        education,
-        education_level,
-        classes,
-        days_available,
-        times_available,
-        timezone,
-        interests,
-        photo,
-        languages,
-        study_habits,
-        major,
-        age,
-        work,
-      }),
+      body: JSON.stringify(
+      userData
+      ),
     });
     const json = await resp.json();
     return json;
@@ -180,18 +142,7 @@ export async function getEventById(user_id) {
 }
 
 export async function createEvent(
-  title,
-  description,
-  location,
-  address,
-  datetime,
-  timezone,
-  virtual,
-  comments,
-  topic,
-  duration,
-  gender,
-  group
+  eventData
 ) {
   try {
     const resp = await fetch(`${api_root}/events`, {
@@ -199,20 +150,9 @@ export async function createEvent(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        title,
-        description,
-        location,
-        address,
-        datetime,
-        timezone,
-        virtual,
-        comments,
-        topic,
-        duration,
-        gender,
-        group,
-      }),
+      body: JSON.stringify(
+        eventData
+      ),
     });
     const json = await resp.json();
     return json;
