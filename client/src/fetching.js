@@ -1,4 +1,22 @@
 const api_root = "http://localhost:8080/api";
+
+(() => {
+  const original_fetch = window.fetch;
+  window.fetch = (url, opts, ...args) => {
+    return original_fetch(
+      url,
+      {
+        mode: "cors",
+        credentials: "include",
+        ...opts,
+      },
+      ...args
+    );
+  };
+})();
+
+export class AuthError extends Error {}
+
 // const json_api = async (route, method = "GET", body = null) => {
 //   const resp = await fetch(`${api_root}${route}`, {
 //     method: method,
@@ -12,8 +30,23 @@ const api_root = "http://localhost:8080/api";
 // };
 
 // -------USER FETCHES-------
+export async function getProfile() {
+  const resp = await fetch(`${api_root}/profile`);
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
 export async function getAllUsers() {
   const resp = await fetch(`${api_root}/users`);
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
   const json = await resp.json();
   return json;
 }
@@ -72,7 +105,7 @@ export async function createUser(
         study_habits,
         major,
         age,
-        work
+        work,
       }),
     });
     const json = await resp.json();
@@ -120,17 +153,17 @@ export async function getUserMessages(user_id) {
   }
 }
 
-//   export async function logInUser(user) {
-//     const resp = await fetch(`${api_root}/auth/login`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(user),
-//     });
-//     const json = await resp.json();
-//     return json;
-//   }
+export async function logInUser(user) {
+  const resp = await fetch(`${api_root}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+  const json = await resp.json();
+  return json;
+}
 
 // -------EVENT FETCHES-------
 
@@ -178,7 +211,7 @@ export async function createEvent(
         topic,
         duration,
         gender,
-        group
+        group,
       }),
     });
     const json = await resp.json();
@@ -232,7 +265,7 @@ export async function createRsvp(user_id, event_id, rsvp_status) {
       body: JSON.stringify({
         user_id,
         event_id,
-        rsvp_status
+        rsvp_status,
       }),
     });
     const json = await resp.json();
@@ -268,7 +301,13 @@ export async function getMessageById(message_id) {
   return json;
 }
 
-export async function createMessage(sender, receiver, message_content, thread_id, created_at) {
+export async function createMessage(
+  sender,
+  receiver,
+  message_content,
+  thread_id,
+  created_at
+) {
   try {
     const resp = await fetch(`${api_root}/messages`, {
       method: "POST",
@@ -280,14 +319,14 @@ export async function createMessage(sender, receiver, message_content, thread_id
         receiver,
         message_content,
         thread_id,
-        created_at
+        created_at,
       }),
     });
     const json = await resp.json();
     console.log("message sent:", json);
     return json;
   } catch (error) {
-    console.error('error sending message:', error);
+    console.error("error sending message:", error);
     return error;
   }
 }

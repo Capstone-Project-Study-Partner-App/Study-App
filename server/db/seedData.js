@@ -25,7 +25,7 @@ const users = [
     study_habits: "Grinding studying",
     major: "Psychology",
     age: "18-25",
-    work: null
+    work: null,
   },
   {
     id: 2,
@@ -50,7 +50,7 @@ const users = [
     study_habits: "Semi-relaxed",
     major: "Biology",
     age: "18-25",
-    work: null
+    work: null,
   },
   {
     id: 3,
@@ -58,7 +58,8 @@ const users = [
     last_name: "Nare",
     email: "bnare2@slashdot.org",
     gender: "Male",
-    password: "zZ5=}/G<R",
+    // password: "1234"
+    password: "$2b$10$QkedZTdtVqVUxfjSt0nb7.fpYybM2AE157kk8YX9adypGhN3BtFEC",
     location: "4485-174",
     about_me:
       "I strive for academic excellence and am always eager to take on new challenges.",
@@ -75,7 +76,7 @@ const users = [
     study_habits: "Committed studying",
     major: "Computer Science",
     age: "18-25",
-    work: null
+    work: null,
   },
   {
     id: 4,
@@ -100,7 +101,7 @@ const users = [
     study_habits: "Committed studying",
     major: "Psychology",
     age: "25-30",
-    work: null
+    work: null,
   },
   {
     id: 5,
@@ -125,7 +126,7 @@ const users = [
     study_habits: "Committed studying",
     major: "Engineering",
     age: "18-25",
-    work: null
+    work: null,
   },
   {
     id: 6,
@@ -150,7 +151,7 @@ const users = [
     study_habits: "Relaxed",
     major: "Business Administration",
     age: "18-25",
-    work: null
+    work: null,
   },
   {
     id: 7,
@@ -174,7 +175,7 @@ const users = [
     study_habits: "Relaxed",
     major: "Political Science",
     age: "18-25",
-    work: null
+    work: null,
   },
   {
     id: 8,
@@ -199,7 +200,7 @@ const users = [
     study_habits: "Committed studying",
     major: "Humanities",
     age: "25-30",
-    work: null
+    work: null,
   },
   {
     id: 9,
@@ -223,7 +224,7 @@ const users = [
     study_habits: "Committed studying",
     major: "English Literature",
     age: "18-25",
-    work: null
+    work: null,
   },
   {
     id: 10,
@@ -247,8 +248,8 @@ const users = [
     study_habits: "Semi-relaxed",
     major: "English Literature",
     age: "18-25",
-    work: null
-  }
+    work: null,
+  },
 ];
 
 //Events
@@ -267,14 +268,15 @@ const events = [
     topic: "Psychology",
     duration: 30,
     gender: "Male",
-    group: true
+    group: true,
   },
   {
     id: 2,
     title: "Mathematics 301 Discussion",
-    description: "The study group is a collaborative space where members can come together to discuss various topics and share their knowledge.",
+    description:
+      "The study group is a collaborative space where members can come together to discuss various topics and share their knowledge.",
     location: null,
-    address: null, 
+    address: null,
     datetime: "2023-06-11 11:15:00",
     timezone: "EST",
     virtual: true,
@@ -282,7 +284,7 @@ const events = [
     topic: "Mathematics",
     duration: 60,
     gender: "Female",
-    group: true
+    group: true,
   },
   {
     id: 3,
@@ -297,7 +299,7 @@ const events = [
     topic: "Science",
     duration: 90,
     gender: null,
-    group: true
+    group: true,
   },
   {
     id: 4,
@@ -305,14 +307,14 @@ const events = [
     description: "Gain new perspectives",
     location: null,
     address: null,
-    datetime: "2023-01-07 12:30:00" ,
+    datetime: "2023-01-07 12:30:00",
     timezone: "EST",
     virtual: true,
     comments: "Counting down the days until the event!",
     topic: "Biology",
     duration: 60,
     gender: "Male",
-    group: true
+    group: true,
   },
   {
     id: 5,
@@ -328,12 +330,13 @@ const events = [
     topic: "Art",
     duration: 90,
     gender: null,
-    group: true
+    group: true,
   },
   {
     id: 6,
     title: "Physics Study Group",
-    description: "Our study group is dedicated to exploring the fascinating world of physics. We will delve into different subjects",
+    description:
+      "Our study group is dedicated to exploring the fascinating world of physics. We will delve into different subjects",
     location: "92101",
     address: "San Diego Central Library",
     datetime: "2023-10-25 15:15:00",
@@ -343,7 +346,7 @@ const events = [
     topic: "Science",
     duration: 120,
     gender: null,
-    group: true
+    group: true,
   },
   {
     id: 7,
@@ -358,7 +361,7 @@ const events = [
     topic: "Social Science",
     duration: 90,
     gender: null,
-    group: true
+    group: true,
   },
   {
     id: 8,
@@ -374,7 +377,7 @@ const events = [
     topic: "Psychology",
     duration: 60,
     gender: null,
-    group: true
+    group: true,
   },
   {
     id: 9,
@@ -390,7 +393,7 @@ const events = [
     topic: "English",
     duration: 90,
     gender: null,
-    group: true
+    group: true,
   },
   {
     id: 10,
@@ -406,8 +409,8 @@ const events = [
     topic: "English",
     duration: 60,
     gender: null,
-    group: true
-  }
+    group: true,
+  },
 ];
 
 //RSVPs
@@ -421,7 +424,7 @@ const rsvps = [
   { id: 7, event_id: 7, user_id: 7, rsvp_status: false },
   { id: 8, event_id: 8, user_id: 8, rsvp_status: false },
   { id: 9, event_id: 9, user_id: 9, rsvp_status: true },
-  { id: 10, event_id: 10, user_id: 10, rsvp_status: false }
+  { id: 10, event_id: 10, user_id: 10, rsvp_status: false },
 ];
 
 //Messages
@@ -432,7 +435,7 @@ const messages = [
     receiver: 2,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 42
+    thread_id: 42,
   },
   {
     id: 2,
@@ -440,7 +443,7 @@ const messages = [
     receiver: 3,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 36
+    thread_id: 36,
   },
   {
     id: 3,
@@ -448,7 +451,7 @@ const messages = [
     receiver: 4,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 31
+    thread_id: 31,
   },
   {
     id: 4,
@@ -456,7 +459,7 @@ const messages = [
     receiver: 1,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 31
+    thread_id: 31,
   },
   {
     id: 5,
@@ -464,7 +467,7 @@ const messages = [
     receiver: 1,
     message_content:
       "I would love to work with you on studying science. We can share notes and discuss important ideas.",
-    thread_id: 42
+    thread_id: 42,
   },
   {
     id: 6,
@@ -472,7 +475,7 @@ const messages = [
     receiver: 1,
     message_content:
       "I think we can collaborate on studying math together and help each other understand complex concepts.",
-    thread_id: 36
+    thread_id: 36,
   },
   {
     id: 7,
@@ -480,7 +483,7 @@ const messages = [
     receiver: 2,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 14
+    thread_id: 14,
   },
   {
     id: 8,
@@ -488,7 +491,7 @@ const messages = [
     receiver: 1,
     message_content:
       "I would love to work with you on studying history. We can share notes and discuss important events.",
-    thread_id: 19
+    thread_id: 19,
   },
   {
     id: 9,
@@ -496,7 +499,7 @@ const messages = [
     receiver: 3,
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
-    thread_id: 36
+    thread_id: 36,
   },
   {
     id: 10,
@@ -504,8 +507,8 @@ const messages = [
     receiver: 9,
     message_content:
       "I think we can collaborate on studying math together and help each other understand complex concepts.",
-    thread_id: 34
-  }
+    thread_id: 34,
+  },
 ];
 
 module.exports = { users, events, rsvps, messages };

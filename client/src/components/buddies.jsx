@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
-import { getAllUsers } from "../fetching";
-import { Link } from "react-router-dom"; // Import Link
+import { AuthError, getAllUsers } from "../fetching";
+import { Link, useNavigate } from "react-router-dom"; // Import Link
+import { LOGIN_ROUTE } from "./home";
 export default function Buddies() {
   const [allUsers, setAllUsers] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
-      const users = await getAllUsers();
-      setAllUsers(users);
+      try {
+        const users = await getAllUsers();
+        setAllUsers(users);
+      } catch (err) {
+        if (err instanceof AuthError) {
+            navigate(LOGIN_ROUTE);
+        } else {
+            throw err;
+        }
+      }
     }
     fetchData();
   }, []);

@@ -197,6 +197,25 @@ const getUserById = async (user_id) => {
   }
 };
 
+//Get user by email
+const getUserByEmail = async (email) => {
+  try {
+    const {
+      rows: [users],
+    } = await client.query(
+      `
+              SELECT *
+              FROM users
+              WHERE email = $1
+      `,
+      [email]
+    );
+    return users;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // PUT - /api/users/:user_id - update a user
 const updateUser = async (user_id, updatedUserData) => {
   try {
@@ -334,6 +353,7 @@ module.exports = {
   getAllUsers,
   getUsersMatchingFilters,
   getUserById,
+  getUserByEmail,
   deleteUser,
   updateUser,
   getUserMessages,

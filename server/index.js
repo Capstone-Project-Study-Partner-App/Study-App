@@ -9,7 +9,12 @@ app.use(cookieParser(COOKIE_SECRET));
 
 // init cors
 const cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5174", // Replace with your SPA's domain
+    credentials: true, // Allow cookies to be sent
+  })
+);
 
 const port = 8080;
 
