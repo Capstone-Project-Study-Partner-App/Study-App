@@ -11,6 +11,7 @@ import NewEventForm from "./components/newevent";
 import MessageThread from "./components/Thread";
 import RegistrationForm from "./components/registrationform";
 import Profile from "./components/profile";
+import Home from "./components/home";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/users/:id" element={<User />} />
           <Route path='/register' element={<RegistrationForm/>}/>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<Home />} />
           {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>
       </div>

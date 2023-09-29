@@ -125,6 +125,7 @@ export async function logInUser(user) {
   });
   const json = await resp.json();
   return json;
+  
 }
 
 // -------EVENT FETCHES-------
