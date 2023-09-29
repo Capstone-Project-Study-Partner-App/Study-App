@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 //add email, password, photo, and about me fields
 export default function RegistrationForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
   const [gender, setGender] = useState("");
   const [location, setLocation] = useState("");
+  const [about_me, setAbout_me] = useState("");
   const [education, setEducation] = useState("");
   const [education_level, setEducation_level] = useState("");
   const [classes, setClasses] = useState("");
@@ -15,6 +18,7 @@ export default function RegistrationForm() {
   const [times_available, setTimes_available] = useState("");
   const [timezone, setTimezone] = useState("");
   const [interests, setInterests] = useState("");
+  const [photo, setPhoto] = useState("");
   const [languages, setLanguages] = useState("");
   const [study_habits, setStudy_habits] = useState("");
   const [major, setMajor] = useState("");
@@ -26,10 +30,13 @@ export default function RegistrationForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     const userData = {
+      email: email,
+      password: password,
       first_name: first_name,
       last_name: last_name,
       gender: gender,
       location: location,
+      about_me: about_me,
       education: education,
       education_level: education_level,
       classes: [classes],
@@ -37,17 +44,18 @@ export default function RegistrationForm() {
       times_available: [times_available],
       timezone: timezone,
       interests: [interests],
+      photo: photo,
       languages: [languages],
       study_habits: study_habits,
       major: major,
       age: age,
       work: work,
     };
-    console.log ("I am from line 45",userData)
+    console.log("I am from line 45", userData);
     try {
       await createUser(userData);
 
-    //   navigate(0);
+      //   navigate(0);
     } catch (error) {
       console.error("There was an error with the registration form", error);
     }
@@ -58,14 +66,34 @@ export default function RegistrationForm() {
       <section className="registration_form">
         <h1>Registration Questionnaire</h1>
         <form onSubmit={handleSubmit}>
-          <h5>First Name</h5>
+          <h5>Email</h5>
+          <input
+            id="email"
+            className="registration_email"
+            value={email}
+            type="text"
+            name="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+                  <h5>Password</h5>
+          <input
+            id="password"
+            className="registration_password"
+            value={password}
+            type="text"
+            name="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+                  <h5>First Name</h5>
           <input
             id="first_name"
             className="registration_first_name"
             value={first_name}
             type="text"
             name="first_name"
-            placeholder="first_name"
+            placeholder="First Name"
             onChange={(e) => setFirst_name(e.target.value)}
           />
           <h5>Last Name</h5>
@@ -75,7 +103,7 @@ export default function RegistrationForm() {
             value={last_name}
             type="text"
             name="last_name"
-            placeholder="last_name"
+            placeholder="Last Name"
             onChange={(e) => setLast_name(e.target.value)}
           />
           <h5>Gender</h5>
@@ -85,7 +113,7 @@ export default function RegistrationForm() {
             value={gender}
             type="text"
             name="gender"
-            placeholder="gender"
+            placeholder="Gender"
             onChange={(e) => setGender(e.target.value)}
           />
           <h5>Location</h5>
@@ -95,8 +123,18 @@ export default function RegistrationForm() {
             value={location}
             type="text"
             name="location"
-            placeholder="location"
+            placeholder="Location"
             onChange={(e) => setLocation(e.target.value)}
+          />
+                    <h5>About Me</h5>
+          <input
+            id="about_me"
+            className="registration_about_me"
+            value={about_me}
+            type="text"
+            name="about_me"
+            placeholder="About Me"
+            onChange={(e) => setAbout_me(e.target.value)}
           />
           <h5>Education</h5>
           <input
@@ -105,7 +143,7 @@ export default function RegistrationForm() {
             value={education}
             type="text"
             name="education"
-            placeholder="education"
+            placeholder="Education"
             onChange={(e) => setEducation(e.target.value)}
           />
           <h5>Education Level</h5>
@@ -115,7 +153,7 @@ export default function RegistrationForm() {
             value={education_level}
             type="text"
             name="education_level"
-            placeholder="education_level"
+            placeholder="Education Level"
             onChange={(e) => setEducation_level(e.target.value)}
           />
           <h5>Classes</h5>
@@ -125,7 +163,7 @@ export default function RegistrationForm() {
             value={classes}
             type="text"
             name="classes"
-            placeholder="classes"
+            placeholder="Classes"
             onChange={(e) => setClasses(e.target.value)}
           />
           <h5>Days Available</h5>
@@ -135,7 +173,7 @@ export default function RegistrationForm() {
             value={days_available}
             type="text"
             name="days_available"
-            placeholder="days_available"
+            placeholder="Days Available"
             onChange={(e) => setDays_available(e.target.value)}
           />
           <h5>Times Available</h5>
@@ -145,17 +183,17 @@ export default function RegistrationForm() {
             value={times_available}
             type="text"
             name="times_available"
-            placeholder="times_available"
+            placeholder="Times Available"
             onChange={(e) => setTimes_available(e.target.value)}
           />
-          <h5>Timezone</h5>
+          <h5>Time Zone</h5>
           <input
             id="timezone"
             className="registration_timezone"
             value={timezone}
             type="text"
             name="timezone"
-            placeholder="timezone"
+            placeholder="Time Zone"
             onChange={(e) => setTimezone(e.target.value)}
           />
           <h5>Interests</h5>
@@ -165,8 +203,18 @@ export default function RegistrationForm() {
             value={interests}
             type="text"
             name="interests"
-            placeholder="interests"
+            placeholder="Interests"
             onChange={(e) => setInterests(e.target.value)}
+          />
+          <h5>Photo</h5>
+          <input
+            id="photo"
+            className="registration_photo"
+            value={photo}
+            type="text"
+            name="photo"
+            placeholder="photo"
+            onChange={(e) => setPhoto(e.target.value)}
           />
           <h5>Languages</h5>
           <input
@@ -175,7 +223,7 @@ export default function RegistrationForm() {
             value={languages}
             type="text"
             name="languages"
-            placeholder="languages"
+            placeholder="Languages"
             onChange={(e) => setLanguages(e.target.value)}
           />
           <h5>Study Habits</h5>
@@ -185,7 +233,7 @@ export default function RegistrationForm() {
             value={study_habits}
             type="text"
             name="study_habits"
-            placeholder="study_habits"
+            placeholder="Study Habits"
             onChange={(e) => setStudy_habits(e.target.value)}
           />
           <h5>Major</h5>
@@ -195,7 +243,7 @@ export default function RegistrationForm() {
             value={major}
             type="text"
             name="major"
-            placeholder="major"
+            placeholder="Major"
             onChange={(e) => setMajor(e.target.value)}
           />
           <h5>Age</h5>
@@ -205,7 +253,7 @@ export default function RegistrationForm() {
             value={age}
             type="text"
             name="age"
-            placeholder="age"
+            placeholder="Age"
             onChange={(e) => setAge(e.target.value)}
           />
           <h5>Work</h5>
@@ -215,7 +263,7 @@ export default function RegistrationForm() {
             value={work}
             type="text"
             name="work"
-            placeholder="work"
+            placeholder="Work"
             onChange={(e) => setWork(e.target.value)}
           />
           <br />
