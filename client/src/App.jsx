@@ -28,6 +28,7 @@ function App() {
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/users/:id" element={<User />} />
+          <Route path='/register' element={<RegistrationForm/>}/>
           <Route path="/profile" element={<Profile />} />
           {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>
