@@ -31,6 +31,7 @@ function App() {
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/users/:id" element={<User />} />
+          <Route path='/registration_questionnaire' element={<RegistrationForm/>}/>
           {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>
       </div>

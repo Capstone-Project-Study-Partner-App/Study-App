@@ -18,8 +18,8 @@ export default function NewEventForm() {
   
   const navigate = useNavigate();
   
-async function handleSubmit (event){
-  event.preventDefault();
+async function handleSubmit (e){
+  e.preventDefault();
 
       let eventData={
         title: title,
@@ -33,8 +33,8 @@ async function handleSubmit (event){
         topic: topic,
         duration: duration,
         gender: gender,
-        group: group
-      }
+        group: group,
+      };
 
       try{
         await createEvent(eventData);
