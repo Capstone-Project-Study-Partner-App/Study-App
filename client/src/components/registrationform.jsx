@@ -27,6 +27,13 @@ export default function RegistrationForm() {
 
   const navigate = useNavigate();
 
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
+  const handleEducationLevelChange = (e) => {
+    setEducation_level(e.target.value);
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     const userData = {
@@ -64,7 +71,7 @@ export default function RegistrationForm() {
   return (
     <div>
       <section className="registration_form">
-        <h1>Registration Questionnaire</h1>
+        <h1>Registration</h1>
         <form onSubmit={handleSubmit}>
           <h5>Email</h5>
           <input
@@ -76,7 +83,7 @@ export default function RegistrationForm() {
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-                  <h5>Password</h5>
+          <h5>Password</h5>
           <input
             id="password"
             className="registration_password"
@@ -86,7 +93,7 @@ export default function RegistrationForm() {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
-                  <h5>First Name</h5>
+          <h5>First Name</h5>
           <input
             id="first_name"
             className="registration_first_name"
@@ -107,15 +114,22 @@ export default function RegistrationForm() {
             onChange={(e) => setLast_name(e.target.value)}
           />
           <h5>Gender</h5>
-          <input
+          <select
             id="gender"
             className="registration_gender"
             value={gender}
             type="text"
             name="gender"
             placeholder="Gender"
-            onChange={(e) => setGender(e.target.value)}
-          />
+            onChange={handleGenderChange}
+            required
+          >
+            <option value="">Select Gender</option>  
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Non-Binary">Non-Binary</option>
+            <option value="Other">Other</option>
+          </select>
           <h5>Location</h5>
           <input
             id="location"
@@ -126,7 +140,7 @@ export default function RegistrationForm() {
             placeholder="Location"
             onChange={(e) => setLocation(e.target.value)}
           />
-                    <h5>About Me</h5>
+          <h5>About Me</h5>
           <input
             id="about_me"
             className="registration_about_me"
@@ -147,15 +161,26 @@ export default function RegistrationForm() {
             onChange={(e) => setEducation(e.target.value)}
           />
           <h5>Education Level</h5>
-          <input
+          <select
             id="education_level"
             className="registration_education_level"
             value={education_level}
             type="text"
             name="education_level"
             placeholder="Education Level"
-            onChange={(e) => setEducation_level(e.target.value)}
-          />
+            onChange={handleEducationLevelChange}
+            required
+          >
+            <option value="">Select Education Level</option>  
+            <option value="High School">High School</option>
+            <option value="College Freshman">College Freshman</option>
+            <option value="College Sophomore">College Sophomore</option>
+            <option value="College Junior">College Junior</option>
+            <option value="College Senior">College Senior</option>
+            <option value="Masters">Masters</option>
+            <option value="PhD">PhD</option>
+            <option value="Other">Other</option>
+          </select>
           <h5>Classes</h5>
           <input
             id="classes"
