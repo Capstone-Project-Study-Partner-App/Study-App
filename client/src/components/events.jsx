@@ -1,4 +1,3 @@
-import Buttonlink from "./neweventbutton";
 import { useState, useEffect } from "react";
 import { getAllEvents } from "../fetching";
 import { Link } from "react-router-dom";
@@ -125,11 +124,6 @@ export default function Events() {
             <span className="ml-2">Evening</span>
           </label>
           <br></br>
-          <div className="-translate-x-5">
-            <Buttonlink to="/events/new_event_form">
-              Create New Event
-            </Buttonlink>
-          </div>
         </div>
       </div>
 
@@ -231,59 +225,65 @@ export default function Events() {
 
 {
   /* <div className="flex-1 p-4">
-        <h1 className="text-5xl font-semibold mb-6">All Events</h1>
-        <div className="flex flex-wrap">
-          {allEvents ? (
-            allEvents.map(
-              ({
-                event_id,
-                title,
-                location,
-                address,
-                datetime,
-                timezone,
-                virtual,
-                topic,
-                duration,
-                gender,
-                group,
-              }) => {
-                const eventDate = new Date(datetime);
-                const formattedDate = eventDate.toLocaleString();
-                return (
-                  <Link
-                    key={event_id}
-                    to={`/events/${event_id}`}
-                    className="w-1/4 p-4"
-                  >
-                    <div
-                      key={event_id}
-                      className="event-details border rounded-md p-5 hover: bg-gray-100"
-                    >
-                      <h1>{title}</h1>
-                      <p>Subject: {topic}</p>
-                      {location && address && (
-                        <p>
-                          Location: {location}, Zipcode: {address}
-                        </p>
-                      )}
-                      {!location && !address && virtual && (
-                        <p>Virtual {virtual}</p>
-                      )}
-                      <p>When: {formattedDate}</p>
-                      <p>Timezone: {timezone}</p>
-                      <p>Duration: {duration} minutes</p>
-                      <p>{gender}</p>
-                      <p>{group}</p>
-                    </div>
-                  </Link>
-                );
-              }
+  <h1 className="text-5xl font-semibold mb-6">All Events</h1>
+  <div className="flex flex-wrap">
+  {allEvents ? (
+    allEvents.map(
+      ({
+        event_id,
+        title,
+        location,
+        address,
+        datetime,
+        timezone,
+        virtual,
+        topic,
+        duration,
+        gender,
+        group,
+      }) => {
+        const eventDate = new Date(datetime);
+        const formattedDate = eventDate.toLocaleString();
+        return (
+          <Link
+          key={event_id}
+          to={`/events/${event_id}`}
+          className="w-1/4 p-4"
+          >
+          <div
+          key={event_id}
+          className="event-details border rounded-md p-5 hover: bg-gray-100"
+          >
+          <h1>{title}</h1>
+          <p>Subject: {topic}</p>
+          {location && address && (
+            <p>
+            Location: {location}, Zipcode: {address}
+            </p>
+            )}
+            {!location && !address && virtual && (
+              <p>Virtual {virtual}</p>
+              )}
+              <p>When: {formattedDate}</p>
+              <p>Timezone: {timezone}</p>
+              <p>Duration: {duration} minutes</p>
+              <p>{gender}</p>
+              <p>{group}</p>
+              </div>
+              </Link>
+              );
+            }
             )
-          ) : (
-            <p>No events available.</p>
-          )}
-        </div>
-      </div>
-    </div> */
+            ) : (
+              <p>No events available.</p>
+              )}
+              </div>
+              </div>
+              </div> */
 }
+
+// <div className="-translate-x-5">
+//   <Buttonlink to="/events/new_event_form">
+//     Create New Event
+//   </Buttonlink>
+// </div>
