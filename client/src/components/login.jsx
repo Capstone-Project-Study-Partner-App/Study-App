@@ -3,7 +3,7 @@ import { logInUser } from "../fetching";
 import { useNavigate } from "react-router-dom";
 import Buttonlink from "./registerbutton";
 
-export const LOGIN_ROUTE = "/";
+export const LOGIN_ROUTE = "/login";
 
 export default function Login() {
   const navigate = useNavigate();

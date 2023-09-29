@@ -46,34 +46,71 @@ export default function MessageThread() {
   console.log("thread_id:", id);
 
   return (
-    <div className="thread-container">
-      <div className="thread">
-        {error && <p>{error}</p>}
+    // <div className="thread-container">
+    //   <div className="thread">
+    //     {error && <p>{error}</p>}
 
-        <h3>message thread:</h3>
+    //     <h3>message thread:</h3>
 
-        {/* <Link to="/messages/new">Send a message</Link> */}
+    //     {/* <Link to="/messages/new">Send a message</Link> */}
 
+    //     {messages.map((message) => (
+
+    //       <div key={message.message_id}>
+    //         {console.log('chat with: ', message.sender_first_name)}
+    //         <p>
+    //           <Link to={`/users/${message.sender}`}>
+    //             <img src={message.sender_photo} id="chat-profile-pic" style={{ width: '100px' }} />
+    //           </Link>
+    //         </p>
+    //         <b>{message.sender_first_name}:</b> {message.message_content}
+
+    //       </div>
+    //     ))}
+    //     <NewMessage
+    //       sender={11}
+    //       thread_id={id}
+    //       receiver={receiver}
+    //     />
+    //   </div>
+
+    // </div>
+    <div className="w-full px-5 flex flex-col justify-between">
+      <div className="flex flex-col mt-5">
         {messages.map((message) => (
-
-          <div key={message.message_id}>
-            {console.log('chat with: ', message.sender_first_name)}
-            <p>
-              <Link to={`/users/${message.sender}`}>
-                <img src={message.sender_photo} id="chat-profile-pic" style={{ width: '100px' }} />
-              </Link>
-            </p>
-            <b>{message.sender_first_name}:</b> {message.message_content}
-
+          <div
+            key={message.message_id}
+            className={`${
+              message.sender === sender
+                ? "justify-end"
+                : "justify-start"
+            } mb-4 flex`}
+          >
+            <img
+              src={message.sender_photo}
+              className="object-cover h-8 w-8 rounded-full"
+              alt=""
+            />
+            <div
+              className={`${
+                message.sender === sender
+                  ? "mr-2 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl bg-blue-400 text-white"
+                  : "ml-2 rounded-br-3xl rounded-tr-3xl rounded-tl-xl bg-gray-400 text-white"
+              } py-3 px-4`}
+            >
+              {message.message_content}
+            </div>
           </div>
         ))}
-        <NewMessage
-          sender={11}
-          thread_id={id}
-          receiver={receiver}
-        />
-      </div>
 
+        <div className="py-5">
+          <input
+            className="w-full bg-gray-300 py-5 px-3 rounded-xl"
+            type="text"
+            placeholder="Type your message here..."
+          />
+        </div>
+      </div>
     </div>
   );
 }
