@@ -32,11 +32,11 @@ const createTables = async () => {
   await client.query(`
           CREATE TABLE users (
             user_id SERIAL PRIMARY KEY,
+            email text UNIQUE NOT NULL,
+            password text NOT NULL,
             first_name text NOT NULL,
             last_name text NOT NULL,
-            email text UNIQUE NOT NULL,
             gender text NOT NULL,
-            password text NOT NULL,
             location text NOT NULL,
             about_me text NOT NULL,
             education text NOT NULL,

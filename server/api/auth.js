@@ -1,15 +1,23 @@
 const bcrypt = require("bcrypt");
-const { createUser, getUserByUsername } = require("../db/helpers/users");
+const {
+  createUser,
+  getUserByUsername,
+  getUserByEmail,
+} = require("../db/helpers/users");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../secrets");
+const { authRequired } = require("./utils");
 
 const router = require("express").Router();
 
 const SALT_ROUNDS = 10;
 
-router.get("/", async (req, res, next) => {
+router.get("/current-user", authRequired, async (req, res, next) => {
   try {
-    res.send("WOW! A thing!");
+    res.json({
+      current_user_id: req.user.user_id,
+      user: req.user,
+    });
   } catch (error) {
     next(error);
   }
@@ -53,11 +61,11 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     console.log(req.body);
-    const { username, password } = req.body;
-    const user = await getUserByUsername(username);
+    const { email, password } = req.body;
+    const user = await getUserByEmail(email);
     console.log(user);
 
-    const validPassword = await bcrypt.compare(password, user.password_hash);
+    const validPassword = await bcrypt.compare(password, user.password);
 
     delete user.password;
     if (validPassword) {
@@ -70,8 +78,10 @@ router.post("/login", async (req, res, next) => {
         signed: true,
       });
 
-      delete user.password_hash;
-      res.send({ user });
+      delete user.password;
+      res.send({ success: true });
+    } else {
+      res.send({ success: false });
     }
   } catch (error) {
     next(error);

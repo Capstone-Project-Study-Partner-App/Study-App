@@ -14,8 +14,6 @@ import RegistrationForm from './components/registrationform';
 
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <div id="nav-bar-container">

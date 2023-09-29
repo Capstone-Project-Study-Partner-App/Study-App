@@ -26,6 +26,7 @@ const {
   getMessageById,
   getMessagesByThread,
 } = require("../db/helpers/messages");
+const { authRequired } = require("./utils");
 
 // Create a subrouter for the '/api/' subroute
 const apiRouter = express.Router();
@@ -237,6 +238,6 @@ apiRouter.get("/health", (req, res, next) => {
   res.send("All healthy and ready to go!");
 });
 
-// apiRouter.use("/auth", require("./auth"));
+apiRouter.use("/auth", require("./auth"));
 
 module.exports = { apiRouter };
