@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/navbar";
-import Home, { LOGIN_ROUTE } from "./components/home";
+import Login, { LOGIN_ROUTE } from "./components/login";
 import Buddies from "./components/buddies";
 import Events from "./components/events";
 import Event from "./components/eventDetails";
@@ -9,9 +9,8 @@ import Messages from "./components/messages";
 import User from "./components/BuddyDetails";
 import NewEventForm from "./components/newevent";
 import MessageThread from "./components/Thread";
-import RegistrationForm from './components/registrationform';
+import RegistrationForm from "./components/registrationform";
 import Profile from "./components/profile";
-
 
 function App() {
   return (
@@ -21,7 +20,7 @@ function App() {
       </div>
       <div>
         <Routes>
-          <Route path={LOGIN_ROUTE} element={<Home />} />
+          <Route path={LOGIN_ROUTE} element={<Login />} />
           <Route path="/users" element={<Buddies />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<Event />} />

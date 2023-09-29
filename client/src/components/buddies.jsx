@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AuthError, getAllUsers } from "../fetching";
 import { Link, useNavigate } from "react-router-dom"; // Import Link
-import { LOGIN_ROUTE } from "./home";
+import { LOGIN_ROUTE } from "./login";
 export default function Buddies() {
   const [allUsers, setAllUsers] = useState([]);
   const navigate = useNavigate();
@@ -12,9 +12,9 @@ export default function Buddies() {
         setAllUsers(users);
       } catch (err) {
         if (err instanceof AuthError) {
-            navigate(LOGIN_ROUTE);
+          navigate(LOGIN_ROUTE);
         } else {
-            throw err;
+          throw err;
         }
       }
     }
