@@ -8,6 +8,7 @@ export default function Navbar (){
             <Link to='/users'>Buddies</Link>
             <Link to='/events'>Events</Link>
             <Link to='/:id/messages'>Messages</Link>
+            <Link to='/profile'>Profile</Link>
         </div>
     )
 
