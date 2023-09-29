@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUser } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
 
+//add email, password, photo, and about me fields
 export default function RegistrationForm() {
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
