@@ -2,7 +2,7 @@ import React from "react";
 import { logInUser } from "../fetching";
 import { useNavigate } from "react-router-dom";
 
-export const LOGIN_ROUTE = "/";
+export const LOGIN_ROUTE = "/login";
 
 export default function Login() {
   const navigate = useNavigate();
