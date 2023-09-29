@@ -14,6 +14,9 @@ const api_root = "http://localhost:8080/api";
     );
   };
 })();
+
+export class AuthError extends Error {}
+
 // const json_api = async (route, method = "GET", body = null) => {
 //   const resp = await fetch(`${api_root}${route}`, {
 //     method: method,
@@ -27,8 +30,23 @@ const api_root = "http://localhost:8080/api";
 // };
 
 // -------USER FETCHES-------
+export async function getProfile() {
+  const resp = await fetch(`${api_root}/profile`);
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
 export async function getAllUsers() {
   const resp = await fetch(`${api_root}/users`);
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
   const json = await resp.json();
   return json;
 }

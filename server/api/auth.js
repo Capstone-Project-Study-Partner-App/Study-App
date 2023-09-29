@@ -12,17 +12,6 @@ const router = require("express").Router();
 
 const SALT_ROUNDS = 10;
 
-router.get("/current-user", authRequired, async (req, res, next) => {
-  try {
-    res.json({
-      current_user_id: req.user.user_id,
-      user: req.user,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
 router.post("/register", async (req, res, next) => {
   try {
     console.log(req.body);
