@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/navbar";
-import Home from "./components/home";
+import Home, { LOGIN_ROUTE } from "./components/home";
 import Buddies from "./components/buddies";
 import Events from "./components/events";
 import Event from "./components/eventDetails";
@@ -11,11 +10,10 @@ import User from "./components/BuddyDetails";
 import NewEventForm from "./components/newevent";
 import MessageThread from "./components/Thread";
 import RegistrationForm from './components/registrationform';
+import Profile from "./components/profile";
 
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <div id="nav-bar-container">
@@ -23,7 +21,7 @@ function App() {
       </div>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path={LOGIN_ROUTE} element={<Home />} />
           <Route path="/users" element={<Buddies />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<Event />} />
@@ -32,6 +30,7 @@ function App() {
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/users/:id" element={<User />} />
           <Route path='/register' element={<RegistrationForm/>}/>
+          <Route path="/profile" element={<Profile />} />
           {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>
       </div>

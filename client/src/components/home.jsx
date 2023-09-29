@@ -1,7 +1,19 @@
+import React from "react";
+import { logInUser } from "../fetching";
+import { useNavigate } from "react-router-dom";
 
+export const LOGIN_ROUTE = '/';
 
 export default function Home() {
-    return (
+  const navigate = useNavigate();
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const [pending, setPending] = React.useState(false);
+  const disabled = pending;
+
+  return (
       <div className="home-container">
         <div className="home-image">
           <img
@@ -13,23 +25,46 @@ export default function Home() {
   
         <div className="login-form">
           <h1>Login</h1>
-          <form action="">
-            <label htmlFor="username">Username</label>
-            <input type="text" />
+          <form className="login-form" onSubmit={async evt => {
+            evt.preventDefault();
+            evt.stopPropagation();
+            setPending(true);
+            const { success } = await logInUser({ email, password });
+            if (success) {
+              navigate("/users");
+            }
+            setPending(false);
+          }}>
+            <label htmlFor="email">Email</label>
+            <br />
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={evt => setEmail(evt.target.value)}
+              disabled={disabled}
+            />
             <br />
             <label htmlFor="password">Password</label>
-            <input type="password" />
             <br />
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={evt => setPassword(evt.target.value)}
+              disabled={disabled}
+            />
+            {/* <br />
             <input type="checkbox" />
             <label>Remember Me</label>
             <br />
-            <a href="#">Forgot Password?</a>
+            <a href="#">Forgot Password?</a> */}
             <br />
-            <button type="submit">Login</button>
+            <button type="submit" disabled={disabled}>Login</button>
             <br />
           </form>
           <a href="#">Sign up Here</a>
         </div>
       </div>
-    );
-  }
+  );
+}
