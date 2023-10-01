@@ -47,21 +47,17 @@ export default function Home() {
           ______ is the essential app for students seeking to enhance their academic journey. Stay motivated in your studies with a study partner. Filter potential partners by age, gender, study subject, expertise level, location, and availability. Reach out by message to coordinate times and explore interests. Create events to meet up in person or online. Find a study partner in your neighborhood or meet new partners from around the world. 
           </p>
           <div className="mt-8">
-          <Link to={`/login`}>
-            <a
-              href="/login"
+            <Link
+              to={`/login`}
               className="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               login
-            </a>
             </Link>
-            <Link to={`/register`}>
-            <a
-              href="/register"
+            <Link
+              to={`/register`}
               className="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               register
-            </a>
             </Link>
           </div>
         </div>
