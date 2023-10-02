@@ -57,18 +57,14 @@ export async function getUserById(user_id) {
   return json;
 }
 
-export async function createUser(
-userData
-) {
+export async function createUser(userData) {
   try {
     const resp = await fetch(`${api_root}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-      userData
-      ),
+      body: JSON.stringify(userData),
     });
     const json = await resp.json();
     return json;
@@ -125,7 +121,18 @@ export async function logInUser(user) {
   });
   const json = await resp.json();
   return json;
-  
+}
+
+export async function logOutUser() {
+  const resp = await fetch(`${api_root}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  });
+  const json = await resp.json();
+  return json;
 }
 
 // -------EVENT FETCHES-------
@@ -142,18 +149,14 @@ export async function getEventById(user_id) {
   return json;
 }
 
-export async function createEvent(
-  eventData
-) {
+export async function createEvent(eventData) {
   try {
     const resp = await fetch(`${api_root}/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-        eventData
-      ),
+      body: JSON.stringify(eventData),
     });
     const json = await resp.json();
     return json;
