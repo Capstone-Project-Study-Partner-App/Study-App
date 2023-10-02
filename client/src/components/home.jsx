@@ -10,7 +10,8 @@ export default function Home() {
 <div className="relative bg-gray-900">
       <div className="relative h-80 overflow-hidden bg-indigo-600 md:absolute md:left-0 md:h-full md:w-1/3 lg:w-1/2">
         <img
-          className="h-full w-full object-fill"
+          className="h-full w-full object-contain object-bottom"
+          style={{ backgroundColor: '#18314b' }}
           src="https://prod-website-cdn.studysmarter.de/sites/5/us/Study-with-Me-dark-2048x1152-1-1536x864-min.png"
           alt=""
         />
