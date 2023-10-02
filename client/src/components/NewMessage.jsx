@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createMessage } from "../fetching";
 
 
-export default function NewMessage({sender, receiver, thread_id}) {
+export default function NewMessage({ sender, receiver, thread_id }) {
     // const [sender_id, setSenderId] = useState(null);
     // const [receiver_id, setReceiverId] = useState(null);
     // const [thread_id, setThreadId] = useState("");
@@ -23,26 +23,28 @@ export default function NewMessage({sender, receiver, thread_id}) {
 
             if (thread_id) {
 
-                data = await createMessage(message_content, sender, receiver, thread_id)
+                data = await createMessage(sender, receiver, message_content, thread_id)
                 window.location.reload();
             } else {
-                data = await createMessage(message_content, sender, receiver)
+                data = await createMessage(sender, receiver, message_content)
             }
-                console.log("message sent:", data);
-                const newThreadId = data.thread_id;
-                navigate(`/messages/thread/${newThreadId}`);
-                   
+            console.log("message sent:", data);
+            const newThreadId = data.thread_id;
+            navigate(`/messages/thread/${newThreadId}`);
+
         } catch (error) {
             console.error('error:', error)
         }
     };
 
     return (
-        <div>
+        <div className="py-5">
             <form onSubmit={handleSubmit}>
                 <input
+                    className="w-full bg-gray-300 py-5 px-3 rounded-xl"
                     type="text"
                     value={message_content}
+                    placeholder="Type your message here..."
                     onChange={(e) => setMessageContent(e.target.value)}
                 />
                 <br />
