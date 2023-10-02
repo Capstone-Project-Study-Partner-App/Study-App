@@ -36,33 +36,30 @@ export default function RegistrationForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const userData = {
-      email: email,
-      password: password,
-      first_name: first_name,
-      last_name: last_name,
-      gender: gender,
-      location: location,
-      about_me: about_me,
-      education: education,
-      education_level: education_level,
-      classes: [classes],
-      days_available: [days_available],
-      times_available: [times_available],
-      timezone: timezone,
-      interests: [interests],
-      photo: photo,
-      languages: [languages],
-      study_habits: study_habits,
-      major: major,
-      age: age,
-      work: work,
-    };
-    console.log("I am from line 45", userData);
     try {
-      await createUser(userData);
-
-      //   navigate(0);
+      await createUser({
+        email: email,
+        password: password,
+        first_name: first_name,
+        last_name: last_name,
+        gender: gender,
+        location: location,
+        about_me: about_me,
+        education: education,
+        education_level: education_level,
+        classes: [classes],
+        days_available: [days_available],
+        times_available: [times_available],
+        timezone: timezone,
+        interests: [interests],
+        photo: photo,
+        languages: [languages],
+        study_habits: study_habits,
+        major: major,
+        age: age,
+        work: work,
+      });
+      navigate("/users");
     } catch (error) {
       console.error("There was an error with the registration form", error);
     }
@@ -124,7 +121,7 @@ export default function RegistrationForm() {
             onChange={handleGenderChange}
             required
           >
-            <option value="">Select Gender</option>  
+            <option value="">Select Gender</option>
             <option value="Female">Female</option>
             <option value="Male">Male</option>
             <option value="Non-Binary">Non-Binary</option>
@@ -171,7 +168,7 @@ export default function RegistrationForm() {
             onChange={handleEducationLevelChange}
             required
           >
-            <option value="">Select Education Level</option>  
+            <option value="">Select Education Level</option>
             <option value="High School">High School</option>
             <option value="College Freshman">College Freshman</option>
             <option value="College Sophomore">College Sophomore</option>

@@ -26,14 +26,28 @@ const {
   getMessageById,
   getMessagesByThread,
 } = require("../db/helpers/messages");
-const { authRequired } = require("./utils");
+const {
+  authRequired,
+  setLoginCookie,
+  authNotRequired,
+  addReqUser,
+} = require("./utils");
 
 // Create a subrouter for the '/api/' subroute
 const apiRouter = express.Router();
 
-// it is very important that `use("/auth")` comes before `use(authRequired)`
-apiRouter.use("/auth", require("./auth"));
+// make req.user available
+apiRouter.use(addReqUser);
+
+// use unauthedApiRouter instead of apiRouter if non-logged in
+// users are allowed to use the route. By default, a non-logged-in
+// user will get an HTTP 401 for trying to use an apiRouter route
+const unauthedApiRouter = express.Router();
+apiRouter.use(unauthedApiRouter);
 apiRouter.use(authRequired);
+
+// the /auth routes are available unauthed
+unauthedApiRouter.use("/auth", require("./auth"));
 
 apiRouter.get("/profile", (req, res) => {
   res.json({
@@ -70,10 +84,10 @@ apiRouter.get("/users/:id", async (req, res, next) => {
 });
 
 //Create User -- POST
-apiRouter.post("/users", async (req, res, next) => {
+unauthedApiRouter.post("/users", async (req, res, next) => {
   try {
-    console.log("req", req.body);
     const user = await createUser(req.body);
+    await setLoginCookie(res, user);
     res.send(user);
   } catch (err) {
     next(err);
