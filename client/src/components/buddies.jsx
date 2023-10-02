@@ -222,7 +222,14 @@ export default function Buddies() {
 
       {/* Main Content */}
       <div className="flex-1 p-4">
-        <h1 className="text-2xl font-semibold mb-4">All Buddies</h1>
+        {/* Header */}
+        <div className="border-b border-gray-200 pb-5">
+          <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
+            <h1 className="ml-2 mt-2  font-semibold leading-6 text-indigo-500">
+              All Buddies
+            </h1>
+          </div>
+        </div>
         <div className="flex flex-wrap">
           {allUsers ? (
             allUsers.map(

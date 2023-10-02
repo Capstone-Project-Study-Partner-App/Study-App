@@ -129,7 +129,13 @@ export default function Events() {
 
       {/* EVENTS SECTION*/}
       <div className="flex-1 p-4">
-        <h1 className="text-5xl font-semibold mb-6">All Events</h1>
+        <div className="border-b border-gray-200 pb-5">
+          <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
+            <h1 className="ml-2 mt-2  font-semibold leading-6 text-indigo-500">
+              All Events
+            </h1>
+          </div>
+        </div>
         <div className="flex flex-wrap -mx-2">
           {allEvents ? (
             allEvents.map(
