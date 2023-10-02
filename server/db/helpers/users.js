@@ -1,3 +1,4 @@
+const { hashedPassword } = require("../../api/utils");
 const client = require("../client");
 
 //* Potentially change "users" to just "user" for better clarification *
@@ -56,7 +57,7 @@ const createUser = async ({
         last_name,
         email,
         gender,
-        password,
+        await hashedPassword(password),
         location,
         about_me,
         education,

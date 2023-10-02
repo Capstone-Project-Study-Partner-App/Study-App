@@ -1,6 +1,7 @@
 import React from "react";
 import { logInUser } from "../fetching";
 import { useNavigate } from "react-router-dom";
+import Buttonlink from "./registerbutton";
 
 export const LOGIN_ROUTE = "/login";
 
@@ -68,7 +69,7 @@ export default function Login() {
           </button>
           <br />
         </form>
-        <a href="#">Sign up Here</a>
+        <Buttonlink to="/register">Don't have an account? Register Here</Buttonlink>
       </div>
     </div>
   );
