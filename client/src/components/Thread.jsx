@@ -5,7 +5,7 @@ import NewMessage from "./NewMessage";
 
 
 
-export default function MessageThread({selectedMessage}) {
+export default function MessageThread({selectedMessage, loggedInUserId}) {
   const { id } = useParams();
   // console.log("thread_id extracted from URL:", thread_id);
   const [messages, setMessages] = useState([]);
@@ -77,13 +77,13 @@ export default function MessageThread({selectedMessage}) {
     //   </div>
 
     // </div>
-    <div className="w-full px-5 flex flex-col justify-between">
+    <div className="w-full px-5 flex flex-col justify-between ">
     <div className="flex flex-col mt-5">
       {messages.map((message) => (
         <div
           key={message.message_id}
           className={`${
-            message.sender === sender
+            message.sender === loggedInUserId
               ? "flex-row-reverse"
               : "flex-row"
           } mb-4 flex`}
@@ -95,7 +95,7 @@ export default function MessageThread({selectedMessage}) {
           />
           <div
             className={`${
-              message.sender === sender
+              message.sender === loggedInUserId
                 ? "ml-2 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl bg-gray-400 text-white"
                 : "mr-2 rounded-br-3xl rounded-tr-3xl rounded-tl-xl bg-blue-400 text-white"
             } py-3 px-4`}
@@ -107,12 +107,13 @@ export default function MessageThread({selectedMessage}) {
 
       <div className="py-5">
            <NewMessage
-          sender={1}
+          sender={loggedInUserId}
           thread_id={selectedMessage.thread_id}
           receiver={receiver}
         />
       </div>
     </div>
   </div>
+  
   );
 }
