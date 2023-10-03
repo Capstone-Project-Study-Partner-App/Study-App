@@ -128,8 +128,14 @@ export default function Events() {
       </div>
 
       {/* EVENTS SECTION*/}
-      <div className="flex-1 p-4">
-        <h1 className="text-5xl font-semibold mb-6">All Events</h1>
+      <div className="flex-1 justify-center items-center p-10">
+        <div className="border-b border-gray-200 pb-5">
+          <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
+            <h1 className="ml-2 mt-2  font-semibold leading-6 text-indigo-500">
+              All Events
+            </h1>
+          </div>
+        </div>
         <div className="flex flex-wrap -mx-2">
           {allEvents ? (
             allEvents.map(
@@ -163,32 +169,34 @@ export default function Events() {
                         />
                       </a>
                       <div className="p-5">
+                        <dd className="mt-3">
+                          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                            {duration} min
+                          </span>
+                          <span className="inline-flex items-center rounded-full bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
+                            {duration} rsvps
+                          </span>
+                        </dd>
                         <a href="#">
                           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             {title}
                           </h5>
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                          Subject: {topic}
+                          <b>Subject:</b> {topic}
                         </p>
                         {location && address && (
                           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            Zipcode: {location}, Location: {address}
+                            Location: {address} {location}
                           </p>
                         )}
                         {!location && !address && virtual && (
-                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          <p className="mb-3 font-normal text-green-700 dark:text-gray-400">
                             Virtual {virtual}
                           </p>
                         )}
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                          When: {formattedDate}
-                        </p>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                          Timezone: {timezone}
-                        </p>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                          Duration: {duration} minutes
+                          When: {formattedDate} {timezone}
                         </p>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                           {gender}
