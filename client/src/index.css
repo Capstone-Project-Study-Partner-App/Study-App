@@ -70,6 +70,11 @@ button:focus-visible {
   padding-bottom:1em
 }
 
+.new_event_form{
+  padding-top:1em;
+  padding-left:2em;
+  padding-bottom:1em
+}
 
 @media (prefers-color-scheme: light) {
   :root {

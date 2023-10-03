@@ -120,7 +120,7 @@ export default function RegistrationForm() {
                     value={email}
                     type="text"
                     name="email"
-                    placeholder="Email"
+                    placeholder="  Email"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -218,7 +218,7 @@ export default function RegistrationForm() {
           <div>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Profile
-            </h2>{" "}
+            </h2>
             <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
               <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                 <label
@@ -314,7 +314,7 @@ export default function RegistrationForm() {
             </div>
           </div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Study Information
+            Studying Preferences
           </h2>
           <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
             <div className="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:py-6">
@@ -562,7 +562,7 @@ export default function RegistrationForm() {
           <div class="mt-6 flex items-center justify-end gap-x-6"></div>
           <button
             type="submit"
-            className="inline-flex justify-center rounded-md bg-indigo-800 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="inline-flex justify-center rounded-md bg-indigo-400 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Submit
           </button>
