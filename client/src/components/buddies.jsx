@@ -116,7 +116,7 @@ export default function Buddies() {
               'College Junior',
               'College Senior',
               'Masters',
-              'phD',
+              'PhD',
               'Other'
             ]} />
 
@@ -266,7 +266,7 @@ export default function Buddies() {
                     <dd className="text-sm text-gray-500">{user.gender}</dd>
                     <dd className="mt-3">
                       <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                        {user.education_level}
+                        Education Level: {user.education_level}
                       </span>
                     </dd>
                   </dl>
