@@ -76,6 +76,11 @@ button:focus-visible {
   padding-bottom:1em
 }
 
+#days_available {
+  border: 1px solid #e2e8f0; 
+  box-shadow: none; 
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
