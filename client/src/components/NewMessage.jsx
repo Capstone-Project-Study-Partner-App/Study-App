@@ -38,16 +38,17 @@ export default function NewMessage({sender, receiver, thread_id}) {
     };
 
     return (
-        <div>
+        <div className="py-5">
             <form onSubmit={handleSubmit}>
                 <input
+                    className="w-full bg-gray-300 py-5 px-3 rounded-xl"
                     type="text"
                     value={message_content}
                     onChange={(e) => setMessageContent(e.target.value)}
                 />
                 <br />
                 <div>
-                    <button type="submit">send</button>
+                    {/* <button type="submit">send</button> */}
                 </div>
             </form>
             <div>
