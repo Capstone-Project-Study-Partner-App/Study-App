@@ -39,6 +39,24 @@ export async function getProfile() {
   return json;
 }
 
+export async function getUsersMatchingFilters(filters) {
+  const resp = await fetch(`${api_root}/users/search`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(filters),
+  });
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
 export async function getAllUsers() {
   const resp = await fetch(`${api_root}/users`);
   // this if statement makes sure un-logged in users
