@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { AuthError, getAllUsers, getUsersMatchingFilters } from "../fetching";
-import { useNavigate } from "react-router-dom"; // Import Link
+import { AuthError, getUsersMatchingFilters } from "../fetching";
+import { Link, useNavigate } from "react-router-dom"; // Import Link
 import { LOGIN_ROUTE } from "./login";
 
 function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
@@ -14,7 +14,7 @@ function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
             ...(evt.target.checked ? [option] : [])
           ])}
         />
-        <span className="ml-2">{option}</span>
+        <span className="ml-2 select-none">{option}</span>
       </label>
     ))}
   </>);
@@ -247,36 +247,44 @@ export default function Buddies() {
         </div>
         <br></br>
         <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {allUsers.map((user) => (
-            <li
-              key={user.email}
-              className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow-md"
-            >
-              <div className="flex flex-1 flex-col p-8 bg-slate-50">
-                <img className="mx-auto w-32 aspect-square flex-shrink-0 rounded-full" src={user.photo} alt={`${user.first_name} ${user.last_name}`} />
-                <h3 className="mt-6 text-md font-medium text-gray-900">{user.first_name} {user.last_name}</h3>
-                <dl className="mt-1 flex flex-grow flex-col">
-                  <dd className="text-sm text-gray-500"><b>Age:</b> {user.age}</dd>
-                  <dd className="text-sm text-gray-500">{user.gender}</dd>
-                  <dd className="mt-3">
-                    <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                      {user.education_level}
-                    </span>
-                  </dd>
-                </dl>
-              </div>
-              <div>
-              </div>
-              <div className="-mt-px flex divide-x divide-gray-200">
-              <div className="flex w-0 flex-1">
-                <a href="#"
-                  className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg bg-indigo-800	 border border-transparent py-4 text-sm font-semibold text-white"
+          {allUsers.map((user) => (            
+              <li
+                key={user.email}
+                className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow-md"
+              >
+                <Link
+                  key={user.user_id}
+                  to={`/users/${user.user_id}`}
+                  className="flex flex-1"
                 >
-                  Connect
-                </a>
+
+                <div className="flex flex-1 flex-col p-8 bg-slate-50">
+                  <img className="mx-auto w-32 aspect-square flex-shrink-0 rounded-full" src={user.photo} alt={`${user.first_name} ${user.last_name}`} />
+                  <h3 className="mt-6 text-md font-medium text-gray-900">{user.first_name} {user.last_name}</h3>
+                  <dl className="mt-1 flex flex-grow flex-col">
+                    <dd className="text-sm text-gray-500"><b>Age:</b> {user.age}</dd>
+                    <dd className="text-sm text-gray-500">{user.gender}</dd>
+                    <dd className="mt-3">
+                      <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                        {user.education_level}
+                      </span>
+                    </dd>
+                  </dl>
+                </div>
+              </Link>
+
+                <div>
+                </div>
+                <div className="-mt-px flex divide-x divide-gray-200">
+                <div className="flex w-0 flex-1">
+                  <a href="#"
+                    className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg bg-indigo-800	 border border-transparent py-4 text-sm font-semibold text-white"
+                  >
+                    Connect
+                  </a>
+              </div>
             </div>
-          </div>
-            </li>
+              </li>
           ))}
         </ul>
       </div>
