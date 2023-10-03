@@ -82,6 +82,7 @@ export default function NewEventForm() {
                     name="title"
                     placeholder="Title"
                     onChange={(e) => setTitle(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -102,6 +103,7 @@ export default function NewEventForm() {
                   name="topic"
                   placeholder="Subject"
                   onChange={(e) => setTopic(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -121,6 +123,7 @@ export default function NewEventForm() {
                   name="description"
                   placeholder="Description"
                   onChange={(e) => setDescription(e.target.value)}
+                  required
                 />
                 <p className="mt-3 text-sm leading-6 text-gray-600">
                   Please describe the details for this event.
@@ -223,6 +226,7 @@ export default function NewEventForm() {
                         name="datetime"
                         placeholder="Date Time"
                         onChange={(e) => setDatetime(e.target.value)}
+                        required
                       />
                     </div>
                   </div>
@@ -272,6 +276,7 @@ export default function NewEventForm() {
                         name="duration"
                         placeholder="Duration (Mins)"
                         onChange={(e) => setDuration(e.target.value)}
+                        required
                       />
                     </div>
                   </div>
@@ -335,9 +340,8 @@ export default function NewEventForm() {
                     name="gender"
                     placeholder="Gender"
                     onChange={handleGenderChange}
-                    required
                   >
-                    <option value="">Select PreferredGender</option>
+                    <option value="">Select Preferred Gender</option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                     <option value="Non-Binary">Non-Binary</option>
