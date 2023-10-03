@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AuthError, getAllUsers } from "../fetching";
 import { Link, useNavigate } from "react-router-dom"; // Import Link
 import { LOGIN_ROUTE } from "./login";
+
 export default function Buddies() {
   const [allUsers, setAllUsers] = useState([]);
   const navigate = useNavigate();
@@ -44,16 +45,31 @@ export default function Buddies() {
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">30+</span>
           </label>
+
+          {/* Location */}
           <h2 className="text-xl font-semibold mb-4">Location</h2>
-          <label className="flex items-center">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Zipcode: </span>
+            <span className="ml-2 text-white">Zipcode: </span>
+            <select
+              multiple
+              id="countries_multiple"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+            </select>
           </label>
+
+          {/* Institution */}
           <h2 className="text-xl font-semibold mb-4">Institution</h2>
           <label className="flex items-center">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
             <span className="ml-2">University Name: </span>
           </label>
+
           <h2 className="text-xl font-semibold mb-4">Education Level</h2>
           <label className="flex items-center">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
@@ -221,8 +237,7 @@ export default function Buddies() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-4">
-        {/* Header */}
+      <div className="flex-1 justify-center items-center p-10">
         <div className="border-b border-gray-200 pb-5">
           <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
             <h1 className="ml-2 mt-2  font-semibold leading-6 text-indigo-500">
@@ -230,43 +245,46 @@ export default function Buddies() {
             </h1>
           </div>
         </div>
-        <div className="flex flex-wrap">
-          {allUsers ? (
-            allUsers.map(
-              ({
-                user_id,
-                photo,
-                first_name,
-                last_name,
-                gender,
-                age,
-                education_level,
-              }) => (
-                <Link
-                  key={user_id}
-                  to={`/users/${user_id}`}
-                  className="w-1/4 p-4"
+        <br></br>
+        <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {allUsers.map((user) => (
+            <li
+              key={user.email}
+              className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow-md"
+            >
+              <div className="flex flex-1 flex-col p-8 bg-slate-50">
+                <img className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src={user.photo} alt={`${user.first_name} ${user.last_name}`} />
+                <h3 className="mt-6 text-md font-medium text-gray-900">{user.first_name} {user.last_name}</h3>
+                <dl className="mt-1 flex flex-grow flex-col">
+                  <dd className="text-sm text-gray-500"><b>Age:</b> {user.age}</dd>
+                  <dd className="text-sm text-gray-500">{user.gender}</dd>
+                  <dd className="mt-3">
+                    <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                      {user.education_level}
+                    </span>
+                  </dd>
+                </dl>
+              </div>
+              <div>
+              </div>
+              <div className="-mt-px flex divide-x divide-gray-200">
+              <div className="flex w-0 flex-1">
+                <a href="#"
+                  className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg bg-indigo-800	 border border-transparent py-4 text-sm font-semibold text-white"
                 >
-                  <div
-                    key={user_id}
-                    className="border rounded-md p-4 hover:bg-gray-100"
-                  >
-                    <img src={photo} alt={`${first_name} ${last_name}`} />
-                    <p>
-                      {first_name} {last_name}
-                    </p>
-                    <p>Gender: {gender}</p>
-                    <p>Age: {age}</p>
-                    <p>Level of Education: {education_level}</p>
-                  </div>
-                </Link>
-              )
-            )
-          ) : (
-            <p>No buddies available.</p>
-          )}
-        </div>
+                  Connect
+                </a>
+            </div>
+          </div>
+            </li>
+          ))}
+        </ul>
       </div>
+
+
+
+
+      
     </div>
   );
 }
