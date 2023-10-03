@@ -1,15 +1,51 @@
 import { useState, useEffect } from "react";
-import { AuthError, getAllUsers } from "../fetching";
-import { Link, useNavigate } from "react-router-dom"; // Import Link
+import { AuthError, getAllUsers, getUsersMatchingFilters } from "../fetching";
+import { useNavigate } from "react-router-dom"; // Import Link
 import { LOGIN_ROUTE } from "./login";
 
+function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
+  return (<>
+    { options.map((option) => (
+      <label key={option} className="flex items-center">
+        <input type="checkbox" className="form-checkbox text-indigo-600"
+          checked={selectedOpts.includes(option)}
+          onChange={evt => setSelectedOpts([
+            ...selectedOpts.filter(o => o !== option),
+            ...(evt.target.checked ? [option] : [])
+          ])}
+        />
+        <span className="ml-2">{option}</span>
+      </label>
+    ))}
+  </>);
+}
+
+function undefinedIfEmpty(arr) {
+  if (arr.length === 0) {
+    return undefined;
+  }
+  return arr;
+}
+
 export default function Buddies() {
+  const [ageFilter, setAgeFilter] = useState([]);
+  const [edLevelFilter, setEdLevelFilter] = useState([]);
+  const [availableDaysFilter, setAvailableDaysFilter] = useState([]);
+  const [availableTimesFilter, setAvailableTimesFilter] = useState([]);
+
   const [allUsers, setAllUsers] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
       try {
-        const users = await getAllUsers();
+        const users = await getUsersMatchingFilters({
+          filters: {
+            age: undefinedIfEmpty(ageFilter),
+            education_level: undefinedIfEmpty(edLevelFilter),
+            days_available: undefinedIfEmpty(availableDaysFilter),
+            times_available: undefinedIfEmpty(availableTimesFilter),
+          }
+        });
         setAllUsers(users);
       } catch (err) {
         if (err instanceof AuthError) {
@@ -20,7 +56,13 @@ export default function Buddies() {
       }
     }
     fetchData();
-  }, []);
+  }, [
+    navigate,
+    ageFilter,
+    edLevelFilter,
+    availableDaysFilter,
+    availableTimesFilter
+  ]);
 
   return (
     <div className="flex">
@@ -29,22 +71,15 @@ export default function Buddies() {
         <h1 className="text-xxl font-semibold mb-4">Filters</h1>
         <div className="space-y-2">
           <h2 className="text-xl font-semibold mb-4">Age</h2>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">15-17</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">18-25</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">25-30</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">30+</span>
-          </label>
+          <MultiCheckboxSelect
+            selectedOpts={ageFilter}
+            setSelectedOpts={setAgeFilter}
+            options={[
+              '15-17',
+              '18-25',
+              '25-30',
+              '30+'
+            ]} />
 
           {/* Location */}
           <h2 className="text-xl font-semibold mb-4">Location</h2>
@@ -71,80 +106,45 @@ export default function Buddies() {
           </label>
 
           <h2 className="text-xl font-semibold mb-4">Education Level</h2>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">High School</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">College Freshman</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">College Sophmore</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">College Junior</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">College Senior</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Masters</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">phD</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Other</span>
-          </label>
+          <MultiCheckboxSelect
+            selectedOpts={edLevelFilter}
+            setSelectedOpts={setEdLevelFilter}
+            options={[
+              'High School',
+              'College Freshman',
+              'College Sophmore',
+              'College Junior',
+              'College Senior',
+              'Masters',
+              'phD',
+              'Other'
+            ]} />
+
           <h2 className="text-xl font-semibold mb-4">Available Days</h2>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Monday</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Tuesday</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Wednesday</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Thursday</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Friday</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Saturday</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Sunday</span>
-          </label>
+          <MultiCheckboxSelect
+            selectedOpts={availableDaysFilter}
+            setSelectedOpts={setAvailableDaysFilter}
+            options={[
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday',
+              'Sunday'
+            ]} />
+
           <h2 className="text-xl font-semibold mb-4">Available Times</h2>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Morning</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Afternoon</span>
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Evening</span>
-          </label>
+          <MultiCheckboxSelect
+            selectedOpts={availableTimesFilter}
+            setSelectedOpts={setAvailableTimesFilter}
+            options={[
+              'Morning',
+              'Afternoon',
+              'Evening'
+            ]} />
+
+
           <h2 className="text-xl font-semibold mb-4">Language</h2>
           <label className="flex items-center">
             <input type="checkbox" className="form-checkbox text-indigo-600" />
