@@ -52,6 +52,11 @@ export default function RegistrationForm() {
     setAge(e.target.value);
   };
 
+  const handleStudyHabitChange = (e) => {
+    setStudy_habits(e.target.value);
+  };
+
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -258,7 +263,7 @@ export default function RegistrationForm() {
                     value={photo}
                     type="text"
                     name="photo"
-                    placeholder="Photo"
+                    placeholder="Photo URL"
                     onChange={(e) => setPhoto(e.target.value)}
                   />
                   <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -324,7 +329,7 @@ export default function RegistrationForm() {
               >
                 Education
               </label>
-              <select
+              <input
                 id="education"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 value={education}
@@ -332,14 +337,14 @@ export default function RegistrationForm() {
                 name="education"
                 placeholder="Education"
                 onChange={(e) => setEducation(e.target.value)}
-              >
-                <option value="">Select Education</option>
+              />
+              {/* <option value="">Select Education</option>
                 {educationOptions.map((option, index) => (
                   <option key={index} value={option}>
                     {option}
                   </option>
-                ))}
-              </select>
+                ))} */}
+              {/* </select> */}
               <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                   <label
@@ -416,15 +421,22 @@ export default function RegistrationForm() {
                   >
                     Study Habits
                   </label>
-                  <input
+                  <select
                     id="study_habits"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     value={study_habits}
                     type="text"
                     name="study_habits"
                     placeholder="Study Habits"
-                    onChange={(e) => setStudy_habits(e.target.value)}
-                  />
+                    onChange={handleStudyHabitChange}
+                    required
+                  >
+                    <option value="">Select Study Habit</option>
+                    <option value="High School">Chill</option>
+                    <option value="College Freshman">Semi-Chill</option>
+                    <option value="College Sophomore">Semi-Grind</option>
+                    <option value="College Junior">Grind</option>
+                  </select>
                 </div>
               </div>
               <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
@@ -558,14 +570,14 @@ export default function RegistrationForm() {
               </div>
             </div>
           </div>
-          <br />
-          <div class="mt-6 flex items-center justify-end gap-x-6"></div>
+          <div class="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="submit"
-            className="inline-flex justify-center rounded-md bg-indigo-400 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="inline-flex justify-center rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Submit
           </button>
+          </div>
         </form>
       </section>
     </div>

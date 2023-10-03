@@ -22,6 +22,10 @@ export default function NewEventForm() {
     setTimezone(e.target.value);
   };
 
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -72,11 +76,11 @@ export default function NewEventForm() {
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     id="title"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={title}
                     type="text"
                     name="title"
-                    placeholder="  Title"
+                    placeholder="Title"
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
@@ -96,7 +100,7 @@ export default function NewEventForm() {
                   value={topic}
                   type="text"
                   name="topic"
-                  placeholder="Topic"
+                  placeholder="Subject"
                   onChange={(e) => setTopic(e.target.value)}
                 />
               </div>
@@ -135,81 +139,76 @@ export default function NewEventForm() {
               >
                 Address
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              <input
+                id="address"
+                className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={address}
+                type="text"
+                name="address"
+                placeholder="Address"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                  htmlFor="location"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+                >
+                  Location
+                </label>
+                <div className="mt-2 sm:col-span-2 sm:mt-0">
                   <input
-                    id="address"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    value={address}
+                    id="location"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    value={location}
                     type="text"
-                    name="address"
-                    placeholder="  Address"
-                    onChange={(e) => setAddress(e.target.value)}
+                    name="location"
+                    placeholder="Location"
+                    onChange={(e) => setLocation(e.target.value)}
                   />
                 </div>
               </div>
-              <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
-                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-                  <label
-                    htmlFor="location"
-                    className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-                  >
-                    Location
-                  </label>
-                  <div className="mt-2 sm:col-span-2 sm:mt-0">
-                    <input
-                      id="location"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      value={location}
-                      type="text"
-                      name="location"
-                      placeholder="Location"
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
+
               <div className="mt-10 space-y-10 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
-                <fieldset>
-                  <legend className="sr-only">By Email</legend>
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-6">
-                    <div
-                      className="text-sm font-semibold leading-6 text-gray-900"
-                      aria-hidden="true"
-                    >
-                      Is this a virtual event?
-                    </div>
-                    <div className="mt-4 sm:col-span-2 sm:mt-0">
-                      <div className="max-w-lg space-y-6">
-                        <div className="relative flex gap-x-3">
-                          <div className="flex h-6 items-center">
-                            <input
-                              id="virtual"
-                              className="newEventForm_virtual"
-                              value={virtual}
-                              type="checkbox"
-                              name="virtual"
-                              placeholder="Virtual"
-                              onChange={(e) => setVirtual(e.target.checked)}
-                            />
-                          </div>
-                          <div className="text-sm leading-6">
-                            <label
-                              htmlFor="comments"
-                              className="font-small text-gray-900"
-                            >
-                              Please check here if this is a virtual event
-                            </label>
-                          </div>
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-6">
+                  <div
+                    className="text-sm font-medium leading-6 text-gray-900"
+                    aria-hidden="true"
+                  >
+                    Is this a virtual event?
+                  </div>
+                  <div className="mt-4 sm:col-span-2 sm:mt-0">
+                    <div className="max-w-lg space-y-6">
+                      <div className="relative flex gap-x-3">
+                        <div className="flex h-6 items-center">
+                          <input
+                            id="virtual"
+                            className="h-4 w-4 rounded border-gray-600 text-indigo-600 focus:ring-indigo-600"
+                            value={virtual}
+                            type="checkbox"
+                            name="virtual"
+                            placeholder="Virtual"
+                            onChange={(e) => setVirtual(e.target.checked)}
+                          />
+                        </div>
+                        <div className="text-sm leading-6">
+                          <label
+                            htmlFor="virtual_comment"
+                            className="font-small text-gray-900"
+                          >
+                            Please check here if this is a virtual event
+                          </label>
                         </div>
                       </div>
                     </div>
                   </div>
-                </fieldset>
+                </div>
+
                 <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
                   <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                     <label
-                      htmlFor="location"
+                      htmlFor="datetime"
                       className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                     >
                       Date & Time
@@ -218,7 +217,7 @@ export default function NewEventForm() {
                       <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"></div>
                       <input
                         id="datetime"
-                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         value={datetime}
                         type="datetime-local"
                         name="datetime"
@@ -256,62 +255,125 @@ export default function NewEventForm() {
                     </select>
                   </div>
                 </div>
-                <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+                <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
                   <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                     <label
-                      htmlFor="location"
+                      htmlFor="duration(mins)"
                       className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                     >
-                      Duration (mins)
+                      Duration (Mins)
                     </label>
-                    <input
-                      id="duration"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      value={duration}
-                      type="integer"
-                      name="duration"
-                      placeholder="Duration (mins)"
-                      onChange={(e) => setDuration(e.target.value)}
-                    />
+                    <div className="mt-2 sm:col-span-2 sm:mt-0">
+                      <input
+                        id="duration"
+                        className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                        value={duration}
+                        type="integer"
+                        name="duration"
+                        placeholder="Duration (Mins)"
+                        onChange={(e) => setDuration(e.target.value)}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <h5>Group?</h5>
-          <input
-            id="group"
-            className="newEventForm_group"
-            value={group}
-            type="checkbox"
-            name="group"
-            placeholder="Group"
-            onChange={(e) => setGroup(e.target.checked)}
-          />
 
-          <h5>Gender</h5>
-          <input
-            id="gender"
-            className="newEventForm_gender"
-            value={gender}
-            type="text"
-            name="gender"
-            placeholder="Gender"
-            onChange={(e) => setGender(e.target.value)}
-          />
+          <h2 className="text-base font-semibold leading-7 text-gray-900">
+            Event Preferences
+          </h2>
 
-          <h5>Comments</h5>
-          <input
-            id="comments"
-            className="newEventForm_comments"
-            value={comments}
-            type="text"
-            name="comments"
-            placeholder="Comments"
-            onChange={(e) => setComments(e.target.value)}
-          />
-          <br />
-          <button type="submit">Submit</button>
+          <div className="mt-10 space-y-10 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-6">
+              <div
+                className="text-sm font-medium leading-6 text-gray-900"
+                aria-hidden="true"
+              >
+                Is this a group event?
+              </div>
+              <div className="mt-4 sm:col-span-2 sm:mt-0">
+                <div className="max-w-lg space-y-6">
+                  <div className="relative flex gap-x-3">
+                    <div className="flex h-6 items-center">
+                      <input
+                        id="group"
+                        className="h-4 w-4 rounded border-gray-600 text-indigo-600 focus:ring-indigo-600"
+                        value={group}
+                        type="checkbox"
+                        name="group"
+                        placeholder="Group"
+                        onChange={(e) => setGroup(e.target.checked)}
+                      />
+                      <div className="text-sm leading-6">
+                        <label
+                          htmlFor="group_comment"
+                          className="font-small pl-3 text-gray-900"
+                        >
+                          Please check here if this is a group event
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-10 space-y-10 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                  htmlFor="gender"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+                >
+                 Preferred Gender
+                </label>
+                <div className="mt-2 sm:col-span-2 sm:mt-0">
+                  <select
+                    id="gender"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    value={gender}
+                    type="text"
+                    name="gender"
+                    placeholder="Gender"
+                    onChange={handleGenderChange}
+                    required
+                  >
+                    <option value="">Select PreferredGender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-Binary">Non-Binary</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="comment"
+                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              >
+                Comments
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <textarea
+                  id="comments"
+                  className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={comments}
+                  type="text"
+                  name="comments"
+                  placeholder="Comments"
+                  onChange={(e) => setComments(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 flex items-center justify-center gap-x-6">
+          <button
+            type="submit"
+            className="inline-flex justify-center rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Submit
+          </button>
+          </div>
         </form>
       </section>
     </div>
