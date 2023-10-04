@@ -22,9 +22,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Grinding studying",
-    major: "Psychology",
-    age: "18-25",
+    study_habits: "Semi-Chill",
+    major: "Finance",
+    age: "18-24",
     work: null,
   },
   {
@@ -47,9 +47,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Semi-relaxed",
+    study_habits: "Grind",
     major: "Biology",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -73,9 +73,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Committed studying",
+    study_habits: "Semi-Grind",
     major: "Computer Science",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -98,9 +98,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Committed studying",
+    study_habits: "Semi-Chill",
     major: "Psychology",
-    age: "25-30",
+    age: "25-29",
     work: null,
   },
   {
@@ -123,9 +123,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Committed studying",
+    study_habits: "Semi-Grind",
     major: "Engineering",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -148,9 +148,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Relaxed",
+    study_habits: "Chill",
     major: "Business Administration",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -172,9 +172,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Relaxed",
+    study_habits: "Chill",
     major: "Political Science",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -197,9 +197,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Committed studying",
-    major: "Humanities",
-    age: "25-30",
+    study_habits: "Grind",
+    major: "Chemistry",
+    age: "24-29",
     work: null,
   },
   {
@@ -221,9 +221,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English", "German"],
-    study_habits: "Committed studying",
-    major: "English Literature",
-    age: "18-25",
+    study_habits: "Semi-Grind",
+    major: "Anthropology",
+    age: "18-24",
     work: null,
   },
   {
@@ -245,9 +245,9 @@ const users = [
     photo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     languages: ["English"],
-    study_habits: "Semi-relaxed",
-    major: "English Literature",
-    age: "18-25",
+    study_habits: "Semi-Chill",
+    major: "English",
+    age: "18-24",
     work: null,
   },
 ];
@@ -358,7 +358,7 @@ const events = [
     timezone: "EST",
     virtual: true,
     comments: "I can't wait to attend!",
-    topic: "Social Science",
+    topic: "Mathematics",
     duration: 90,
     gender: null,
     group: true,
