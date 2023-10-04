@@ -273,6 +273,8 @@ export default function NewEventForm() {
                         className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         value={duration}
                         type="number"
+                        min="0"
+                        step="5"
                         name="duration"
                         placeholder="Duration (Mins)"
                         onChange={(e) => setDuration(e.target.value)}
