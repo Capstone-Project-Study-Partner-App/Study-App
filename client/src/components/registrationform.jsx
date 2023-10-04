@@ -349,8 +349,8 @@ export default function RegistrationForm() {
                   >
                     <option value="">Select Age</option>
                     <option value="15-17">15-17</option>
-                    <option value="18-25">18-25</option>
-                    <option value="26-30">26-30</option>
+                    <option value="18-25">18-24</option>
+                    <option value="26-30">25-29</option>
                     <option value="30+">30+</option>
                   </select>
                 </div>
