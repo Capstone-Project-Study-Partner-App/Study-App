@@ -30,6 +30,7 @@ export default function Profile() {
   return (
     <div>
       <div className="flex">
+      {console.log('profile: ', user)}
         {user.email}
         {user.first_name}
         {user.last_name}

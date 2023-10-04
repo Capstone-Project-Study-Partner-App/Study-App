@@ -29,7 +29,7 @@ function undefinedIfEmpty(arr) {
   return arr;
 }
 
-export default function Buddies() {
+export default function Buddies({current_user}) {
   const [ageFilter, setAgeFilter] = useState([]);
   const [edLevelFilter, setEdLevelFilter] = useState([]);
   const [availableDaysFilter, setAvailableDaysFilter] = useState([]);
@@ -37,12 +37,12 @@ export default function Buddies() {
 
   const [allUsers, setAllUsers] = useState([]);
   const navigate = useNavigate();
-  const [sender, setSender] = useState();
-  const [receiver, setReceiver] = useState(null);
   const [thread_id, setThreadId] = useState(null);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [existingThread, setExistingThread] = useState(null);
+
 
   const updateMessages = (newMessage) => {
     setMessages([...messages, newMessage]);
@@ -52,6 +52,7 @@ export default function Buddies() {
     console.log("Opening chat pop-up for user:", user.first_name);
     setSelectedUser(user);
     setIsEditFormVisible(true);
+    setThreadId(thread_id);
   }
 
 
@@ -332,8 +333,9 @@ export default function Buddies() {
     <div className="flex items-center mb-4">
     
 <MessageThread 
-
+      thread_id={existingThread}
               />
+              
          
         {/* <!-- arrow --> */}
     
@@ -348,7 +350,7 @@ export default function Buddies() {
             <NewMessage
               sender={1}
               receiver={user.user_id}
-              thread_id={thread_id}
+              thread_id={existingThread}
               updateMessages={updateMessages}
               className="w-full rounded-full border border-gray-200"
             />
@@ -362,7 +364,7 @@ export default function Buddies() {
 {/* open pop up / connect button */}
   <div className="-mt-px flex divide-x divide-gray-200">
     <div className="flex w-0 flex-1">
-      <a href="#" onClick={() => openForm(user)}
+      <a href="#" onClick={() => openForm(user, existingThread)}
         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg bg-indigo-800 border border-transparent py-4 text-sm font-semibold text-white">
         Connect
       </a>

@@ -4,6 +4,7 @@ import { getUserMessages } from "../fetching";
 import MessageThread from "./Thread";
 
 
+
 export default function AllMessages() {
     const [messages, setMessages] = useState([]);
     const [searchParam, setSearchParam] = useState("");
@@ -50,30 +51,34 @@ export default function AllMessages() {
   
     const mostRecentMessages = getMostRecentMessages();
   
-    const messagesToDisplay = searchParam
-      ? mostRecentMessages.filter((message) =>
-          message.sender_first_name.toLowerCase().includes(searchParam)
-        )
-      : mostRecentMessages;
+    // const messagesToDisplay = searchParam
+    //   ? mostRecentMessages.filter((message) =>
+    //       message.sender_first_name.toLowerCase().includes(searchParam)
+    //     )
+    //   : mostRecentMessages;
 
   return (
 
-<div className="container mx-auto shadow-lg rounded-lg">
+<div className="shadow-lg rounded-lg">
         {/* <!-- headaer --> */}
-    <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2">
-      <div className="font-semibold text-2xl  text-gray-500">Messages:</div>
+    <div className="px-5 py-5 flex justify-between items-center bg-indigo-600 border-b-2">
+      <div className="font-semibold text-2xl  text-white">Messages:</div>
 
       <div
-        className="h-12 w-12 p-2 bg-yellow-500 rounded-full text-white font-semibold flex items-center justify-center"
+        className="h-12  p-2 rounded-full text-white font-semibold flex items-center justify-center"
       >
-        RA
+                            <img
+                      className="object-cover h-10 w-12"
+                      src="https://cdn-icons-png.flaticon.com/512/8080/8080565.png"
+                      alt=""
+                    />
       </div>
     </div>
     {/* <!-- end header -->
     <!-- Chatting --> */}
     <div className="flex flex-row justify-between bg-white">
       {/* <!-- chat list --> */}
-      <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto  h-[500px]">
+      <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto  h-[550px]">
         {/* <!-- search compt --> */}
         <div className="border-b-2 py-4 px-2">
           <input
@@ -87,28 +92,30 @@ export default function AllMessages() {
         {/* <!-- end search compt -->
         <!-- user list / messages.jsx--> */}
         <div
-          className="flex flex-col py-4 px-2 overflow-y-auto justify-center items-center border-b-2"
+          className="flex flex-col py-4 px-2 overflow-y-auto justify-center items-center border-b-2 h-full"
         >
             {error && <p>{error}</p>}
             
-
             {messages.map((message) => (
-          <><div className="w-1/4" 
-          key={message.message_id}
-          onClick={() => handleMessageClick(message)}>
-            <img
-              src={message.sender_photo}
-              className="object-cover h-12 w-12 rounded-full"
-              alt=""
-            />
-          </div>
-          <div className="w-full odd:bg-white even:bg-slate-50"
-          onClick={() => handleMessageClick(message)}>
-            <div className="text-lg font-semibold text-gray-500">{message.sender_first_name}:</div>
-            <span className="text-gray-500 ">{message.message_content}</span>
-          </div>
-          </>
-          ))}
+  <div
+    key={message.message_id}
+    className="w-full  odd:bg-white even:bg-slate-50 flex items-center space-x-2 cursor-pointer"
+    onClick={() => handleMessageClick(message)}
+  >
+    <div className="w-1/4 flex items-center space-x-2 cursor-pointer">
+      <img
+        src={message.sender_photo}
+        className="object-cover h-12 w-12 rounded-full"
+        alt=""
+      />
+    </div>
+    <div className="text-md font-semibold text-gray-500">
+      {message.sender_first_name}:
+    </div>
+    <span className="truncate ... text-sm text-gray-500">{message.message_content}</span>
+  </div>
+))}
+
         </div>
         {/* <!-- end user list --> */}
       </div>
@@ -118,7 +125,6 @@ export default function AllMessages() {
       {selectedMessage && (
             <MessageThread 
             selectedMessage={selectedMessage}
-            loggedInUserId={1}
              />
           )}
       </div>

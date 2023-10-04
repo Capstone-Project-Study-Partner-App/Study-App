@@ -486,14 +486,6 @@ const messages = [
     thread_id: 14,
   },
   {
-    id: 8,
-    sender: 3,
-    receiver: 1,
-    message_content:
-      "I would love to work with you on studying history. We can share notes and discuss important events.",
-    thread_id: 19,
-  },
-  {
     id: 9,
     sender: 1,
     receiver: 3,

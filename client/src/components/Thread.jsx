@@ -5,7 +5,7 @@ import NewMessage from "./NewMessage";
 
 
 
-export default function MessageThread({selectedMessage, loggedInUserId}) {
+export default function MessageThread({selectedMessage}) {
   const { id } = useParams();
   // console.log("thread_id extracted from URL:", thread_id);
   const [messages, setMessages] = useState([]);
@@ -79,7 +79,7 @@ export default function MessageThread({selectedMessage, loggedInUserId}) {
 
 <div className="py-5">
            <NewMessage
-          sender={loggedInUserId}
+          sender={1}
           thread_id={selectedMessage.thread_id}
           receiver={receiver}
           updateMessages={updateMessages}
