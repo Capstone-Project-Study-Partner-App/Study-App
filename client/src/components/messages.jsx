@@ -14,7 +14,6 @@ export default function AllMessages() {
     
       setSelectedMessage(message);
     };
-  
     useEffect(() => {
       async function getAllMessages() {
         try {
@@ -39,28 +38,25 @@ export default function AllMessages() {
           messageMap.set(message.thread_id, message);
         } else {
           const existingMessage = messageMap.get(message.thread_id);
-          if (message.date_sent > existingMessage.date_sent) {
+          if (message.created_at > existingMessage.created_at) {
             messageMap.set(message.thread_id, message);
           }
         }
       }
   
       return Array.from(messageMap.values());
+
     };
   
     const mostRecentMessages = getMostRecentMessages();
   
     const messagesToDisplay = searchParam
       ? mostRecentMessages.filter((message) =>
-          message.receiver_first_name.toLowerCase().includes(searchParam)
+          message.sender_first_name.toLowerCase().includes(searchParam)
         )
-      : mostRecentMessages
-
+      : mostRecentMessages;
 
   return (
-
-
-
 
 <div className="container mx-auto shadow-lg rounded-lg">
         {/* <!-- headaer --> */}
@@ -94,6 +90,7 @@ export default function AllMessages() {
           className="flex flex-col py-4 px-2 overflow-y-auto justify-center items-center border-b-2"
         >
             {error && <p>{error}</p>}
+            
 
             {messages.map((message) => (
           <><div className="w-1/4" 
@@ -105,60 +102,31 @@ export default function AllMessages() {
               alt=""
             />
           </div>
-          <div className="w-full"
+          <div className="w-full odd:bg-white even:bg-slate-50"
           onClick={() => handleMessageClick(message)}>
             <div className="text-lg font-semibold text-gray-500">{message.sender_first_name}:</div>
-            <span className="text-gray-500">{message.message_content}</span>
+            <span className="text-gray-500 ">{message.message_content}</span>
           </div>
           </>
           ))}
         </div>
-      
         {/* <!-- end user list --> */}
       </div>
       {/* <!-- end chat list -->
       <!-- message thread--> */}
-      <div className="w-full px-5 flex flex-col justify-between">
-        <div className="flex flex-col mt-5">
-          <div className="flex justify-end mb-4">
-            <div
-              className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-            >
-              blah blah blah !
-            </div>
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              className="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-          </div>
-          <div className="flex justify-start mb-4">
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              className="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-            <div
-              className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-            >
-              xoxo 
-            </div>
-          </div>
-        </div>
-{/* ---------new message compoent--------- */}
-        <div className="py-5">
-          <input
-            className="w-full bg-gray-300 py-5 px-3 rounded-xl"
-            type="text"
-            placeholder="type your message here..."
-          />
-        </div>
+      <div className="w-full px-5 flex flex-col justify-between ">
+      {selectedMessage && (
+            <MessageThread 
+            selectedMessage={selectedMessage}
+            loggedInUserId={1}
+             />
+          )}
       </div>
       {/* <!-- end message -->
     profile info */}
       <div className="w-2/5 border-l-2 px-5">
         <div className="flex flex-col">
-          <div className="font-semibold text-xl py-4 text-gray-500">profile</div>
+          <div className="font-semibold text-xl py-4 text-gray-500">user first name</div>
           <img
             src="https://source.unsplash.com/L2cxSuKWbpo/600x600"
             className="object-cover rounded-xl h-64"

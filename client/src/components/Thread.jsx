@@ -5,7 +5,7 @@ import NewMessage from "./NewMessage";
 
 
 
-export default function MessageThread() {
+export default function MessageThread({selectedMessage, loggedInUserId}) {
   const { id } = useParams();
   // console.log("thread_id extracted from URL:", thread_id);
   const [messages, setMessages] = useState([]);
@@ -18,16 +18,16 @@ export default function MessageThread() {
   useEffect(() => {
     async function getMessageThread() {
       try {
-        const response = await getMessagesByThread(id);
+        if (selectedMessage) {
+        const response = await getMessagesByThread(selectedMessage.thread_id);
         if (response) {
           setMessages(response);
-
+        }
           const lastMessage = response[response.length - 1];
           if (lastMessage) {
             setSender(lastMessage.sender);
             setReceiver(lastMessage.receiver);
           }
-
         } else {
           setError("Failed to fetch messages");
         }
@@ -37,44 +37,18 @@ export default function MessageThread() {
       }
     }
     getMessageThread();
-  }, [id]);
+  }, [selectedMessage]);
 
+  const updateMessages = (newMessage) => {
+    setMessages([...messages, newMessage]);
+  };
 
   if (messages.length === 0) {
     return <p>No messages found.</p>;
   }
-  console.log("thread_id:", id);
+  console.log("thread_id:", selectedMessage.thread_id);
 
   return (
-    // <div className="thread-container">
-    //   <div className="thread">
-    //     {error && <p>{error}</p>}
-
-    //     <h3>message thread:</h3>
-
-    //     {/* <Link to="/messages/new">Send a message</Link> */}
-
-    //     {messages.map((message) => (
-
-    //       <div key={message.message_id}>
-    //         {console.log('chat with: ', message.sender_first_name)}
-    //         <p>
-    //           <Link to={`/users/${message.sender}`}>
-    //             <img src={message.sender_photo} id="chat-profile-pic" style={{ width: '100px' }} />
-    //           </Link>
-    //         </p>
-    //         <b>{message.sender_first_name}:</b> {message.message_content}
-
-    //       </div>
-    //     ))}
-    //     <NewMessage
-    //       sender={11}
-    //       thread_id={id}
-    //       receiver={receiver}
-    //     />
-    //   </div>
-
-    // </div>
     <div className="w-full px-5 flex flex-col justify-between">
       <div className="flex flex-col mt-5">
         {messages.map((message) => (
@@ -103,13 +77,14 @@ export default function MessageThread() {
           </div>
         ))}
 
-        <div className="py-5">
-          <input
-            className="w-full bg-gray-300 py-5 px-3 rounded-xl"
-            type="text"
-            placeholder="Type your message here..."
-          />
-        </div>
+<div className="py-5">
+           <NewMessage
+          sender={loggedInUserId}
+          thread_id={selectedMessage.thread_id}
+          receiver={receiver}
+          updateMessages={updateMessages}
+        />
+      </div>
       </div>
     </div>
   );

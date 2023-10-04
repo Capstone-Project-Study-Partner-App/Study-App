@@ -3,6 +3,7 @@ import { AuthError, getUsersMatchingFilters } from "../fetching";
 import { Link, useNavigate } from "react-router-dom"; // Import Link
 import { LOGIN_ROUTE } from "./login";
 import NewMessage from "./NewMessage";
+import MessageThread from "./Thread";
 
 function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
   return (<>
@@ -41,8 +42,11 @@ export default function Buddies() {
   const [thread_id, setThreadId] = useState(null);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [messages, setMessages] = useState([]);
 
-
+  const updateMessages = (newMessage) => {
+    setMessages([...messages, newMessage]);
+  };
   // Function to open the pop-up
   function openForm(user) {
     console.log("Opening chat pop-up for user:", user.first_name);
@@ -302,11 +306,11 @@ export default function Buddies() {
         <div className="flex items-center justify-between border-b p-2">
 
           <div className="flex items-center">
-{/* close chat */}
+{/* close chat window */}
           <button 
           onClick={() => closeForm(user)}
-          class="inline-flex hover:bg-indigo-50 rounded-full p-2 right-0 absolute" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          className="inline-flex hover:bg-indigo-50 rounded-full p-2 right-0 absolute" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
@@ -320,12 +324,32 @@ export default function Buddies() {
              
             </div>
           </div>
+{/* message thread          */}
+
+<div className="flex-1 px-4 py-4 overflow-y-auto">
+
+
+    <div className="flex items-center mb-4">
+    
+<MessageThread 
+
+              />
+         
+        {/* <!-- arrow --> */}
+    
+
+      </div>
+    </div>
+ 
+
+{/* chat input / new message */}
           <div style={{ position: 'absolute', bottom: '0' }}>
           {user ? (
             <NewMessage
               sender={1}
               receiver={user.user_id}
               thread_id={thread_id}
+              updateMessages={updateMessages}
               className="w-full rounded-full border border-gray-200"
             />
           ) : null}
@@ -335,7 +359,7 @@ export default function Buddies() {
     </div>
   ) : null}
 
-
+{/* open pop up / connect button */}
   <div className="-mt-px flex divide-x divide-gray-200">
     <div className="flex w-0 flex-1">
       <a href="#" onClick={() => openForm(user)}
