@@ -56,8 +56,8 @@ export default function MessageThread({selectedMessage}) {
             key={message.message_id}
             className={`${
               message.sender === sender
-                ? "justify-end"
-                : "justify-start"
+                ? "flex-row-reverse"
+                : "flex-row"
             } mb-4 flex`}
           >
             <img

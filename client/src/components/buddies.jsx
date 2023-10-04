@@ -29,7 +29,7 @@ function undefinedIfEmpty(arr) {
   return arr;
 }
 
-export default function Buddies({current_user}) {
+export default function Buddies() {
   const [ageFilter, setAgeFilter] = useState([]);
   const [edLevelFilter, setEdLevelFilter] = useState([]);
   const [availableDaysFilter, setAvailableDaysFilter] = useState([]);
@@ -40,6 +40,7 @@ export default function Buddies({current_user}) {
   const [thread_id, setThreadId] = useState(null);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null)
   const [messages, setMessages] = useState([]);
   const [existingThread, setExistingThread] = useState(null);
 
@@ -332,12 +333,14 @@ export default function Buddies({current_user}) {
 
     <div className="flex items-center mb-4">
     
-<MessageThread 
-      thread_id={existingThread}
-              />
+    {isEditFormVisible && selectedMessage && (
+            <MessageThread 
+            selectedMessage={selectedMessage}
+            className="absolute inset-x-0 bottom-0 h-16 ..."
+            />
               
          
-        {/* <!-- arrow --> */}
+        )}
     
 
       </div>

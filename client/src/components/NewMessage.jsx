@@ -32,6 +32,7 @@ export default function NewMessage({sender, receiver, thread_id, updateMessages}
                 data = await createMessage(sender, receiver, message_content,)
             }
                 console.log("message sent:", data);
+                setMessageContent("");
                 // navigate(`/:id/messages`);
                    
         } catch (error) {
