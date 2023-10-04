@@ -312,3 +312,27 @@ export async function getMessagesByThread(thread_id) {
     return error;
   }
 }
+
+const educationURL = 'https://parseapi.back4app.com/classes/University?limit=0&keys=name';
+
+export async function getEducation (){
+  const educationOption = {
+    method: 'GET',
+    headers: {
+      'X-Parse-Application-Id': 'Ipq7xXxHYGxtAtrDgCvG0hrzriHKdOsnnapEgcbe',
+      'X-Parse-Master-Key': 'HNodr26mkits5ibQx2rIi0GR9pVCwOSEAkqJjgVp'
+    }
+  };
+  
+  try {
+    const response = await fetch(educationURL, educationOption);
+    const result = await response.text();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+
+
