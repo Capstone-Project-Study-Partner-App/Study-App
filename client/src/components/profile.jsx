@@ -29,7 +29,7 @@ export default function Profile() {
   }
 
   return (
-    <form>
+    <form className="profile">
       <div className="space-y-12 sm:space-y-16">
         <div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">

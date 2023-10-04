@@ -76,6 +76,12 @@ button:focus-visible {
   padding-bottom:1em
 }
 
+.profile{
+  padding-top:1em;
+  padding-left:2em;
+  padding-bottom:1em
+}
+
 #days_available {
   border: 1px solid #e2e8f0; 
   box-shadow: none; 
