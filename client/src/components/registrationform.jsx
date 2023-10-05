@@ -22,11 +22,11 @@ export default function RegistrationForm() {
   const [education_level, setEducation_level] = useState("");
   const [classes, setClasses] = useState("");
   const [days_available, setDays_available] = useState([]);
-  const [times_available, setTimes_available] = useState("");
+  const [times_available, setTimes_available] = useState([]);
   const [timezone, setTimezone] = useState("");
   const [interests, setInterests] = useState("");
   const [photo, setPhoto] = useState("");
-  const [languages, setLanguages] = useState("");
+  const [languages, setLanguages] = useState([]);
   const [study_habits, setStudy_habits] = useState("");
   const [major, setMajor] = useState("");
   const [age, setAge] = useState("");
@@ -50,18 +50,9 @@ export default function RegistrationForm() {
     setMajor(e.target.value);
   };
 
-  // const handleDaysAvailableChange = (e) => {
-  //   const selectedDayOptions=Array.from (e.target.selectedDayOptions,(option)=>option.value)
-  //   setDays_available(selectedDayOptions);
-  // };
-
-  const handleTimesAvailableChange = (e) => {
-    setTimes_available(e.target.value);
-  };
-
-  function handleTimezoneSelect (data) {
+  function handleTimezoneSelect(data) {
     setSelectedTimezoneOptions(data);
-  };
+  }
 
   const timezonesOptions = [
     { value: "HST", label: "HST" },
@@ -84,9 +75,12 @@ export default function RegistrationForm() {
     setLanguages(e.target.value);
   };
 
-  // function handleDaySelect(data) {
-  //   setSelectedDayOptions(data);
-  // }
+  const times = [
+    { value: "Morning", label: "Morning" },
+    { value: "Afternoon", label: "Afternoon" },
+    { value: "Evening", label: "Evening" },
+    { value: "Night", label: "Night" },
+  ];
 
   const days = [
     { value: "Monday", label: "Monday" },
@@ -96,6 +90,15 @@ export default function RegistrationForm() {
     { value: "Friday", label: "Friday" },
     { value: "Saturday", label: "Saturday" },
     { value: "Sunday", label: "Sunday" },
+  ];
+
+  const language_selection = [
+    { value: "English", label: "English" },
+    { value: "Spanish", label: "Spanish" },
+    { value: "Mandarin", label: "Mandarin" },
+    { value: "French", label: "French" },
+    { value: "Arabic", label: "Arabic" },
+    { value: "Other", label: "Other" },
   ];
 
   async function handleSubmit(e) {
@@ -114,11 +117,13 @@ export default function RegistrationForm() {
         education_level: education_level,
         classes: [classes],
         days_available: days_available.map((day_option) => day_option.value),
-        times_available: [times_available],
+        times_available: times_available.map(
+          (time_option) => time_option.value
+        ),
         timezone: timezone,
         interests: [interests],
         photo: photo,
-        languages: [languages],
+        languages: languages.map((language_option) => language_option.value),
         study_habits: study_habits,
         major: major,
         age: age,
@@ -291,7 +296,8 @@ export default function RegistrationForm() {
                     required
                   />
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Please write a few sentences about yourself.
+                    Use this space to describe who you are so buddies can get to
+                    know you better!
                   </p>
                 </div>
               </div>
@@ -369,6 +375,7 @@ export default function RegistrationForm() {
           <h2 className="text-base font-semibold leading-7 text-gray-900">
             Studying Preferences
           </h2>
+
           <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
@@ -377,23 +384,30 @@ export default function RegistrationForm() {
               >
                 Education
               </label>
-              <input
-                id="education"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                value={education}
-                type="text"
-                name="education"
-                placeholder="Education"
-                onChange={(e) => setEducation(e.target.value)}
-                required
-              />
-              {/* <option value="">Select Education</option>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <input
+                  id="education"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  value={education}
+                  type="text"
+                  name="education"
+                  placeholder="Education"
+                  onChange={(e) => setEducation(e.target.value)}
+                  required
+                />
+
+                {/* <option value="">Select Education</option>
                 {educationOptions.map((option, index) => (
                   <option key={index} value={option}>
                     {option}
                   </option>
                 ))} */}
-              {/* </select> */}
+                {/* </select> */}
+                <p className="mt-3 text-sm leading-6 text-gray-600">
+                  ex: Hillview University, The Grace Hopper Program at Full
+                  Stack Academy
+                </p>
+              </div>
             </div>
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
               <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
@@ -464,14 +478,19 @@ export default function RegistrationForm() {
                 >
                   Classes
                 </label>
-                <input
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  value={classes}
-                  type="text"
-                  name="classes"
-                  placeholder="Classes"
-                  onChange={(e) => setClasses(e.target.value)}
-                />
+                <div className="mt-2 sm:col-span-2 sm:mt-0">
+                  <input
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    value={classes}
+                    type="text"
+                    name="classes"
+                    placeholder="Classes"
+                    onChange={(e) => setClasses(e.target.value)}
+                  />
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
+                    Classes taken or are currently taking.
+                  </p>
+                </div>
               </div>
             </div>
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
@@ -523,9 +542,9 @@ export default function RegistrationForm() {
                 />
               </div>
             </div>
-           
+
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                 <label
                   htmlFor="times_available"
                   className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
@@ -533,30 +552,29 @@ export default function RegistrationForm() {
                   Times Available
                 </label>
                 <div className="times_available_box">
-
-                <select
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  value={times_available}
-                  type="text"
-                  name="times_available"
-                  placeholder="Times Available"
-                  onChange={handleTimesAvailableChange}
-                  required
-                >
-                  <option value="">Select Times Available</option>
-                  <option value="Morning">Morning</option>
-                  <option value="Afternoon">Afternoon</option>
-                  <option value="Evening">Evening</option>
-                  <option value="Night">Night</option>
-                  
-                </select>
-                <p className="mt-3 text-sm leading-6 text-gray-600" style={{ whiteSpace: 'nowrap' }}>
-                ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening (5PM-9PM), Night (9PM-5AM)
-              </p>
-              </div>
+                  <Select
+                    className="block w-full rounded-md border-0 py-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    options={times}
+                    value={times_available}
+                    type="text"
+                    name="times_available"
+                    isSearchable={true}
+                    isMulti
+                    placeholder="Select Times Available"
+                    onChange={setTimes_available}
+                    required
+                  />
+                  <p
+                    className="mt-3 text-sm leading-6 text-gray-600"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
+                    (5PM-9PM), Night (9PM-5AM)
+                  </p>
+                </div>
               </div>
             </div>
-            
+
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
               <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                 <label
@@ -606,23 +624,18 @@ export default function RegistrationForm() {
                 >
                   Languages
                 </label>
-                <select
+                <Select
                   id="languages"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  options={language_selection}
                   value={languages}
+                  isMulti
+                  isSearchable={true}
                   type="text"
                   name="languages"
                   placeholder="Languages"
-                  onChange={handleLanguageChange}
-                >
-                  <option value="">Select Language</option>
-                  <option value="English">English</option>
-                  <option value="Spanish">Spanish</option>
-                  <option value="Mandarin">Mandarin</option>
-                  <option value="French">French</option>
-                  <option value="Arabic">Arabic</option>
-                  <option value="Other">Other</option>
-                </select>
+                  onChange={setLanguages}
+                />
               </div>
             </div>
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
@@ -633,15 +646,20 @@ export default function RegistrationForm() {
                 >
                   Work
                 </label>
-                <input
-                  id="work"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  value={work}
-                  type="text"
-                  name="work"
-                  placeholder="Work"
-                  onChange={(e) => setWork(e.target.value)}
-                />
+                <div className="mt-2 sm:col-span-2 sm:mt-0">
+                  <input
+                    id="work"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    value={work}
+                    type="text"
+                    name="work"
+                    placeholder="Work"
+                    onChange={(e) => setWork(e.target.value)}
+                  />
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
+                    If applicable.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
