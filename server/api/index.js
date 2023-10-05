@@ -254,6 +254,16 @@ apiRouter.get("/thread/:id", async (req, res, next) => {
   }
 });
 
+// // Get existing thread
+apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
+  try {
+    const message = await getExistingThread(req.params.sender, req.params.receiver);
+    res.send(message);
+  } catch (error) {
+    next(error);
+  }
+});
+
 apiRouter.get("/health", (req, res, next) => {
   res.send("All healthy and ready to go!");
 });

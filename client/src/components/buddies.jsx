@@ -3,7 +3,7 @@ import { AuthError, getUsersMatchingFilters } from "../fetching";
 import { Link, useNavigate } from "react-router-dom"; // Import Link
 import { LOGIN_ROUTE } from "./login";
 import NewMessage from "./NewMessage";
-import MessageThread from "./Thread";
+import PopUpThread from "./Thread";
 
 function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
   return (<>
@@ -49,11 +49,12 @@ export default function Buddies() {
     setMessages([...messages, newMessage]);
   };
   // Function to open the pop-up
-  function openForm(user) {
+  function openForm(user, selectedMessage) {
     console.log("Opening chat pop-up for user:", user.first_name);
     setSelectedUser(user);
     setIsEditFormVisible(true);
     setThreadId(thread_id);
+    setSelectedMessage(selectedMessage);
   }
 
 
@@ -334,8 +335,10 @@ export default function Buddies() {
     <div className="flex items-center mb-4">
     
     {isEditFormVisible && selectedMessage && (
-            <MessageThread 
+            <PopUpThread 
             selectedMessage={selectedMessage}
+            selectedUser={selectedUser}
+            thread_id={thread_id}
             className="absolute inset-x-0 bottom-0 h-16 ..."
             />
               

@@ -313,6 +313,19 @@ export async function getMessagesByThread(thread_id) {
   }
 }
 
+export async function getExistingThread(sender, receiver) {
+  try {
+    const response = await fetch(`${api_root}/thread/${sender}/${receiver}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+
 const educationURL = 'https://parseapi.back4app.com/classes/University?limit=0&keys=name';
 
 export async function getEducation (){

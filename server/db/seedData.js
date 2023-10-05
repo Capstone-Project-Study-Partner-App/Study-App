@@ -58,8 +58,8 @@ const users = [
     last_name: "Nare",
     email: "bnare2@slashdot.org",
     gender: "Male",
-    // password: "1234"
-    password: "$2b$10$QkedZTdtVqVUxfjSt0nb7.fpYybM2AE157kk8YX9adypGhN3BtFEC",
+    password: "1234",
+    // password: "$2b$10$QkedZTdtVqVUxfjSt0nb7.fpYybM2AE157kk8YX9adypGhN3BtFEC",
     location: "4485-174",
     about_me:
       "I strive for academic excellence and am always eager to take on new challenges.",
