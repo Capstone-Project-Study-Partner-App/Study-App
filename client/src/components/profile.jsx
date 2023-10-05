@@ -384,6 +384,13 @@ export default function Profile() {
                   ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
                   (5PM-9PM), Night (9PM-5AM)
                 </p>
+                <p
+                  className="mt-3 text-sm leading-6 text-gray-600"
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
+                  (5PM-9PM), Night (9PM-5AM)
+                </p>
               </div>
             </div>
 
