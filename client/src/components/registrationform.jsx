@@ -32,6 +32,9 @@ export default function RegistrationForm() {
   const [age, setAge] = useState("");
   const [work, setWork] = useState("");
 
+  // const [selectedDayOptions, setSelectedDayOptions] = useState();
+  const [selectedTimezoneOptions, setSelectedTimezoneOptions] = useState();
+
   const [educationOptions, setEducationOptions] = useState([]);
 
   const navigate = useNavigate();
@@ -47,13 +50,27 @@ export default function RegistrationForm() {
     setMajor(e.target.value);
   };
 
+  // const handleDaysAvailableChange = (e) => {
+  //   const selectedDayOptions=Array.from (e.target.selectedDayOptions,(option)=>option.value)
+  //   setDays_available(selectedDayOptions);
+  // };
+
   const handleTimesAvailableChange = (e) => {
     setTimes_available(e.target.value);
   };
 
-  const handleTimezoneChange = (e) => {
-    setTimezone(e.target.value);
+  function handleTimezoneSelect (data) {
+    setSelectedTimezoneOptions(data);
   };
+
+  const timezonesOptions = [
+    { value: "HST", label: "HST" },
+    { value: "AKST", label: "AKST" },
+    { value: "PST", label: "PST" },
+    { value: "MST", label: "MST" },
+    { value: "CST", label: "CST" },
+    { value: "EST", label: "EST" },
+  ];
 
   const handleAgeChange = (e) => {
     setAge(e.target.value);
@@ -66,6 +83,10 @@ export default function RegistrationForm() {
   const handleLanguageChange = (e) => {
     setLanguages(e.target.value);
   };
+
+  // function handleDaySelect(data) {
+  //   setSelectedDayOptions(data);
+  // }
 
   const days = [
     { value: "Monday", label: "Monday" },
@@ -140,13 +161,13 @@ export default function RegistrationForm() {
                 Email
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <div className="flex rounded-md shadow-sm pl-2 ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     id="email"
                     value={email}
                     type="text"
                     name="email"
-                    placeholder="  Email"
+                    placeholder="Email"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -424,13 +445,14 @@ export default function RegistrationForm() {
                   required
                 >
                   <option value="">Select Major</option>
-                  <option value="English">English</option>
+                  <option value="Art">Art</option>
+                  <option value="Business">Business</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Foreign Language">Foreign Language</option>
+                  <option value="Literature">Literature</option>
                   <option value="Mathematics">Mathematics</option>
                   <option value="Science">Science</option>
                   <option value="Social Studies">Social Studies</option>
-                  <option value="Finance/Economics">Finance/ Economics</option>
-                  <option value="Computer Science">Computer Science</option>
-                  <option value="Business/Marketing">Business/Marketing</option>
                 </select>
               </div>
             </div>
@@ -495,20 +517,23 @@ export default function RegistrationForm() {
                   isMulti
                   type="text"
                   name="days_available"
-                  placeholder="Days Available"
+                  placeholder="Select Days Available"
                   onChange={setDays_available}
                   required
                 />
               </div>
             </div>
+           
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
-              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                 <label
                   htmlFor="times_available"
                   className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 >
                   Times Available
                 </label>
+                <div className="times_available_box">
+
                 <select
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   value={times_available}
@@ -519,13 +544,19 @@ export default function RegistrationForm() {
                   required
                 >
                   <option value="">Select Times Available</option>
-                  <option value="Morning">Morning (5AM-12PM)</option>
-                  <option value="Afternoon">Afternoon (12PM-5PM)</option>
-                  <option value="Evening">Evening (5PM-9PM)</option>
-                  <option value="Night">Night (9PM-5AM)</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="Evening">Evening</option>
+                  <option value="Night">Night</option>
+                  
                 </select>
+                <p className="mt-3 text-sm leading-6 text-gray-600" style={{ whiteSpace: 'nowrap' }}>
+                ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening (5PM-9PM), Night (9PM-5AM)
+              </p>
+              </div>
               </div>
             </div>
+            
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
               <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                 <label
@@ -534,24 +565,18 @@ export default function RegistrationForm() {
                 >
                   Time Zone
                 </label>
-                <select
+                <Select
                   id="timezone"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  value={timezone}
+                  className="block w-full rounded-md border-0 py-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  options={timezonesOptions}
+                  value={selectedTimezoneOptions}
+                  isSearchable={true}
                   type="text"
                   name="timezone"
-                  placeholder="Time Zone"
-                  onChange={handleTimezoneChange}
+                  placeholder="Select Time Zone"
+                  onChange={handleTimezoneSelect}
                   required
-                >
-                  <option value="">Select Timezone</option>
-                  <option value="Hawaii Time">Hawaii Time</option>
-                  <option value="Alaska Time">Alaska Time</option>
-                  <option value="Pacific Time">Pacific Time</option>
-                  <option value="Mountain Time">Mountain Time</option>
-                  <option value="Central Time">Central Time</option>
-                  <option value="Eastern Time">Eastern Time</option>
-                </select>
+                />
               </div>
             </div>
             <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
