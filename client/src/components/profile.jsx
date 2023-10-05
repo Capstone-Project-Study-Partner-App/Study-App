@@ -503,118 +503,117 @@ export default function Profile() {
                 <p className="mt-3 text-sm leading-6 text-gray-600">
                   Classes taken or are currently taking.
                 </p>
-             
+              </div>
             </div>
-          </div>
-          <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
-            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label
-                htmlFor="study_habits"
-                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              >
-                Study Habits
-              </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <select
-                    type="text"
-                    value={user.study_habits}
-                    name="study_habits"
-                    id="study_habits"
-                    autoComplete="study_habits"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Study Commitment"
-                  >
-                    <option value="">Select Study Commitment</option>
-                    <option value="Chill">Chill</option>
-                    <option value="Semi-Chill">Semi-Chill</option>
-                    <option value="Semi-Grind">Semi-Grind</option>
-                    <option value="Grind">Grind</option>
-                  </select>
+            <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                  htmlFor="study_habits"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+                >
+                  Study Habits
+                </label>
+                <div className="mt-2 sm:col-span-2 sm:mt-0">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <select
+                      type="text"
+                      value={user.study_habits}
+                      name="study_habits"
+                      id="study_habits"
+                      autoComplete="study_habits"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      placeholder="Study Commitment"
+                    >
+                      <option value="">Select Study Commitment</option>
+                      <option value="Chill">Chill</option>
+                      <option value="Semi-Chill">Semi-Chill</option>
+                      <option value="Semi-Grind">Semi-Grind</option>
+                      <option value="Grind">Grind</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            {" "}
-            <label
-              htmlFor="interests"
-              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            >
-              Interests
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
-                  type="text"
-                  value={user.interests}
-                  name="interests"
-                  id="interests"
-                  autoComplete="interest"
-                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  placeholder="Interests"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              {" "}
               <label
-                htmlFor="languages"
+                htmlFor="interests"
                 className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               >
-                Languages
+                Interests
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <select
+                  <input
                     type="text"
-                    value={user.languages}
-                    name="languages"
-                    id="language"
-                    autoComplete="language"
+                    value={user.interests}
+                    name="interests"
+                    id="interests"
+                    autoComplete="interest"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="languages"
-                    onChange={handleLanguageChange}
-                  >
-                    <option value="">Select Language</option>
-                    <option value="English">English</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="Mandarin">Mandarin</option>
-                    <option value="French">French</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    placeholder="Interests"
+                  />
                 </div>
               </div>
             </div>
-          </div>
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label
-              htmlFor="work"
-              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            >
-              Work
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
-                  type="text"
-                  value={user.work}
-                  name="work"
-                  id="work"
-                  autoComplete="work"
-                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  placeholder="Work"
-                />
+            <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                  htmlFor="languages"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+                >
+                  Languages
+                </label>
+                <div className="mt-2 sm:col-span-2 sm:mt-0">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <select
+                      type="text"
+                      value={user.languages}
+                      name="languages"
+                      id="language"
+                      autoComplete="language"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      placeholder="languages"
+                      onChange={handleLanguageChange}
+                    >
+                      <option value="">Select Language</option>
+                      <option value="English">English</option>
+                      <option value="Spanish">Spanish</option>
+                      <option value="Mandarin">Mandarin</option>
+                      <option value="French">French</option>
+                      <option value="Arabic">Arabic</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <p className="mt-3 text-sm leading-6 text-gray-600">
-                If applicable.
-              </p>
+            </div>
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="work"
+                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              >
+                Work
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    type="text"
+                    value={user.work}
+                    name="work"
+                    id="work"
+                    autoComplete="work"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="Work"
+                  />
+                </div>
+                <p className="mt-3 text-sm leading-6 text-gray-600">
+                  If applicable.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
 
       <div className="mt-6 flex items-center justify-end gap-x-6">
