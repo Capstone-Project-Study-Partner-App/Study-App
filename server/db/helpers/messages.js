@@ -50,6 +50,44 @@ const getMessageById = async (message_id) => {
   }
 };
 
+// Get Message Thread by sender & receiver
+const getExistingThread = async (sender, receiver) => {
+  try {
+    const {
+      rows: [message],
+    } = await client.query(
+      `
+      SELECT
+        m.message_id,
+        m.message_content,
+        s.user_id AS sender,
+        s.first_name AS sender_first_name,
+        s.photo AS sender_photo,
+        r.user_id AS receiver,
+        r.first_name AS receiver_first_name,
+        r.photo AS receiver_photo,
+        m.thread_id
+      FROM
+        messages m
+      INNER JOIN
+        users s ON m.sender = s.user_id
+      INNER JOIN
+        users r ON m.receiver = r.user_id
+      WHERE 
+        (m.sender = $1 AND m.receiver = $2) 
+      OR 
+          (m.sender = $2 AND m.receiver = $1)
+      ORDER BY
+          m.created_at;
+      `,
+      [sender, receiver]
+    );
+    return message;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deleteMessage = async (message_id) => {
   try {
     const result = await client.query(
@@ -95,7 +133,7 @@ const deleteMessage = async (message_id) => {
 const createMessage = async ({ sender, receiver, message_content, thread_id }) => {
   try {
     if (!thread_id) {
-      // Check if a thread already exists between sender and receiver
+      // Checks if a thread already exists between sender and receiver
       const {
         rows: [existingThread],
       } = await client.query(
@@ -111,7 +149,7 @@ const createMessage = async ({ sender, receiver, message_content, thread_id }) =
       if (existingThread) {
         thread_id = existingThread.thread_id;
       } else {
-        // If no existing thread, create a new thread_id
+        // If no existing thread, creates new thread_id
         const {
           rows: [message],
         } = await client.query('INSERT INTO messages DEFAULT VALUES RETURNING thread_id;');
@@ -138,7 +176,7 @@ const createMessage = async ({ sender, receiver, message_content, thread_id }) =
 
 const getMessagesByThread = async (thread_id) => {
   try {
-      const { rows } = await client.query(`
+    const { rows } = await client.query(`
       SELECT
       m.message_id,
       m.message_content,
@@ -161,9 +199,9 @@ const getMessagesByThread = async (thread_id) => {
       m.created_at;
       `, [thread_id]);
 
-      return rows;
+    return rows;
   } catch (error) {
-      throw error;
+    throw error;
   }
 }
 
@@ -172,5 +210,6 @@ module.exports = {
   getAllMessages,
   getMessageById,
   deleteMessage,
-  getMessagesByThread
+  getMessagesByThread,
+  getExistingThread
 };

@@ -18,7 +18,7 @@ export default function AllMessages() {
     useEffect(() => {
       async function getAllMessages() {
         try {
-          const response = await getUserMessages(1);
+          const response = await getUserMessages(3);
           setMessages(response);
           
         } catch (error) {
@@ -31,31 +31,47 @@ export default function AllMessages() {
     //   return <p>No messages found.</p>;
     // }
     //show only the most recent message of each thread
-    const getMostRecentMessages = () => {
-      const messageMap = new Map();
-  
-      for (const message of messages) {
-        if (!messageMap.has(message.thread_id)) {
-          messageMap.set(message.thread_id, message);
-        } else {
-          const existingMessage = messageMap.get(message.thread_id);
-          if (message.created_at > existingMessage.created_at) {
-            messageMap.set(message.thread_id, message);
-          }
-        }
-      }
-  
-      return Array.from(messageMap.values());
 
-    };
+
+    // const getMostRecentMessages = () => {
+    //   const messageMap = new Map();
   
-    const mostRecentMessages = getMostRecentMessages();
+    //   for (const message of messages) {
+    //     if (!messageMap.has(message.thread_id)) {
+    //       messageMap.set(message.thread_id, message);
+    //     } else {
+    //       const existingMessage = messageMap.get(message.thread_id);
+    //       if (message.created_at > existingMessage.created_at) {
+    //         messageMap.set(message.thread_id, message);
+    //       }
+    //     }
+    //   }
+  
+    //   return Array.from(messageMap.values());
+
+    // };
+  
+    // const mostRecentMessages = getMostRecentMessages();
   
     // const messagesToDisplay = searchParam
-    //   ? mostRecentMessages.filter((message) =>
-    //       message.sender_first_name.toLowerCase().includes(searchParam)
-    //     )
-    //   : mostRecentMessages;
+    // ? mostRecentMessages.filter((message) =>
+    //     message.sender_first_name.toLowerCase().includes(searchParam.toLowerCase()) ||
+    //     message.receiver_first_name.toLowerCase().includes(searchParam.toLowerCase())
+    //   )
+    // : mostRecentMessages;
+
+    const messagesToDisplay = searchParam
+    ? messages.filter(
+        (message) =>
+          message.sender_first_name
+            .toLowerCase()
+            .includes(searchParam.toLowerCase()) 
+          //   ||
+          // message.receiver_first_name
+          //   .toLowerCase()
+          //   .includes(searchParam.toLowerCase())
+      )
+    : messages;
 
     return (
       <div className="shadow-lg rounded-lg">
@@ -85,18 +101,18 @@ export default function AllMessages() {
               />
             </div>
             {/* User list / messages.jsx */}
-            <div className="flex flex-col py-4 px-2 overflow-y-auto justify-center items-center border-b-2 h-full">
+            <div className="flex flex-col px-2">
               {error && <p>{error}</p>}
-              {messages.map((message) => (
+              {messagesToDisplay.map((message) => (
                 <div
                   key={message.message_id}
                   className="w-full odd:bg-white even:bg-slate-50 flex items-center space-x-2 cursor-pointer"
                   onClick={() => handleMessageClick(message)}
                 >
-                  <div className="w-1/4 flex items-center space-x-2 cursor-pointer">
+                  <div className="w-1/4 flex items-center space-x-2 cursor-pointer py-5 px-4">
                     <img
                       src={message.sender_photo}
-                      className="object-cover h-12 w-12 rounded-full"
+                      className="object-cover rounded-full w-40 max-w-[50px] h-40 max-h-[50px]"
                       alt=""
                     />
                   </div>
