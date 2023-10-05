@@ -38,6 +38,14 @@ function undefinedIfEmpty(arr) {
   return arr;
 }
 
+function boolOrUndefined(true_value, arr) {
+  if (arr.length !== 1) {
+    return undefined;
+  } else {
+    return arr[0] === true_value;
+  }
+}
+
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
   Science:
@@ -83,8 +91,8 @@ export default function Events() {
         const events = await getEventsMatchingFilters({
           filters: {
             topic: undefinedIfEmpty(topicFilter),
-            virtual: undefinedIfEmpty(virtualFilter),
-            group: undefinedIfEmpty(groupFilter),
+            virtual: boolOrUndefined("Online", virtualFilter),
+            group: boolOrUndefined("Group Study", groupFilter),
             gender: undefinedIfEmpty(genderFilter),
             days: undefinedIfEmpty(daysFilter),
             timezone: undefinedIfEmpty(timezoneFilter),

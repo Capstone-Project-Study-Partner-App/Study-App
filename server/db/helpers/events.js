@@ -93,16 +93,19 @@ const getEventsMatchingFilters = async (filters) => {
       )}`;
     }
 
-    // for exact string match, but support multiple acceptable options
-    // we use IN expression, ie. `education_level IN ('phD', 'highschool')
-    // note you can search for exactly one match by having a list of one,
-    // ie. `education_level IN ('phD')` filters for exactly phD only.
-    if (filters.education_level) {
-      sql_command += ` AND virtual IN (${filters.virtual
-        .map(sql_param)
-        .join(", ")})`;
+    // for matching booleans
+    if (filters.virtual !== undefined) {
+      sql_command += ` AND virtual = ${sql_param(filters.virtual)}`;
     }
 
+    if (filters.group !== undefined) {
+      sql_command += ` AND "group" = ${sql_param(filters.group)}`;
+    }
+
+    // for exact string match, but support multiple acceptable options
+    // we use IN expression, ie. `gender IN ('Female', 'Non-binary')
+    // note you can search for exactly one match by having a list of one,
+    // ie. `gender IN ('Female')` filters for exactly phD only.
     if (filters.gender) {
       sql_command += ` AND gender IN (${filters.gender
         .map(sql_param)
