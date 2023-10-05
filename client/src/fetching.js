@@ -159,6 +159,31 @@ export async function getAllEvents() {
   return json;
 }
 
+// EVENT FILTERING
+export async function getEventsMatchingFilters(filters) {
+  const resp = await fetch(`${api_root}/events/search`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(filters),
+  });
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
+export async function getRsvpsForEvent(event_id) {
+  const resp = await fetch(`${api_root}/events/${event_id}/rsvps`);
+  const json = await resp.json();
+  return json;
+}
+
 export async function getEventById(user_id) {
   const resp = await fetch(`${api_root}/events/${user_id}`);
   const json = await resp.json();

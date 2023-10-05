@@ -12,7 +12,7 @@ const createEvent = async ({
   topic,
   duration,
   gender,
-  group
+  group,
 }) => {
   try {
     const {
@@ -47,7 +47,7 @@ const createEvent = async ({
         topic,
         duration,
         gender,
-        group
+        group,
       ]
     );
     return events;
@@ -62,6 +62,86 @@ const getAllEvents = async () => {
             SELECT *
             FROM events;
         `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//FILTERING SECTION
+//Get all events, with optional filtering
+const getEventsMatchingFilters = async (filters) => {
+  try {
+    let sql_command = `
+        SELECT *
+        FROM events
+        WHERE 1 = 1
+    `;
+    let params = [];
+    function sql_param(value) {
+      params.push(value);
+      return `$${params.length}`;
+    }
+
+    // for text substring match
+    // uses LIKE expression, ie. `email LIKE '%@gmail.com%'`
+    // to support lower case, we do eg. `lower(email) LIKE '%gmail.com%`
+    // Really going to be used in for the search bar feature
+    if (filters.title) {
+      sql_command += ` AND lower(title) LIKE ${sql_param(
+        `%${filters.title.toLowerCase()}%`
+      )}`;
+    }
+
+    // for exact string match, but support multiple acceptable options
+    // we use IN expression, ie. `education_level IN ('phD', 'highschool')
+    // note you can search for exactly one match by having a list of one,
+    // ie. `education_level IN ('phD')` filters for exactly phD only.
+    if (filters.education_level) {
+      sql_command += ` AND virtual IN (${filters.virtual
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.gender) {
+      sql_command += ` AND gender IN (${filters.gender
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.topic) {
+      sql_command += ` AND topic IN (${filters.topic
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.age) {
+      sql_command += ` AND group IN (${filters.group
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    if (filters.timezone) {
+      sql_command += ` AND timezone IN (${filters.timezone
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
+    // for array-of-string columns, we want to check if there's any
+    // overlap between the filter's selected options and that row's
+    // columns' values. To check overlap, we use the array-&& operator
+    // ie. `interests && ARRAY['reading', 'gardening']`
+    if (filters.days) {
+      // Assuming 'days' is an array of days of the week (e.g., ['Monday', 'Wednesday'])
+      sql_command += ` AND EXTRACT(DOW FROM datetime) IN (${filters.days
+        .map((day) => sql_param(day))
+        .join(", ")})`;
+    }
+
+    console.log("filtering");
+    console.log(sql_command);
+    console.log({ filters, params });
+    const { rows } = await client.query(sql_command, params);
     return rows;
   } catch (error) {
     throw error;
@@ -87,6 +167,25 @@ const getEventById = async (event_id) => {
   }
 };
 
+// Get RSVPs for an Event
+const getRsvpsForEvent = async (event_id) => {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT r.rsvp_id, r.rsvp_status, u.*
+      FROM rsvps AS r
+      JOIN users AS u ON r.user_id = u.user_id
+      WHERE r.event_id = $1;
+      `,
+      [event_id]
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const updateEvent = async (event_id, updatedEventData) => {
   try {
     const {
@@ -106,7 +205,7 @@ const updateEvent = async (event_id, updatedEventData) => {
         topic = $9,
         duration = $10,
         gender = $11,
-        "group" = $12
+        "group" = $12 
         WHERE event_id = $13
         RETURNING *;
         `,
@@ -123,7 +222,7 @@ const updateEvent = async (event_id, updatedEventData) => {
         updatedEventData.duration,
         updatedEventData.gender,
         updatedEventData.group,
-        event_id
+        event_id,
       ]
     );
     return event;
@@ -159,4 +258,6 @@ module.exports = {
   getEventById,
   updateEvent,
   deleteEvent,
+  getEventsMatchingFilters,
+  getRsvpsForEvent,
 };

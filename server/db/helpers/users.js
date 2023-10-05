@@ -165,6 +165,12 @@ const getUsersMatchingFilters = async (filters) => {
         .join(", ")})`;
     }
 
+    if (filters.study_habits) {
+      sql_command += ` AND study_habits IN (${filters.study_habits
+        .map(sql_param)
+        .join(", ")})`;
+    }
+
 
     // for array-of-string columns, we want to check if there's any
     // overlap between the filter's selected options and that row's
@@ -187,6 +193,13 @@ const getUsersMatchingFilters = async (filters) => {
         .map(sql_param)
         .join(", ")}]`;
     }
+
+    if (filters.languages) {
+      sql_command += ` AND languages && ARRAY[${filters.languages
+        .map(sql_param)
+        .join(", ")}]`;
+    }
+
 
 
     console.log("filtering");
