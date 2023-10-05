@@ -18,6 +18,10 @@ export default function NewEventForm() {
 
   const navigate = useNavigate();
 
+  const handleTopicChange = (e) => {
+    setTopic(e.target.value);
+  };
+
   const handleTimezoneChange = (e) => {
     setTimezone(e.target.value);
   };
@@ -95,16 +99,26 @@ export default function NewEventForm() {
                 >
                   Subject
                 </label>
-                <input
+                <select
                   id="topic"
                   className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={topic}
                   type="text"
                   name="topic"
                   placeholder="Subject"
-                  onChange={(e) => setTopic(e.target.value)}
+                  onChange={handleTopicChange}
                   required
-                />
+                >
+                  <option value="">Select Subject</option>
+                  <option value="Art">Art</option>
+                  <option value="Business">Business</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Foreign Language">Foreign Language</option>
+                  <option value="Literature">Literature</option>
+                  <option value="Mathematics">Mathematics</option>
+                  <option value="Science">Science</option>
+                  <option value="Social Studies">Social Studies</option>
+                </select>
               </div>
             </div>
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
@@ -249,13 +263,13 @@ export default function NewEventForm() {
                       onChange={handleTimezoneChange}
                       required
                     >
-                      <option value="">Select Timezone</option>
-                      <option value="Hawaii Time">Hawaii Time</option>
-                      <option value="Alaska Time">Alaska Time</option>
-                      <option value="Pacific Time">Pacific Time</option>
-                      <option value="Mountain Time">Mountain Time</option>
-                      <option value="Central Time">Central Time</option>
-                      <option value="Eastern Time">Eastern Time</option>
+                      <option value="">Select Time Zone</option>
+                      <option value="HST">HST</option>
+                      <option value="AKST">AKST</option>
+                      <option value="PST">PST</option>
+                      <option value="MST">MST</option>
+                      <option value="CST">CST</option>
+                      <option value="EST">EST</option>
                     </select>
                   </div>
                 </div>
@@ -331,7 +345,7 @@ export default function NewEventForm() {
                   htmlFor="gender"
                   className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 >
-                 Preferred Gender
+                  Preferred Gender
                 </label>
                 <div className="mt-2 sm:col-span-2 sm:mt-0">
                   <select
@@ -373,12 +387,12 @@ export default function NewEventForm() {
             </div>
           </div>
           <div class="mt-6 flex items-center justify-center gap-x-6">
-          <button
-            type="submit"
-            className="inline-flex justify-center rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Submit
-          </button>
+            <button
+              type="submit"
+              className="inline-flex justify-center rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </section>

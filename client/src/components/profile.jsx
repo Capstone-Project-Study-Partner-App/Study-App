@@ -2,10 +2,31 @@ import { useState, useEffect } from "react";
 import { AuthError, getProfile, logOutUser } from "../fetching";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "./login";
+import Select from "react-select";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  const [selectedDayOptions, setSelectedDayOptions] = useState();
+
+  function handleDaySelect(data) {
+    setSelectedDayOptions(data);
+  }
+
+  const days = [
+    { value: "Monday", label: "Monday" },
+    { value: "Tuesday", label: "Tuesday" },
+    { value: "Wednesday", label: "Wednesday" },
+    { value: "Thursday", label: "Thursday" },
+    { value: "Friday", label: "Friday" },
+    { value: "Saturday", label: "Saturday" },
+    { value: "Sunday", label: "Sunday" },
+  ];
+
+  const handleLanguageChange = (e) => {
+    setLanguages(e.target.value);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -29,7 +50,7 @@ export default function Profile() {
   }
 
   return (
-    <form>
+    <form className="profile">
       <div className="space-y-12 sm:space-y-16">
         <div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -81,7 +102,28 @@ export default function Profile() {
               </div>
             </div>
           </div>
-
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="about"
+              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+            >
+              About Me
+            </label>
+            <div className="mt-2 sm:col-span-2 sm:mt-0">
+              {/* Textarea for About */}
+              <textarea
+                id="about"
+                name="about"
+                rows={3}
+                className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                defaultValue={""}
+              />
+              <p className="mt-3 text-sm leading-6 text-gray-600">
+                Use this space to describe who you are so buddies can get to
+                know you better!
+              </p>
+            </div>
+          </div>
           <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
               <label
@@ -220,8 +262,8 @@ export default function Profile() {
                   >
                     <option value="">Select Age</option>
                     <option value="15-17">15-17</option>
-                    <option value="18-25">18-25</option>
-                    <option value="26-30">26-30</option>
+                    <option value="18-25">18-24</option>
+                    <option value="26-30">25-29</option>
                     <option value="30+">30+</option>
                   </select>
                 </div>
@@ -259,19 +301,20 @@ export default function Profile() {
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    value={user.days_available}
-                    name="days_available"
+                  <Select
                     id="days_available"
-                    autoComplete="days_available"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Days Available"
+                    className="block w-full rounded-md border-0 py-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    options={days}
+                    value={selectedDayOptions}
+                    isSearchable={true}
+                    isMulti
+                    type="text"
+                    name="days_available"
+                    placeholder="Select Days Available"
+                    onChange={handleDaySelect}
+                    required
                   />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
-                  ex: Monday, Tuesday, Wednesday
-                </p>
               </div>
             </div>
 
@@ -294,10 +337,10 @@ export default function Profile() {
                     placeholder="Times Available"
                   >
                     <option value="">Select Times Available</option>
-                    <option value="Morning">Morning (5AM-12PM)</option>
-                    <option value="Afternoon">Afternoon (12PM-5PM)</option>
-                    <option value="Evening">Evening (5PM-9PM)</option>
-                    <option value="Night">Night (9PM-5AM)</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                    <option value="Night">Night</option>
                   </select>
                 </div>
               </div>
@@ -321,15 +364,22 @@ export default function Profile() {
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     placeholder="Timezone"
                   >
-                    <option value="">Select Timezone</option>
-                    <option value="Hawaii Time">Hawaii Time</option>
-                    <option value="Alaska Time">Alaska Time</option>
-                    <option value="Pacific Time">Pacific Time</option>
-                    <option value="Mountain Time">Mountain Time</option>
-                    <option value="Central Time">Central Time</option>
-                    <option value="Eastern Time">Eastern Time</option>
+                    <option value="">Select Time Zone</option>
+                    <option value="HST">HST</option>
+                    <option value="AKST">AKST</option>
+                    <option value="PST">PST</option>
+                    <option value="MST">MST</option>
+                    <option value="CST">CST</option>
+                    <option value="EST">EST</option>
                   </select>
                 </div>
+                <p
+                  className="mt-3 text-sm leading-6 text-gray-600"
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
+                  (5PM-9PM), Night (9PM-5AM)
+                </p>
               </div>
             </div>
           </div>
@@ -339,31 +389,154 @@ export default function Profile() {
           <h2 className="text-base font-semibold leading-7 text-gray-900">
             Experience & Interests
           </h2>
+          <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="education"
+                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              >
+                Education
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    type="text"
+                    value={user.education}
+                    name="education"
+                    id="education"
+                    autoComplete="education"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="Education"
+                  />
+                </div>
+                <p className="mt-3 text-sm leading-6 text-gray-600">
+                  ex: Hillview University, The Grace Hopper Program at Full
+                  Stack Academy
+                </p>
+              </div>
+            </div>
 
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label
-              htmlFor="about"
-              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            >
-              About Me
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              {/* Textarea for About */}
-              <textarea
-                id="about"
-                name="about"
-                rows={3}
-                className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={""}
-              />
-              <p className="mt-3 text-sm leading-6 text-gray-600">
-                Use this space to describe who you are so buddies can get to
-                know you better!
-              </p>
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="education_level"
+                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              >
+                Education Level
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <select
+                    type="text"
+                    value={user.education_level}
+                    name="education_level"
+                    id="education_level"
+                    autoComplete="education_level"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="Education Level"
+                  >
+                    <option value="">Select Education Level</option>
+                    <option value="High School">High School</option>
+                    <option value="College Freshman">College Freshman</option>
+                    <option value="College Sophomore">College Sophomore</option>
+                    <option value="College Junior">College Junior</option>
+                    <option value="College Senior">College Senior</option>
+                    <option value="Masters">Masters</option>
+                    <option value="PhD">PhD</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+              <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                <label
+                  htmlFor="major"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+                >
+                  Major
+                </label>
+                <div className="mt-2 sm:col-span-2 sm:mt-0">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <select
+                      type="text"
+                      value={user.timezone}
+                      name="timezone"
+                      id="timezone"
+                      autoComplete="timezone"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      placeholder="Timezone"
+                    >
+                      <option value="">Select Major</option>
+                      <option value="Art">Art</option>
+                      <option value="Business">Business</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Foreign Language">Foreign Language</option>
+                      <option value="Literature">Literature</option>
+                      <option value="Mathematics">Mathematics</option>
+                      <option value="Science">Science</option>
+                      <option value="Social Studies">Social Studies</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="classes"
+                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              >
+                Classes
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    type="text"
+                    value={user.classes}
+                    name="classes"
+                    id="classes"
+                    autoComplete="classes"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="Classes"
+                  />
+                </div>
+                <p className="mt-3 text-sm leading-6 text-gray-600">
+                  Classes taken or are currently taking.
+                </p>
+             
             </div>
           </div>
-
+          <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="study_habits"
+                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              >
+                Study Habits
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <select
+                    type="text"
+                    value={user.study_habits}
+                    name="study_habits"
+                    id="study_habits"
+                    autoComplete="study_habits"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="Study Commitment"
+                  >
+                    <option value="">Select Study Commitment</option>
+                    <option value="Chill">Chill</option>
+                    <option value="Semi-Chill">Semi-Chill</option>
+                    <option value="Semi-Grind">Semi-Grind</option>
+                    <option value="Grind">Grind</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            {" "}
             <label
               htmlFor="interests"
               className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
@@ -384,215 +557,64 @@ export default function Profile() {
               </div>
             </div>
           </div>
-
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label
-              htmlFor="education"
-              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            >
-              Education
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
-                  type="text"
-                  value={user.education}
-                  name="education"
-                  id="education"
-                  autoComplete="education"
-                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  placeholder="Education"
-                />
-              </div>
-              <p className="mt-3 text-sm leading-6 text-gray-600">
-                ex: Hillview University, The Grace Hopper Program at Full Stack
-                Academy
-              </p>
-            </div>
-          </div>
-
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label
-              htmlFor="education_level"
-              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            >
-              Education Level
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <select
-                  type="text"
-                  value={user.education_level}
-                  name="education_level"
-                  id="education_level"
-                  autoComplete="education_level"
-                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  placeholder="Education Level"
-                >
-                  <option value="">Select Education Level</option>
-                  <option value="High School">High School</option>
-                  <option value="College Freshman">College Freshman</option>
-                  <option value="College Sophomore">College Sophomore</option>
-                  <option value="College Junior">College Junior</option>
-                  <option value="College Senior">College Senior</option>
-                  <option value="Masters">Masters</option>
-                  <option value="PhD">PhD</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label
-              htmlFor="major"
-              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            >
-              Major
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <select
-                  type="text"
-                  value={user.timezone}
-                  name="timezone"
-                  id="timezone"
-                  autoComplete="timezone"
-                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  placeholder="Timezone"
-                >
-                  <option value="">Select Major</option>
-                  <option value="Accounting">Accounting</option>
-                  <option value="Anthropology">Anthropology</option>
-                  <option value="Art History">Art History</option>
-                  <option value="Biology">Biology</option>
-                  <option value="Biochemistry">Biochemistry</option>
-                  <option value="Business">Business</option>
-                  <option value="Business Administration">
-                    Business Administration
-                  </option>
-                  <option value="Communication">Communication</option>
-                  <option value="Computer Science">Computer Science</option>
-                  <option value="Economics">Economics</option>
-                  <option value="Engineering">Engineering</option>
-                  <option value="English">English</option>
-                  <option value="Finance">Finance</option>
-                  <option value="History">History</option>
-                  <option value="Mathematics">Mathematics</option>
-                  <option value="Music">Music</option>
-                  <option value="Physics">Physics</option>
-                  <option value="Political Science">Political Science</option>
-                  <option value="Psychology">Psychology</option>
-                  <option value="Sociology">Sociology</option>
-                  <option value="N/A">Not Available/None</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label
-              htmlFor="classes"
-              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            >
-              Classes
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
-                  type="text"
-                  value={user.classes}
-                  name="classes"
-                  id="classes"
-                  autoComplete="classes"
-                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  placeholder="Classes"
-                />
-              </div>
-              <p className="mt-3 text-sm leading-6 text-gray-600">
-                Classes taken or are currently taking.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label
-            htmlFor="languages"
-            className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-          >
-            Languages
-          </label>
-          <div className="mt-2 sm:col-span-2 sm:mt-0">
-            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <input
-                type="text"
-                value={user.languages}
-                name="languages"
-                id="language"
-                autoComplete="language"
-                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                placeholder="languages"
-              />
-            </div>
-            <p className="mt-3 text-sm leading-6 text-gray-600">
-              ex: English, Spanish, Mandarin
-            </p>
-          </div>
-        </div>
-
-        <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label
-            htmlFor="study_habits"
-            className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-          >
-            Study Habits
-          </label>
-          <div className="mt-2 sm:col-span-2 sm:mt-0">
-            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <select
-                type="text"
-                value={user.study_habits}
-                name="study_habits"
-                id="study_habits"
-                autoComplete="study_habits"
-                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                placeholder="Study Commitment"
+          <div className="mt-10 space-y-6 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label
+                htmlFor="languages"
+                className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               >
-                <option value="">Select Study Commitment</option>
-                <option value="Chill">Chill</option>
-                <option value="Semi-Chill">Semi-Chill</option>
-                <option value="Semi-Grind">Semi-Grind</option>
-                <option value="Grind">Grind</option>
-              </select>
+                Languages
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <select
+                    type="text"
+                    value={user.languages}
+                    name="languages"
+                    id="language"
+                    autoComplete="language"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="languages"
+                    onChange={handleLanguageChange}
+                  >
+                    <option value="">Select Language</option>
+                    <option value="English">English</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="Mandarin">Mandarin</option>
+                    <option value="French">French</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label
+              htmlFor="work"
+              className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+            >
+              Work
+            </label>
+            <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  type="text"
+                  value={user.work}
+                  name="work"
+                  id="work"
+                  autoComplete="work"
+                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  placeholder="Work"
+                />
+              </div>
+              <p className="mt-3 text-sm leading-6 text-gray-600">
+                If applicable.
+              </p>
             </div>
           </div>
         </div>
-
-        <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label
-            htmlFor="work"
-            className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-          >
-            Work
-          </label>
-          <div className="mt-2 sm:col-span-2 sm:mt-0">
-            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-              <input
-                type="text"
-                value={user.work}
-                name="work"
-                id="work"
-                autoComplete="work"
-                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                placeholder="Work"
-              />
-            </div>
-            <p className="mt-3 text-sm leading-6 text-gray-600">
-              If applicable.
-            </p>
-          </div>
-        </div>
+      </div>
       </div>
 
       <div className="mt-6 flex items-center justify-end gap-x-6">
