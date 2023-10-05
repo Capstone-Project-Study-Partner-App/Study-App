@@ -45,13 +45,13 @@ const topicImageMapping = {
   Mathematics:
     "https://t4.ftcdn.net/jpg/02/05/76/23/360_F_205762306_KCw2syVz457NVnZNQCgFdeWW0MRKqlt0.jpg",
   Art: "https://i.pinimg.com/736x/cb/2c/13/cb2c130454e570e4d6a2896928b9a1d0.jpg",
-  Social_Studies:
+  "Social Studies":
     "https://www.oksd.wednet.edu/cms/lib/WA01001356/Centricity/Domain/78/geography-555x370.jpg",
   Literature:
     "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGl0ZXJhdHVyZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-  Foreign_Language:
+  "Foreign Language":
     "https://media.istockphoto.com/id/493800479/photo/thank-you.webp?b=1&s=170667a&w=0&k=20&c=3NBo_wEnJ7AEZ2mDuyGKZqmZssmKNN7sUOYX7xKjdpo=",
-  Computer_Science:
+  "Computer Science":
     "https://t4.ftcdn.net/jpg/02/38/56/37/360_F_238563715_TT246ABsfPc7OMkIASI5wTOYiwwlf8Yz.jpg",
   Business:
     "https://thumbs.dreamstime.com/b/infographic-showing-economics-trends-39390289.jpg",
@@ -122,66 +122,71 @@ export default function Events() {
       {/* SIDEBAR SECTION */}
 
       <div className="filter-section w-1/4 bg-gray-800 text-white p-4">
-        <h1 className="text-xxl font-semibold mb-4">Filters</h1>
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold mb-4">Topics</h2>
-          <MultiCheckboxSelect
-            selectedOpts={topicFilter}
-            setSelectedOpts={setTopicFilter}
-            options={[
-              "Mathematics",
-              "Science",
-              "Art",
-              "Social Studies",
-              "Literature",
-              "Foreign Language",
-              "Computer Science",
-              "Business",
-            ]}
-          />
+        <div
+          className="filter-scrollable"
+          style={{ height: "calc(100vh - 64px)", overflowY: "auto" }}
+        >
+          <h1 className="text-xxl font-semibold mb-4">Filters</h1>
+          <div className="space-y-2">
+            <h2 className="text-xl font-semibold mb-4">Topics</h2>
+            <MultiCheckboxSelect
+              selectedOpts={topicFilter}
+              setSelectedOpts={setTopicFilter}
+              options={[
+                "Mathematics",
+                "Science",
+                "Art",
+                "Social Studies",
+                "Literature",
+                "Foreign Language",
+                "Computer Science",
+                "Business",
+              ]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Virtual</h2>
-          <MultiCheckboxSelect
-            selectedOpts={virtualFilter}
-            setSelectedOpts={setVirtualFilter}
-            options={["True", "False"]}
-          />
-          <h2 className="text-xl font-semibold mb-4">Type of Study</h2>
-          <MultiCheckboxSelect
-            selectedOpts={groupFilter}
-            setSelectedOpts={setGroupFilter}
-            options={["Group Study", "Partner Work"]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Virtual</h2>
+            <MultiCheckboxSelect
+              selectedOpts={virtualFilter}
+              setSelectedOpts={setVirtualFilter}
+              options={["Online", "In Person"]}
+            />
+            <h2 className="text-xl font-semibold mb-4">Type of Study</h2>
+            <MultiCheckboxSelect
+              selectedOpts={groupFilter}
+              setSelectedOpts={setGroupFilter}
+              options={["Group Study", "Partner Work"]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Gender</h2>
-          <MultiCheckboxSelect
-            selectedOpts={genderFilter}
-            setSelectedOpts={setGenderFilter}
-            options={["Male", "Female", "Non Binary"]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Gender</h2>
+            <MultiCheckboxSelect
+              selectedOpts={genderFilter}
+              setSelectedOpts={setGenderFilter}
+              options={["Male", "Female", "Non Binary", "Other"]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Days</h2>
-          <MultiCheckboxSelect
-            selectedOpts={daysFilter}
-            setSelectedOpts={setDaysFilter}
-            options={[
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday",
-            ]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Days</h2>
+            <MultiCheckboxSelect
+              selectedOpts={daysFilter}
+              setSelectedOpts={setDaysFilter}
+              options={[
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Timezone</h2>
-          <MultiCheckboxSelect
-            selectedOpts={timezoneFilter}
-            setSelectedOpts={setTimezoneFilter}
-            options={["EST", "CST", "MST", "PST", "AKST", "HST"]}
-          />
-          <br></br>
+            <h2 className="text-xl font-semibold mb-4">Timezone</h2>
+            <MultiCheckboxSelect
+              selectedOpts={timezoneFilter}
+              setSelectedOpts={setTimezoneFilter}
+              options={["EST", "CST", "MST", "PST", "AKST", "HST"]}
+            />
+            <br></br>
+          </div>
         </div>
       </div>
 
