@@ -334,7 +334,7 @@ export default function Buddies() {
                         <div style={{ position: "absolute", bottom: "0" }}>
                           {user ? (
                             <NewMessage
-                              sender={1}
+                              sender={3}
                               receiver={user.user_id}
                               thread_id={existingThread}
                               updateMessages={updateMessages}
