@@ -117,7 +117,7 @@ export default function Buddies() {
           <MultiCheckboxSelect
             selectedOpts={ageFilter}
             setSelectedOpts={setAgeFilter}
-            options={["15-17", "18-25", "25-30", "30+"]}
+            options={["15-17", "18-24", "25-29", "30+"]}
           />
 
           {/* Location */}
