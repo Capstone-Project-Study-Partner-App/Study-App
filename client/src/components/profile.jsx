@@ -343,6 +343,13 @@ export default function Profile() {
                     <option value="Night">Night</option>
                   </select>
                 </div>
+                <p
+                  className="mt-3 text-sm leading-6 text-gray-600"
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
+                  (5PM-9PM), Night (9PM-5AM)
+                </p>
               </div>
             </div>
 
@@ -373,13 +380,6 @@ export default function Profile() {
                     <option value="EST">EST</option>
                   </select>
                 </div>
-                <p
-                  className="mt-3 text-sm leading-6 text-gray-600"
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
-                  (5PM-9PM), Night (9PM-5AM)
-                </p>
               </div>
             </div>
           </div>
