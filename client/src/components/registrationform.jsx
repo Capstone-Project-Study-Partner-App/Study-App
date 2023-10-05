@@ -37,6 +37,7 @@ export default function RegistrationForm() {
 
 
   // const [educationOptions, setEducationOptions] = useState([]);
+  const [educationOptions, setEducationOptions] = useState([]);
 
   const navigate = useNavigate();
 
@@ -101,6 +102,7 @@ export default function RegistrationForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     try {
       await createUser({
         email: email,
@@ -113,7 +115,7 @@ export default function RegistrationForm() {
         education: education,
         education_level: education_level,
         classes: [classes],
-        days_available: [days_available],
+        days_available: days_available.map((day_option) => day_option.value),
         times_available: [times_available],
         timezone: timezone,
         interests: [interests],
@@ -282,7 +284,6 @@ export default function RegistrationForm() {
                   <textarea
                     id="about_me"
                     className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={""}
                     value={about_me}
                     type="text"
                     rows={3}
@@ -513,7 +514,7 @@ export default function RegistrationForm() {
                   id="days_available"
                   className="block w-full rounded-md border-0 py-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   options={days}
-                  value={selectedDayOptions}
+                  value={days_available}
                   isSearchable={true}
                   isMulti
                   type="text"
@@ -646,7 +647,7 @@ export default function RegistrationForm() {
               </div>
             </div>
           </div>
-          <div class="mt-6 flex items-center justify-center gap-x-6">
+          <div className="mt-6 flex items-center justify-center gap-x-6">
             <button
               type="submit"
               className="inline-flex justify-center rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

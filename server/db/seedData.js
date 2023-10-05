@@ -20,7 +20,7 @@ const users = [
     timezone: "EST",
     interests: ["Playing soccer"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://marvel-b1-cdn.bc0a.com/f00000000181213/www.valpo.edu/college-of-engineering/files/2019/08/Alec-Senior-Profile-photo-size-for-webpage-800x800.jpg",
     languages: ["English"],
     study_habits: "Semi-Chill",
     major: "Business",
@@ -45,7 +45,7 @@ const users = [
     timezone: "EST",
     interests: ["Skateboarding"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://www.csw.utk.edu/wp-content/uploads/sites/92/Newsletter-Haiden-Lancaster-Student-Profile.jpg",
     languages: ["English"],
     study_habits: "Grind",
     major: "Science",
@@ -58,8 +58,8 @@ const users = [
     last_name: "Nare",
     email: "bnare2@slashdot.org",
     gender: "Male",
+    // password: "1234"
     password: "1234",
-    // password: "$2b$10$QkedZTdtVqVUxfjSt0nb7.fpYybM2AE157kk8YX9adypGhN3BtFEC",
     location: "4485-174",
     about_me:
       "I strive for academic excellence and am always eager to take on new challenges.",
@@ -71,7 +71,7 @@ const users = [
     timezone: "EST",
     interests: ["Reading"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://www.birmingham.ac.uk/Images/College-EPS-only/international/Student-Profiles/justin-220x220.png",
     languages: ["English"],
     study_habits: "Semi-Grind",
     major: "Computer Science",
@@ -96,7 +96,7 @@ const users = [
     timezone: "EST",
     interests: ["Snowboarding"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://socialwelfare.berkeley.edu/sites/default/files/styles/openberkeley_brand_widgets_square/public/neldeeb_headshot_1.jpg?itok=b4dg0YzR",
     languages: ["English"],
     study_habits: "Semi-Chill",
     major: "Art",
@@ -121,7 +121,7 @@ const users = [
     timezone: "EST",
     interests: ["Cooking"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://vrs.amsi.org.au/wp-content/uploads/sites/84/2017/12/tobinsouth_vrs_2017-18.jpeg",
     languages: ["English"],
     study_habits: "Semi-Grind",
     major: "Mathematics",
@@ -146,7 +146,7 @@ const users = [
     timezone: "PDT",
     interests: ["Going to the gym"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTebR4rjb4duj3lY4-6hESqj8fwblmBxa4bO5zhJYcskZJxdLdODJuXwCD-yPK2cub0XRU&usqp=CAU",
     languages: ["English"],
     study_habits: "Chill",
     major: "Business",
@@ -170,7 +170,7 @@ const users = [
     timezone: "EST",
     interests: ["Traveling"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://media.licdn.com/dms/image/D4E03AQHTe4lcqE-iNg/profile-displayphoto-shrink_800_800/0/1686153051429?e=2147483647&v=beta&t=yCtCczPrVONHrsjbtox9eWqrLaWIrZF7tGLMrjXsc5s",
     languages: ["English"],
     study_habits: "Chill",
     major: "Social Studies",
@@ -195,7 +195,7 @@ const users = [
     timezone: "PST",
     interests: ["Reading"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://www.hsph.harvard.edu/biostatistics/wp-content/uploads/sites/59/2022/10/thumbnail_IMG_2725.jpg",
     languages: ["English"],
     study_habits: "Grind",
     major: "Foreign Language",
@@ -219,7 +219,7 @@ const users = [
     timezone: "PST",
     interests: ["Reading"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://www.gtc.ox.ac.uk/wp-content/uploads/2019/09/William-Leben-feature.jpg",
     languages: ["English", "German"],
     study_habits: "Semi-Grind",
     major: "Social Studies",
@@ -243,7 +243,7 @@ const users = [
     timezone: "EST",
     interests: ["Cooking"],
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+      "https://studyoverseasinfo.com/wp-content/uploads/2020/08/logo_maxwell.jpg",
     languages: ["English"],
     study_habits: "Semi-Chill",
     major: "English",

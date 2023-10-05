@@ -14,6 +14,8 @@ const {
   createEvent,
   updateEvent,
   deleteEvent,
+  getEventsMatchingFilters,
+  getRsvpsForEvent,
 } = require("../db/helpers/events");
 const {
   getRsvpByEventId,
@@ -133,6 +135,28 @@ apiRouter.get("/:id/messages", async (req, res, next) => {
 apiRouter.get("/events", async (req, res) => {
   const events = await getAllEvents();
   res.json(events);
+});
+
+// Search for events matching filter
+apiRouter.post("/events/search", async (req, res, next) => {
+  try {
+    const events = await getEventsMatchingFilters(req.body.filters);
+    res.send(events);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Create an API endpoint to get RSVPs for an event
+apiRouter.get("/events/:id/rsvps", async (req, res, next) => {
+  try {
+    const event_id = parseInt(req.params.id);
+    const rsvps = await getRsvpsForEvent(event_id);
+
+    res.json(rsvps);
+  } catch (error) {
+    next(error);
+  }
 });
 
 //Get Event by ID
