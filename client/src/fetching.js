@@ -76,20 +76,18 @@ export async function getUserById(user_id) {
 }
 
 export async function createUser(userData) {
-  try {
-    const resp = await fetch(`${api_root}/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
-    const json = await resp.json();
-    return json;
-  } catch (error) {
-    console.error(error);
-    return error;
+  const resp = await fetch(`${api_root}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+  if (!resp.ok) {
+    throw new Error(`HTTP failed status ${resp.status}`);
   }
+  const json = await resp.json();
+  return json;
 }
 
 export async function updateUser(user_id, updatedUserData) {
@@ -313,17 +311,18 @@ export async function getMessagesByThread(thread_id) {
   }
 }
 
-const educationURL = 'https://parseapi.back4app.com/classes/University?limit=0&keys=name';
+const educationURL =
+  "https://parseapi.back4app.com/classes/University?limit=0&keys=name";
 
-export async function getEducation (){
+export async function getEducation() {
   const educationOption = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'X-Parse-Application-Id': 'Ipq7xXxHYGxtAtrDgCvG0hrzriHKdOsnnapEgcbe',
-      'X-Parse-Master-Key': 'HNodr26mkits5ibQx2rIi0GR9pVCwOSEAkqJjgVp'
-    }
+      "X-Parse-Application-Id": "Ipq7xXxHYGxtAtrDgCvG0hrzriHKdOsnnapEgcbe",
+      "X-Parse-Master-Key": "HNodr26mkits5ibQx2rIi0GR9pVCwOSEAkqJjgVp",
+    },
   };
-  
+
   try {
     const response = await fetch(educationURL, educationOption);
     const result = await response.text();
@@ -332,7 +331,3 @@ export async function getEducation (){
     console.error(error);
   }
 }
-
-
-
-

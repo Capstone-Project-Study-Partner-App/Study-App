@@ -5,7 +5,6 @@ import Select from "react-select";
 
 import { getEducation } from "../fetching.js";
 
-
 // import { PhotoIcon, UserCircleIcon } from '@heroicons/react/solid'
 
 // const educationURL = `https://documentation-resources.opendatasoft.com/api/explore/v2.1/catalog/datasets/us-colleges-and-universities`;
@@ -33,8 +32,6 @@ export default function RegistrationForm() {
   const [age, setAge] = useState("");
   const [work, setWork] = useState("");
 
-  const [selectedDayOptions, setSelectedDayOptions]=useState();
-
   const [educationOptions, setEducationOptions] = useState([]);
 
   const navigate = useNavigate();
@@ -49,11 +46,6 @@ export default function RegistrationForm() {
   const handleMajorChange = (e) => {
     setMajor(e.target.value);
   };
-  
-  // const handleDaysAvailableChange = (e) => {
-  //   const selectedDayOptions=Array.from (e.target.selectedDayOptions,(option)=>option.value)
-  //   setDays_available(selectedDayOptions);
-  // };
 
   const handleTimesAvailableChange = (e) => {
     setTimes_available(e.target.value);
@@ -75,22 +67,19 @@ export default function RegistrationForm() {
     setLanguages(e.target.value);
   };
 
-  const days=[
-    {value:"Monday", label: "Monday"},
-    {value:"Tuesday", label: "Tuesday"},
-    {value:"Wednesday", label: "Wednesday"},
-    {value:"Thursday", label: "Thursday"},
-    {value:"Friday", label: "Friday"},
-    {value:"Saturday", label: "Saturday"},
-    {value:"Sunday", label: "Sunday"},
-  ]
-
-  function handleDaySelect(data){
-    setSelectedDayOptions(data);
-  }
+  const days = [
+    { value: "Monday", label: "Monday" },
+    { value: "Tuesday", label: "Tuesday" },
+    { value: "Wednesday", label: "Wednesday" },
+    { value: "Thursday", label: "Thursday" },
+    { value: "Friday", label: "Friday" },
+    { value: "Saturday", label: "Saturday" },
+    { value: "Sunday", label: "Sunday" },
+  ];
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     try {
       await createUser({
         email: email,
@@ -103,7 +92,7 @@ export default function RegistrationForm() {
         education: education,
         education_level: education_level,
         classes: [classes],
-        days_available: [days_available],
+        days_available: days_available.map((day_option) => day_option.value),
         times_available: [times_available],
         timezone: timezone,
         interests: [interests],
@@ -272,7 +261,6 @@ export default function RegistrationForm() {
                   <textarea
                     id="about_me"
                     className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={""}
                     value={about_me}
                     type="text"
                     rows={3}
@@ -502,13 +490,13 @@ export default function RegistrationForm() {
                   id="days_available"
                   className="block w-full rounded-md border-0 py-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   options={days}
-                  value={selectedDayOptions}
+                  value={days_available}
                   isSearchable={true}
                   isMulti
                   type="text"
                   name="days_available"
                   placeholder="Days Available"
-                  onChange={handleDaySelect}
+                  onChange={setDays_available}
                   required
                 />
               </div>
@@ -601,7 +589,6 @@ export default function RegistrationForm() {
                   name="languages"
                   placeholder="Languages"
                   onChange={handleLanguageChange}
-
                 >
                   <option value="">Select Language</option>
                   <option value="English">English</option>
@@ -633,13 +620,13 @@ export default function RegistrationForm() {
               </div>
             </div>
           </div>
-          <div class="mt-6 flex items-center justify-center gap-x-6">
-          <button
-            type="submit"
-            className="inline-flex justify-center rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Submit
-          </button>
+          <div className="mt-6 flex items-center justify-center gap-x-6">
+            <button
+              type="submit"
+              className="inline-flex justify-center rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </section>
