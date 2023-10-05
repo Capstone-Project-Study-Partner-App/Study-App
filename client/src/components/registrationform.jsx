@@ -32,11 +32,9 @@ export default function RegistrationForm() {
   const [age, setAge] = useState("");
   const [work, setWork] = useState("");
 
-  const [selectedDayOptions, setSelectedDayOptions] = useState();
+  // const [selectedDayOptions, setSelectedDayOptions] = useState();
   const [selectedTimezoneOptions, setSelectedTimezoneOptions] = useState();
 
-
-  // const [educationOptions, setEducationOptions] = useState([]);
   const [educationOptions, setEducationOptions] = useState([]);
 
   const navigate = useNavigate();
@@ -86,9 +84,9 @@ export default function RegistrationForm() {
     setLanguages(e.target.value);
   };
 
-  function handleDaySelect(data) {
-    setSelectedDayOptions(data);
-  }
+  // function handleDaySelect(data) {
+  //   setSelectedDayOptions(data);
+  // }
 
   const days = [
     { value: "Monday", label: "Monday" },
@@ -520,7 +518,7 @@ export default function RegistrationForm() {
                   type="text"
                   name="days_available"
                   placeholder="Select Days Available"
-                  onChange={handleDaySelect}
+                  onChange={setDays_available}
                   required
                 />
               </div>
