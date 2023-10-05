@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createMessage } from "../fetching";
 
 
-export default function NewMessage({sender, receiver, thread_id}) {
-    // const [sender_id, setSenderId] = useState(null);
-    // const [receiver_id, setReceiverId] = useState(null);
+export default function NewMessage({sender, receiver, thread_id, updateMessages}) {
+    // const [sender, setSenderId] = useState(null);
+    // const [receiver, setReceiverId] = useState(null);
     // const [thread_id, setThreadId] = useState("");
     // const { thread_id } = useParams();
     const [message_content, setMessageContent] = useState("");
@@ -23,14 +23,17 @@ export default function NewMessage({sender, receiver, thread_id}) {
 
             if (thread_id) {
 
-                data = await createMessage(message_content, sender, receiver, thread_id)
-                window.location.reload();
+                data = await createMessage(sender, receiver, message_content, thread_id)
+
+                if (updateMessages) {
+                    updateMessages(data); // Pass the new message data to updateMessages
+                  }
             } else {
-                data = await createMessage(message_content, sender, receiver)
+                data = await createMessage(sender, receiver, message_content,)
             }
                 console.log("message sent:", data);
-                const newThreadId = data.thread_id;
-                navigate(`/messages/thread/${newThreadId}`);
+                setMessageContent("");
+                // navigate(`/:id/messages`);
                    
         } catch (error) {
             console.error('error:', error)
@@ -38,16 +41,18 @@ export default function NewMessage({sender, receiver, thread_id}) {
     };
 
     return (
-        <div>
+        <div className="py-5">
             <form onSubmit={handleSubmit}>
                 <input
+                    className="w-full bg-gray-300 py-5 px-3 rounded-xl"
                     type="text"
+                    placeholder="type message here"
                     value={message_content}
                     onChange={(e) => setMessageContent(e.target.value)}
                 />
                 <br />
                 <div>
-                    <button type="submit">send</button>
+                    {/* <button type="submit">send</button> */}
                 </div>
             </form>
             <div>

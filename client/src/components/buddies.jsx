@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { AuthError, getUsersMatchingFilters } from "../fetching";
 import { Link, useNavigate } from "react-router-dom"; // Import Link
 import { LOGIN_ROUTE } from "./login";
+import NewMessage from "./NewMessage";
+import MessageThread from "./Thread";
 
 function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
   return (
@@ -45,6 +47,29 @@ export default function Buddies() {
 
   const [allUsers, setAllUsers] = useState([]);
   const navigate = useNavigate();
+  const [thread_id, setThreadId] = useState(null);
+  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [existingThread, setExistingThread] = useState(null);
+
+  const updateMessages = (newMessage) => {
+    setMessages([...messages, newMessage]);
+  };
+  // Function to open the pop-up
+  function openForm(user) {
+    console.log("Opening chat pop-up for user:", user.first_name);
+    setSelectedUser(user);
+    setIsEditFormVisible(true);
+    setThreadId(thread_id);
+  }
+
+  // Function to close the pop-up
+  function closeForm() {
+    setIsEditFormVisible(false);
+  }
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -244,16 +269,94 @@ export default function Buddies() {
                   </dl>
                 </div>
               </Link>
+              {/* CONNECT */}
+              <div>
+                {isEditFormVisible && selectedUser === user ? (
+                  <div className="fixed bottom-0 right-0 z-50">
+                    <div
+                      className="form-popup w-80 h-96 flex flex-col border shadow-md bg-white sticky bottom-0 right-0 ..."
+                      id="myForm"
+                    >
+                      <div className="flex items-center justify-between border-b p-2">
+                        <div className="flex items-center">
+                          {/* close chat window */}
+                          <button
+                            onClick={() => closeForm(user)}
+                            className="inline-flex hover:bg-indigo-50 rounded-full p-2 right-0 absolute"
+                            type="button"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6 "
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                          {/* User info */}
+                          <img
+                            className="rounded-full w-10 h-10"
+                            src={user.photo}
+                          />
+                          <div className="pl-2">
+                            <div className="font-semibold">
+                              <a
+                                className="hover:underline"
+                                href={`/users/${user.user_id}`}
+                              >
+                                {user.first_name}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        {/* message thread          */}
 
-              <div></div>
-              <div className="-mt-px flex divide-x divide-gray-200">
-                <div className="flex w-0 flex-1">
-                  <a
-                    href="#"
-                    className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg bg-indigo-800	 border border-transparent py-4 text-sm font-semibold text-white"
-                  >
-                    Connect
-                  </a>
+                        <div className="flex-1 px-4 py-4 overflow-y-auto">
+                          <div className="flex items-center mb-4">
+                            {isEditFormVisible && selectedMessage && (
+                              <MessageThread
+                                selectedMessage={selectedMessage}
+                                className="absolute inset-x-0 bottom-0 h-16 ..."
+                              />
+                            )}
+                          </div>
+                        </div>
+
+                        {/* chat input / new message */}
+                        <div style={{ position: "absolute", bottom: "0" }}>
+                          {user ? (
+                            <NewMessage
+                              sender={1}
+                              receiver={user.user_id}
+                              thread_id={existingThread}
+                              updateMessages={updateMessages}
+                              className="w-full rounded-full border border-gray-200"
+                            />
+                          ) : null}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                {/* open pop up / connect button */}
+                <div className="-mt-px flex divide-x divide-gray-200">
+                  <div className="flex w-0 flex-1">
+                    <a
+                      href="#"
+                      onClick={() => openForm(user, existingThread)}
+                      className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg bg-indigo-800 border border-transparent py-4 text-sm font-semibold text-white"
+                    >
+                      Connect
+                    </a>
+                  </div>
                 </div>
               </div>
             </li>

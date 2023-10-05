@@ -64,6 +64,23 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.registration_form {
+  padding-top:1em;
+  padding-left:2em;
+  padding-bottom:1em
+}
+
+.new_event_form{
+  padding-top:1em;
+  padding-left:2em;
+  padding-bottom:1em
+}
+
+#days_available {
+  border: 1px solid #e2e8f0; 
+  box-shadow: none; 
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

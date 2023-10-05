@@ -22,9 +22,9 @@ const users = [
     photo:
       "https://marvel-b1-cdn.bc0a.com/f00000000181213/www.valpo.edu/college-of-engineering/files/2019/08/Alec-Senior-Profile-photo-size-for-webpage-800x800.jpg",
     languages: ["English"],
-    study_habits: "Grinding studying",
-    major: "Psychology",
-    age: "18-25",
+    study_habits: "Semi-Chill",
+    major: "Finance",
+    age: "18-24",
     work: null,
   },
   {
@@ -47,9 +47,9 @@ const users = [
     photo:
       "https://www.csw.utk.edu/wp-content/uploads/sites/92/Newsletter-Haiden-Lancaster-Student-Profile.jpg",
     languages: ["English"],
-    study_habits: "Semi-relaxed",
+    study_habits: "Grind",
     major: "Biology",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -59,7 +59,7 @@ const users = [
     email: "bnare2@slashdot.org",
     gender: "Male",
     // password: "1234"
-    password: "$2b$10$QkedZTdtVqVUxfjSt0nb7.fpYybM2AE157kk8YX9adypGhN3BtFEC",
+    password: "1234",
     location: "4485-174",
     about_me:
       "I strive for academic excellence and am always eager to take on new challenges.",
@@ -73,9 +73,9 @@ const users = [
     photo:
       "https://www.birmingham.ac.uk/Images/College-EPS-only/international/Student-Profiles/justin-220x220.png",
     languages: ["English"],
-    study_habits: "Committed studying",
+    study_habits: "Semi-Grind",
     major: "Computer Science",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -98,9 +98,9 @@ const users = [
     photo:
       "https://socialwelfare.berkeley.edu/sites/default/files/styles/openberkeley_brand_widgets_square/public/neldeeb_headshot_1.jpg?itok=b4dg0YzR",
     languages: ["English"],
-    study_habits: "Committed studying",
+    study_habits: "Semi-Chill",
     major: "Psychology",
-    age: "25-30",
+    age: "25-29",
     work: null,
   },
   {
@@ -123,9 +123,9 @@ const users = [
     photo:
       "https://vrs.amsi.org.au/wp-content/uploads/sites/84/2017/12/tobinsouth_vrs_2017-18.jpeg",
     languages: ["English"],
-    study_habits: "Committed studying",
+    study_habits: "Semi-Grind",
     major: "Engineering",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -148,9 +148,9 @@ const users = [
     photo:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTebR4rjb4duj3lY4-6hESqj8fwblmBxa4bO5zhJYcskZJxdLdODJuXwCD-yPK2cub0XRU&usqp=CAU",
     languages: ["English"],
-    study_habits: "Relaxed",
+    study_habits: "Chill",
     major: "Business Administration",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -172,9 +172,9 @@ const users = [
     photo:
       "https://media.licdn.com/dms/image/D4E03AQHTe4lcqE-iNg/profile-displayphoto-shrink_800_800/0/1686153051429?e=2147483647&v=beta&t=yCtCczPrVONHrsjbtox9eWqrLaWIrZF7tGLMrjXsc5s",
     languages: ["English"],
-    study_habits: "Relaxed",
+    study_habits: "Chill",
     major: "Political Science",
-    age: "18-25",
+    age: "18-24",
     work: null,
   },
   {
@@ -197,9 +197,9 @@ const users = [
     photo:
       "https://www.hsph.harvard.edu/biostatistics/wp-content/uploads/sites/59/2022/10/thumbnail_IMG_2725.jpg",
     languages: ["English"],
-    study_habits: "Committed studying",
-    major: "Humanities",
-    age: "25-30",
+    study_habits: "Grind",
+    major: "Chemistry",
+    age: "24-29",
     work: null,
   },
   {
@@ -221,9 +221,9 @@ const users = [
     photo:
       "https://www.gtc.ox.ac.uk/wp-content/uploads/2019/09/William-Leben-feature.jpg",
     languages: ["English", "German"],
-    study_habits: "Committed studying",
-    major: "English Literature",
-    age: "18-25",
+    study_habits: "Semi-Grind",
+    major: "Anthropology",
+    age: "18-24",
     work: null,
   },
   {
@@ -245,9 +245,9 @@ const users = [
     photo:
       "https://studyoverseasinfo.com/wp-content/uploads/2020/08/logo_maxwell.jpg",
     languages: ["English"],
-    study_habits: "Semi-relaxed",
-    major: "English Literature",
-    age: "18-25",
+    study_habits: "Semi-Chill",
+    major: "English",
+    age: "18-24",
     work: null,
   },
 ];
@@ -358,7 +358,7 @@ const events = [
     timezone: "EST",
     virtual: true,
     comments: "I can't wait to attend!",
-    topic: "Social Science",
+    topic: "Mathematics",
     duration: 90,
     gender: null,
     group: true,
@@ -484,14 +484,6 @@ const messages = [
     message_content:
       "Let's collaborate on studying science. We can conduct experiments together and analyze the results.",
     thread_id: 14,
-  },
-  {
-    id: 8,
-    sender: 3,
-    receiver: 1,
-    message_content:
-      "I would love to work with you on studying history. We can share notes and discuss important events.",
-    thread_id: 19,
   },
   {
     id: 9,
