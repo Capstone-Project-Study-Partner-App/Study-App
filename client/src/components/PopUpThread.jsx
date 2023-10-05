@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getMessagesByThread } from "../fetching";
+import { getExistingThread } from "../fetching";
 import NewMessage from "./NewMessage";
 
 
 
-export default function MessageThread({selectedMessage}) {
-  const { id } = useParams();
+export default function PopUpThread({selectedMessage, selectedUser, thread_id}) {
+  // const { id } = useParams();
   // console.log("thread_id extracted from URL:", thread_id);
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
@@ -16,10 +16,10 @@ export default function MessageThread({selectedMessage}) {
 
 
   useEffect(() => {
-    async function getMessageThread() {
+    async function getChatThread() {
       try {
         if (selectedMessage) {
-        const response = await getMessagesByThread(selectedMessage.thread_id);
+        const response = await getExistingThread(selectedMessage.thread_id);
         if (response) {
           setMessages(response);
         }
@@ -36,7 +36,7 @@ export default function MessageThread({selectedMessage}) {
         setError("Error occurred fetching messages");
       }
     }
-    getMessageThread();
+    getChatThread();
   }, [selectedMessage]);
 
   const updateMessages = (newMessage) => {
@@ -49,8 +49,8 @@ export default function MessageThread({selectedMessage}) {
   console.log("thread_id:", selectedMessage.thread_id);
 
   return (
-    <div className="w-full px-5 flex flex-col justify-between  h-full">
-      <div className="flex flex-col flex-grow mt-5 " style={{ maxHeight: '400px', overflowY: 'auto', justifyContent: 'flex-end' }}>
+    <div className="w-full px-5 flex flex-col justify-between">
+      <div className="flex flex-col mt-5">
         {messages.map((message) => (
           <div
             key={message.message_id}
@@ -58,11 +58,11 @@ export default function MessageThread({selectedMessage}) {
               message.sender === sender
                 ? "flex-row-reverse"
                 : "flex-row"
-            } mb-4 flex `}
+            } mb-4 flex`}
           >
             <img
               src={message.sender_photo}
-              className="object-cover h-12 w-12 rounded-full"
+              className="object-cover h-8 w-8 rounded-full"
               alt=""
             />
             <div
@@ -70,21 +70,12 @@ export default function MessageThread({selectedMessage}) {
                 message.sender === sender
                   ? "mr-2 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl bg-blue-400 text-white"
                   : "ml-2 rounded-br-3xl rounded-tr-3xl rounded-tl-xl bg-gray-400 text-white"
-              } py-3 px-3`}
+              } py-3 px-4`}
             >
               {message.message_content}
             </div>
           </div>
         ))}
-
-      </div>
-<div className="  inset-x-0 bottom-0">
-           <NewMessage
-          sender={3}
-          thread_id={selectedMessage.thread_id}
-          receiver={receiver}
-          updateMessages={updateMessages}
-        />
       </div>
     </div>
   );
