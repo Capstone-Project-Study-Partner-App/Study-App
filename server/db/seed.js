@@ -66,7 +66,9 @@ const createTables = async () => {
               topic text NOT NULL,
               duration int NOT NULL,
               gender text,
-              "group" boolean NOT NULL
+              "group" boolean NOT NULL, 
+              meeting_link text,
+              host_id INTEGER
           );
             CREATE TABLE rsvps (
               rsvp_id SERIAL PRIMARY KEY,
