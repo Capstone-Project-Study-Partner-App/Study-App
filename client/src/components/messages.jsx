@@ -1,32 +1,34 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUserMessages } from "../fetching";
+import { getUserMessages, getProfile } from "../fetching"; 
 import MessageThread from "./Thread";
 
-
-
 export default function AllMessages() {
-    const [messages, setMessages] = useState([]);
-    const [searchParam, setSearchParam] = useState("");
-    const [error, setError] = useState("");
-    const [selectedMessage, setSelectedMessage] = useState(null)
-    
-    const handleMessageClick = (message) => {
-    
-      setSelectedMessage(message);
-    };
-    useEffect(() => {
-      async function getAllMessages() {
-        try {
-          const response = await getUserMessages(3);
-          setMessages(response);
-          
-        } catch (error) {
-          setError(error.message);
-        }
+  const [messages, setMessages] = useState([]);
+  const [searchParam, setSearchParam] = useState("");
+  const [error, setError] = useState("");
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null); 
+
+  const handleMessageClick = (message) => {
+    setSelectedMessage(message);
+  };
+
+  useEffect(() => {
+    async function getCurrentUser() {
+      try {
+        const { current_user } = await getProfile();
+        setCurrentUser(current_user);
+
+        const messagesResponse = await getUserMessages(current_user.user_id); 
+        setMessages(messagesResponse);
+      } catch (error) {
+        setError(error.message);
       }
-      getAllMessages();
-    }, []);
+    }
+
+    getCurrentUser();
+  }, []);
     // if (messages.length === 0) {
     //   return <p>No messages found.</p>;
     // }
@@ -131,6 +133,7 @@ export default function AllMessages() {
             {selectedMessage && 
             <MessageThread 
             selectedMessage={selectedMessage}
+            currentUser={currentUser}
             className="absolute inset-x-0 bottom-0 h-16 ..."
             />}
           </div>

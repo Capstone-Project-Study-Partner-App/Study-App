@@ -35,7 +35,7 @@ function undefinedIfEmpty(arr) {
   return arr;
 }
 
-export default function Buddies() {
+export default function Buddies({currentUser}) {
   const [ageFilter, setAgeFilter] = useState([]);
   const [edLevelFilter, setEdLevelFilter] = useState([]);
   const [availableDaysFilter, setAvailableDaysFilter] = useState([]);
@@ -53,6 +53,7 @@ export default function Buddies() {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [messages, setMessages] = useState([]);
   const [existingThread, setExistingThread] = useState(null);
+
 
   const updateMessages = (newMessage) => {
     setMessages([...messages, newMessage]);
@@ -334,7 +335,7 @@ export default function Buddies() {
                         <div style={{ position: "absolute", bottom: "0" }}>
                           {user ? (
                             <NewMessage
-                              sender={3}
+                              sender={currentUser.user_id}
                               receiver={user.user_id}
                               thread_id={existingThread}
                               updateMessages={updateMessages}
