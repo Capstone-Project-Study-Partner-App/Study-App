@@ -384,13 +384,6 @@ export default function Profile() {
                   ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
                   (5PM-9PM), Night (9PM-5AM)
                 </p>
-                <p
-                  className="mt-3 text-sm leading-6 text-gray-600"
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
-                  (5PM-9PM), Night (9PM-5AM)
-                </p>
               </div>
             </div>
 
@@ -660,15 +653,6 @@ export default function Profile() {
           className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Save
-        </button>
-        <button
-          className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={async () => {
-            await logOutUser();
-            navigate(LOGIN_ROUTE);
-          }}
-        >
-          Logout
         </button>
       </div>
     </form>
