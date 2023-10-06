@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { getEventById } from "../fetching";
-import { useParams } from "react-router-dom";
+import { getEventById, getUserById } from "../fetching";
+import { useParams, Link } from "react-router-dom";
 import {
   VideoCameraIcon,
   CheckCircleIcon,
@@ -37,11 +37,17 @@ function getImageUrl(topic) {
 
 export default function Event() {
   const [event, setEvent] = useState([]);
+  const [host, setHost] = useState(null); // Add a state variable for the host
   const { id } = useParams();
   useEffect(() => {
     async function fetchEvent() {
       const singleEvent = await getEventById(id);
       setEvent(singleEvent);
+
+      // Fetch the host's information based on host_id
+      const hostId = singleEvent.host_id;
+      const hostInfo = await getUserById(hostId);
+      setHost(hostInfo);
     }
     fetchEvent();
   }, [id]);
@@ -59,15 +65,23 @@ export default function Event() {
           <div className="flex">
             <img
               className="h-24 w-24 rounded-full ring-4 ring-white sm:h-40 sm:w-40"
-              src={imageUrl}
+              src={host ? host.photo : imageUrl}
               alt=""
             />
           </div>
           <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
             <div className="mt-6 min-w-0 flex-1 sm:hidden md:block">
-              <h1 className="truncate text-2xl font-bold text-gray-900">
-                {event.name}
-              </h1>
+              {host && (
+                <Link to={`/users/${host.user_id}`} className="text-gray-500">
+                  <h3>Hosted By: </h3>
+                  {/* Apply different styles to "Hosted By" and the host's name */}
+                  <h1 className="truncate text-2xl font-bold">
+                    <span className="text-blue-500 hover:text-blue-700">
+                      {host.first_name} {host.last_name}
+                    </span>
+                  </h1>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -88,10 +102,11 @@ export default function Event() {
           <div className="grid grid-rows-2 gap-4">
             {/* Link Button */}
             <button
-              className="bg-gray-400 text-white px-3 py-3 rounded-lg shadow-md hover:bg-gray-500 focus:outline-none flex items-center"
+              className="bg-gray-400 text-white px-3 py-3 rounded-lg shadow-md  focus:outline-none flex items-center"
               onClick={() => alert("Copy Link When Clicked")}
             >
               <LinkIcon className="-ml-0.5 h-5" aria-hidden="true" />
+              <span className="ml-2">Share</span>
             </button>
 
             {/* RSVP Button */}
