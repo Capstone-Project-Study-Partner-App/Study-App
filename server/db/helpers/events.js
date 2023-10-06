@@ -13,6 +13,8 @@ const createEvent = async ({
   duration,
   gender,
   group,
+  meeting_link,
+  host_id,
 }) => {
   try {
     const {
@@ -31,8 +33,10 @@ const createEvent = async ({
                   topic,
                   duration,
                   gender,
-                  "group")
-                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+                  "group", 
+                  meeting_link, 
+                  host_id)
+                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
                 RETURNING *;
             `,
       [
@@ -48,6 +52,8 @@ const createEvent = async ({
         duration,
         gender,
         group,
+        meeting_link,
+        host_id,
       ]
     );
     return events;
@@ -208,8 +214,10 @@ const updateEvent = async (event_id, updatedEventData) => {
         topic = $9,
         duration = $10,
         gender = $11,
-        "group" = $12 
-        WHERE event_id = $13
+        "group" = $12,
+        meeting_link = $13,
+        host_id = $14
+        WHERE event_id = $15
         RETURNING *;
         `,
       [
@@ -225,6 +233,9 @@ const updateEvent = async (event_id, updatedEventData) => {
         updatedEventData.duration,
         updatedEventData.gender,
         updatedEventData.group,
+        updatedEventData.meeting_link,
+        updatedEventData.host_id,
+
         event_id,
       ]
     );

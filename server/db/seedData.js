@@ -269,6 +269,8 @@ const events = [
     duration: 30,
     gender: "Male",
     group: true,
+    meeting_link: null,
+    host_id: 1,
   },
   {
     id: 2,
@@ -285,6 +287,8 @@ const events = [
     duration: 60,
     gender: "Female",
     group: true,
+    meeting_link: null,
+    host_id: 2,
   },
   {
     id: 3,
@@ -300,6 +304,8 @@ const events = [
     duration: 90,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 3,
   },
   {
     id: 4,
@@ -315,6 +321,8 @@ const events = [
     duration: 60,
     gender: "Male",
     group: true,
+    meeting_link: null,
+    host_id: 4,
   },
   {
     id: 5,
@@ -331,6 +339,8 @@ const events = [
     duration: 90,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 5,
   },
   {
     id: 12,
@@ -347,6 +357,8 @@ const events = [
     duration: 120,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 7,
   },
   {
     id: 6,
@@ -363,6 +375,8 @@ const events = [
     duration: 120,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 6,
   },
   {
     id: 7,
@@ -378,6 +392,8 @@ const events = [
     duration: 90,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 7,
   },
   {
     id: 8,
@@ -394,6 +410,8 @@ const events = [
     duration: 60,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 8,
   },
   {
     id: 9,
@@ -410,6 +428,8 @@ const events = [
     duration: 90,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 9,
   },
   {
     id: 11,
@@ -426,6 +446,8 @@ const events = [
     duration: 60,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 2,
   },
   {
     id: 10,
@@ -442,9 +464,11 @@ const events = [
     duration: 60,
     gender: null,
     group: true,
+    meeting_link: null,
+    host_id: 10,
   },
   {
-    id: 12,
+    id: 13,
     title: "Non-Finance Bro Business Fundamentals",
     description:
       "Are you a budding entrepreneur or business enthusiast who wants to dive into the world of business but feels overwhelmed by complex financial jargon and calculations? Our course is your go-to course for mastering the foundational aspects of business management without the need for an MBA in finance. This course is tailored for individuals with little to no financial background, but a strong passion for entrepreneurship and business success. This engaging and accessible course takes you on a journey through the core principles of business management, focusing on the aspects that don't require an advanced understanding of finance. You'll develop a solid foundation in business operations, strategy, marketing, and more, allowing you to make informed decisions and navigate the business world with confidence.",
@@ -458,6 +482,8 @@ const events = [
     duration: 90,
     gender: "Female",
     group: true,
+    meeting_link: null,
+    host_id: 9,
   },
 ];
 
