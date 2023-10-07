@@ -84,6 +84,14 @@ const createTables = async () => {
               thread_id serial NOT NULL,
               created_at TIMESTAMPTZ DEFAULT NOW()
           );
+            CREATE TABLE ratings (
+              rating_id SERIAL PRIMARY KEY,
+              "user_id" INTEGER REFERENCES users("user_id"),
+              rating_content text NOT NULL,
+              posted_at TIMESTAMP,
+              created_at TIMESTAMPTZ DEFAULT NOW(),
+              rating INTEGER NOT NULL
+            )
       `);
   console.log("Tables built!");
 };
