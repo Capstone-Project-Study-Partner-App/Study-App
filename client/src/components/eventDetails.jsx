@@ -6,6 +6,8 @@ import {
   CheckCircleIcon,
   LinkIcon,
 } from "@heroicons/react/outline";
+import EventComments from "./AllComments";
+import NewComment from "./NewComment";
 
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
@@ -39,6 +41,7 @@ export default function Event() {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null); // Add a state variable for the host
   const { id } = useParams();
+
   useEffect(() => {
     async function fetchEvent() {
       const singleEvent = await getEventById(id);
@@ -159,6 +162,13 @@ export default function Event() {
         <div className="mt-8 text-xl text-gray-800">
           <p>{event.description}</p>
         </div>
+      </div>
+      <div>
+      <EventComments />
+      <NewComment
+       user_id={1}
+       event_id={id}
+       />
       </div>
     </div>
   );

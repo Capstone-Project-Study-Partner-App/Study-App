@@ -6,8 +6,9 @@ const { createEvent, getAllEvents } = require("./helpers/events");
 const { createUser, getAllUsers } = require("./helpers/users");
 const { createRsvp, getAllRsvps } = require("./helpers/rsvps");
 const { createMessage, getAllMessages } = require("./helpers/messages");
+const { createComment } = require("./helpers/comments");
 
-const { users, events, rsvps, messages } = require("./seedData");
+const { users, events, rsvps, messages, comments } = require("./seedData");
 
 // Drop Tables
 const dropTables = async () => {
@@ -18,6 +19,7 @@ const dropTables = async () => {
           DROP TABLE IF EXISTS events CASCADE;
           DROP TABLE IF EXISTS rsvps CASCADE;
           DROP TABLE IF EXISTS messages CASCADE;
+          DROP TABLE IF EXISTS comments CASCADE;
       `);
     console.log("Tables dropped!");
   } catch (error) {
@@ -84,6 +86,13 @@ const createTables = async () => {
               thread_id serial NOT NULL,
               created_at TIMESTAMPTZ DEFAULT NOW()
           );
+          CREATE TABLE comments (
+            comment_id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(user_id),
+            event_id INTEGER REFERENCES events(event_id),
+            comment_content text,
+            created_at TIMESTAMPTZ DEFAULT NOW()
+          );  
       `);
   console.log("Tables built!");
 };
@@ -139,6 +148,18 @@ const createInitialMessages = async () => {
   }
 };
 
+//Create comments
+const createInitialComments = async () => {
+  try {
+    for (const comment of comments) {
+      await createComment(comment);
+    }
+    console.log("created comment");
+  } catch (error) {
+    throw error;
+  }
+};
+
 //Call all my functions and 'BUILD' my database
 const rebuildDb = async () => {
   try {
@@ -152,6 +173,7 @@ const rebuildDb = async () => {
     await createInitialUsers();
     await createInitialRsvps();
     await createInitialMessages();
+    await createInitialComments();
   } catch (error) {
     console.error(error);
   } finally {
