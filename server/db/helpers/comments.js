@@ -38,7 +38,8 @@ const getCommentsByEventId = async (event_id) => {
         u.photo AS user_photo
         FROM comments c
         INNER JOIN users u ON c.user_id = u.user_id
-        WHERE c.event_id = $1;
+        WHERE c.event_id = $1
+        ORDER BY c.created_at;
         `,
         [event_id]
       );

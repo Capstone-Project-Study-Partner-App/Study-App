@@ -10,12 +10,12 @@ export default function NewComment({ user_id, event_id }) {
     e.preventDefault();
 
     if (!comment_content) {
-      // Add validation: Don't submit an empty comment
+
       return;
     }
 
     try {
-      // Assuming your createComment function takes user_id, event_id, and comment_content as arguments
+
       const commentData = await createComment(user_id, event_id, comment_content);
       console.log("Comment sent:", commentData);
       setCommentContent("");
