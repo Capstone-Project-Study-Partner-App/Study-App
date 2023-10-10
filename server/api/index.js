@@ -29,6 +29,13 @@ const {
   getMessagesByThread,
 } = require("../db/helpers/messages");
 const {
+  deleteRating,
+  updateRating,
+  createRating,
+  getRatingByUserId,
+  getRatingsForUser,
+} = require("../db/helpers/ratings");
+const {
   authRequired,
   setLoginCookie,
   authNotRequired,
@@ -283,6 +290,61 @@ apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
   try {
     const message = await getExistingThread(req.params.sender, req.params.receiver);
     res.send(message);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//RATINGS
+
+// Delete Rating
+apiRouter.delete("/ratings/:id", async (req, res, next) => {
+  try {
+    const rating = await deleteRating(req.params.id);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Edit rating --PUT
+apiRouter.put("/edit_rating/:id", async (req, res, next) => {
+  try {
+    const rating = await updateRating(req.params.id, req.body);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Create rating -- POST
+apiRouter.post("/ratings", async (req, res, next) => {
+  try {
+    console.log("req", req.body);
+    const rating = await createRating(req.body);
+    res.send(rating);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//Get rating by user ID ********************************************
+apiRouter.get("/ratings/users/:id", async (req, res, next) => {
+  try {
+    const rating = await getRatingByUserId(req.params.id);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Create an API endpoint to get ratings for a user
+apiRouter.get("/users/:id/ratings", async (req, res, next) => {
+  try {
+    const user_id = parseInt(req.params.id);
+    const ratings = await getRatingsForUser(user_id);
+
+    res.json(ratings);
   } catch (error) {
     next(error);
   }

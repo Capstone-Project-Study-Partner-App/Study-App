@@ -378,8 +378,8 @@ export default function RegistrationForm() {
                   >
                     <option value="">Select Age</option>
                     <option value="15-17">15-17</option>
-                    <option value="18-25">18-24</option>
-                    <option value="26-30">25-29</option>
+                    <option value="18-24">18-24</option>
+                    <option value="25-29">25-29</option>
                     <option value="30+">30+</option>
                   </select>
                 </div>
@@ -516,19 +516,19 @@ export default function RegistrationForm() {
                 </label>
                 <select
                   id="study_habits"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset foc us:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   value={study_habits}
                   type="text"
-                  name="study_habits"
+                  name="study_habits" 
                   placeholder="Study Habits"
                   onChange={handleStudyHabitChange}
                   required
                 >
                   <option value="">Select Study Habit</option>
-                  <option value="High School">Chill</option>
-                  <option value="College Freshman">Semi-Chill</option>
-                  <option value="College Sophomore">Semi-Grind</option>
-                  <option value="College Junior">Grind</option>
+                  <option value="Chill">Chill</option>
+                  <option value="Semi-Chill">Semi-Chill</option>
+                  <option value="Semi-Grind">Semi-Grind</option>
+                  <option value="Grind">Grind</option>
                 </select>
               </div>
             </div>

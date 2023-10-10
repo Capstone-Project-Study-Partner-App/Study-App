@@ -336,6 +336,7 @@ export async function getMessagesByThread(thread_id) {
   }
 }
 
+<<<<<<< Updated upstream
 // const educationURL =
 //   "http://universities.hipolabs.com/search?country=United+States";
 
@@ -353,3 +354,84 @@ export async function getMessagesByThread(thread_id) {
 //     console.error(error);
 //   }
 
+=======
+// -------RATING FETCHES-------
+
+export async function deleteRating(rating_id) {
+  const resp = await fetch(`${api_root}/ratings/${rating_id}`, {
+    method: "DELETE",
+  });
+  const json = await resp.json();
+  return json;
+}
+
+export async function updateRating(rating_id, updatedRatingData) {
+  try {
+    const response = await fetch(`${api_root}/edit_rating/${rating_id_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedRatingData),
+    });
+    const result = await response.json();
+    console.log("result", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function createRating(ratingData) {
+  try {
+    const resp = await fetch(`${api_root}/ratings`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ratingData),
+    });
+    const json = await resp.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+export async function getRatingByUserId(user_id) {
+  const resp = await fetch(`${api_root}/ratings/users/${user_id}`);
+  const json = await resp.json();
+  return json;
+}
+
+export async function getRatingsForUser(user_id) {
+  const resp = await fetch(`${api_root}/users/${user_id}/ratings`);
+  const json = await resp.json();
+  return json;
+}
+
+
+// -------Registration Form FETCHES-------
+
+// const educationURL =
+//   "https://parseapi.back4app.com/classes/University?limit=0&keys=name";
+
+// export async function getEducation() {
+//   const educationOption = {
+//     method: "GET",
+//     headers: {
+//       "X-Parse-Application-Id": "Ipq7xXxHYGxtAtrDgCvG0hrzriHKdOsnnapEgcbe",
+//       "X-Parse-Master-Key": "HNodr26mkits5ibQx2rIi0GR9pVCwOSEAkqJjgVp",
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(educationURL, educationOption);
+//     const result = await response.text();
+//     console.log(result);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+>>>>>>> Stashed changes

@@ -578,6 +578,7 @@ const messages = [
 ];
 
 //rating
+<<<<<<< Updated upstream
 const rating = [
   { id: 1, user_id: 1, rating_content: "This study partner is like a human encyclopedia! I'm just here for moral support.", posted_at: "2023-08-27 13:30:00", rating: 4},
   { id: 2, user_id: 1, rating_content: "Studying with them feels like attending a motivational TED talk. Ready to conquer the world!", posted_at: "2023-07-11 17:45:00", rating: 5},
@@ -596,3 +597,22 @@ const rating = [
 
 
 module.exports = { users, events, rsvps, messages, rating };
+=======
+const ratings = [
+  { id: 1, user_id: 1, rating_content: "This study partner is like a human encyclopedia! I'm just here for moral support.", posted_at: "2023-08-27 13:30:00", rating_star: 4},
+  { id: 2, user_id: 1, rating_content: "Studying with them feels like attending a motivational TED talk. Ready to conquer the world!", posted_at: "2023-07-11 17:45:00", rating_star: 5},
+  { id: 3, user_id: 2, rating_content: "They've made 'procrastination' an art form. Picasso would be proud.", posted_at: "2023-02-23  13:30:00", rating_star: 1},
+  { id: 4, user_id: 2, rating_content: "Study sessions are like a mystery novel - you never know if they'll show up for the next chapter.", posted_at: "202023-06-03 22:30:12", rating_star: 2},
+  { id: 5, user_id: 2, rating_content: "Their idea of brainstorming involves brainstorming about what to eat for lunch. We're still hungry for knowledge.", posted_at: "2023-09-05 22:45:41", rating_star: 2},
+  { id: 6, user_id: 3, rating_content: "They show up to study sessions, and... well, that's about it.", posted_at: "2023-03-21 04:17:16", rating_star: 3},
+  { id: 7, user_id: 4, rating_content: "As reliable as your Wi-Fi connection during a thunderstorm. Occasionally great, often mysterious.", posted_at: "2023-06-11 03:34:45", rating_star: 3},
+  { id: 8, user_id: 5, rating_content: "Studying with them is like playing hide and seek in a library. You spend more time searching for focus than learning.", posted_at: "2023-07-31 09:35:20", rating_star: 1},
+  { id: 9, user_id: 6, rating_content: "Their attention span is shorter than a squirrel's on an espresso binge.", posted_at: "2023-08-01 10:40:43", rating_star: 1},
+  { id: 10, user_id: 7, rating_content: "Always brings snacks to study sessions. Snack game = A+!", posted_at: "2023-03-14 23:13:26", rating_star: 4},
+  { id: 11, user_id: 8, rating_content: "Their brain works faster than Google's search algorithm. They answer questions before I even finish asking them!", posted_at: "2023-05-24 12:22:27", rating_star: 5},
+  { id: 12, user_id: 9, rating_content: "They have a PhD in explaining complex concepts in a way that even a pet hamster could understand. Truly gifted!", posted_at: "2023-08-28 17:03:22", rating_star: 5},
+  { id: 13, user_id: 10, rating_content: "They bring so much energy to our study sessions that I've started to believe they secretly run on coffee and enthusiasm alone. A study superhero!", posted_at: "2023-06-11 03:34:45", rating_star: 4},
+];
+
+module.exports = { users, events, rsvps, messages, ratings };
+>>>>>>> Stashed changes
