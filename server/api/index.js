@@ -21,6 +21,7 @@ const {
   getRsvpByEventId,
   createRsvp,
   updateRsvp,
+  getRsvpByUserId,
 } = require("../db/helpers/rsvps");
 const {
   deleteMessage,
@@ -33,6 +34,14 @@ const {
   createFavorite,
   getFavoritesForUser,
 } = require("../db/helpers/favorite_buddies");
+const {
+  deleteRating,
+  updateRating,
+  createRating,
+  getAllRatings,
+  getRatingByUserId,
+  getRatingsForUser,
+} = require("../db/helpers/ratings");
 const {
   authRequired,
   setLoginCookie,
@@ -264,6 +273,16 @@ apiRouter.put("/edit_rsvp/:id", async (req, res, next) => {
   }
 });
 
+//Get rsvps by user ID*
+apiRouter.get("/rsvps/:id", async (req, res, next) => {
+  try {
+    const rsvps = await getRsvpByUserId(req.params.id);
+    res.send(rsvps);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //MESSAGES
 
 //Get message by ID
@@ -315,6 +334,67 @@ apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
       req.params.receiver
     );
     res.send(message);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//RATINGS
+
+// Delete Rating
+apiRouter.delete("/ratings/:id", async (req, res, next) => {
+  try {
+    const rating = await deleteRating(req.params.id);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Edit rating --PUT
+apiRouter.put("/edit_rating/:id", async (req, res, next) => {
+  try {
+    const rating = await updateRating(req.params.id, req.body);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Create rating -- POST
+apiRouter.post("/ratings", async (req, res, next) => {
+  try {
+    console.log("req", req.body);
+    const rating = await createRating(req.body);
+    res.send(rating);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//Get all Ratings
+apiRouter.get("/ratings", async (req, res) => {
+  const ratings = await getAllRatings();
+  res.json(ratings);
+});
+
+//Get rating by user ID ********************************************
+apiRouter.get("/ratings/users/:id", async (req, res, next) => {
+  try {
+    const rating = await getRatingByUserId(req.params.id);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Create an API endpoint to get ratings for a user
+apiRouter.get("/users/:id/ratings", async (req, res, next) => {
+  try {
+    const user_id = parseInt(req.params.id);
+    const ratings = await getRatingsForUser(user_id);
+
+    res.json(ratings);
   } catch (error) {
     next(error);
   }
