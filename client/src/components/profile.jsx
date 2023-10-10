@@ -11,9 +11,10 @@ export default function UpdateProfile({ user_id }) {
   useEffect(() => {
     async function fetchUserData() {
       try {
-        const { current_user } = await getProfile();
-        console.log("Fetched user data:", current_user);
-        setUser((prevUser) => ({ ...prevUser, ...current_user }));
+        const response = await getProfile();
+        console.log("Fetched user data:", response);
+        setUser(response);
+        // setUser((prevUser) => ({ ...prevUser, ...current_user }));
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -54,6 +55,7 @@ export default function UpdateProfile({ user_id }) {
       console.error("oopsie prof updates a no-go", error);
       setError("failed to update profile");
     }
+    window.location.reload();
   }
 
   return (
@@ -252,8 +254,8 @@ export default function UpdateProfile({ user_id }) {
                       >
                         <option value="">Select Age</option>
                         <option value="15-17">15-17</option>
-                        <option value="18-25">18-25</option>
-                        <option value="26-30">26-30</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-29">25-29</option>
                         <option value="30+">30+</option>
                       </select>
                     </div>
@@ -387,6 +389,13 @@ export default function UpdateProfile({ user_id }) {
                     >
                       ex: Morning (5AM-12PM), Afternoon (12PM-5PM), Evening
                       (5PM-9PM), Night (9PM-5AM)
+                    </p>
+                    <p
+                      className="mt-3 text-sm leading-6 text-gray-600"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      To select multiple times hold Shift or Ctrl + arrow key
+                      (up or down)
                     </p>
                   </div>
                 </div>
@@ -591,20 +600,14 @@ export default function UpdateProfile({ user_id }) {
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                     <input
                       type="text"
-                      value={user.classes || [""]}
+                      value={user.classes || ""}
                       name="classes"
                       id="classes"
                       autoComplete="classes"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder="Classes"
                       onChange={(e) =>
-                        setUser({
-                          ...user,
-                          classes: Array.from(
-                            e.target.selectedOptions,
-                            (option) => option.value
-                          ),
-                        })
+                        setUser({ ...user, classes: e.target.value })
                       }
                     />
                   </div>
@@ -675,20 +678,14 @@ export default function UpdateProfile({ user_id }) {
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                     <input
                       type="text"
-                      value={user.interests || [""]}
+                      value={user.interests || ""}
                       name="interests"
                       id="interests"
                       autoComplete="interest"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder="Interests"
                       onChange={(e) =>
-                        setUser({
-                          ...user,
-                          interests: Array.from(
-                            e.target.selectedOptions,
-                            (option) => option.value
-                          ),
-                        })
+                        setUser({ ...user, interests: e.target.value })
                       }
                     />
                   </div>
