@@ -151,6 +151,36 @@ export async function logOutUser() {
   return json;
 }
 
+////Mark as favorited AKA "Like someone"
+export async function createFavorite(userId) {
+  const resp = await fetch(`${api_root}/users/${userId}/like`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
+////Mark as un-favorited AKA "Unlikeike someone"
+export async function deleteFavorite(userId) {
+  const resp = await fetch(`${api_root}/users/${userId}/unlike`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
 // -------EVENT FETCHES-------
 
 export async function getAllEvents() {

@@ -29,6 +29,11 @@ const {
   getMessagesByThread,
 } = require("../db/helpers/messages");
 const {
+  deleteFavorite,
+  createFavorite,
+  getFavoritesForUser,
+} = require("../db/helpers/favorite_buddies");
+const {
   authRequired,
   setLoginCookie,
   authNotRequired,
@@ -127,7 +132,31 @@ apiRouter.get("/:id/messages", async (req, res, next) => {
   }
 });
 
-// MISSING LOG IN USER
+//Mark as favorited
+apiRouter.post("/users/:id/like", async (req, res, next) => {
+  try {
+    await createFavorite({
+      liker_id: req.user.user_id,
+      liked_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Mark as un-favorited AKA "unlike someone"
+apiRouter.delete("/users/:id/unlike", async (req, res, next) => {
+  try {
+    await deleteFavorite({
+      liker_id: req.user.user_id,
+      liked_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
+  }
+});
 
 //EVENTS
 
@@ -281,7 +310,10 @@ apiRouter.get("/thread/:id", async (req, res, next) => {
 // // Get existing thread
 apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
   try {
-    const message = await getExistingThread(req.params.sender, req.params.receiver);
+    const message = await getExistingThread(
+      req.params.sender,
+      req.params.receiver
+    );
     res.send(message);
   } catch (error) {
     next(error);

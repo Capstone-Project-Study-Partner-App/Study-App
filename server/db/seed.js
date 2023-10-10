@@ -18,6 +18,7 @@ const dropTables = async () => {
           DROP TABLE IF EXISTS events CASCADE;
           DROP TABLE IF EXISTS rsvps CASCADE;
           DROP TABLE IF EXISTS messages CASCADE;
+          DROP TABLE IF EXISTS favorite_buddies CASCADE;
       `);
     console.log("Tables dropped!");
   } catch (error) {
@@ -83,6 +84,10 @@ const createTables = async () => {
               message_content text,
               thread_id serial NOT NULL,
               created_at TIMESTAMPTZ DEFAULT NOW()
+          );
+          CREATE TABLE favorite_buddies (
+            "liker" INTEGER,
+            "liked" INTEGER
           );
       `);
   console.log("Tables built!");

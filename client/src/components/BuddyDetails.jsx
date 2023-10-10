@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { getUserById } from "../fetching";
+import { getUserById, createFavorite, deleteFavorite } from "../fetching";
 import { useParams } from "react-router-dom";
 
 export default function User() {
   const [user, setUser] = useState(null);
+  const [liked, setLiked] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -18,6 +20,20 @@ export default function User() {
     return null;
   }
 
+  // Function to toggle the liked state
+  const toggleLike = async () => {
+    if (liked) {
+      // If already liked, unlike the user
+      await deleteFavorite(id);
+    } else {
+      // If not liked, like the user
+      await createFavorite(id);
+    }
+    console.log("Poop", liked);
+    // Toggle the liked state
+    setLiked(!liked);
+  };
+
   return (
     <div className="bg-white min-h-screen p-4">
       <div className="max-w-screen-2xl mx-auto flex items-center">
@@ -26,17 +42,35 @@ export default function User() {
             className="mx-auto w-96 aspect-square flex-shrink-0 rounded-full"
             src={user.photo}
             alt={`${user.first_name} ${user.last_name}`}
-            // className="w-full h-auto rounded-lg"
           />
           <h1 className="text-2xl font-semibold mt-4">
             {user.first_name} {user.last_name}
           </h1>
         </div>
+
         <div className="flex-grow ml-4 text-left">
           <div className="mb-4">
-            <h2 className="text-xl font-semibold mb-2">About Me</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold mb-2">About Me</h2>
+
+              {/* Heart button */}
+              <button
+                className={`ml-2 bg-blue-400 focus:outline-none`}
+                onClick={toggleLike}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill={liked ? "red" : "black"}
+                  className="w-6 h-6"
+                >
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                </svg>
+              </button>
+            </div>
             <p className="text-gray-600 mt-2">{user.about_me}</p>
           </div>
+
+          {/* General Info Section */}
           <div>
             <h2 className="text-xl font-semibold mb-2 text-center">
               Information
