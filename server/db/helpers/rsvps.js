@@ -90,10 +90,33 @@ const updateRsvp = async (rsvp_id, updatedRsvpData) => {
   }
 };
 
+// Get Rsvps by User ID
+const getRsvpByUserId = async (user_id) => {
+  try {
+    const {
+      rows,
+    } = await client.query(
+      `
+      SELECT e.*
+      FROM rsvps AS r
+      INNER JOIN events AS e ON r.event_id = e.event_id
+      WHERE r.user_id = $1
+        AND r.rsvp_status = true
+      ORDER BY e.datetime;
+      `,
+      [user_id]
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   createRsvp,
   getAllRsvps,
   getRsvpById,
   getRsvpByEventId,
   updateRsvp,
+  getRsvpByUserId,
 };
