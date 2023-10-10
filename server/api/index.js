@@ -21,6 +21,7 @@ const {
   getRsvpByEventId,
   createRsvp,
   updateRsvp,
+  getRsvpByUserId,
 } = require("../db/helpers/rsvps");
 const {
   deleteMessage,
@@ -238,6 +239,16 @@ apiRouter.put("/edit_rsvp/:id", async (req, res, next) => {
   try {
     const rsvp = await updateRsvp(req.params.id, req.body);
     res.send(rsvp);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Get rsvps by user ID*
+apiRouter.get("/rsvps/:id", async (req, res, next) => {
+  try {
+    const rsvps = await getRsvpByUserId(req.params.id);
+    res.send(rsvps);
   } catch (error) {
     next(error);
   }

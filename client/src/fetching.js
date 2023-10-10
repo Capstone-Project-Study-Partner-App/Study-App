@@ -278,6 +278,12 @@ export async function updateRsvp(rsvp_id, updatedRsvpData) {
   }
 }
 
+export async function getRsvpByUserId(user_id) {
+  const resp = await fetch(`${api_root}/rsvps/${user_id}`);
+  const json = await resp.json();
+  return json;
+}
+
 // -------MESSAGE FETCHES-------
 
 export async function getMessageById(message_id) {
