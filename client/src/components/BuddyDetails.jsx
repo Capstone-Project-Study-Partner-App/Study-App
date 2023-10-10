@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getUserById } from "../fetching";
 import { useParams } from "react-router-dom";
+import Rating from './rating'
 
 export default function User() {
   const [user, setUser] = useState(null);
@@ -19,6 +20,7 @@ export default function User() {
   }
 
   return (
+    <div>
     <div className="bg-white min-h-screen p-4">
       <div className="max-w-screen-2xl mx-auto flex items-center">
         <div className="w-1/3 text-center">
@@ -91,6 +93,8 @@ export default function User() {
           </div>
         </div>
       </div>
+      <Rating/>
+    </div>
     </div>
   );
 }
