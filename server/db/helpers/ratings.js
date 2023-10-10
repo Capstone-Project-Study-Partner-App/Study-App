@@ -56,12 +56,12 @@ const getRatingsForUser = async (user_id) => {
   try {
     const { rows } = await client.query(
       `
-      SELECT r.rating_id, r.rating_content, r.posted_at, r. rating_star*
+      SELECT r.rating_id, r.rating_content, r.posted_at, r. rating_star
       FROM ratings AS r
       JOIN users AS u ON r.user_id = u.user_id
-      WHERE r.event_id = $1;
+      WHERE r.user_id = $1;
       `,
-      [event_id]
+      [user_id]
     );
 
     return rows;

@@ -86,16 +86,6 @@ const createTables = async () => {
               thread_id serial NOT NULL,
               created_at TIMESTAMPTZ DEFAULT NOW()
           );
-<<<<<<< Updated upstream
-            CREATE TABLE ratings (
-              rating_id SERIAL PRIMARY KEY,
-              "user_id" INTEGER REFERENCES users("user_id"),
-              rating_content text NOT NULL,
-              posted_at TIMESTAMP,
-              created_at TIMESTAMPTZ DEFAULT NOW(),
-              rating INTEGER NOT NULL
-            )
-=======
           CREATE TABLE ratings (
             rating_id SERIAL PRIMARY KEY,
             "user_id" INTEGER REFERENCES users("user_id"),
@@ -103,7 +93,6 @@ const createTables = async () => {
             posted_at TIMESTAMP,
             rating_star INTEGER NOT NULL
           );
->>>>>>> Stashed changes
       `);
   console.log("Tables built!");
 };

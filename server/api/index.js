@@ -32,6 +32,7 @@ const {
   deleteRating,
   updateRating,
   createRating,
+  getAllRatings,
   getRatingByUserId,
   getRatingsForUser,
 } = require("../db/helpers/ratings");
@@ -327,6 +328,14 @@ apiRouter.post("/ratings", async (req, res, next) => {
     next(err);
   }
 });
+
+
+//Get all Ratings
+apiRouter.get("/ratings", async (req, res) => {
+  const ratings = await getAllRatings();
+  res.json(ratings);
+});
+
 
 //Get rating by user ID ********************************************
 apiRouter.get("/ratings/users/:id", async (req, res, next) => {

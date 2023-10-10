@@ -380,17 +380,41 @@ export async function createRating(ratingData) {
   }
 }
 
+export async function getAllRatings() {
+  const resp = await fetch(`${api_root}/ratings`);
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
+export async function getRatingsForUser(user_id) {
+  try {
+    const response = await fetch(`${api_root}/users/${user_id}/ratings`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
 export async function getRatingByUserId(user_id) {
   const resp = await fetch(`${api_root}/ratings/users/${user_id}`);
   const json = await resp.json();
   return json;
 }
 
-export async function getRatingsForUser(user_id) {
-  const resp = await fetch(`${api_root}/users/${user_id}/ratings`);
-  const json = await resp.json();
-  return json;
-}
+// export async function getRatingsForUser(user_id) {
+//   const resp = await fetch(`${api_root}/users/${user_id}/ratings`);
+//   const json = await resp.json();
+//   return json;
+// }
 
 
 // -------Registration Form FETCHES-------
