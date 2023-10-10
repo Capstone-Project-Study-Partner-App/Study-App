@@ -75,13 +75,13 @@ export default function User() {
                   <b>Days Available:</b> {user.days_available.join(", ")}
                 </p>
                 <p className="mb-2">
-                  <b>Times Available:</b> {user.times_available}
+                  <b>Times Available:</b> {user.times_available.join(", ")}
                 </p>
                 <p className="mb-2">
                   <b>Interests:</b> {user.interests}
                 </p>
                 <p className="mb-2">
-                  <b>Languages:</b> {user.languages}
+                  <b>Languages:</b> {user.languages.join(", ")}
                 </p>
                 <p className="mb-2">
                   <b>Current Study Mode:</b> {user.study_habits}

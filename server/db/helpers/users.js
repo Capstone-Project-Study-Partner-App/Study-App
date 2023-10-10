@@ -259,27 +259,26 @@ const updateUser = async (user_id, updatedUserData) => {
       `
         UPDATE users
         SET
-        photo = $1,
-        about_me = $2,
+        first_name = $1,
+        last_name = $2,
         email = $3,
-        password = $4,
-        first_name = $5,
-        last_name = $6,
-        gender = $7,
-        age = $8,
-        location = $9,
+        gender = $4,
+        location = $5,
+        about_me = $6,
+        education = $7,
+        education_level = $8,
+        classes = $9,
         days_available = $10,
         times_available = $11,
         timezone= $12,
-        education = $13,
-        education_level = $14,
-        major = $15,
-        classes = $16,
-        study_habits = $17,
-        interests = $18,
-        languages = $19,
-        work = $20
-        WHERE user_id = $21
+        interests = $13,
+        photo = $14,
+        languages = $15,
+        study_habits = $16,
+        major = $17,
+        age = $18,
+        work = $19
+        WHERE user_id = $20
         RETURNING *;
         `,
       [
@@ -287,7 +286,6 @@ const updateUser = async (user_id, updatedUserData) => {
         updatedUserData.last_name,
         updatedUserData.email,
         updatedUserData.gender,
-        updatedUserData.password,
         updatedUserData.location,
         updatedUserData.about_me,
         updatedUserData.education,
