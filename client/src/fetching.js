@@ -336,25 +336,6 @@ export async function getMessagesByThread(thread_id) {
   }
 }
 
-<<<<<<< Updated upstream
-// const educationURL =
-//   "http://universities.hipolabs.com/search?country=United+States";
-
-// export async function getEducation() {
-//   const educationOption = {
-//     method: "GET",
-//     },
-//   };
-
-//   try {
-//     const response = await fetch(educationURL, educationOption);
-//     const result = await response.text();
-//     console.log(result);
-//   } catch (error) {
-//     console.error(error);
-//   }
-
-=======
 // -------RATING FETCHES-------
 
 export async function deleteRating(rating_id) {
@@ -434,4 +415,3 @@ export async function getRatingsForUser(user_id) {
 //     console.error(error);
 //   }
 // }
->>>>>>> Stashed changes
