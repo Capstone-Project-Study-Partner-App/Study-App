@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEventById, getUserById } from "../fetching";
+import { getEventById, getUserById, AuthError, getProfile } from "../fetching";
 import { useParams, Link } from "react-router-dom";
 import {
   VideoCameraIcon,
@@ -40,6 +40,7 @@ function getImageUrl(topic) {
 export default function Event() {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null); // Add a state variable for the host
+  const [user, setUser] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -56,6 +57,23 @@ export default function Event() {
   }, [id]);
 
   const imageUrl = getImageUrl(event.topic);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { current_user } = await getProfile();
+        setUser(current_user);
+        console.log(current_user)
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -164,9 +182,10 @@ export default function Event() {
         </div>
       </div>
       <div>
-      <EventComments />
+      <EventComments
+      event_id={id} />
       <NewComment
-       user_id={1}
+       user_id={3}
        event_id={id}
        />
       </div>

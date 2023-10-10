@@ -22,6 +22,7 @@ export default function NewComment({ user_id, event_id }) {
 
       const eventId = commentData.event_id;
       navigate(`/events/${eventId}`);
+      window.location.reload();
     } catch (error) {
       console.error("There was an error sending your comment!", error);
     }

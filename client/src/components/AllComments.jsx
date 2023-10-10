@@ -13,7 +13,7 @@ export default function EventComments({event_id}) {
     useEffect(() => {
       async function getAllComments() {
         try {
-          const response = await getCommentsByEventId(1);
+          const response = await getCommentsByEventId(event_id);
           setComments(response);
           
         } catch (error) {
@@ -21,7 +21,7 @@ export default function EventComments({event_id}) {
         }
       }
       getAllComments();
-    }, []);
+    }, [event_id]);
 
     return (
         <div>
