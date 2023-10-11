@@ -7,7 +7,7 @@ import Select from "react-select";
 
 // import { PhotoIcon, UserCircleIcon } from '@heroicons/react/solid'
 
-const educationURL = `http://universities.hipolabs.com/search?country=United+States`;
+// const educationURL = `http://universities.hipolabs.com/search?country=United+States`;
 
 //add email, password, photo, and about me fields
 export default function RegistrationForm() {
@@ -35,7 +35,7 @@ export default function RegistrationForm() {
   // const [selectedDayOptions, setSelectedDayOptions] = useState();
   const [selectedTimezoneOptions, setSelectedTimezoneOptions] = useState();
 
-  const [educationOptions, setEducationOptions] = useState([]);
+  // const [educationOptions, setEducationOptions] = useState([]);
 
   const navigate = useNavigate();
 
@@ -135,18 +135,18 @@ export default function RegistrationForm() {
     }
   }
 
-  useEffect(()=>{
-    async function fetchData(){
-      try{
-        const response = await fetch (educationURL);
-        const data = await response.json();
-        const universityNames=data.map((university)=>university.name);
-        setEducationOptions(universityNames)
-      }catch (error){
-        console.error(error)
-      }
-    }fetchData();
-  },[])
+  // useEffect(()=>{
+  //   async function fetchData(){
+  //     try{
+  //       const response = await fetch (educationURL);
+  //       const data = await response.json();
+  //       const universityNames=data.map((university)=>university.name);
+  //       setEducationOptions(universityNames)
+  //     }catch (error){
+  //       console.error(error)
+  //     }
+  //   }fetchData();
+  // },[])
 
 
   // useEffect(() => {
@@ -399,19 +399,15 @@ export default function RegistrationForm() {
                 Education
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <Select
+                <input
                   id="education"
-                  className="block w-full rounded-md border-0 py-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  options={educationOptions.map((option)=>({
-                    value:option,
-                    label:option,
-                  }))}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   value={education}
                   type="text"
                   name="education"
                   placeholder="Education"
-                  onChange={(selectedOption)=>setEducation(selectedOption)}
-                  // onChange={(e) => setEducation(e.target.value)}
+                  // onChange={(selectedOption)=>setEducation(selectedOption)}
+                  onChange={(e) => setEducation(e.target.value)}
                   required
 
                 /> 
