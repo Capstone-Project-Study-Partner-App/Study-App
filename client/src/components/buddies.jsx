@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
-import { AuthError, getUsersMatchingFilters } from "../fetching";
-import { Link, useNavigate } from "react-router-dom"; // Import Link
+import {
+  AuthError,
+  getUsersMatchingFilters,
+  checkIfFavoriteExists,
+  deleteFavorite,
+  createFavorite,
+  getUserById,
+} from "../fetching";
+import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "./login";
 import NewMessage from "./NewMessage";
 import { HeartIcon } from "@heroicons/react/outline";
@@ -37,6 +44,7 @@ function undefinedIfEmpty(arr) {
 }
 
 export default function Buddies() {
+  const [user, setUser] = useState(null);
   const [ageFilter, setAgeFilter] = useState([]);
   const [edLevelFilter, setEdLevelFilter] = useState([]);
   const [availableDaysFilter, setAvailableDaysFilter] = useState([]);
@@ -58,6 +66,7 @@ export default function Buddies() {
   const updateMessages = (newMessage) => {
     setMessages([...messages, newMessage]);
   };
+
   // Function to open the pop-up
   function openForm(user, selectedMessage) {
     console.log("Opening chat pop-up for user:", user.first_name);
@@ -71,6 +80,21 @@ export default function Buddies() {
   function closeForm() {
     setIsEditFormVisible(false);
   }
+
+  const [liked, setLiked] = useState({});
+
+  // Function to toggle the liked state
+  const toggleLike = async (userId) => {
+    if (liked) {
+      // If already liked, unlike the user
+      await deleteFavorite(userId);
+    } else {
+      // If not liked, like the user
+      await createFavorite(userId);
+    }
+    // Toggle the liked state
+    setLiked(!liked);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -282,16 +306,20 @@ export default function Buddies() {
               <div>
                 <div className="-mt-px flex divide-x divide-gray-200">
                   <div className="flex w-0 flex-1">
-                    <a
-                      href="#"
-                      className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                    {/* Heart button */}
+                    <button
+                      className={`center bg-blue-400 focus:outline-none text-white`}
+                      onClick={() => toggleLike(user.user_id)}
                     >
-                      <HeartIcon
-                        className="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill={liked[user.user_id] ? "red" : "black"}
+                        className="w-6 h-6"
+                      >
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                      </svg>
                       Like
-                    </a>
+                    </button>
                   </div>
 
                   {/* open pop up / connect button */}

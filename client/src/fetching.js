@@ -166,7 +166,7 @@ export async function createFavorite(userId) {
   return json;
 }
 
-////Mark as un-favorited AKA "Unlikeike someone"
+//Mark as un-favorited AKA "Unlike someone"
 export async function deleteFavorite(userId) {
   const resp = await fetch(`${api_root}/users/${userId}/unlike`, {
     method: "DELETE",
@@ -179,6 +179,34 @@ export async function deleteFavorite(userId) {
   }
   const json = await resp.json();
   return json;
+}
+
+//Check if a favorite instance exists for a liker and liked
+export async function checkIfFavoriteExists(user_id) {
+  const resp = await fetch(`${api_root}/users/${user_id}/confirm_favorite`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json.exists; // Return the boolean value directly
+}
+
+// Gets all Favorite buddies for signed-in user (AKA req.user)
+export async function getFavoritesForUser(liker_id) {
+  try {
+    const response = await fetch(`${api_root}/users/${liker_id}/all_favorites`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 }
 
 // -------EVENT FETCHES-------
@@ -384,7 +412,7 @@ export async function deleteRating(rating_id) {
 
 export async function updateRating(rating_id, updatedRatingData) {
   try {
-    const response = await fetch(`${api_root}/edit_rating/${rating_id_id}`, {
+    const response = await fetch(`${api_root}/edit_rating/${rating_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -451,7 +479,6 @@ export async function getRatingByUserId(user_id) {
 //   const json = await resp.json();
 //   return json;
 // }
-
 
 // -------Registration Form FETCHES-------
 

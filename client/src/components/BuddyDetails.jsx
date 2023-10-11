@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
-import { getUserById, createFavorite, deleteFavorite } from "../fetching";
+import {
+  getUserById,
+  createFavorite,
+  deleteFavorite,
+  checkIfFavoriteExists,
+} from "../fetching";
 import { useParams } from "react-router-dom";
-import Rating from './rating'
+import Rating from "./rating";
 
 export default function User() {
   const [user, setUser] = useState(null);
@@ -17,6 +22,15 @@ export default function User() {
     fetchUser();
   }, [id]);
 
+  // Check if the favorite exists when the component mounts
+  useEffect(() => {
+    async function fetchFavoriteExists() {
+      const exists = await checkIfFavoriteExists(id);
+      setLiked(exists); // Set the liked state based on the result
+    }
+    fetchFavoriteExists();
+  }, [id]);
+
   if (user === null) {
     return null;
   }
@@ -30,105 +44,104 @@ export default function User() {
       // If not liked, like the user
       await createFavorite(id);
     }
-    console.log("Poop", liked);
     // Toggle the liked state
     setLiked(!liked);
   };
 
   return (
     <div>
-    <div className="bg-white min-h-screen p-4">
-      <div className="max-w-screen-2xl mx-auto flex items-center">
-        <div className="w-1/3 text-center">
-          <img
-            className="mx-auto w-96 aspect-square flex-shrink-0 rounded-full"
-            src={user.photo}
-            alt={`${user.first_name} ${user.last_name}`}
-          />
-          <h1 className="text-2xl font-semibold mt-4">
-            {user.first_name} {user.last_name}
-          </h1>
-        </div>
+      <div className="bg-white min-h-screen p-4">
+        <div className="max-w-screen-2xl mx-auto flex items-center">
+          <div className="w-1/3 text-center">
+            <img
+              className="mx-auto w-96 aspect-square flex-shrink-0 rounded-full"
+              src={user.photo}
+              alt={`${user.first_name} ${user.last_name}`}
+            />
+            <h1 className="text-2xl font-semibold mt-4">
+              {user.first_name} {user.last_name}
+            </h1>
+          </div>
 
-        <div className="flex-grow ml-4 text-left">
-          <div className="mb-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold mb-2">About Me</h2>
+          <div className="flex-grow ml-4 text-left">
+            <div className="mb-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold mb-2">About Me</h2>
 
-              {/* Heart button */}
-              <button
-                className={`ml-2 bg-blue-400 focus:outline-none`}
-                onClick={toggleLike}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill={liked ? "red" : "black"}
-                  className="w-6 h-6"
+                {/* Heart button */}
+                <button
+                  className={`ml-2 bg-blue-400 focus:outline-none`}
+                  onClick={toggleLike}
                 >
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                </svg>
-              </button>
-            </div>
-            <p className="text-gray-600 mt-2">{user.about_me}</p>
-          </div>
-
-          {/* General Info Section */}
-          <div>
-            <h2 className="text-xl font-semibold mb-2 text-center">
-              Information
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="mb-2">
-                  <b>Age:</b> {user.age}
-                </p>
-                <p className="mb-2">
-                  <b>Location Zip Code:</b> {user.location}
-                </p>
-                <p className="mb-2">
-                  <b>Current Education level:</b> {user.education_level}
-                </p>
-                {user.work !== null ? (
-                  <p className="mb-2">
-                    <b>Work Title:</b> {user.work}
-                  </p>
-                ) : null}
-                <p className="mb-2">
-                  <b>Institution:</b> {user.education}
-                </p>
-                <p className="mb-2">
-                  <b>Major:</b> {user.major}
-                </p>
-                <p className="mb-2">
-                  <b>Gender:</b> {user.gender}
-                </p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill={liked ? "red" : "black"}
+                    className="w-6 h-6"
+                  >
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                  </svg>
+                </button>
               </div>
-              <div>
-                <p className="mb-2">
-                  <b>Classes Taken:</b> {user.classes}
-                </p>
-                <p className="mb-2">
-                  <b>Days Available:</b> {user.days_available.join(", ")}
-                </p>
-                <p className="mb-2">
-                  <b>Times Available:</b> {user.times_available}
-                </p>
-                <p className="mb-2">
-                  <b>Interests:</b> {user.interests}
-                </p>
-                <p className="mb-2">
-                  <b>Languages:</b> {user.languages}
-                </p>
-                <p className="mb-2">
-                  <b>Current Study Mode:</b> {user.study_habits}
-                </p>
+              <p className="text-gray-600 mt-2">{user.about_me}</p>
+            </div>
+
+            {/* General Info Section */}
+            <div>
+              <h2 className="text-xl font-semibold mb-2 text-center">
+                Information
+              </h2>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="mb-2">
+                    <b>Age:</b> {user.age}
+                  </p>
+                  <p className="mb-2">
+                    <b>Location Zip Code:</b> {user.location}
+                  </p>
+                  <p className="mb-2">
+                    <b>Current Education level:</b> {user.education_level}
+                  </p>
+                  {user.work !== null ? (
+                    <p className="mb-2">
+                      <b>Work Title:</b> {user.work}
+                    </p>
+                  ) : null}
+                  <p className="mb-2">
+                    <b>Institution:</b> {user.education}
+                  </p>
+                  <p className="mb-2">
+                    <b>Major:</b> {user.major}
+                  </p>
+                  <p className="mb-2">
+                    <b>Gender:</b> {user.gender}
+                  </p>
+                </div>
+                <div>
+                  <p className="mb-2">
+                    <b>Classes Taken:</b> {user.classes}
+                  </p>
+                  <p className="mb-2">
+                    <b>Days Available:</b> {user.days_available.join(", ")}
+                  </p>
+                  <p className="mb-2">
+                    <b>Times Available:</b> {user.times_available}
+                  </p>
+                  <p className="mb-2">
+                    <b>Interests:</b> {user.interests}
+                  </p>
+                  <p className="mb-2">
+                    <b>Languages:</b> {user.languages}
+                  </p>
+                  <p className="mb-2">
+                    <b>Current Study Mode:</b> {user.study_habits}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <Rating />
       </div>
-      <Rating/>
-    </div>
     </div>
   );
 }

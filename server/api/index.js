@@ -33,6 +33,7 @@ const {
   deleteFavorite,
   createFavorite,
   getFavoritesForUser,
+  checkIfFavoriteExists,
 } = require("../db/helpers/favorite_buddies");
 const {
   deleteRating,
@@ -162,6 +163,31 @@ apiRouter.delete("/users/:id/unlike", async (req, res, next) => {
       liked_id: req.params.id,
     });
     res.send({});
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Check to see if a favorite exists in the table for a certain liker & liked instance
+apiRouter.get("/users/:id/confirm_favorite", async (req, res, next) => {
+  try {
+    const exists = await checkIfFavoriteExists({
+      liker_id: req.user.user_id,
+      liked_id: req.params.id,
+    });
+    res.json({ exists });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Gets all Favorite buddies for signed-in user (AKA req.user)
+apiRouter.get("/users/:id/all_favorites", async (req, res, next) => {
+  try {
+    const favorites = await getFavoritesForUser({
+      liker_id: req.user.user_id,
+    });
+    res.json(favorites);
   } catch (error) {
     next(error);
   }
