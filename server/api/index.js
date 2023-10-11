@@ -182,7 +182,7 @@ apiRouter.get("/users/:id/confirm_favorite", async (req, res, next) => {
 });
 
 // Gets all Favorite buddies for signed-in user (AKA req.user)
-apiRouter.get("/users/:id/all_favorites", async (req, res, next) => {
+apiRouter.get("/profile/all_favorites", async (req, res, next) => {
   try {
     const favorites = await getFavoritesForUser({
       liker_id: req.user.user_id,

@@ -197,9 +197,9 @@ export async function checkIfFavoriteExists(user_id) {
 }
 
 // Gets all Favorite buddies for signed-in user (AKA req.user)
-export async function getFavoritesForUser(liker_id) {
+export async function getAllMyFavorites() {
   try {
-    const response = await fetch(`${api_root}/users/${liker_id}/all_favorites`);
+    const response = await fetch(`${api_root}/profile/all_favorites`);
     const result = await response.json();
     console.log(result);
     return result;
