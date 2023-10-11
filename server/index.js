@@ -22,11 +22,6 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.post("/dummy-post", (req, res) => {
-  console.log("body", req.body);
-  res.json({ input: req.body, foo: "bar" });
-});
-
 // Mount the subrouter under the '/api/' route
 const { apiRouter } = require("./api/index");
 app.use("/api", apiRouter);
