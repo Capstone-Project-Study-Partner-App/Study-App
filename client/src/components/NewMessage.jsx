@@ -52,7 +52,7 @@ export default function NewMessage({sender, receiver, thread_id, updateMessages}
                 />
                 <br />
                 <div>
-                    {/* <button type="submit">send</button> */}
+                 
                 </div>
             </form>
             <div>
