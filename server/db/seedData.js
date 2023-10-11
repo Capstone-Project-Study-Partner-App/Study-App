@@ -322,7 +322,7 @@ const events = [
     gender: "Male",
     group: true,
     meeting_link: null,
-    host_id: 4,
+    host_id: 3,
   },
   {
     id: 5,
@@ -483,7 +483,7 @@ const events = [
     gender: "Female",
     group: true,
     meeting_link: null,
-    host_id: 9,
+    host_id: 2,
   },
 ];
 
