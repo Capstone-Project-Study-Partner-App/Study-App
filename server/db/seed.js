@@ -6,8 +6,9 @@ const { createEvent, getAllEvents } = require("./helpers/events");
 const { createUser, getAllUsers } = require("./helpers/users");
 const { createRsvp, getAllRsvps } = require("./helpers/rsvps");
 const { createMessage, getAllMessages } = require("./helpers/messages");
+const { createRating, getAllRatings} = require("./helpers/ratings");
 
-const { users, events, rsvps, messages } = require("./seedData");
+const { users, events, rsvps, messages, ratings } = require("./seedData");
 
 // Drop Tables
 const dropTables = async () => {
@@ -18,6 +19,7 @@ const dropTables = async () => {
           DROP TABLE IF EXISTS events CASCADE;
           DROP TABLE IF EXISTS rsvps CASCADE;
           DROP TABLE IF EXISTS messages CASCADE;
+          DROP TABLE IF EXISTS ratings CASCADE;
       `);
     console.log("Tables dropped!");
   } catch (error) {
@@ -41,11 +43,11 @@ const createTables = async () => {
             about_me text NOT NULL,
             education text NOT NULL,
             education_level text NOT NULL,
-            classes text [],
+            classes text NOT NULL,
             days_available text [] NOT NULL,
             times_available text [] NOT NULL,
             timezone text,
-            interests text [],
+            interests text NOT NULL,
             photo text NOT NULL,
             languages text [] NOT NULL,
             study_habits text NOT NULL,
@@ -66,7 +68,9 @@ const createTables = async () => {
               topic text NOT NULL,
               duration int NOT NULL,
               gender text,
-              "group" boolean NOT NULL
+              "group" boolean NOT NULL, 
+              meeting_link text,
+              host_id INTEGER
           );
             CREATE TABLE rsvps (
               rsvp_id SERIAL PRIMARY KEY,
@@ -81,6 +85,13 @@ const createTables = async () => {
               message_content text,
               thread_id serial NOT NULL,
               created_at TIMESTAMPTZ DEFAULT NOW()
+          );
+          CREATE TABLE ratings (
+            rating_id SERIAL PRIMARY KEY,
+            "user_id" INTEGER REFERENCES users("user_id"),
+            rating_content text NOT NULL,
+            posted_at TIMESTAMP,
+            rating_star INTEGER NOT NULL
           );
       `);
   console.log("Tables built!");
@@ -137,6 +148,18 @@ const createInitialMessages = async () => {
   }
 };
 
+//Create ratings
+const createInitialRatings = async () => {
+  try{
+    for (const rating of ratings) {
+      await createRating(rating);
+    }
+    console.log ("created rating");
+  } catch (error){
+    throw error;
+  }
+}
+
 //Call all my functions and 'BUILD' my database
 const rebuildDb = async () => {
   try {
@@ -150,6 +173,7 @@ const rebuildDb = async () => {
     await createInitialUsers();
     await createInitialRsvps();
     await createInitialMessages();
+    await createInitialRatings ();
   } catch (error) {
     console.error(error);
   } finally {

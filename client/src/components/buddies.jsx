@@ -114,114 +114,120 @@ export default function Buddies({currentUser}) {
       {/* Sidebar */}
       <div className="w-1/4 bg-gray-800 text-white p-4">
         <h1 className="text-xxl font-semibold mb-4">Filters</h1>
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold mb-4">Age</h2>
-          <MultiCheckboxSelect
-            selectedOpts={ageFilter}
-            setSelectedOpts={setAgeFilter}
-            options={["15-17", "18-24", "25-29", "30+"]}
-          />
+        <div
+          className="filter-scrollable"
+          style={{ height: "calc(100vh - 64px)", overflowY: "auto" }}
+        >
+          <div className="space-y-2">
+            <h2 className="text-xl font-semibold mb-4">Age</h2>
+            <MultiCheckboxSelect
+              selectedOpts={ageFilter}
+              setSelectedOpts={setAgeFilter}
+              options={["15-17", "18-24", "25-29", "30+"]}
+            />
 
-          {/* Location */}
-          <h2 className="text-xl font-semibold mb-4">Location</h2>
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2 text-white">Zipcode: </span>
-          </label>
+            {/* Location */}
+            <h2 className="text-xl font-semibold mb-4">Location</h2>
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <input
+                type="checkbox"
+                className="form-checkbox text-indigo-600"
+              />
+              <span className="ml-2 text-white">Zipcode: </span>
+            </label>
 
-          {/* Institution */}
-          <h2 className="text-xl font-semibold mb-4">Institution</h2>
-          <label className="flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">University Name: </span>
-          </label>
+            {/* Institution */}
+            <h2 className="text-xl font-semibold mb-4">Institution</h2>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                className="form-checkbox text-indigo-600"
+              />
+              <span className="ml-2">University Name: </span>
+            </label>
 
-          <h2 className="text-xl font-semibold mb-4">Education Level</h2>
-          <MultiCheckboxSelect
-            selectedOpts={edLevelFilter}
-            setSelectedOpts={setEdLevelFilter}
-            options={[
-              "High School",
-              "College Freshman",
-              "College Sophmore",
-              "College Junior",
-              "College Senior",
-              "Masters",
-              "PhD",
-              "Other",
-            ]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Education Level</h2>
+            <MultiCheckboxSelect
+              selectedOpts={edLevelFilter}
+              setSelectedOpts={setEdLevelFilter}
+              options={[
+                "High School",
+                "College Freshman",
+                "College Sophmore",
+                "College Junior",
+                "College Senior",
+                "Masters",
+                "PhD",
+                "Other",
+              ]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Available Days</h2>
-          <MultiCheckboxSelect
-            selectedOpts={availableDaysFilter}
-            setSelectedOpts={setAvailableDaysFilter}
-            options={[
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday",
-            ]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Available Days</h2>
+            <MultiCheckboxSelect
+              selectedOpts={availableDaysFilter}
+              setSelectedOpts={setAvailableDaysFilter}
+              options={[
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Available Times</h2>
-          <MultiCheckboxSelect
-            selectedOpts={availableTimesFilter}
-            setSelectedOpts={setAvailableTimesFilter}
-            options={["Morning", "Afternoon", "Evening"]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Available Times</h2>
+            <MultiCheckboxSelect
+              selectedOpts={availableTimesFilter}
+              setSelectedOpts={setAvailableTimesFilter}
+              options={["Morning", "Afternoon", "Evening", "Night"]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Languages</h2>
-          <MultiCheckboxSelect
-            selectedOpts={languagesFilter}
-            setSelectedOpts={setLanguagesFilter}
-            options={["English", "Spanish", "Mandarin", "German"]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Languages</h2>
+            <MultiCheckboxSelect
+              selectedOpts={languagesFilter}
+              setSelectedOpts={setLanguagesFilter}
+              options={[
+                "English",
+                "Spanish",
+                "Mandarin",
+                "French",
+                "Arabic",
+                "Other",
+              ]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Study Commitment</h2>
-          <MultiCheckboxSelect
-            selectedOpts={studyCommitmentFilter}
-            setSelectedOpts={setStudyCommitmentFilter}
-            options={[
-              "Relaxed",
-              "Semi-relaxed",
-              "Committed studying",
-              "Grinding studying",
-            ]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Study Commitment</h2>
+            <MultiCheckboxSelect
+              selectedOpts={studyCommitmentFilter}
+              setSelectedOpts={setStudyCommitmentFilter}
+              options={["Chill", "Semi-Chill", "Semi-Grind", "Grind"]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Major</h2>
-          <MultiCheckboxSelect
-            selectedOpts={majorFilter}
-            setSelectedOpts={setMajorFilter}
-            options={[
-              "Psychology",
-              "Biology",
-              "Computer Science",
-              "Engineering",
-              "Business Administration",
-              "Political Science",
-              "Humanities",
-              "English Literature",
-              "Economics",
-              "Social Studies",
-              "Science",
-              "Mathematics",
-              "Literature",
-              "Marketing",
-              "Foreign Language",
-            ]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Major</h2>
+            <MultiCheckboxSelect
+              selectedOpts={majorFilter}
+              setSelectedOpts={setMajorFilter}
+              options={[
+                "Computer Science",
+                "Business",
+                "Art",
+                "Science",
+                "Mathematics",
+                "Literature",
+                "Foreign Language",
+                "Social Studies",
+              ]}
+            />
 
-          <h2 className="text-xl font-semibold mb-4">Gender</h2>
-          <MultiCheckboxSelect
-            selectedOpts={genderFilter}
-            setSelectedOpts={setGenderFilter}
-            options={["Male", "Female", "Non-Binary", "Other"]}
-          />
+            <h2 className="text-xl font-semibold mb-4">Gender</h2>
+            <MultiCheckboxSelect
+              selectedOpts={genderFilter}
+              setSelectedOpts={setGenderFilter}
+              options={["Male", "Female", "Non-Binary", "Other"]}
+            />
+          </div>
         </div>
       </div>
 
