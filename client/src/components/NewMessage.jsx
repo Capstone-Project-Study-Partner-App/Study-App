@@ -26,12 +26,12 @@ export default function NewMessage({sender, receiver, thread_id, updateMessages,
                 data = await createMessage(sender, receiver, message_content, thread_id)
 
                 if (updateMessages) {
-                    updateMessages(data); // Pass the new message data to updateMessages
+                    updateMessages(data); // Pass new message data to updateMessages
                   }
             } else {
                 data = await createMessage(sender, receiver, message_content,)
             }
-                console.log("message sent:", data);
+                console.log("Message sent:", data);
                 setMessageContent("");
                 // navigate(`/:id/messages`);
                    

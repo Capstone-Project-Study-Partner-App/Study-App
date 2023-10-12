@@ -22,6 +22,7 @@ export default function MessageThread({selectedMessage, currentUser}) {
         const response = await getMessagesByThread(selectedMessage.thread_id);
         if (response) {
           setMessages(response);
+          console.log('Thread messages:', response)
         }
           const lastMessage = response[response.length - 1];
           if (lastMessage) {
