@@ -8,7 +8,7 @@ export default function AllMessages() {
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null); 
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleMessageClick = (message) => {
     setSelectedMessage(message);
@@ -17,18 +17,33 @@ export default function AllMessages() {
   useEffect(() => {
     async function getCurrentUser() {
       try {
-        const { current_user } = await getProfile();
-        setCurrentUser(current_user);
+        const response = await getProfile();
+        setCurrentUser(response);
+        console.log("Current User:", response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    getCurrentUser();
+  }, []);
 
-        const messagesResponse = await getUserMessages(current_user.user_id); 
-        setMessages(messagesResponse);
+  useEffect(() => {
+    async function getAllMessages() {
+      try {
+        const response = await getUserMessages(currentUser.user_id); 
+        setMessages(response);
+        console.log("All Messages:", response);
       } catch (error) {
         setError(error.message);
       }
     }
 
-    getCurrentUser();
-  }, []);
+    getAllMessages();
+  }, [currentUser]);
     // if (messages.length === 0) {
     //   return <p>No messages found.</p>;
     // }
@@ -75,6 +90,7 @@ export default function AllMessages() {
       )
     : messages;
 
+    
     return (
       <div className="shadow-lg rounded-lg">
         {/* Header */}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AuthError, getUsersMatchingFilters } from "../fetching";
+import { AuthError, getUsersMatchingFilters, getProfile } from "../fetching";
 import { Link, useNavigate } from "react-router-dom"; // Import Link
 import { LOGIN_ROUTE } from "./login";
 import NewMessage from "./NewMessage";
@@ -35,7 +35,7 @@ function undefinedIfEmpty(arr) {
   return arr;
 }
 
-export default function Buddies({currentUser}) {
+export default function Buddies() {
   const [ageFilter, setAgeFilter] = useState([]);
   const [edLevelFilter, setEdLevelFilter] = useState([]);
   const [availableDaysFilter, setAvailableDaysFilter] = useState([]);
@@ -53,7 +53,25 @@ export default function Buddies({currentUser}) {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [messages, setMessages] = useState([]);
   const [existingThread, setExistingThread] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
+
+  useEffect(() => {
+    async function getCurrentUser() {
+      try {
+        const response = await getProfile();
+        setCurrentUser(response);
+        console.log("Current User:", response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    getCurrentUser();
+  }, []);
 
   const updateMessages = (newMessage) => {
     setMessages([...messages, newMessage]);
@@ -339,7 +357,7 @@ export default function Buddies({currentUser}) {
 
                         {/* chat input / new message */}
                         <div style={{ position: "absolute", bottom: "0" }}>
-                          {user ? (
+                          {user && currentUser ? (
                             <NewMessage
                               sender={currentUser.user_id}
                               receiver={user.user_id}

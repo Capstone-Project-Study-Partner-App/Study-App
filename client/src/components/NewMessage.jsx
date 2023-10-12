@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createMessage } from "../fetching";
 
 
-export default function NewMessage({sender, receiver, thread_id, updateMessages}) {
+export default function NewMessage({sender, receiver, thread_id, updateMessages,}) {
     // const [sender, setSenderId] = useState(null);
     // const [receiver, setReceiverId] = useState(null);
     // const [thread_id, setThreadId] = useState("");
