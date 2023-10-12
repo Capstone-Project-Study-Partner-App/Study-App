@@ -328,8 +328,8 @@ export default function UpdateProfile({ user_id }) {
                       className="mt-3 text-sm leading-6 text-gray-600"
                       style={{ whiteSpace: "nowrap" }}
                     >
-                      To select multiple days hold Shift or Ctrl + arrow key (up
-                      or down)
+                      To select multiple options hold the Command or Ctrl key &
+                      select options
                     </p>
                   </div>
                 </div>
@@ -402,8 +402,8 @@ export default function UpdateProfile({ user_id }) {
                       className="mt-3 text-sm leading-6 text-gray-600"
                       style={{ whiteSpace: "nowrap" }}
                     >
-                      To select multiple times hold Shift or Ctrl + arrow key
-                      (up or down)
+                      To select multiple options hold the Command or Ctrl key &
+                      select options
                     </p>
                   </div>
                 </div>
@@ -742,6 +742,13 @@ export default function UpdateProfile({ user_id }) {
                         <option value="Other">Other</option>
                       </select>
                     </div>
+                    <p
+                      className="mt-3 text-sm leading-6 text-gray-600"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      To select multiple options hold the Command or Ctrl key &
+                      select options
+                    </p>
                   </div>
                 </div>
               </div>
