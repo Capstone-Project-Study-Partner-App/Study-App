@@ -83,8 +83,9 @@ export default function Navbar() {
                     className="ml-3 p-1 rounded-full bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <img
-                      className="h-8 w-8 rounded-full"
-                      src="https://cdn-icons-png.flaticon.com/128/3159/3159054.png"
+                      className="h-8 w-8 rounded"
+                      src="https://cdn-icons-png.flaticon.com/512/8080/8080565.png"
+                      // src="https://cdn-icons-png.flaticon.com/128/3159/3159054.png"
                       alt=""
                     />
                   </Link>
@@ -121,7 +122,7 @@ export default function Navbar() {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Profile Dashboard
+                              Dashboard
                             </a>
                           )}
                         </Menu.Item>

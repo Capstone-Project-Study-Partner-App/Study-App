@@ -56,6 +56,7 @@ export default function UpdateProfile({ user_id }) {
       setError("failed to update profile");
     }
     window.location.reload();
+    alert("Your changes have been saved!");
   }
 
   return (
@@ -267,7 +268,7 @@ export default function UpdateProfile({ user_id }) {
                     htmlFor="location"
                     className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                   >
-                    Location
+                    Zipcode
                   </label>
                   <div className="mt-2 sm:col-span-2 sm:mt-0">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -323,6 +324,13 @@ export default function UpdateProfile({ user_id }) {
                         <option value="Sunday">Sunday</option>
                       </select>
                     </div>
+                    <p
+                      className="mt-3 text-sm leading-6 text-gray-600"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      To select multiple days hold Shift or Ctrl + arrow key (up
+                      or down)
+                    </p>
                   </div>
                 </div>
 
@@ -505,6 +513,9 @@ export default function UpdateProfile({ user_id }) {
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
+                    If applicable.
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
                     ex: Hillview University, The Grace Hopper Program at Full
                     Stack Academy
                   </p>
@@ -545,6 +556,9 @@ export default function UpdateProfile({ user_id }) {
                       <option value="Other">Other</option>
                     </select>
                   </div>
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
+                    If applicable.
+                  </p>
                 </div>
               </div>
 
@@ -760,7 +774,6 @@ export default function UpdateProfile({ user_id }) {
                 </div>
               </div>
             </div>
-
             <button type="submit" className="btn draw-border">
               Save Changes
             </button>
