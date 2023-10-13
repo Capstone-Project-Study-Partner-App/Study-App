@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEventById, getUserById, AuthError, getProfile } from "../fetching";
+import { getEventById, getUserById, createRsvp, deleteRsvp } from "../fetching";
 import { useParams, Link } from "react-router-dom";
 import {
   VideoCameraIcon,
@@ -39,8 +39,9 @@ function getImageUrl(topic) {
 
 export default function Event() {
   const [event, setEvent] = useState([]);
-  const [host, setHost] = useState(null); // Add a state variable for the host
-  const [user, setUser] = useState([]);
+  const [host, setHost] = useState(null);
+  const [rsvp, setRsvp] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -58,22 +59,18 @@ export default function Event() {
 
   const imageUrl = getImageUrl(event.topic);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const { current_user } = await getProfile();
-        setUser(current_user);
-        console.log(current_user)
-      } catch (err) {
-        if (err instanceof AuthError) {
-          navigate(LOGIN_ROUTE);
-        } else {
-          throw err;
-        }
-      }
+  // Function to toggle the attending state
+  const toggleRsvp = async () => {
+    if (rsvp) {
+      // If already attending, set the user to unattending
+      await deleteRsvp(id);
+    } else {
+      // If not attending, set the user to attending
+      await createRsvp(id);
     }
-    fetchData();
-  }, []);
+    // Toggle the attending state
+    setRsvp(!rsvp);
+  };
 
   return (
     <div>
@@ -132,11 +129,15 @@ export default function Event() {
 
             {/* RSVP Button */}
             <button
-              className="bg-indigo-600 text-white px-8 py-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none flex items-center"
-              onClick={() => alert("RSVP When Clicked")}
+              className={`px-8 py-4 rounded-lg shadow-md focus:outline-none flex items-center
+    ${rsvp ? "bg-indigo-100 text-indigo-600" : "bg-indigo-600 text-white"}
+    hover:bg-indigo-700`}
+              onClick={toggleRsvp}
             >
-              <CheckCircleIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-              <span className="ml-2">RSVP</span>
+              {rsvp && (
+                <CheckCircleIcon className="h-5 w-5" aria-hidden="true" />
+              )}
+              <span className="ml-2">{rsvp ? "RSVPed" : "RSVP"}</span>
             </button>
 
             {/* Join Button */}

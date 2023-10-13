@@ -1,23 +1,5 @@
 const client = require("../client");
 
-const createRsvp = async ({ user_id, event_id, rsvp_status }) => {
-  try {
-    const {
-      rows: [rsvps],
-    } = await client.query(
-      `
-        INSERT INTO rsvps(user_id, event_id, rsvp_status)
-        VALUES($1, $2, $3)
-        RETURNING *;
-      `,
-      [user_id, event_id, rsvp_status]
-    );
-    return rsvps;
-  } catch (error) {
-    throw error;
-  }
-};
-
 // Get all Rsvps
 const getAllRsvps = async () => {
   try {
@@ -90,10 +72,67 @@ const updateRsvp = async (rsvp_id, updatedRsvpData) => {
   }
 };
 
+// Get Rsvps by User ID
+const getRsvpByUserId = async (user_id) => {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT e.*
+      FROM rsvps AS r
+      INNER JOIN events AS e ON r.event_id = e.event_id
+      WHERE r.user_id = $1
+        AND r.rsvp_status = true
+      ORDER BY e.datetime;
+      `,
+      [user_id]
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Create an RSVP
+const createRsvp = async ({ user_id, event_id }) => {
+  try {
+    const {
+      rows: [rsvp],
+    } = await client.query(
+      `
+        INSERT INTO rsvps(user_id, event_id, rsvp_status)
+        VALUES($1, $2, true)
+        RETURNING *;
+      `,
+      [user_id, event_id]
+    );
+    return rsvp;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Delete an RSVP
+const deleteRsvp = async ({ user_id, event_id }) => {
+  try {
+    const result = await client.query(
+      `
+        DELETE FROM rsvps
+        WHERE user_id = $1
+        AND event_id = $2;
+      `,
+      [user_id, event_id]
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
-  createRsvp,
   getAllRsvps,
   getRsvpById,
   getRsvpByEventId,
   updateRsvp,
+  getRsvpByUserId,
+  createRsvp,
+  deleteRsvp,
 };

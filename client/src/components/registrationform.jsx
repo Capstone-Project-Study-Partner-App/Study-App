@@ -3,11 +3,11 @@ import { createUser } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-import { getEducation } from "../fetching.js";
+// import { getEducation } from "../fetching.js";
 
 // import { PhotoIcon, UserCircleIcon } from '@heroicons/react/solid'
 
-// const educationURL = `https://documentation-resources.opendatasoft.com/api/explore/v2.1/catalog/datasets/us-colleges-and-universities`;
+// const educationURL = `http://universities.hipolabs.com/search?country=United+States`;
 
 //add email, password, photo, and about me fields
 export default function RegistrationForm() {
@@ -35,7 +35,7 @@ export default function RegistrationForm() {
   // const [selectedDayOptions, setSelectedDayOptions] = useState();
   const [selectedTimezoneOptions, setSelectedTimezoneOptions] = useState();
 
-  const [educationOptions, setEducationOptions] = useState([]);
+  // const [educationOptions, setEducationOptions] = useState([]);
 
   const navigate = useNavigate();
 
@@ -134,6 +134,20 @@ export default function RegistrationForm() {
       console.error("There was an error with the registration form", error);
     }
   }
+
+  // useEffect(()=>{
+  //   async function fetchData(){
+  //     try{
+  //       const response = await fetch (educationURL);
+  //       const data = await response.json();
+  //       const universityNames=data.map((university)=>university.name);
+  //       setEducationOptions(universityNames)
+  //     }catch (error){
+  //       console.error(error)
+  //     }
+  //   }fetchData();
+  // },[])
+
 
   // useEffect(() => {
   //   getEducation()
@@ -364,8 +378,8 @@ export default function RegistrationForm() {
                   >
                     <option value="">Select Age</option>
                     <option value="15-17">15-17</option>
-                    <option value="18-25">18-24</option>
-                    <option value="26-30">25-29</option>
+                    <option value="18-24">18-24</option>
+                    <option value="25-29">25-29</option>
                     <option value="30+">30+</option>
                   </select>
                 </div>
@@ -392,17 +406,12 @@ export default function RegistrationForm() {
                   type="text"
                   name="education"
                   placeholder="Education"
+                  // onChange={(selectedOption)=>setEducation(selectedOption)}
                   onChange={(e) => setEducation(e.target.value)}
                   required
-                />
 
-                {/* <option value="">Select Education</option>
-                {educationOptions.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))} */}
-                {/* </select> */}
+                /> 
+                
                 <p className="mt-3 text-sm leading-6 text-gray-600">
                   ex: Hillview University, The Grace Hopper Program at Full
                   Stack Academy
@@ -503,19 +512,19 @@ export default function RegistrationForm() {
                 </label>
                 <select
                   id="study_habits"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset foc us:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   value={study_habits}
                   type="text"
-                  name="study_habits"
+                  name="study_habits" 
                   placeholder="Study Habits"
                   onChange={handleStudyHabitChange}
                   required
                 >
                   <option value="">Select Study Habit</option>
-                  <option value="High School">Chill</option>
-                  <option value="College Freshman">Semi-Chill</option>
-                  <option value="College Sophomore">Semi-Grind</option>
-                  <option value="College Junior">Grind</option>
+                  <option value="Chill">Chill</option>
+                  <option value="Semi-Chill">Semi-Chill</option>
+                  <option value="Semi-Grind">Semi-Grind</option>
+                  <option value="Grind">Grind</option>
                 </select>
               </div>
             </div>
@@ -676,45 +685,3 @@ export default function RegistrationForm() {
     </div>
   );
 }
-
-// async function handleSubmit(e){
-//     e.preventDefault();
-//     const APIData=await createUser(
-//         first_name,
-//         last_name,
-//         gender,
-//         dob,
-//         education_level,
-//         location,
-//         classes,
-//         education,
-//         major,
-//         work,
-//         interests,
-//         skills,
-//         languages,
-//         availibility,
-//         study_habits,
-//     );
-//     if (APIData.success){
-//         console.log ("New User: ", APIData.data.newUser);
-//         const newUserList = [...useResolvedPath, APIData.data.newUser];
-//         setUser(newUserList);
-
-//         setFirst_name ("");
-//         setLast_name ("");
-//         setLocation ("");
-//         setEducation_level ("");
-//         setWork ("");
-//         setEducation ("");
-//         education ("");
-//         setClasses ("");
-//         skills ("");
-//         availibility("");
-//         interests("");
-//         languages("");
-//         study_habits("");
-//         major("");
-//         gender ("");
-//     }
-// }

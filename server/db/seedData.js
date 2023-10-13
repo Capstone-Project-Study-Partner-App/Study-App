@@ -14,11 +14,11 @@ const users = [
       "I am an active participant in class discussions and enjoy collaborating with my peers.",
     education: "Brewton-Parker College",
     education_level: "College Senior",
-    classes: ["Human development"],
+    classes: "Human development",
     days_available: ["Wednesday", "Monday"],
     times_available: ["Morning", "Evening"],
     timezone: "EST",
-    interests: ["Playing soccer"],
+    interests: "Playing soccer",
     photo:
       "https://marvel-b1-cdn.bc0a.com/f00000000181213/www.valpo.edu/college-of-engineering/files/2019/08/Alec-Senior-Profile-photo-size-for-webpage-800x800.jpg",
     languages: ["English", "Spanish"],
@@ -39,11 +39,11 @@ const users = [
       "I strive for academic excellence and am always eager to take on new challenges.",
     education: "Binghamton University",
     education_level: "College Senior",
-    classes: ["Biochemistry"],
+    classes: "Biochemistry",
     days_available: ["Monday", "Wednesday", "Friday"],
     times_available: ["Morning"],
     timezone: "EST",
-    interests: ["Skateboarding"],
+    interests: "Skateboarding",
     photo:
       "https://www.csw.utk.edu/wp-content/uploads/sites/92/Newsletter-Haiden-Lancaster-Student-Profile.jpg",
     languages: ["English"],
@@ -65,11 +65,11 @@ const users = [
       "I strive for academic excellence and am always eager to take on new challenges.",
     education: "University of Florida",
     education_level: "College Freshman",
-    classes: ["English"],
+    classes: "English",
     days_available: ["Tuesday", "Thursday"],
     times_available: ["Aftenoon", "Evening"],
     timezone: "EST",
-    interests: ["Reading"],
+    interests: "Reading",
     photo:
       "https://www.birmingham.ac.uk/Images/College-EPS-only/international/Student-Profiles/justin-220x220.png",
     languages: ["English", "Arabic"],
@@ -90,11 +90,11 @@ const users = [
       "I am a motivated learner who is always seeking opportunities for growth and improvement.",
     education: "Michigan State University",
     education_level: "PhD",
-    classes: ["English"],
+    classes: "English",
     days_available: ["Wednesday", "Monday"],
     times_available: ["Morning", "Evening"],
     timezone: "EST",
-    interests: ["Snowboarding"],
+    interests: "Snowboarding",
     photo:
       "https://socialwelfare.berkeley.edu/sites/default/files/styles/openberkeley_brand_widgets_square/public/neldeeb_headshot_1.jpg?itok=b4dg0YzR",
     languages: ["English", "Mandarin"],
@@ -115,11 +115,11 @@ const users = [
       "I am a motivated learner who is always seeking opportunities for growth and improvement.",
     education: "Boston University",
     education_level: "College Freshman",
-    classes: ["Calculus"],
+    classes: "Calculus",
     days_available: ["Monday", "Saturday"],
     times_available: ["Morning", "Afternoon"],
     timezone: "EST",
-    interests: ["Cooking"],
+    interests: "Cooking",
     photo:
       "https://vrs.amsi.org.au/wp-content/uploads/sites/84/2017/12/tobinsouth_vrs_2017-18.jpeg",
     languages: ["English", "French"],
@@ -140,11 +140,11 @@ const users = [
       "I am an active participant in class discussions and enjoy collaborating with my peers.",
     education: "Washington State University",
     education_level: "College Sophomore",
-    classes: ["Calculus"],
+    classes: "Calculus",
     days_available: ["Tuesday", "Thursday"],
     times_available: ["Afternoon", "Evening"],
     timezone: "PDT",
-    interests: ["Going to the gym"],
+    interests: "Going to the gym",
     photo:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTebR4rjb4duj3lY4-6hESqj8fwblmBxa4bO5zhJYcskZJxdLdODJuXwCD-yPK2cub0XRU&usqp=CAU",
     languages: ["English", "Spanish"],
@@ -164,11 +164,11 @@ const users = [
     about_me: "I enjoy exploring new subjects and expanding my knowledge.",
     education: "West Virginia University",
     education_level: "College Junior",
-    classes: ["History"],
+    classes: "History",
     days_available: ["Monday", "Tuesday", "Sunday"],
     times_available: ["Morning", "Afternoon", "Evening"],
     timezone: "EST",
-    interests: ["Traveling"],
+    interests: "Traveling",
     photo:
       "https://media.licdn.com/dms/image/D4E03AQHTe4lcqE-iNg/profile-displayphoto-shrink_800_800/0/1686153051429?e=2147483647&v=beta&t=yCtCczPrVONHrsjbtox9eWqrLaWIrZF7tGLMrjXsc5s",
     languages: ["English", "Mandarin"],
@@ -189,11 +189,11 @@ const users = [
       "I am a motivated learner who is always seeking opportunities for growth and improvement.",
     education: "University of San Diego",
     education_level: "PhD",
-    classes: ["History"],
+    classes: "History",
     days_available: ["Monday", "Tuesday", "Friday"],
     times_available: ["Morning", "Afternoon", "Evening"],
     timezone: "PST",
-    interests: ["Reading"],
+    interests: "Reading",
     photo:
       "https://www.hsph.harvard.edu/biostatistics/wp-content/uploads/sites/59/2022/10/thumbnail_IMG_2725.jpg",
     languages: ["English", "Arabic"],
@@ -213,11 +213,11 @@ const users = [
     about_me: "I am a dedicated student with a passion for learning.",
     education: "University of Southern California",
     education_level: "College Sophomore",
-    classes: ["English"],
+    classes: "English",
     days_available: ["Tuesday", "Thursday", "Sunday"],
     times_available: ["Afternoon", "Evening"],
     timezone: "PST",
-    interests: ["Reading"],
+    interests: "Reading",
     photo:
       "https://www.gtc.ox.ac.uk/wp-content/uploads/2019/09/William-Leben-feature.jpg",
     languages: ["English", "French"],
@@ -237,11 +237,11 @@ const users = [
     about_me: "I enjoy exploring new subjects and expanding my knowledge.",
     education: "Michigan University",
     education_level: "College Junior",
-    classes: ["Math"],
+    classes: "Math",
     days_available: ["Monday", "Tuesday", "Wednesday"],
     times_available: ["Afternoon", "Evening"],
     timezone: "EST",
-    interests: ["Cooking"],
+    interests: "Cooking",
     photo:
       "https://studyoverseasinfo.com/wp-content/uploads/2020/08/logo_maxwell.jpg",
     languages: ["English", "Other"],
@@ -322,7 +322,7 @@ const events = [
     gender: "Male",
     group: true,
     meeting_link: null,
-    host_id: 4,
+    host_id: 3,
   },
   {
     id: 5,
@@ -483,7 +483,7 @@ const events = [
     gender: "Female",
     group: true,
     meeting_link: null,
-    host_id: 9,
+    host_id: 2,
   },
 ];
 
@@ -577,6 +577,23 @@ const messages = [
   },
 ];
 
+//rating
+const ratings = [
+  { id: 1, user_id: 1, rating_content: "This study partner is like a human encyclopedia! I'm just here for moral support.", posted_at: "2023-08-27 13:30:00", rating_star: 4},
+  { id: 2, user_id: 1, rating_content: "One does not simply give up on a problem.", posted_at: "2023-07-11 17:45:00", rating_star: 5},
+  { id: 3, user_id: 2, rating_content: "They've made 'procrastination' an art form. Picasso would be proud.", posted_at: "2023-02-23 13:30:00", rating_star: 1},
+  { id: 4, user_id: 2, rating_content: "Study sessions are like a mystery novel - you never know if they'll show up for the next chapter.", posted_at: "2023-06-03 22:30:12", rating_star: 2},
+  { id: 5, user_id: 2, rating_content: "Their idea of brainstorming involves brainstorming about what to eat for lunch. We're still hungry for knowledge.", posted_at: "2023-09-05 22:45:41", rating_star: 2},
+  { id: 6, user_id: 3, rating_content: "They show up to study sessions, and... well, that's about it.", posted_at: "2023-03-21 04:17:16", rating_star: 3},
+  { id: 7, user_id: 4, rating_content: "As reliable as your Wi-Fi connection during a thunderstorm. Occasionally great, often mysterious.", posted_at: "2023-06-11 03:34:45", rating_star: 3},
+  { id: 8, user_id: 5, rating_content: "F is for friends who study together.", posted_at: "2023-07-31 09:35:20", rating_star: 1},
+  { id: 9, user_id: 6, rating_content: "Their attention span is shorter than a squirrel's on an espresso binge.", posted_at: "2023-08-01 10:40:43", rating_star: 1},
+  { id: 10, user_id: 7, rating_content: "Always brings snacks to study sessions. Snack game = A+!", posted_at: "2023-03-14 23:13:26", rating_star: 4},
+  { id: 11, user_id: 8, rating_content: "Their brain works faster than Google's search algorithm. They answer questions before I even finish asking them!", posted_at: "2023-05-24 12:22:27", rating_star: 5},
+  { id: 12, user_id: 9, rating_content: "So study. Much knowledge. Wow.", posted_at: "2023-08-28 17:03:22", rating_star: 5},
+  { id: 13, user_id: 10, rating_content: "We either have an 'Aha!' moment or press the 'Let's Google It' button together.", posted_at: "2023-06-11 03:34:45", rating_star: 4},
+];
+
 const comments = [
   {
     event_id: 1,
@@ -650,4 +667,4 @@ const comments = [
   },
 ];
 
-module.exports = { users, events, rsvps, messages, comments };
+module.exports = { users, events, rsvps, messages, ratings, comments };

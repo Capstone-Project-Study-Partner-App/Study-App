@@ -65,26 +65,26 @@ button:focus-visible {
 }
 
 .registration_form {
-  padding-top:1em;
-  padding-left:2em;
-  padding-bottom:1em
+  padding-top: 1em;
+  padding-left: 2em;
+  padding-bottom: 1em;
 }
 
-.new_event_form{
-  padding-top:1em;
-  padding-left:2em;
-  padding-bottom:1em
+.new_event_form {
+  padding-top: 1em;
+  padding-left: 2em;
+  padding-bottom: 1em;
 }
 
-.profile{
-  padding-top:1em;
-  padding-left:2em;
-  padding-bottom:1em
+.profile {
+  padding-top: 1em;
+  padding-left: 2em;
+  padding-bottom: 1em;
 }
 
 #days_available {
-  border: 1px solid #e2e8f0; 
-  box-shadow: none; 
+  border: 1px solid #e2e8f0;
+  box-shadow: none;
 }
 
 @media (prefers-color-scheme: light) {
