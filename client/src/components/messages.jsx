@@ -123,7 +123,6 @@ export default function AllMessages() {
           </div>
           {/* User list / messages.jsx */}
           <div className="flex flex-col px-2 overflow-y-auto">
-            {error && <p>{error}</p>}
             {messagesToDisplay.map((message) => (
               <div
                 key={message.message_id}
