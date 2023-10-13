@@ -355,7 +355,7 @@ export async function deleteRating(rating_id) {
 
 export async function updateRating(rating_id, updatedRatingData) {
   try {
-    const response = await fetch(`${api_root}/edit_rating/${rating_id_id}`, {
+    const response = await fetch(`${api_root}/edit_rating/${rating_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
