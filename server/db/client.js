@@ -1,9 +1,11 @@
 // Require Client from pg
-const { Client } = require("pg");
+const { Pool } = require("pg");
 
 //Establishing connect to database (like how we do with http://)
-const database = "study-app";
-const client = new Client(`postgres://localhost:5432/${database}`);
+const client = new Pool({
+  connectionString:
+    process.env.POSTGRES_DB_URL || `postgres://localhost:5432/study-app`,
+});
 client.connect();
 
 //Export for use in other files

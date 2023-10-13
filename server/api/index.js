@@ -67,10 +67,13 @@ apiRouter.use(authRequired);
 // the /auth routes are available unauthed
 unauthedApiRouter.use("/auth", require("./auth"));
 
-apiRouter.get("/profile", (req, res) => {
-  res.json({
-    current_user: req.user,
-  });
+apiRouter.get("/profile", async (req, res) => {
+  try {
+    const users = await getUserById(req.user.user_id);
+    res.send(users);
+  } catch (error) {
+    next(error);
+  }
 });
 
 //USERS

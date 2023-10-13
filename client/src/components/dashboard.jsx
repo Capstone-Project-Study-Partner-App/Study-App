@@ -6,7 +6,7 @@ import {
   getAllMyFavorites,
 } from "../fetching";
 import { LOGIN_ROUTE } from "./login";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function UserDashboard() {
   const [user, setUser] = useState(null);
@@ -14,12 +14,13 @@ export default function UserDashboard() {
   const [error, setError] = useState(null);
   const [favoriteUsers, setFavoriteUsers] = useState([]);
   const [events, setEvents] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const { current_user } = await getProfile();
-        setUser(current_user);
+        const response = await getProfile();
+        setUser(response);
       } catch (err) {
         if (err instanceof AuthError) {
           navigate(LOGIN_ROUTE);
