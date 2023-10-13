@@ -20,6 +20,7 @@ const {
 const {
   getRsvpByEventId,
   createRsvp,
+  deleteRsvp,
   updateRsvp,
   getRsvpByUserId,
 } = require("../db/helpers/rsvps");
@@ -279,13 +280,28 @@ apiRouter.get("/rsvps/events/:id", async (req, res, next) => {
 });
 
 //Create Rsvp --POST
-apiRouter.post("/rsvps", async (req, res, next) => {
+apiRouter.post("/events/:id/attending", async (req, res, next) => {
   try {
-    console.log("req", req.body);
-    const rsvp = await createRsvp(req.body);
-    res.send(rsvp);
-  } catch (err) {
-    next(err);
+    await createRsvp({
+      user_id: req.user.user_id,
+      event_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Delete Rsvp --DELETE
+apiRouter.delete("/events/:id/unattending", async (req, res, next) => {
+  try {
+    await deleteRsvp({
+      user_id: req.user.user_id,
+      event_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
   }
 });
 

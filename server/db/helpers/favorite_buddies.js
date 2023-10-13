@@ -46,9 +46,10 @@ const getFavoritesForUser = async ({ liker_id }) => {
   try {
     const { rows: favorites } = await client.query(
       `
-        SELECT *
-        FROM favorite_buddies
-        WHERE liker = $1
+        SELECT U.*
+        FROM favorite_buddies AS FB
+        JOIN users AS U ON FB.liked = U.user_id
+        WHERE FB.liker = $1
       `,
       [liker_id]
     );

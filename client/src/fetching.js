@@ -290,33 +290,40 @@ export async function deleteEvent(event_id) {
   return json;
 }
 
-// -------EVENT FETCHES-------
-
 export async function getRsvpByEventId(event_id) {
   const resp = await fetch(`${api_root}/rsvps/events/${event_id}`);
   const json = await resp.json();
   return json;
 }
 
-export async function createRsvp(user_id, event_id, rsvp_status) {
-  try {
-    const resp = await fetch(`${api_root}/events`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user_id,
-        event_id,
-        rsvp_status,
-      }),
-    });
-    const json = await resp.json();
-    return json;
-  } catch (error) {
-    console.error(error);
-    return error;
+//CREATE AN RSVP
+export async function createRsvp(event_id) {
+  const resp = await fetch(`${api_root}/events/${event_id}/attending`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
   }
+  const json = await resp.json();
+  return json;
+}
+
+//DELETE AN RSVP
+export async function deleteRsvp(event_id) {
+  const resp = await fetch(`${api_root}/events/${event_id}/unattending`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
 }
 
 export async function updateRsvp(rsvp_id, updatedRsvpData) {

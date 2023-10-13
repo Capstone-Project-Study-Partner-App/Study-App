@@ -75,8 +75,8 @@ const createTables = async () => {
           );
             CREATE TABLE rsvps (
               rsvp_id SERIAL PRIMARY KEY,
-              "user_id" INTEGER REFERENCES users("user_id"),
-              "event_id" INTEGER REFERENCES events("event_id"),
+              "user_id",
+              "event_id" ,
               rsvp_status boolean NOT NULL
           );
             CREATE TABLE messages (

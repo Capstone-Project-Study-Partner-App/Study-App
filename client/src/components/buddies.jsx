@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AuthError,
   getUsersMatchingFilters,
@@ -83,44 +83,28 @@ export default function Buddies() {
 
   const [liked, setLiked] = useState({});
 
-  // Function to toggle the liked state
-  const toggleLike = async (userId) => {
-    if (liked) {
-      // If already liked, unlike the user
-      await deleteFavorite(userId);
-    } else {
-      // If not liked, like the user
-      await createFavorite(userId);
-    }
-    // Toggle the liked state
-    setLiked(!liked);
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const users = await getUsersMatchingFilters({
-          filters: {
-            age: undefinedIfEmpty(ageFilter),
-            education_level: undefinedIfEmpty(edLevelFilter),
-            days_available: undefinedIfEmpty(availableDaysFilter),
-            times_available: undefinedIfEmpty(availableTimesFilter),
-            languages: undefinedIfEmpty(languagesFilter),
-            study_habits: undefinedIfEmpty(studyCommitmentFilter),
-            major: undefinedIfEmpty(majorFilter),
-            gender: undefinedIfEmpty(genderFilter),
-          },
-        });
-        setAllUsers(users);
-      } catch (err) {
-        if (err instanceof AuthError) {
-          navigate(LOGIN_ROUTE);
-        } else {
-          throw err;
-        }
+  const fetchData = React.useCallback(async () => {
+    try {
+      const users = await getUsersMatchingFilters({
+        filters: {
+          age: undefinedIfEmpty(ageFilter),
+          education_level: undefinedIfEmpty(edLevelFilter),
+          days_available: undefinedIfEmpty(availableDaysFilter),
+          times_available: undefinedIfEmpty(availableTimesFilter),
+          languages: undefinedIfEmpty(languagesFilter),
+          study_habits: undefinedIfEmpty(studyCommitmentFilter),
+          major: undefinedIfEmpty(majorFilter),
+          gender: undefinedIfEmpty(genderFilter),
+        },
+      });
+      setAllUsers(users);
+    } catch (err) {
+      if (err instanceof AuthError) {
+        navigate(LOGIN_ROUTE);
+      } else {
+        throw err;
       }
     }
-    fetchData();
   }, [
     navigate,
     ageFilter,
@@ -132,6 +116,25 @@ export default function Buddies() {
     majorFilter,
     genderFilter,
   ]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  // Function to toggle the liked state
+  const toggleLike = async (userId) => {
+    if (liked) {
+      // If already liked, unlike the user
+      await deleteFavorite(userId);
+    } else {
+      // If not liked, like the user
+      await createFavorite(userId);
+    }
+    // // Toggle the liked state
+    // setLiked(!liked);
+
+    await fetchData();
+  };
 
   return (
     <div className="flex">
@@ -329,7 +332,7 @@ export default function Buddies() {
                       onClick={() => openForm(user, existingThread)}
                       className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg bg-indigo-800 border border-transparent py-4 text-sm font-semibold text-white"
                     >
-                      Connect
+                      Message
                     </a>
                   </div>
                 </div>
