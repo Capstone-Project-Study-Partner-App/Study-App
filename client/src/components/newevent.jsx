@@ -10,6 +10,7 @@ export default function NewEventForm() {
   const [datetime, setDatetime] = useState("");
   const [timezone, setTimezone] = useState("");
   const [virtual, setVirtual] = useState(false);
+  const [meeting_link, setMeeting_link] = useState("");
   const [comments, setComments] = useState("");
   const [topic, setTopic] = useState("");
   const [duration, setDuration] = useState("");
@@ -41,6 +42,7 @@ export default function NewEventForm() {
       datetime: datetime,
       timezone: timezone,
       virtual: virtual,
+      meeting_link: meeting_link,
       comments: comments,
       topic: topic,
       duration: duration,
@@ -172,7 +174,7 @@ export default function NewEventForm() {
                   htmlFor="location"
                   className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 >
-                  Location
+                  ZIP Code
                 </label>
                 <div className="mt-2 sm:col-span-2 sm:mt-0">
                   <input
@@ -181,9 +183,12 @@ export default function NewEventForm() {
                     value={location}
                     type="text"
                     name="location"
-                    placeholder="Location"
+                    placeholder="ZIP Code"
                     onChange={(e) => setLocation(e.target.value)}
                   />
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
+                    Please input your event's 5-digit ZIP Code.
+                  </p>
                 </div>
               </div>
 
@@ -221,7 +226,27 @@ export default function NewEventForm() {
                     </div>
                   </div>
                 </div>
-
+                {virtual && (
+                  <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                    <label
+                      htmlFor="address"
+                      className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+                    >
+                      Meeting Link
+                    </label>
+                    <div className="mt-2 sm:col-span-2 sm:mt-0">
+                      <input
+                        id="meeting_link"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                        value={location}
+                        type="text"
+                        name="meeting_link"
+                        placeholder="Meeting Link"
+                        onChange={(e) => setMeeting_link(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
                   <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
                     <label

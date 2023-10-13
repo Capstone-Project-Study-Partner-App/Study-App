@@ -95,7 +95,7 @@ const createTables = async () => {
             rating_id SERIAL PRIMARY KEY,
             "user_id" INTEGER REFERENCES users("user_id"),
             rating_content text NOT NULL,
-            posted_at TIMESTAMP,
+            posted_at TIMESTAMPTZ DEFAULT NOW(),
             rating_star INTEGER NOT NULL
           );
       `);
