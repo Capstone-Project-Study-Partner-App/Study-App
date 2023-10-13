@@ -81,15 +81,15 @@ const updateRating = async (rating_id, updatedRatingData) => {
         user_id = $1,
         rating_content = $2,
         posted_at = $3,
-        rating_star = $4,
-        WHERE event_id = $15
+        rating_star = $4
+        WHERE rating_id = $5
         RETURNING *;
         `,
       [
-        updatedEventData.user_id,
-        updatedEventData.rating_content,
-        updatedEventData.posted_at,
-        updatedEventData.rating_star,
+        updatedRatingData.user_id,
+        updatedRatingData.rating_content,
+        updatedRatingData.posted_at,
+        updatedRatingData.rating_star,
 
         rating_id,
       ]
@@ -105,17 +105,17 @@ const deleteRating = async (rating_id) => {
     client.query(
       `
       DELETE FROM ratings
-      WHERE user_id = $1
+      WHERE rating_id = $1
       `,
-      [user_id]
+      [rating_id]
     );
-    const result = await client.query(
-      `
-        DELETE FROM users
-        WHERE user_id = $1
-      `,
-      [user_id]
-    );
+    // const result = await client.query(
+    //   `
+    //     DELETE FROM ratings
+    //     WHERE rating_id = $1
+    //   `,
+    //   [rating_id]
+    // );
   } catch (error) {
     throw error;
   }

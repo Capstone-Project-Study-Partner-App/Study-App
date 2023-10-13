@@ -165,7 +165,7 @@ export default function Events() {
               options={["Group Study", "Partner Work"]}
             />
 
-            <h2 className="text-xl font-semibold mb-4">Gender</h2>
+            <h2 className="text-xl font-semibold mb-4">Gender of Meeting</h2>
             <MultiCheckboxSelect
               selectedOpts={genderFilter}
               setSelectedOpts={setGenderFilter}

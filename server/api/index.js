@@ -20,6 +20,7 @@ const {
 const {
   getRsvpByEventId,
   createRsvp,
+  deleteRsvp,
   updateRsvp,
   getRsvpByUserId,
 } = require("../db/helpers/rsvps");
@@ -29,6 +30,12 @@ const {
   getMessageById,
   getMessagesByThread,
 } = require("../db/helpers/messages");
+const {
+  deleteFavorite,
+  createFavorite,
+  getFavoritesForUser,
+  checkIfFavoriteExists,
+} = require("../db/helpers/favorite_buddies");
 const {
   deleteRating,
   updateRating,
@@ -139,7 +146,56 @@ apiRouter.get("/:id/messages", async (req, res, next) => {
   }
 });
 
-// MISSING LOG IN USER
+//Mark as favorited
+apiRouter.post("/users/:id/like", async (req, res, next) => {
+  try {
+    await createFavorite({
+      liker_id: req.user.user_id,
+      liked_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Mark as un-favorited AKA "unlike someone"
+apiRouter.delete("/users/:id/unlike", async (req, res, next) => {
+  try {
+    await deleteFavorite({
+      liker_id: req.user.user_id,
+      liked_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Check to see if a favorite exists in the table for a certain liker & liked instance
+apiRouter.get("/users/:id/confirm_favorite", async (req, res, next) => {
+  try {
+    const exists = await checkIfFavoriteExists({
+      liker_id: req.user.user_id,
+      liked_id: req.params.id,
+    });
+    res.json({ exists });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Gets all Favorite buddies for signed-in user (AKA req.user)
+apiRouter.get("/profile/all_favorites", async (req, res, next) => {
+  try {
+    const favorites = await getFavoritesForUser({
+      liker_id: req.user.user_id,
+    });
+    res.json(favorites);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //EVENTS
 
@@ -227,13 +283,28 @@ apiRouter.get("/rsvps/events/:id", async (req, res, next) => {
 });
 
 //Create Rsvp --POST
-apiRouter.post("/rsvps", async (req, res, next) => {
+apiRouter.post("/events/:id/attending", async (req, res, next) => {
   try {
-    console.log("req", req.body);
-    const rsvp = await createRsvp(req.body);
-    res.send(rsvp);
-  } catch (err) {
-    next(err);
+    await createRsvp({
+      user_id: req.user.user_id,
+      event_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Delete Rsvp --DELETE
+apiRouter.delete("/events/:id/unattending", async (req, res, next) => {
+  try {
+    await deleteRsvp({
+      user_id: req.user.user_id,
+      event_id: req.params.id,
+    });
+    res.send({});
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -303,7 +374,10 @@ apiRouter.get("/thread/:id", async (req, res, next) => {
 // // Get existing thread
 apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
   try {
-    const message = await getExistingThread(req.params.sender, req.params.receiver);
+    const message = await getExistingThread(
+      req.params.sender,
+      req.params.receiver
+    );
     res.send(message);
   } catch (error) {
     next(error);
@@ -343,13 +417,11 @@ apiRouter.post("/ratings", async (req, res, next) => {
   }
 });
 
-
 //Get all Ratings
 apiRouter.get("/ratings", async (req, res) => {
   const ratings = await getAllRatings();
   res.json(ratings);
 });
-
 
 //Get rating by user ID ********************************************
 apiRouter.get("/ratings/users/:id", async (req, res, next) => {

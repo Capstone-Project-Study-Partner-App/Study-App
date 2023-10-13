@@ -1,8 +1,17 @@
-import { useState, useEffect } from "react";
-import { AuthError, getUsersMatchingFilters, getProfile } from "../fetching";
-import { Link, useNavigate } from "react-router-dom"; // Import Link
+import React, { useState, useEffect } from "react";
+import {
+  AuthError,
+  getUsersMatchingFilters,
+  checkIfFavoriteExists,
+  deleteFavorite,
+  createFavorite,
+  getUserById,
+  getProfile 
+} from "../fetching";
+import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "./login";
 import NewMessage from "./NewMessage";
+import { HeartIcon } from "@heroicons/react/outline";
 import PopUpThread from "./Thread";
 
 function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
@@ -36,6 +45,7 @@ function undefinedIfEmpty(arr) {
 }
 
 export default function Buddies() {
+  const [user, setUser] = useState(null);
   const [ageFilter, setAgeFilter] = useState([]);
   const [edLevelFilter, setEdLevelFilter] = useState([]);
   const [availableDaysFilter, setAvailableDaysFilter] = useState([]);
@@ -76,6 +86,7 @@ export default function Buddies() {
   const updateMessages = (newMessage) => {
     setMessages([...messages, newMessage]);
   };
+
   // Function to open the pop-up
   function openForm(user, selectedMessage) {
     console.log("Opening chat pop-up for user:", user.first_name);
@@ -90,31 +101,30 @@ export default function Buddies() {
     setIsEditFormVisible(false);
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const users = await getUsersMatchingFilters({
-          filters: {
-            age: undefinedIfEmpty(ageFilter),
-            education_level: undefinedIfEmpty(edLevelFilter),
-            days_available: undefinedIfEmpty(availableDaysFilter),
-            times_available: undefinedIfEmpty(availableTimesFilter),
-            languages: undefinedIfEmpty(languagesFilter),
-            study_habits: undefinedIfEmpty(studyCommitmentFilter),
-            major: undefinedIfEmpty(majorFilter),
-            gender: undefinedIfEmpty(genderFilter),
-          },
-        });
-        setAllUsers(users);
-      } catch (err) {
-        if (err instanceof AuthError) {
-          navigate(LOGIN_ROUTE);
-        } else {
-          throw err;
-        }
+  const [liked, setLiked] = useState(false);
+
+  const fetchData = React.useCallback(async () => {
+    try {
+      const users = await getUsersMatchingFilters({
+        filters: {
+          age: undefinedIfEmpty(ageFilter),
+          education_level: undefinedIfEmpty(edLevelFilter),
+          days_available: undefinedIfEmpty(availableDaysFilter),
+          times_available: undefinedIfEmpty(availableTimesFilter),
+          languages: undefinedIfEmpty(languagesFilter),
+          study_habits: undefinedIfEmpty(studyCommitmentFilter),
+          major: undefinedIfEmpty(majorFilter),
+          gender: undefinedIfEmpty(genderFilter),
+        },
+      });
+      setAllUsers(users);
+    } catch (err) {
+      if (err instanceof AuthError) {
+        navigate(LOGIN_ROUTE);
+      } else {
+        throw err;
       }
     }
-    fetchData();
   }, [
     navigate,
     ageFilter,
@@ -126,6 +136,25 @@ export default function Buddies() {
     majorFilter,
     genderFilter,
   ]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  // Function to toggle the liked state
+  const toggleLike = async (userId) => {
+    if (liked) {
+      // If already liked, unlike the user
+      await deleteFavorite(userId);
+    } else {
+      // If not liked, like the user
+      await createFavorite(userId);
+    }
+    // // Toggle the liked state
+    // setLiked(!liked);
+
+    await fetchData();
+  };
 
   return (
     <div className="flex">
@@ -296,6 +325,38 @@ export default function Buddies() {
                 </div>
               </Link>
               {/* CONNECT */}
+
+              <div>
+                <div className="-mt-px flex divide-x divide-gray-200">
+                  <div className="flex w-0 flex-1">
+                    {/* Heart button */}
+                    <button
+                      className={`center bg-blue-400 focus:outline-none text-white`}
+                      onClick={() => toggleLike(user.user_id)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill={liked[user.user_id] ? "red" : "black"}
+                        className="w-6 h-6"
+                      >
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                      </svg>
+                      Like
+                    </button>
+                  </div>
+
+                  {/* open pop up / connect button */}
+                  <div className="ml-px flex w-0 flex-1">
+                    <a
+                      href="#"
+                      onClick={() => openForm(user, existingThread)}
+                      className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg bg-indigo-800 border border-transparent py-4 text-sm font-semibold text-white"
+                    >
+                      Message
+                    </a>
+                  </div>
+                </div>
+              </div>
               <div>
                 {isEditFormVisible && selectedUser === user ? (
                   <div className="fixed bottom-0 right-0 z-50">
@@ -371,19 +432,6 @@ export default function Buddies() {
                     </div>
                   </div>
                 ) : null}
-
-                {/* open pop up / connect button */}
-                <div className="-mt-px flex divide-x divide-gray-200">
-                  <div className="flex w-0 flex-1">
-                    <a
-                      href="#"
-                      onClick={() => openForm(user, existingThread)}
-                      className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg bg-indigo-800 border border-transparent py-4 text-sm font-semibold text-white"
-                    >
-                      Connect
-                    </a>
-                  </div>
-                </div>
               </div>
             </li>
           ))}
