@@ -6,7 +6,7 @@ const { createEvent, getAllEvents } = require("./helpers/events");
 const { createUser, getAllUsers } = require("./helpers/users");
 const { createRsvp, getAllRsvps } = require("./helpers/rsvps");
 const { createMessage, getAllMessages } = require("./helpers/messages");
-const { createRating, getAllRatings} = require("./helpers/ratings");
+const { createRating, getAllRatings } = require("./helpers/ratings");
 
 const { users, events, rsvps, messages, ratings } = require("./seedData");
 
@@ -19,6 +19,7 @@ const dropTables = async () => {
           DROP TABLE IF EXISTS events CASCADE;
           DROP TABLE IF EXISTS rsvps CASCADE;
           DROP TABLE IF EXISTS messages CASCADE;
+          DROP TABLE IF EXISTS favorite_buddies CASCADE;
           DROP TABLE IF EXISTS ratings CASCADE;
       `);
     console.log("Tables dropped!");
@@ -74,8 +75,8 @@ const createTables = async () => {
           );
             CREATE TABLE rsvps (
               rsvp_id SERIAL PRIMARY KEY,
-              "user_id" INTEGER REFERENCES users("user_id"),
-              "event_id" INTEGER REFERENCES events("event_id"),
+              "user_id" INTEGER,
+              "event_id" INTEGER,
               rsvp_status boolean NOT NULL
           );
             CREATE TABLE messages (
@@ -85,6 +86,10 @@ const createTables = async () => {
               message_content text,
               thread_id serial NOT NULL,
               created_at TIMESTAMPTZ DEFAULT NOW()
+          );
+          CREATE TABLE favorite_buddies (
+            "liker" INTEGER,
+            "liked" INTEGER
           );
           CREATE TABLE ratings (
             rating_id SERIAL PRIMARY KEY,
@@ -150,15 +155,15 @@ const createInitialMessages = async () => {
 
 //Create ratings
 const createInitialRatings = async () => {
-  try{
+  try {
     for (const rating of ratings) {
       await createRating(rating);
     }
-    console.log ("created rating");
-  } catch (error){
+    console.log("created rating");
+  } catch (error) {
     throw error;
   }
-}
+};
 
 //Call all my functions and 'BUILD' my database
 const rebuildDb = async () => {
@@ -173,7 +178,7 @@ const rebuildDb = async () => {
     await createInitialUsers();
     await createInitialRsvps();
     await createInitialMessages();
-    await createInitialRatings ();
+    await createInitialRatings();
   } catch (error) {
     console.error(error);
   } finally {
