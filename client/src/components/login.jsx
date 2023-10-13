@@ -5,7 +5,7 @@ import Buttonlink from "./registerbutton";
 
 export const LOGIN_ROUTE = "/login";
 
-export default function Login() {
+export default function Login({ setLoggedIn }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = React.useState("");
@@ -38,6 +38,7 @@ export default function Login() {
                 setPending(true);
                 const { success } = await logInUser({ email, password });
                 if (success) {
+                  setLoggedIn(true);
                   navigate("/users");
                 }
                 setPending(false);
