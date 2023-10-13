@@ -4,10 +4,6 @@ import { createMessage } from "../fetching";
 
 
 export default function NewMessage({sender, receiver, thread_id, updateMessages,}) {
-    // const [sender, setSenderId] = useState(null);
-    // const [receiver, setReceiverId] = useState(null);
-    // const [thread_id, setThreadId] = useState("");
-    // const { thread_id } = useParams();
     const [message_content, setMessageContent] = useState("");
     const navigate = useNavigate();
 

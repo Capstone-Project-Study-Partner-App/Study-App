@@ -157,18 +157,19 @@ const createMessage = async ({ sender, receiver, message_content, thread_id }) =
       }
     }
 
+    // Photo autopopulate with new message
     const {
-      rows: [message],
+      rows: [messageWithPhoto],
     } = await client.query(
       `
       INSERT INTO messages(sender, receiver, message_content, thread_id)
       VALUES($1, $2, $3, $4)
-      RETURNING *;
+      RETURNING *, (SELECT photo FROM users WHERE user_id = $1) AS sender_photo;
       `,
       [sender, receiver, message_content, thread_id]
     );
 
-    return message;
+    return messageWithPhoto;
   } catch (error) {
     throw error;
   }

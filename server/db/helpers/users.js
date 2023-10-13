@@ -358,6 +358,8 @@ const getUserMessages = async (user_id) => {
               r.user_id AS receiver,
               r.first_name AS receiver_first_name,
               r.photo AS receiver_photo,
+              r.age AS receiver_age,
+              r.education_level AS receiver_education_level,
               m.thread_id
           FROM
               messages m
