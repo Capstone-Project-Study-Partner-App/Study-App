@@ -152,6 +152,64 @@ export async function logOutUser() {
   return json;
 }
 
+////Mark as favorited AKA "Like someone"
+export async function createFavorite(userId) {
+  const resp = await fetch(`${api_root}/users/${userId}/like`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
+//Mark as un-favorited AKA "Unlike someone"
+export async function deleteFavorite(userId) {
+  const resp = await fetch(`${api_root}/users/${userId}/unlike`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
+}
+
+//Check if a favorite instance exists for a liker and liked
+export async function checkIfFavoriteExists(user_id) {
+  const resp = await fetch(`${api_root}/users/${user_id}/confirm_favorite`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json.exists; // Return the boolean value directly
+}
+
+// Gets all Favorite buddies for signed-in user (AKA req.user)
+export async function getAllMyFavorites() {
+  try {
+    const response = await fetch(`${api_root}/profile/all_favorites`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
 // -------EVENT FETCHES-------
 
 export async function getAllEvents() {
@@ -233,33 +291,40 @@ export async function deleteEvent(event_id) {
   return json;
 }
 
-// -------EVENT FETCHES-------
-
 export async function getRsvpByEventId(event_id) {
   const resp = await fetch(`${api_root}/rsvps/events/${event_id}`);
   const json = await resp.json();
   return json;
 }
 
-export async function createRsvp(user_id, event_id, rsvp_status) {
-  try {
-    const resp = await fetch(`${api_root}/events`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user_id,
-        event_id,
-        rsvp_status,
-      }),
-    });
-    const json = await resp.json();
-    return json;
-  } catch (error) {
-    console.error(error);
-    return error;
+//CREATE AN RSVP
+export async function createRsvp(event_id) {
+  const resp = await fetch(`${api_root}/events/${event_id}/attending`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
   }
+  const json = await resp.json();
+  return json;
+}
+
+//DELETE AN RSVP
+export async function deleteRsvp(event_id) {
+  const resp = await fetch(`${api_root}/events/${event_id}/unattending`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("User not logged in");
+  }
+  const json = await resp.json();
+  return json;
 }
 
 export async function updateRsvp(rsvp_id, updatedRsvpData) {
