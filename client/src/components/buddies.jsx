@@ -81,7 +81,7 @@ export default function Buddies() {
     setIsEditFormVisible(false);
   }
 
-  const [liked, setLiked] = useState({});
+  const [liked, setLiked] = useState(false);
 
   const fetchData = React.useCallback(async () => {
     try {
