@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEventById, getUserById, createRsvp, deleteRsvp } from "../fetching";
+import { getEventById, getUserById, createRsvp, deleteRsvp, getProfile } from "../fetching";
 import { useParams, Link } from "react-router-dom";
 import {
   VideoCameraIcon,
@@ -41,6 +41,7 @@ export default function Event() {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null);
   const [rsvp, setRsvp] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const { id } = useParams();
 
@@ -71,6 +72,24 @@ export default function Event() {
     // Toggle the attending state
     setRsvp(!rsvp);
   };
+
+  //Get current user 
+  useEffect(() => {
+    async function getCurrentUser() {
+      try {
+        const response = await getProfile();
+        setCurrentUser(response);
+        console.log("Current User:", response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    getCurrentUser();
+  }, []);
 
   return (
     <div>
@@ -183,13 +202,13 @@ export default function Event() {
         </div>
       </div>
       <div>
-      <EventComments
-      event_id={id} />
-      <NewComment
-       user_id={3}
-       event_id={id}
-       />
-      </div>
+  {currentUser ? (
+    <NewComment user_id={currentUser.user_id} event_id={id} />
+    ) : (
+      <p>Please log in to leave a comment.</p>
+      )}
+      <EventComments event_id={id} />
+</div>
     </div>
   );
 }
