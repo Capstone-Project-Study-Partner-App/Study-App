@@ -410,17 +410,37 @@ export async function getMessagesByThread(thread_id) {
 
 // -------RATING FETCHES-------
 
-export async function deleteRating(rating_id) {
-  const resp = await fetch(`${api_root}/ratings/${rating_id}`, {
-    method: "DELETE",
-  });
-  const json = await resp.json();
-  return json;
+// export async function deleteRating(rating_id) {
+//   const resp = await fetch(`${api_root}/ratings/${rating_id}`, {
+//     method: "DELETE",
+//   });
+//   console.log("deleting rating")
+//   const json = await resp.json();
+//   return json;
+// }
+
+export async function deleteRating (rating_id) {
+  try{
+      const response=await fetch (`${api_root}/ratings/${rating_id}`, {
+          method:'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+      const result = await response.json();
+      console.log(result);
+      return result;
+  } catch (error){
+      console.error (error);
+  }
 }
+
+
 
 export async function updateRating(rating_id, updatedRatingData) {
   try {
-    const response = await fetch(`${api_root}/edit_rating/${rating_id}`, {
+    console.log ("entering update rating in fetching")
+    const response = await fetch(`${api_root}/ratings/${rating_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -462,6 +482,17 @@ export async function getAllRatings() {
   }
   const json = await resp.json();
   return json;
+}
+
+export async function getRatingById (rating_id){
+  try{
+    const response=await fetch(`${api_root}/ratings/${rating_id}`)
+    const result=await response.json();
+    return result
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 }
 
 export async function getRatingsForUser(user_id) {

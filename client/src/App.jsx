@@ -13,6 +13,7 @@ import RegistrationForm from "./components/registrationform";
 import Profile from "./components/profile";
 import Home from "./components/home";
 import UserDashboard from "./components/dashboard";
+import EditRating from "./components/ratingedit";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/users/:id" element={<User />} />
           <Route path='/register' element={<RegistrationForm/>}/>
           <Route path="/profile" element={<Profile />} />
+          <Route path='/ratings/:rating_id' element={<EditRating/>}/>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<UserDashboard />}/>
           {/* <Route path="/users/:id" element={<Profile />} /> */}

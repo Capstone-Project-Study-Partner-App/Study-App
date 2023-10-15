@@ -41,6 +41,7 @@ const {
   updateRating,
   createRating,
   getAllRatings,
+  getRatingById,
   getRatingByUserId,
   getRatingsForUser,
 } = require("../db/helpers/ratings");
@@ -387,6 +388,15 @@ apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
 //RATINGS
 
 // Delete Rating
+// apiRouter.delete("/ratings/:id", async (req, res, next) => {
+//   try {
+//     const rating = await deleteRating(req.params.id);
+//     res.send(rating);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 apiRouter.delete("/ratings/:id", async (req, res, next) => {
   try {
     const rating = await deleteRating(req.params.id);
@@ -397,14 +407,16 @@ apiRouter.delete("/ratings/:id", async (req, res, next) => {
 });
 
 // Edit rating --PUT
-apiRouter.put("/edit_rating/:id", async (req, res, next) => {
+apiRouter.put("/ratings/:id", async (req, res, next) => {
   try {
+    console.log("entering put in api");
     const rating = await updateRating(req.params.id, req.body);
     res.send(rating);
-  } catch (error) {
+} catch (error) {
     next(error);
-  }
+}
 });
+
 
 //Create rating -- POST
 apiRouter.post("/ratings", async (req, res, next) => {
@@ -421,6 +433,16 @@ apiRouter.post("/ratings", async (req, res, next) => {
 apiRouter.get("/ratings", async (req, res) => {
   const ratings = await getAllRatings();
   res.json(ratings);
+});
+
+//Get Rating by ID
+apiRouter.get("/ratings/:id", async (req, res, next) => {
+  try {
+    const rating = await getRatingById(req.params.id);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
 });
 
 //Get rating by user ID ********************************************

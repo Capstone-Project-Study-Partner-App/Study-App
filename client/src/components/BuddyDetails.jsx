@@ -146,7 +146,7 @@ export default function User() {
       <RatingCreate userId={user.user_id}/>
     </div>
   );
-}
+} 
 
 // export default function User() {
 //   const [user, setUser] = useState([]);
