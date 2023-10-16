@@ -1,6 +1,11 @@
 const client = require("../client");
 
-const createRating = async ({ user_id, rating_content, posted_at, rating_star }) => {
+const createRating = async ({
+  user_id,
+  rating_content,
+  posted_at,
+  rating_star,
+}) => {
   try {
     const {
       rows: [ratings],
@@ -33,6 +38,26 @@ const getAllRatings = async () => {
     throw error;
   }
 };
+
+const getRatingById = async (rating_id) => {
+  try {
+    const {
+      rows: [ratings],
+    } = await client.query(
+      `
+              SELECT *
+              FROM ratings
+              WHERE rating_id = $1
+      `,
+      [rating_id]
+    );
+    return ratings;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 
 const getRatingByUserId = async (rating_id) => {
   try {
@@ -70,28 +95,27 @@ const getRatingsForUser = async (user_id) => {
   }
 };
 
+
 const updateRating = async (rating_id, updatedRatingData) => {
   try {
-    const {
-      rows: [rating],
-    } = await client.query(
-      `
-        UPDATE ratings
-        SET
-        user_id = $1,
-        rating_content = $2,
-        posted_at = $3,
-        rating_star = $4,
-        WHERE event_id = $15
-        RETURNING *;
-        `,
+    // console.log ("entering update in db helpers")
+    const { rows:[rating] } = await client.query(
+      `UPDATE ratings
+      SET       
+      user_id = $1,
+      rating_content = $2,
+      posted_at = $3,
+      rating_star = $4
+      WHERE rating_id = $5
+      RETURNING *;
+      `,
       [
-        updatedEventData.user_id,
-        updatedEventData.rating_content,
-        updatedEventData.posted_at,
-        updatedEventData.rating_star,
+        updatedRatingData.user_id,
+        updatedRatingData.rating_content,
+        updatedRatingData.posted_at,
+        updatedRatingData.rating_star,
 
-        rating_id,
+        rating_id
       ]
     );
     return rating;
@@ -100,21 +124,36 @@ const updateRating = async (rating_id, updatedRatingData) => {
   }
 };
 
+// const deleteRating = async (rating_id) => {
+//   try {
+//     client.query(
+//       `
+//       DELETE FROM ratings
+//       WHERE rating_id = $1
+//       `,
+//       [rating_id]
+//     );
+//     // const result = await client.query(
+//     //   `
+//     //     DELETE FROM ratings
+//     //     WHERE rating_id = $1
+//     //   `,
+//     //   [rating_id]
+//     // );
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
 const deleteRating = async (rating_id) => {
   try {
-    client.query(
+    const { rows } = await client.query(
       `
-      DELETE FROM ratings
-      WHERE user_id = $1
-      `,
-      [user_id]
-    );
-    const result = await client.query(
-      `
-        DELETE FROM users
-        WHERE user_id = $1
-      `,
-      [user_id]
+            DELETE FROM ratings
+            WHERE rating_id = $1
+            RETURNING *;
+            `,
+            [rating_id]
     );
   } catch (error) {
     throw error;
@@ -128,4 +167,5 @@ module.exports = {
   getRatingsForUser,
   updateRating,
   deleteRating,
+  getRatingById,
 };

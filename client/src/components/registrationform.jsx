@@ -10,7 +10,7 @@ import Select from "react-select";
 // const educationURL = `http://universities.hipolabs.com/search?country=United+States`;
 
 //add email, password, photo, and about me fields
-export default function RegistrationForm() {
+export default function RegistrationForm({ setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [first_name, setFirst_name] = useState("");
@@ -129,6 +129,7 @@ export default function RegistrationForm() {
         age: age,
         work: work,
       });
+      setLoggedIn(true);
       navigate("/users");
     } catch (error) {
       console.error("There was an error with the registration form", error);
@@ -147,7 +148,6 @@ export default function RegistrationForm() {
   //     }
   //   }fetchData();
   // },[])
-
 
   // useEffect(() => {
   //   getEducation()
@@ -344,18 +344,23 @@ export default function RegistrationForm() {
                     htmlFor="location"
                     className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                   >
-                    Location
+                    ZIP Code
                   </label>
-                  <input
-                    id="location"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    value={location}
-                    type="text"
-                    name="location"
-                    placeholder="Location"
-                    onChange={(e) => setLocation(e.target.value)}
-                    required
-                  />
+                  <div className="mt-2 sm:col-span-2 sm:mt-0">
+                    <input
+                      id="location"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      value={location}
+                      type="text"
+                      name="location"
+                      placeholder="ZIP Code"
+                      onChange={(e) => setLocation(e.target.value)}
+                      required
+                    />
+                    <p className="mt-3 text-sm leading-6 text-gray-600">
+                      Please input your 5-digit ZIP Code.
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
@@ -408,10 +413,8 @@ export default function RegistrationForm() {
                   placeholder="Education"
                   // onChange={(selectedOption)=>setEducation(selectedOption)}
                   onChange={(e) => setEducation(e.target.value)}
-                  required
+                />
 
-                /> 
-                
                 <p className="mt-3 text-sm leading-6 text-gray-600">
                   ex: Hillview University, The Grace Hopper Program at Full
                   Stack Academy
@@ -465,7 +468,6 @@ export default function RegistrationForm() {
                   name="major"
                   placeholder="Major"
                   onChange={handleMajorChange}
-                  required
                 >
                   <option value="">Select Major</option>
                   <option value="Art">Art</option>
@@ -515,7 +517,7 @@ export default function RegistrationForm() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset foc us:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   value={study_habits}
                   type="text"
-                  name="study_habits" 
+                  name="study_habits"
                   placeholder="Study Habits"
                   onChange={handleStudyHabitChange}
                   required

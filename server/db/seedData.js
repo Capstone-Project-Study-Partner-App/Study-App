@@ -269,7 +269,7 @@ const events = [
     duration: 30,
     gender: "Male",
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 1,
   },
   {
@@ -287,7 +287,7 @@ const events = [
     duration: 60,
     gender: "Female",
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 2,
   },
   {
@@ -304,7 +304,7 @@ const events = [
     duration: 90,
     gender: null,
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 3,
   },
   {
@@ -321,7 +321,7 @@ const events = [
     duration: 60,
     gender: "Male",
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 3,
   },
   {
@@ -357,7 +357,7 @@ const events = [
     duration: 120,
     gender: null,
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 7,
   },
   {
@@ -392,7 +392,7 @@ const events = [
     duration: 90,
     gender: null,
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 7,
   },
   {
@@ -428,7 +428,7 @@ const events = [
     duration: 90,
     gender: null,
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 9,
   },
   {
@@ -446,7 +446,7 @@ const events = [
     duration: 60,
     gender: null,
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 2,
   },
   {
@@ -464,7 +464,7 @@ const events = [
     duration: 60,
     gender: null,
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 10,
   },
   {
@@ -482,7 +482,7 @@ const events = [
     duration: 90,
     gender: "Female",
     group: true,
-    meeting_link: null,
+    meeting_link: "https://apps.google.com/meet/",
     host_id: 2,
   },
 ];
