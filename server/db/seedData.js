@@ -594,4 +594,77 @@ const ratings = [
   { id: 13, user_id: 10, rating_content: "We either have an 'Aha!' moment or press the 'Let's Google It' button together.", posted_at: "2023-06-11 03:34:45", rating_star: 4},
 ];
 
-module.exports = { users, events, rsvps, messages, ratings };
+const comments = [
+  {
+    event_id: 1,
+    comment_content: "So excited for this event!",
+    user_id: 1
+  },
+  {
+    event_id: 1,
+    comment_content: "Same!",
+    user_id: 2
+  },
+  {
+    event_id: 2,
+    comment_content: "So excited for this event!",
+    user_id: 2
+  },
+  {
+    event_id: 3,
+    comment_content: "I'm thrilled to be a part of this event!",
+    user_id: 3
+  },
+  {
+    event_id: 4, 
+    comment_content: "Counting down the days until the event!",
+    user_id: 4
+  },
+  {
+    event_id: 5,
+    comment_content: "This event is going to be amazing!",
+    user_id: 5
+  },
+  {
+    event_id: 12,
+    comment_content: "So excited for this event!",
+    user_id: 6
+  },
+  {
+    event_id: 6,
+    comment_content: "This event is going to be amazing!",
+    user_id: 7
+  },
+  {
+    event_id: 7,
+    comment_content: "I can't wait to attend!",
+    user_id: 8
+  },
+  {
+    event_id: 8,
+    comment_content: "I'm thrilled to be a part of this event!",
+    user_id: 9
+  },
+  {
+    event_id: 9,
+    comment_content: "I'm thrilled to be a part of this event!",
+    user_id: 10
+  },
+  {
+    event_id: 11,
+    comment_content: "So excited for this event!",
+    user_id: 9
+  },
+  {
+    event_id: 10,
+    comment_content: "So excited for this event!",
+    user_id: 8
+  },
+  {
+    event_id: 13,
+    comment_content: "So excited for this event!",
+    user_id: 7
+  },
+];
+
+module.exports = { users, events, rsvps, messages, ratings, comments };

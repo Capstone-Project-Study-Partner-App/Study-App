@@ -54,6 +54,11 @@ const {
   authNotRequired,
   addReqUser,
 } = require("./utils");
+const { 
+  createComment,
+  getCommentsByEventId,
+  deleteComment,
+ } = require("../db/helpers/comments");
 
 // Create a subrouter for the '/api/' subroute
 const apiRouter = express.Router();
@@ -489,6 +494,38 @@ apiRouter.get("/users/:id/ratings", async (req, res, next) => {
     const ratings = await getRatingsForUser(user_id);
 
     res.json(ratings);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// COMMENTS
+//Create Message --POST
+apiRouter.post("/comments", async (req, res, next) => {
+	try {
+	  console.log("req", req.body);
+	  const comment = await createComment(req.body);
+	  res.send(comment);
+  } catch (error) {
+    next(error);
+  }
+});
+
+	  //Get comments by event ID 
+apiRouter.get("/comments/:id", async (req, res, next) => {
+	try {
+	  const comments = await getCommentsByEventId(req.params.id);
+	  res.send(comments);
+  } catch (error) {
+    next(error);
+  }
+});
+
+	  // Delete comment
+apiRouter.delete("/comments/:id", async (req, res, next) => {
+	try {
+	  const comment = await deleteComment(req.params.id);
+	  res.send(comment);
   } catch (error) {
     next(error);
   }

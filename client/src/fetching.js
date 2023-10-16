@@ -580,3 +580,47 @@ export async function getRatingByUserId(user_id) {
 //     console.error(error);
 //   }
 // }
+
+
+// -------COMMENT FETCHES-------
+export async function createComment(
+  user_id,
+  event_id,
+  comment_content,
+  created_at
+) {
+  try {
+    const resp = await fetch(`${api_root}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id,
+        event_id,
+        comment_content,
+        created_at,
+      }),
+    });
+    const json = await resp.json();
+    console.log("comment sent:", json);
+    return json;
+  } catch (error) {
+    console.error("error sending comment:", error);
+    return error;
+  }
+}
+
+export async function getCommentsByEventId(event_id) {
+  const resp = await fetch(`${api_root}/comments/${event_id}`);
+  const json = await resp.json();
+  return json;
+}
+
+export async function deleteComment(comment_id) {
+  const resp = await fetch(`${api_root}/users/${comment_id}`, {
+    method: "DELETE",
+  });
+  const json = await resp.json();
+  return json;
+}
