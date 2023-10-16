@@ -82,7 +82,7 @@ const getRsvpByUserId = async (user_id) => {
       INNER JOIN events AS e ON r.event_id = e.event_id
       WHERE r.user_id = $1
         AND r.rsvp_status = true
-      ORDER BY e.datetime;
+      ORDER BY e.datetime DESC;
       `,
       [user_id]
     );
