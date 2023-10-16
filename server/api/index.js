@@ -29,6 +29,7 @@ const {
   createMessage,
   getMessageById,
   getMessagesByThread,
+  getExistingThread,
 } = require("../db/helpers/messages");
 const {
   deleteFavorite,
@@ -371,8 +372,8 @@ apiRouter.get("/thread/:id", async (req, res, next) => {
   }
 });
 
-// // Get existing thread
-apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
+// // Get existing thread in chat pop up
+apiRouter.get("/chat/:sender/:receiver", async (req, res, next) => {
   try {
     const message = await getExistingThread(
       req.params.sender,

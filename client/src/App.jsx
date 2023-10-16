@@ -13,6 +13,7 @@ import RegistrationForm from "./components/registrationform";
 import Profile from "./components/profile";
 import Home from "./components/home";
 import UserDashboard from "./components/dashboard";
+import PopUpThread from "./components/PopUpThread";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/events/new_event_form" element={<NewEventForm />} />
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
+          <Route path="/chat/:sender/:receiver" element={<PopUpThread />} />
           <Route path="/users/:id" element={<User />} />
           <Route path='/register' element={<RegistrationForm/>}/>
           <Route path="/profile" element={<Profile />} />

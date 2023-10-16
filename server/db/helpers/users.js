@@ -370,7 +370,8 @@ const getUserMessages = async (user_id) => {
           WHERE 
               s.user_id = $1 OR r.user_id = $1
           ORDER BY
-              m.created_at DESC;
+          m.thread_id,
+          m.created_at DESC;
 
       `,
       [user_id]

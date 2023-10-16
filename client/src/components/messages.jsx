@@ -9,7 +9,7 @@ export default function AllMessages() {
   const [error, setError] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  
+
 
   const handleMessageClick = (message) => {
     setSelectedMessage({
@@ -78,20 +78,20 @@ export default function AllMessages() {
   // Filter by user name
   const messagesToDisplay = searchParam
     ? Object.values(threadMessages).filter((message) => {
-        const senderName = message.sender_first_name.toLowerCase();
-        const receiverName = message.receiver_first_name.toLowerCase();
+      const senderName = message.sender_first_name.toLowerCase();
+      const receiverName = message.receiver_first_name.toLowerCase();
 
-        return (
-          (message.sender !== currentUser.user_id &&
-            message.receiver === currentUser.user_id &&
-            (senderName.includes(searchParam.toLowerCase()) ||
-              receiverName.includes(searchParam.toLowerCase()))) ||
-          (message.sender === currentUser.user_id &&
-            message.receiver !== currentUser.user_id &&
-            (senderName.includes(searchParam.toLowerCase()) ||
-              receiverName.includes(searchParam.toLowerCase())))
-        );
-      })
+      return (
+        (message.sender !== currentUser.user_id &&
+          message.receiver === currentUser.user_id &&
+          (senderName.includes(searchParam.toLowerCase()) ||
+            receiverName.includes(searchParam.toLowerCase()))) ||
+        (message.sender === currentUser.user_id &&
+          message.receiver !== currentUser.user_id &&
+          (senderName.includes(searchParam.toLowerCase()) ||
+            receiverName.includes(searchParam.toLowerCase())))
+      );
+    })
     : Object.values(threadMessages);
 
   return (
@@ -165,28 +165,28 @@ export default function AllMessages() {
         {/* End message thread */}
         {/* Profile info */}
         <div className="w-2/5 border-l-2 px-5 flex flex-col justify-center items-center">
-        {selectedMessage && (
-  <div className="flex flex-col">
-    <div className="font-semibold text-xl py-4 text-gray-500">
-      {selectedMessage.receiver_first_name}
-    </div>
-    <Link to={`/users/${selectedMessage.receiver}`}>
-    <img
-      src={selectedMessage.receiver_photo}
-      className="object-cover rounded-xl h-45"
-      alt={`${selectedMessage.receiver_first_name}'s photo`}
-    />
-    </Link>
-    <div className="font-semibold py-4 text-gray-500">
+          {selectedMessage && (
+            <div className="flex flex-col">
+              <div className="font-semibold text-xl py-4 text-gray-500 text-center">
+                {selectedMessage.receiver_first_name}
+              </div>
+              <Link to={`/users/${selectedMessage.receiver}`}>
+                <img
+                  src={selectedMessage.receiver_photo}
+                  className="object-cover rounded-xl h-45"
+                  alt={`${selectedMessage.receiver_first_name}'s photo`}
+                />
+              </Link>
+              {/* <div className="font-semibold py-4 text-gray-500 text-center">
       Age: {selectedMessage.receiver_age}
-    </div>
-    <div className="font-light text-gray-500">
-    <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                        {selectedMessage.receiver_education_level}
-                      </span>
-    </div>
-  </div>
-)}
+    </div> */}
+              <div className="font-light text-gray-500 text-center">
+                <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 text-center mt-6">
+                  {selectedMessage.receiver_education_level}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

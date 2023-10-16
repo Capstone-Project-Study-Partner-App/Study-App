@@ -53,9 +53,7 @@ const getMessageById = async (message_id) => {
 // Get Message Thread by sender & receiver
 const getExistingThread = async (sender, receiver) => {
   try {
-    const {
-      rows: [message],
-    } = await client.query(
+    const { rows } = await client.query(
       `
       SELECT
         m.message_id,
@@ -82,8 +80,9 @@ const getExistingThread = async (sender, receiver) => {
       `,
       [sender, receiver]
     );
-    return message;
+    return rows;
   } catch (error) {
+    console.error("Error in getExistingThread:", error);
     throw error;
   }
 };
