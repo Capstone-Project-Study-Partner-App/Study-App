@@ -76,12 +76,10 @@ export default function PopUpThread({ sender, receiver, currentUser, selectedUse
   const handleClosePopUp = () => {
     setIsChatOpen(false);
     if (closeChat) {
-      closeChat(); // Call the closeChat function from props
+      closeChat(); 
     }
   };
 
-
-  // console.log("thread_id:", selectedMessage.thread_id);
 
   return isChatOpen ? (
     

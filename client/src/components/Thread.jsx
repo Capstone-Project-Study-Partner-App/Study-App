@@ -46,6 +46,7 @@ export default function MessageThread({ selectedMessage, currentUser }) {
 //make other user the receiver
  const selectedUser = messages[0].sender === currentUser.user_id ? messages[0].receiver : messages[0].sender;
 
+ 
   return (
     <div className="w-full px-5 flex flex-col justify-between h-full">
       <div className="flex flex-col flex-grow mt-5" ref={chatContainerRef} style={{ maxHeight: '400px', overflowY: 'auto'}}>
@@ -75,7 +76,7 @@ export default function MessageThread({ selectedMessage, currentUser }) {
           </div>
         ))}
       </div>
-      <div className="inset-x-0 bottom-0">
+      <div className="inset-x-0 bottom-0 ">
         <NewMessage
           sender={currentUser.user_id}
           thread_id={selectedMessage.thread_id}
