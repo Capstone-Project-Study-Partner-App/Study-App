@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEventById, getUserById, createRsvp, deleteRsvp, getProfile } from "../fetching";
+import { getEventById, getUserById, createRsvp, deleteRsvp } from "../fetching";
 import { useParams, Link } from "react-router-dom";
 import {
   VideoCameraIcon,
@@ -7,7 +7,7 @@ import {
   LinkIcon,
 } from "@heroicons/react/outline";
 import EventComments from "./AllComments";
-import NewComment from "./NewComment";
+
 
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
@@ -72,24 +72,6 @@ export default function Event() {
     // Toggle the attending state
     setRsvp(!rsvp);
   };
-
-  //Get current user 
-  useEffect(() => {
-    async function getCurrentUser() {
-      try {
-        const response = await getProfile();
-        setCurrentUser(response);
-        console.log("Current User:", response);
-      } catch (err) {
-        if (err instanceof AuthError) {
-          navigate(LOGIN_ROUTE);
-        } else {
-          throw err;
-        }
-      }
-    }
-    getCurrentUser();
-  }, []);
 
   return (
     <div>
@@ -202,13 +184,8 @@ export default function Event() {
         </div>
       </div>
       <div>
-  {currentUser ? (
-    <NewComment user_id={currentUser.user_id} event_id={id} />
-    ) : (
-      <p>Please log in to leave a comment.</p>
-      )}
-      <EventComments event_id={id} />
-</div>
+        <EventComments event_id={id} />
+      </div>
     </div>
   );
 }

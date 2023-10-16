@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createComment } from "../fetching";
+import { createComment} from "../fetching";
 
 export default function NewComment({ user_id, event_id }) {
   const [comment_content, setCommentContent] = useState("");
@@ -10,16 +10,13 @@ export default function NewComment({ user_id, event_id }) {
     e.preventDefault();
 
     if (!comment_content) {
-
       return;
     }
-
     try {
 
       const commentData = await createComment(user_id, event_id, comment_content);
       console.log("Comment sent:", commentData);
       setCommentContent("");
-
       const eventId = commentData.event_id;
       navigate(`/events/${eventId}`);
       window.location.reload();
@@ -29,26 +26,12 @@ export default function NewComment({ user_id, event_id }) {
   }
 
   return (
-    // <div className="py-5">
-    //   <form onSubmit={handleSubmit}>
-    //     <input
-    //       className="w-full bg-gray-300 py-5 px-3 rounded-xl"
-    //       type="text"
-    //       placeholder="Type your comment here"
-    //       value={comment_content}
-    //       onChange={(e) => setCommentContent(e.target.value)}
-    //     />
-    //     <br />
-    //     <button type="submit">Send</button>
-    //   </form>
-    // </div>
-    // <!-- comment form -->
-<div class="flex mx-auto items-center justify-center shadow-lg mt-56  mb-4 max-w-lg">
+<div class="flex mx-auto items-center justify-center shadow-lg  max-w-lg ">
    <form onSubmit={handleSubmit} class="w-full max-w-xl bg-white rounded-lg px-4 pt-2">
-      <div class="flex flex-wrap -mx-3 mb-6">
-         <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Add a new comment</h2>
+      <div class="flex flex-wrap  mb-5">
+         <h2 class="px-4 pt-3 pb-2 text-lg font-semibold text-gray-900">Add a new comment</h2>
          <div class="w-full md:w-full px-3 mb-2 mt-2">
-            <input class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Type Your Comment' required value={comment_content}
+            <input class="bg-gray-50 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 text-sm placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Type Your Comment' required value={comment_content}
           onChange={(e) => setCommentContent(e.target.value)}/>
          </div>
          <div class="w-full md:w-full flex items-start px-3">

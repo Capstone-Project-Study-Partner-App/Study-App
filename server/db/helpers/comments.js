@@ -33,6 +33,7 @@ const getCommentsByEventId = async (event_id) => {
         c.comment_content, 
         c.created_at,
         c.event_id,
+        u.user_id AS user_id,
         u.first_name AS user_first_name, 
         u.last_name AS user_last_name, 
         u.photo AS user_photo

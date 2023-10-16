@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { getCommentsByEventId } from "../fetching";
-
+import { Link } from "react-router-dom";
+import { getCommentsByEventId, getProfile, AuthError } from "../fetching";
+import NewComment from "./NewComment";
 
 
 export default function EventComments({event_id}) {
     const [comments, setComments] = useState([]);
     const [error, setError] = useState("");
+    const [currentUser, setCurrentUser] = useState(null);
  
   
     useEffect(() => {
@@ -13,6 +15,7 @@ export default function EventComments({event_id}) {
         try {
           const response = await getCommentsByEventId(event_id);
           setComments(response);
+          console.log('Event comments:', response)
           
         } catch (error) {
           setError(error);
@@ -20,29 +23,42 @@ export default function EventComments({event_id}) {
       }
       getAllComments();
     }, [event_id]);
-
+  //Get current user 
+  useEffect(() => {
+    async function getCurrentUser() {
+      try {
+        const response = await getProfile();
+        setCurrentUser(response);
+        console.log("Current User:", response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    getCurrentUser();
+  }, []);
     return (
-        // <div>
-        //   {comments.map((comment) => ( 
-        //     <div key={comment.comment_id}> 
-        //       <img src={comment.user_photo} alt={`${comment.user_first_name}'s Profile`} id="user-profile-image" />
-        //       <p>user:{comment.user_first_name}</p>
-        //       <p>comment: {comment.comment_content}</p>
-        //     </div>
-        //   ))}
-        // </div>
-        <div class="antialiased mx-auto max-w-screen-sm">
+        <div class="antialiased mx-auto max-w-screen-sm shadow-lg px-10 mb-10">
   <h3 class="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
           {comments.map((comment) => ( 
 
-  <div class="space-y-4" key={comment.comment_id}>
+  <div class="space-y-4 " key={comment.comment_id}>
 
-    <div class="flex">
+    <div class="flex mb-6">
       <div class="flex-shrink-0 mr-3">
-        <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src={comment.user_photo} alt=""/>
+      <Link to={`/users/${comment.user_id}`}>
+        <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src={comment.user_photo} />
+        </Link>
       </div>
-      <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-        <strong>{comment.user_first_name}</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+      <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed ">
+        <Link to={`/users/${comment.user_id}`}>
+        <strong>{comment.user_first_name}</strong> </Link>
+        <span class="text-xs text-gray-400">
+          {new Date(comment.created_at).toLocaleString()}{" "}
+          </span>
         <p class="text-sm">
         {comment.comment_content}
         </p>
@@ -50,6 +66,11 @@ export default function EventComments({event_id}) {
     </div>
             </div>
             ))}
+                {currentUser ? (
+    <NewComment user_id={currentUser.user_id} event_id={event_id} />
+    ) : (
+      <p>Please log in to leave a comment.</p>
+      )}
           </div>
       )};
     
