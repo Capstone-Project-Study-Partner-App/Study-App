@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getMessagesByThread } from "../fetching";
 import NewMessage from "./NewMessage";
@@ -9,6 +9,7 @@ export default function MessageThread({ selectedMessage, currentUser }) {
   const { id } = useParams();
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     async function getMessageThread() {
@@ -18,6 +19,9 @@ export default function MessageThread({ selectedMessage, currentUser }) {
           if (response) {
             setMessages(response);
             console.log('Thread messages:', response)
+            if (chatContainerRef.current) {
+              chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+            }
           } else {
             setError("Failed to fetch messages");
           }
@@ -33,6 +37,7 @@ export default function MessageThread({ selectedMessage, currentUser }) {
   const updateMessages = (newMessage) => {
     setMessages([...messages, newMessage]);
   };
+  
 
   if (messages.length === 0) {
     return <p>No messages found.</p>;
@@ -43,7 +48,7 @@ export default function MessageThread({ selectedMessage, currentUser }) {
 
   return (
     <div className="w-full px-5 flex flex-col justify-between h-full">
-      <div className="flex flex-col flex-grow mt-5" style={{ maxHeight: '400px', overflowY: 'auto', justifyContent: 'flex-end' }}>
+      <div className="flex flex-col flex-grow mt-5" ref={chatContainerRef} style={{ maxHeight: '400px', overflowY: 'auto'}}>
         {messages.map((message) => (
           <div
             key={message.message_id}
