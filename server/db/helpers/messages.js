@@ -1,22 +1,5 @@
 const client = require("../client");
 
-// const createMessage = async ({ message_content, sender, receiver }) => {
-//   try {
-//     const {
-//       rows: [message],
-//     } = await client.query(
-//       `
-//         INSERT INTO messages(message_content, sender, receiver)
-//         VALUES($1, $2, $3)
-//         RETURNING *;
-//       `,
-//       [message_content, sender, receiver]
-//     );
-//     return message;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
 
 // Get all Messages
 const getAllMessages = async () => {
@@ -101,33 +84,6 @@ const deleteMessage = async (message_id) => {
   }
 };
 
-// const createMessage = async ({ sender, receiver, message_content, thread_id }) => {
-//   try {
-//       let newThreadId = thread_id;
-//       if (!newThreadId) {
-//           // create new thread_id when not provided
-//           const {
-//               rows: [message],
-//           } = await client.query('INSERT INTO messages DEFAULT VALUES RETURNING thread_id;');
-//           newThreadId = message.thread_id;
-//       } else {
-//           newThreadId = thread_id; // use the exsisting thread_id
-//       }
-//       const {
-//           rows: [message],
-//       } = await client.query (
-//           `
-//           INSERT INTO messages(sender, receiver, message_content, thread_id)
-//           VALUES($1, $2, $3, $4)
-//           RETURNING *;
-//           `,
-//           [sender, receiver, message_content, newThreadId]
-//       )
-//       return message
-//   } catch (error) {
-//       throw error
-//   }
-// }
 
 const createMessage = async ({ sender, receiver, message_content, thread_id }) => {
   try {
@@ -203,7 +159,62 @@ const getMessagesByThread = async (thread_id) => {
   } catch (error) {
     throw error;
   }
-}
+};
+
+// Get unread messages
+const getUnreadMessages = async (receiver) => {
+  try {
+    const { rows: unreadMessages } = await client.query(
+      `
+      SELECT
+        m.message_id,
+        m.sender AS sender_id,
+        m.message_content AS message_content,
+        u.first_name AS sender_first_name
+      FROM messages m
+      INNER JOIN users u ON m.sender = u.user_id
+      WHERE m.receiver = $1 AND m.is_read = FALSE;
+      `,
+      [receiver]
+    );
+
+    const { rows: unreadCount } = await client.query(
+      `
+      SELECT COUNT(*) as unread_count
+      FROM messages
+      WHERE receiver = $1 AND is_read = FALSE;
+      `,
+      [receiver]
+    );
+
+    return {
+      unread_count: unreadCount[0].unread_count,
+      unread_messages: unreadMessages,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Update Message to Mark as Read
+const markMessageAsRead = async (receiver, message_id) => {
+  try {
+    await client.query(
+      `
+      UPDATE messages
+      SET is_read = TRUE
+      WHERE message_id = $1 AND receiver = $2;
+      `,
+      [receiver, message_id]
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
 
 module.exports = {
   createMessage,
@@ -211,5 +222,7 @@ module.exports = {
   getMessageById,
   deleteMessage,
   getMessagesByThread,
-  getExistingThread
+  getExistingThread,
+  getUnreadMessages,
+  markMessageAsRead
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getMessagesByThread } from "../fetching";
+import { getMessagesByThread, markMessageAsRead  } from "../fetching";
 import NewMessage from "./NewMessage";
 
 
@@ -22,6 +22,20 @@ export default function MessageThread({ selectedMessage, currentUser }) {
             if (chatContainerRef.current) {
               chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
             }
+             // Mark messages as read
+             response.forEach(async (message) => {
+              if (message.receiver === currentUser.user_id && !message.is_read) {
+                await markMessageAsRead(currentUser.user_id, message.message_id);
+              }
+              // Update the unread status in the local state of this component
+              setMessages((prevMessages) =>
+                prevMessages.map((msg) =>
+                  msg.message_id === message.message_id
+                    ? { ...msg, is_read: true }
+                    : msg
+                )
+              );
+            });
           } else {
             setError("Failed to fetch messages");
           }

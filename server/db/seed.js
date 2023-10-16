@@ -85,7 +85,8 @@ const createTables = async () => {
               "receiver" INTEGER REFERENCES users("user_id"),
               message_content text,
               thread_id serial NOT NULL,
-              created_at TIMESTAMPTZ DEFAULT NOW()
+              created_at TIMESTAMPTZ DEFAULT NOW(),
+              is_read BOOLEAN DEFAULT FALSE
           );
           CREATE TABLE favorite_buddies (
             "liker" INTEGER,
