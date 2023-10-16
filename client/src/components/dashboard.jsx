@@ -51,7 +51,7 @@ export default function UserDashboard() {
         if (user) {
           const response = await getRsvpByUserId(user.user_id);
           setRsvps(response);
-          console.log("API Response:", response);
+          console.log("Rsvps:", response);
         }
       } catch (error) {
         setError(error.message);
@@ -68,7 +68,7 @@ export default function UserDashboard() {
     <div className="h-screen  bg-white mt-16">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 lg:gap-8">
         <div className="post p-5 lg:p-1 rounded-md">
-          <div className="lg:fixed lg:top-7 lg:left-14 lg:w-3/12 md:fixed md:w-5/12">
+          <div className="lg:fixed lg:top-7 lg:left-14 lg:w-3/12 md:fixed md:w-5/12 mt-10">
             <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full mb-4 mt-16">
               {/* <!-- Banner Profile --> */}
               <div className="relative">
