@@ -436,7 +436,7 @@ export async function getUnreadMessages(receiver) {
     const response = await fetch(`${api_root}/messages/unread/${receiver}`);
     if (response.ok) {
       const result = await response.json();
-      return result.unread_count;
+      return result;
     } else {
       throw new Error('Failed to fetch unread message count');
     }

@@ -16,6 +16,7 @@ export default function UserDashboard() {
   const [favoriteUsers, setFavoriteUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+  const [unreadMessageContent, setUnreadMessageContent] = useState([]);
   const navigate = useNavigate();
 
 
@@ -68,9 +69,11 @@ export default function UserDashboard() {
     async function fetchUnreadMessageCount() {
       if (user) {
         try {
-          const count = await getUnreadMessages(user.user_id);
-          setUnreadMessageCount(count);
-          console.log('Unread messages:', count)
+          const unread = await getUnreadMessages(user.user_id);
+          setUnreadMessageCount(unread);
+          setUnreadMessageContent(unread.unread_messages);
+          console.log('Unread messages:', unread.unread_count)
+          console.log('Unread messages content:', unread.unread_messages)
         } catch (error) {
           console.error(error);
         }
@@ -376,7 +379,7 @@ export default function UserDashboard() {
               {/* <!-- Message --> */}
               <div className="mb-4">
                 <a href="" className="text-blue-600">
-                You have {unreadMessageCount} unread messages.
+                You have {unreadMessageCount.unread_count} unread messages.
                 </a>
                 <p className="text-gray-800">maybe not</p>
               </div>
