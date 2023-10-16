@@ -14,6 +14,7 @@ import RegistrationForm from "./components/registrationform";
 import Profile from "./components/profile";
 import Home from "./components/home";
 import UserDashboard from "./components/dashboard";
+import EditRating from "./components/ratingedit";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -40,6 +41,7 @@ function App() {
             element={<RegistrationForm setLoggedIn={setLoggedIn} />}
           />
           <Route path="/profile" element={<Profile />} />
+          <Route path='/ratings/:rating_id' element={<EditRating/>}/>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           {/* <Route path="/users/:id" element={<Profile />} /> */}
