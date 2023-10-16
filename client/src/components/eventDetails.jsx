@@ -70,6 +70,17 @@ export default function Event() {
     setRsvp(!rsvp);
   };
 
+  // Function for google meet link
+  const meetingLink = event.meeting_link;
+
+  const joinMeeting = () => {
+    if (meetingLink) {
+      window.open(meetingLink);
+    } else {
+      alert("Meeting link is not available");
+    }
+  };
+
   return (
     <div>
       {/* Rounded Image */}
@@ -139,13 +150,18 @@ export default function Event() {
             </button>
 
             {/* Join Button */}
-            <button
-              className="bg-green-600 text-white px-8 py-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none flex items-center"
-              onClick={() => alert("Reroute to Google Meet When Clicked")}
-            >
-              <VideoCameraIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-              <span className="ml-2">Join the Meeting</span>
-            </button>
+            {meetingLink && (
+              <button
+                className="bg-green-600 text-white px-8 py-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none flex items-center"
+                onClick={joinMeeting}
+              >
+                <VideoCameraIcon
+                  className="-ml-0.5 h-5 w-5"
+                  aria-hidden="true"
+                />
+                <span className="ml-2">Join the Meeting</span>
+              </button>
+            )}
           </div>
         </div>
 
