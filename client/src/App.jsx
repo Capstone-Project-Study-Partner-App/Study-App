@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/navbar";
 import Login, { LOGIN_ROUTE } from "./components/login";
@@ -16,14 +17,18 @@ import UserDashboard from "./components/dashboard";
 import EditRating from "./components/ratingedit";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   return (
     <>
       <div id="nav-bar-container">
-        <Navbar />
+        <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </div>
       <div>
         <Routes>
-          <Route path={LOGIN_ROUTE} element={<Login />} />
+          <Route
+            path={LOGIN_ROUTE}
+            element={<Login setLoggedIn={setLoggedIn} />}
+          />
           <Route path="/users" element={<Buddies />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<Event />} />
@@ -31,11 +36,14 @@ function App() {
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/users/:id" element={<User />} />
-          <Route path='/register' element={<RegistrationForm/>}/>
+          <Route
+            path="/register"
+            element={<RegistrationForm setLoggedIn={setLoggedIn} />}
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path='/ratings/:rating_id' element={<EditRating/>}/>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<UserDashboard />}/>
+          <Route path="/dashboard" element={<UserDashboard />} />
           {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>
       </div>

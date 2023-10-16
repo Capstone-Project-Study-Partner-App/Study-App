@@ -10,7 +10,7 @@ import Select from "react-select";
 // const educationURL = `http://universities.hipolabs.com/search?country=United+States`;
 
 //add email, password, photo, and about me fields
-export default function RegistrationForm() {
+export default function RegistrationForm({ setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [first_name, setFirst_name] = useState("");
@@ -129,6 +129,7 @@ export default function RegistrationForm() {
         age: age,
         work: work,
       });
+      setLoggedIn(true);
       navigate("/users");
     } catch (error) {
       console.error("There was an error with the registration form", error);
