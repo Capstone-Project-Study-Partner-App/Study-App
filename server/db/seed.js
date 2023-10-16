@@ -8,7 +8,7 @@ const { createRsvp, getAllRsvps } = require("./helpers/rsvps");
 const { createMessage, getAllMessages } = require("./helpers/messages");
 const { createRating, getAllRatings } = require("./helpers/ratings");
 
-const { users, events, rsvps, messages, ratings } = require("./seedData");
+const { users, events, rsvps, messages, ratings, comments } = require("./seedData");
 const { createComment } = require("./helpers/comments");
 
 // Drop Tables

@@ -171,7 +171,10 @@ const getUnreadMessages = async (receiver) => {
         m.message_id,
         m.sender AS sender_id,
         m.message_content AS message_content,
+        m.thread_id AS thread_id,
+        m.created_at AS created_at,
         u.first_name AS sender_first_name,
+        u.photo AS sender_photo,
         m.is_read
       FROM messages m
       INNER JOIN users u ON m.sender = u.user_id

@@ -17,6 +17,7 @@ export default function UserDashboard() {
   const [events, setEvents] = useState([]);
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
   const [unreadMessageContent, setUnreadMessageContent] = useState([]);
+  const [unreadThreadCount, setUnreadThreadCount] = useState(0);
   const navigate = useNavigate();
 
 
@@ -70,10 +71,27 @@ export default function UserDashboard() {
       if (user) {
         try {
           const unread = await getUnreadMessages(user.user_id);
-          setUnreadMessageCount(unread);
-          setUnreadMessageContent(unread.unread_messages);
-          console.log('Unread messages:', unread.unread_count)
-          console.log('Unread messages content:', unread.unread_messages)
+          setUnreadMessageCount(unread.unread_count);
+          // show only by thread
+          const groupedUnreadMessages = {};
+          unread.unread_messages.forEach(message => {
+            if (!groupedUnreadMessages[message.thread_id]) {
+              groupedUnreadMessages[message.thread_id] = message;
+            }
+          });
+
+          const unreadMessagesArray = Object.values(groupedUnreadMessages);
+          setUnreadMessageContent(unreadMessagesArray);
+
+          // number of threads with unread messages
+          const uniqueThreadIds = new Set(
+            unreadMessagesArray.map(message => message.thread_id)
+          );
+          setUnreadThreadCount(uniqueThreadIds.size);
+
+          console.log('Unread messages total:', unread.unread_count);
+          console.log('Unread messages content:', unreadMessagesArray);
+          console.log('Threads with unread messages:', uniqueThreadIds.size);
         } catch (error) {
           console.error(error);
         }
@@ -358,8 +376,9 @@ export default function UserDashboard() {
                 ))}
               </div>
             </div>
+            {/* <!-- UNREAD MESSAGES--> */}
             {/* <!-- Second Column --> */}
-            <div className="bg-white p-8 shadow-md rounded-lg max-w-md">
+            <div className="bg-white p-8 rounded-lg shadow-md max-w-md">
               {/* <!-- User Info with Three-Dot Menu --> */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
@@ -372,29 +391,48 @@ export default function UserDashboard() {
                     <p className="text-gray-800 font-semibold">
                       Messages
                     </p>
-                    <p className="text-gray-500 text-sm">Unread messages:</p>
+                    <p className="text-gray-500 text-sm">
+                    You have {unreadThreadCount} unread messages
+                    </p>
                   </div>
                 </div>
               </div>
+
               {/* <!-- Message --> */}
-              <div className="mb-4">
-                <a href="" className="text-blue-600">
-                You have {unreadMessageCount.unread_count} unread messages.
-                </a>
-                <p className="text-gray-800">maybe not</p>
-              </div>
-              {/* <!-- Image --> */}
-              <div className="mb-4">
-                <img
-                  src="https://i.scdn.co/image/ab67616d00001e02da3d7774dfff7799598fa07b"
-                  alt="Post Image"
-                  className="w-full h-48 object-cover rounded-md"
-                />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {unreadMessageContent.map((message, index) => (
+                  <div
+                    key={index}
+                    className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-fuchsia-100 px-3 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+                  >
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-12 w-12 rounded-full"
+                        src={message.sender_photo}
+                        alt={message.sender_first_name}
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <Link
+                        to={`/${user.user_id}/messages`}
+                        className="w-1/ p-2"
+                      >
+                        <span className="absolute inset-0" aria-hidden="true" />
+                        <p className="text-sm font-medium text-gray-900">
+                          {message.sender_first_name} 
+                        </p>
+                        <p className="truncate text-xs text-gray-500">
+                          {message.message_content}
+                        </p>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      </div>
   );
 }
