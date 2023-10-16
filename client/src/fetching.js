@@ -408,6 +408,45 @@ export async function getMessagesByThread(thread_id) {
   }
 }
 
+export async function getExistingThread(sender, receiver) {
+  try {
+    const response = await fetch(`${api_root}/chat/${sender}/${receiver}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+
+export const markMessageAsRead = async (receiver, message_id) => {
+  try {
+    await fetch(`${api_root}/messages/${receiver}/markasread/${message_id}`, {
+      method: "PUT",
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export async function getUnreadMessages(receiver) {
+  try {
+    const response = await fetch(`${api_root}/messages/unread/${receiver}`);
+    if (response.ok) {
+      const result = await response.json();
+      return result.unread_count;
+    } else {
+      throw new Error('Failed to fetch unread message count');
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+
 // -------RATING FETCHES-------
 
 // export async function deleteRating(rating_id) {

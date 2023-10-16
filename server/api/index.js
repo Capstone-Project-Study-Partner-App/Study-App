@@ -29,6 +29,9 @@ const {
   createMessage,
   getMessageById,
   getMessagesByThread,
+  getExistingThread,
+  getUnreadMessages,
+  markMessageAsRead
 } = require("../db/helpers/messages");
 const {
   deleteFavorite,
@@ -372,14 +375,38 @@ apiRouter.get("/thread/:id", async (req, res, next) => {
   }
 });
 
-// // Get existing thread
-apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
+// // Get existing thread in chat pop up
+apiRouter.get("/chat/:sender/:receiver", async (req, res, next) => {
   try {
     const message = await getExistingThread(
       req.params.sender,
       req.params.receiver
     );
     res.send(message);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// // Get unread messages
+apiRouter.get("/messages/unread/:id", async (req, res, next) => {
+  try {
+    const result = await getUnreadMessages(req.params.id);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+//Mark message as read
+apiRouter.put("/messages/:receiver/markasread/:message_id", async (req, res, next) => {
+  try {
+    const message = await markMessageAsRead(
+      req.params.receiver,
+    req.params.message_id
+    );
+    res.status(200).send("Message marked as read");
   } catch (error) {
     next(error);
   }
