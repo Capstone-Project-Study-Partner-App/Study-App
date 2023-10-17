@@ -2,26 +2,11 @@ import { useState, useEffect } from "react";
 import { getProfile, updateUser } from "../fetching";
 // import Select from "react-select";
 // import { useNavigate } from "react-router-dom";
-import Select from "react-select";
-import ImageUploading from "react-images-uploading";
 
 export default function UpdateProfile({ user_id }) {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
   // const navigate = useNavigate();
-
-  const [imageDataURL, setImageDataURL] = useState(null);
-  const maxNumber = 1;
-
-  const onChange = (imageList, addUpdateIndex) => {
-    console.log(imageList, addUpdateIndex);
-    if (imageList.length > 0) {
-      setImageDataURL(imageList[0].data_url);
-    } else {
-      setImageDataURL(null);
-    }
-    setPhoto(imageList);
-  };
 
   useEffect(() => {
     async function fetchUserData() {
@@ -55,7 +40,7 @@ export default function UpdateProfile({ user_id }) {
         times_available: user.times_available,
         timezone: user.timezone,
         interests: user.interests,
-        photo: imageDataURL,
+        photo: user.photo,
         languages: user.languages,
         study_habits: user.study_habits,
         major: user.major,
@@ -70,7 +55,7 @@ export default function UpdateProfile({ user_id }) {
       console.error("oopsie prof updates a no-go", error);
       setError("failed to update profile");
     }
-    // window.location.reload();
+    window.location.reload();
     alert("Your changes have been saved!");
   }
 
@@ -93,8 +78,8 @@ export default function UpdateProfile({ user_id }) {
                   Profile Picture
                 </label>
                 <div className="mt-2 sm:col-span-2 sm:mt-0">
-                  {/* <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"> */}
-                    {/* <input
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <input
                       type="text"
                       value={user.photo || ""}
                       name="photo"
@@ -105,76 +90,9 @@ export default function UpdateProfile({ user_id }) {
                       onChange={(e) =>
                         setUser({ ...user, photo: e.target.value })
                       }
-                    /> */}
-                                    {/* </div> */}
-
-                    <div className="register_photo">
-                      <ImageUploading
-                        multiple
-                        value={user.imageDataURL||[""]}
-                        onChange={onChange}
-                        maxNumber={maxNumber}
-                        dataURLKey="data_url"
-                      >
-                        {({
-                          imageList,
-                          onImageUpload,
-                          onImageRemoveAll,
-                          onImageUpdate,
-                          onImageRemove,
-                          isDragging,
-                          dragProps,
-                        }) => (
-                          // write your building UI
-                          <div className="upload__image-wrapper">
-                            <label
-                              htmlFor="photo"
-                              className="block text-sm font-medium leading-6 text-gray-900"
-                            >
-                              Photo
-                            </label>
-                            <div className="mt-2 sm:col-span-2 sm:mt-0">
-                              <button
-                                style={
-                                  isDragging ? { color: "red" } : undefined
-                                }
-                                onClick={onImageUpload}
-                                {...dragProps}
-                              >
-                                Click or Drop here
-                              </button>
-                              &nbsp;
-                              <button onClick={onImageRemoveAll}>
-                                Remove all images
-                              </button>
-                              {imageList.map((image, index) => (
-                                <div key={index} className="image-item">
-                                  <img
-                                    src={image["data_url"]}
-                                    alt=""
-                                    width="100"
-                                  />
-                                  <div className="image-item__btn-wrapper">
-                                    <button
-                                      onClick={() => onImageUpdate(index)}
-                                    >
-                                      Update
-                                    </button>
-                                    <button
-                                      onClick={() => onImageRemove(index)}
-                                    >
-                                      Remove
-                                    </button>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </ImageUploading>
-                    </div>
+                    />
                   </div>
-
+                </div>
               </div>
 
               <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">

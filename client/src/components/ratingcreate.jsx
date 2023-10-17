@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { createRating } from "../fetching";
 import * as React from "react";
 import { useNavigate } from "react-router";
+import { getProfile } from "../fetching";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
@@ -9,11 +10,16 @@ import StarIcon from "@mui/icons-material/Star";
 export default function RatingCreate({ userId }) {
   const [ratingAddShow, setRatingAddShow] = useState(false);
   const [rating_content, setRating_content] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
   // const [posted_at, setPosted_at] = useState(getCurrentDateTime());
+  // const [posted_at, setPosted_at] = useState("");
   const [rating_star, setRating_star] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
 
   const navigate=useNavigate();
+
+
+
 
   // function getCurrentDateTime() {
   //   const now = new Date().toISOString().slice(0, 16);
@@ -33,17 +39,35 @@ export default function RatingCreate({ userId }) {
     }`;
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getProfile();
+        setCurrentUser(response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    fetchData();
+  }, []);
+
+
   async function handleSubmit(e) {
     e.preventDefault();
     let ratingData = {
       user_id: userId,
+      creator_id:currentUser.user_id,
       rating_content: rating_content,
-      // posted_at: posted_at,
+      posted_at: new Date().toISOString(),
       rating_star: rating_star,
     };
     try {
       await createRating(ratingData);
-
+console.log(ratingData)
       navigate(0);
       // window.location.reload();
     } catch (error) {

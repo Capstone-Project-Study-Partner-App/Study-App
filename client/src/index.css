@@ -96,6 +96,15 @@ button:focus-visible {
   padding-bottom: 1em;
 }
 
+.edit_rating_button{
+  background-color: #e2e8f0;
+}
+
+.delete_rating_button{
+  background-color: #e2e8f0;
+  color: #535bf2;
+}
+
 #days_available {
   border: 1px solid #e2e8f0;
   box-shadow: none;

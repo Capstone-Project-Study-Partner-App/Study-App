@@ -19,7 +19,7 @@ export default function DeleteRating({rating_id}){
 
 return(
     <div>
-        <button onClick={handleDelete}>
+        <button className="delete_rating_button" onClick={handleDelete}>
             Delete Rating
         </button>
     </div>

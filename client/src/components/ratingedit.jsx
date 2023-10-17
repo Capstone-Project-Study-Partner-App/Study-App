@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams,useNavigate } from "react-router";
 import { updateRating, getRatingById } from "../fetching";
+import { getProfile } from "../fetching";
 import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
@@ -10,6 +11,7 @@ export default function EditRating() {
   const [rating, setRating] = useState({});
   const [error, setError] = useState(null);
   const [hover, setHover] = React.useState(-1);
+  const [currentUser, setCurrentUser] = useState({});
   
   const navigate=useNavigate();
 
@@ -35,6 +37,23 @@ export default function EditRating() {
   // }
 
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getProfile();
+        setCurrentUser(response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    fetchData();
+  }, []);
+
+
+  useEffect(() => {
     async function fetchRatingData() {
       try {
         const response = await getRatingById(rating_id);
@@ -58,21 +77,24 @@ export default function EditRating() {
     e.preventDefault();
     try {
       const updatedRatingData = {
-        user_id: rating.user_id,
+        // user_id: rating.user_id,
+        // creator_id:rating.creator_id,
         rating_content: rating.rating_content,
-        posted_at: rating.posted_at,
+        // posted_at: rating.posted_at,
         rating_star: parseInt(rating.rating_star),
       };
       const response = await updateRating(rating.rating_id, updatedRatingData);
       console.log("rating updated", response);
       setRating(response);
-      navigate(-1)
+      navigate(`/users/${rating.user_id}`)
     } catch (error) {
       console.error("oopsie rating updates a no-go", error);
       setError("failed to update rating");
     }
     // window.location.reload();
   }
+
+  // console.log(updatedRatingData.creator_id)
 
   return (
     <div>

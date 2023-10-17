@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { getRatingsForUser } from "../fetching";
 import { useParams, Routes, Route, Link } from "react-router-dom";
+import { getProfile } from "../fetching";
 import DeleteRating from "./ratingdelete";
 import StarRating from "./ratingstar";
 
-export default function Rating({userId, currentUser}) {
+export default function Rating({userId}) {
   const [ratings, setRatings] = useState(null);
   const { id } = useParams();
+  const [currentUser, setCurrentUser] = useState({});
+
+console.log ("ratings",ratings)
+console.log ("user",currentUser)
 
   const formatDateTime = (date) => {
     const options = {
@@ -35,6 +40,21 @@ export default function Rating({userId, currentUser}) {
 // }
 // }
 
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const response = await getProfile();
+      setCurrentUser(response);
+    } catch (err) {
+      if (err instanceof AuthError) {
+        navigate(LOGIN_ROUTE);
+      } else {
+        throw err;
+      }
+    }
+  }
+  fetchData();
+}, []);
   
   useEffect(() => {
     async function fetchRating() {
@@ -72,16 +92,19 @@ export default function Rating({userId, currentUser}) {
       <p>Posted: {formatDateTime(rating.posted_at)}</p>
       <p>Rating Star: <StarRating averageRating={parseInt(rating.rating_star)} /></p>
       
-      {/* {currentUser && currentUser.id === rating.creator_id && ( */}
+      {currentUser.user_id === rating.creator_id && 
         <div className="event_edit_button">
-          <button>
+          <button className="edit_rating_button">
             <Link to={`/ratings/${rating.rating_id}`}>
               <h2>Edit Rating</h2>
             </Link>
           </button>
-          <DeleteRating rating_id={rating.rating_id} />
+          <br></br>
+<div>          
+  <DeleteRating rating_id={rating.rating_id} />
         </div>
-      {/* )} */}
+        </div>
+      }
     </div>
   ))}
 </div>
