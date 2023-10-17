@@ -39,14 +39,17 @@ function App() {
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/chat/:sender/:receiver" element={<PopUpThread />} />
-          <Route path="/users/:id" element={<User setLoggedIn={setLoggedIn} />} />
+          <Route
+            path="/users/:id"
+            element={<User setLoggedIn={setLoggedIn} />}
+          />
           <Route
             path="/register"
             element={<RegistrationForm setLoggedIn={setLoggedIn} />}
           />
           <Route path="/profile" element={<Profile />} />
-          <Route path='/ratings/:rating_id' element={<EditRating/>}/>
-          <Route path="/" element={<Home />} />
+          <Route path="/ratings/:rating_id" element={<EditRating />} />
+          <Route path="/" element={<Home loggedIn={loggedIn} />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>

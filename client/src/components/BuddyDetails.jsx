@@ -5,7 +5,7 @@ import {
   deleteFavorite,
   checkIfFavoriteExists,
   AuthError,
-  getProfile
+  getProfile,
 } from "../fetching";
 import { useParams } from "react-router-dom";
 import Rating from "./rating";
@@ -92,7 +92,7 @@ console.log (user)
             <div className="mb-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold mb-2">About Me</h2>
-                
+
                 <div className="flex flex-col space-y-2 ">
                   {/* Heart button */}
                   <button
@@ -110,12 +110,12 @@ console.log (user)
 
                   {/* Message button */}
                   <img
-                  src="https://img1.cgtrader.com/items/840184/022253b90f/large/web-icon-mail-3d-model-obj-fbx-ma-mb-mtl.jpg"
-                  className={`ml-4 w-14 h-13 rounded-md hover:border-red-400 cursor-pointer`}
-                   onClick={() => {
-                    setIsChatOpen(true);
-                    setSelectedUser(user);
-                  }}
+                    src="https://img1.cgtrader.com/items/840184/022253b90f/large/web-icon-mail-3d-model-obj-fbx-ma-mb-mtl.jpg"
+                    className={`ml-4 w-14 h-13 rounded-md hover:border-red-400 cursor-pointer`}
+                    onClick={() => {
+                      setIsChatOpen(true);
+                      setSelectedUser(user);
+                    }}
                   />
                   {isChatOpen && selectedUser === user && (
                     <div className="fixed bottom-0 right-0 z-50">
@@ -128,7 +128,6 @@ console.log (user)
                       />
                     </div>
                   )}
-
                 </div>
               </div>
               <p className="text-gray-600 mt-2">{user.about_me}</p>
