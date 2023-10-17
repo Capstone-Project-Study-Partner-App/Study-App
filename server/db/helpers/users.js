@@ -160,9 +160,7 @@ const getUsersMatchingFilters = async (filters) => {
     }
 
     if (filters.age) {
-      sql_command += ` AND age IN (${filters.age
-        .map(sql_param)
-        .join(", ")})`;
+      sql_command += ` AND age IN (${filters.age.map(sql_param).join(", ")})`;
     }
 
     if (filters.study_habits) {
@@ -170,7 +168,6 @@ const getUsersMatchingFilters = async (filters) => {
         .map(sql_param)
         .join(", ")})`;
     }
-
 
     // for array-of-string columns, we want to check if there's any
     // overlap between the filter's selected options and that row's
@@ -200,8 +197,6 @@ const getUsersMatchingFilters = async (filters) => {
         .join(", ")}]`;
     }
 
-
-
     console.log("filtering");
     console.log(sql_command);
     console.log({ filters, params });
@@ -212,20 +207,21 @@ const getUsersMatchingFilters = async (filters) => {
   }
 };
 
-//Get user by ID
-const getUserById = async (user_id) => {
+const getUserById = async (user_id, currentUserID) => {
   try {
     const {
-      rows: [users],
+      rows: [user],
     } = await client.query(
       `
-              SELECT *
-              FROM users
-              WHERE user_id = $1
+      SELECT u.*,
+             CASE WHEN fb.liker IS NOT NULL THEN true ELSE false END AS is_favorited
+      FROM users u
+      LEFT JOIN favorite_buddies fb ON u.user_id = fb.liked AND fb.liker = $2
+      WHERE u.user_id = $1;
       `,
-      [user_id]
+      [user_id, currentUserID]
     );
-    return users;
+    return user;
   } catch (error) {
     throw error;
   }

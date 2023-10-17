@@ -141,9 +141,20 @@ const getEventsMatchingFilters = async (filters) => {
     // columns' values. To check overlap, we use the array-&& operator
     // ie. `interests && ARRAY['reading', 'gardening']`
     if (filters.days) {
-      // Assuming 'days' is an array of days of the week (e.g., ['Monday', 'Wednesday'])
-      sql_command += ` AND EXTRACT(DOW FROM datetime) IN (${filters.days
-        .map((day) => sql_param(day))
+      const dayNumbers = {
+        Sunday: 0,
+        Monday: 1,
+        Tuesday: 2,
+        Wednesday: 3,
+        Thursday: 4,
+        Friday: 5,
+        Saturday: 6,
+      };
+
+      const selectedDayNumbers = filters.days.map((day) => dayNumbers[day]);
+
+      sql_command += ` AND EXTRACT(DOW FROM datetime) IN (${selectedDayNumbers
+        .map((dayNumber) => sql_param(dayNumber))
         .join(", ")})`;
     }
 

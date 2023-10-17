@@ -48,20 +48,21 @@ function boolOrUndefined(true_value, arr) {
 
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
-  Science:
+  "Science/Engineering/Psychology":
     "https://e0.pxfuel.com/wallpapers/135/1007/desktop-wallpaper-science-background-vectors-stock-psd-social-science.jpg",
-  Mathematics:
+  "Mathematics/Statistics":
     "https://t4.ftcdn.net/jpg/02/05/76/23/360_F_205762306_KCw2syVz457NVnZNQCgFdeWW0MRKqlt0.jpg",
-  Art: "https://i.pinimg.com/736x/cb/2c/13/cb2c130454e570e4d6a2896928b9a1d0.jpg",
-  "Social Studies":
+  "Art/Music":
+    "https://i.pinimg.com/736x/cb/2c/13/cb2c130454e570e4d6a2896928b9a1d0.jpg",
+  "Social Studies/Humanities":
     "https://www.oksd.wednet.edu/cms/lib/WA01001356/Centricity/Domain/78/geography-555x370.jpg",
   Literature:
     "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGl0ZXJhdHVyZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
   "Foreign Language":
     "https://media.istockphoto.com/id/493800479/photo/thank-you.webp?b=1&s=170667a&w=0&k=20&c=3NBo_wEnJ7AEZ2mDuyGKZqmZssmKNN7sUOYX7xKjdpo=",
-  "Computer Science":
+  "Computer Science/Data Science":
     "https://t4.ftcdn.net/jpg/02/38/56/37/360_F_238563715_TT246ABsfPc7OMkIASI5wTOYiwwlf8Yz.jpg",
-  Business:
+  "Business/Finance/Econ/Marketing":
     "https://thumbs.dreamstime.com/b/infographic-showing-economics-trends-39390289.jpg",
 };
 
@@ -141,14 +142,14 @@ export default function Events() {
               selectedOpts={topicFilter}
               setSelectedOpts={setTopicFilter}
               options={[
-                "Mathematics",
-                "Science",
-                "Art",
-                "Social Studies",
+                "Computer Science/Data Science",
+                "Business/Finance/Econ/Marketing",
+                "Art/Music",
+                "Science/Engineering/Psychology",
+                "Mathematics/Statistics",
                 "Literature",
                 "Foreign Language",
-                "Computer Science",
-                "Business",
+                "Social Studies/Humanities",
               ]}
             />
 
@@ -165,7 +166,9 @@ export default function Events() {
               options={["Group Study", "Partner Work"]}
             />
 
-            <h2 className="text-xl font-semibold mb-4">Gender of Meeting</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              Preferred Gender of Meeting
+            </h2>
             <MultiCheckboxSelect
               selectedOpts={genderFilter}
               setSelectedOpts={setGenderFilter}

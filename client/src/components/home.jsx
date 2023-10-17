@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { checkLoginStatus } from "../fetching"; // Import your checkLoginStatus function
 
 export default function Home({ loggedIn }) {
   return (
@@ -40,19 +41,19 @@ export default function Home({ loggedIn }) {
         <div className="relative mx-auto max-w-7xl py-24 sm:py-32 lg:px-8 lg:py-40">
           <div className="pl-6 pr-6 md:ml-auto md:w-2/3 md:pl-16 lg:w-1/2 lg:pl-24 lg:pr-0 xl:pl-32">
             <h2 className="text-base font-semibold leading-7 text-indigo-400">
-              some short phrase
+              Where Knowledge Meets Community
             </h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              maybe our app name
+              Binder Buddies
             </p>
             <p className="mt-6 text-base leading-7 text-gray-300">
-              ______ is the essential app for students seeking to enhance their
-              academic journey. Stay motivated in your studies with a study
-              partner. Filter potential partners by age, gender, study subject,
-              expertise level, location, and availability. Reach out by message
-              to coordinate times and explore interests. Create events to meet
-              up in person or online. Find a study partner in your neighborhood
-              or meet new partners from around the world.
+              Binder Buddies is the essential app for students seeking to
+              enhance their academic journey. Stay motivated in your studies
+              with a study partner. Filter potential partners by age, gender,
+              study subject, expertise level, location, and availability. Reach
+              out by message to coordinate times and explore interests. Create
+              events to meet up in person or online. Find a study partner in
+              your neighborhood or meet new partners from around the world.
             </p>
             <div className="mt-8 flex gap-3 justify-center">
               {loggedIn ? null : ( // Render nothing if logged in

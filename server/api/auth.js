@@ -37,4 +37,12 @@ router.post("/logout", async (req, res, next) => {
   }
 });
 
+router.get("/status", (req, res) => {
+  if (req.user) {
+    res.send({ loggedIn: true });
+  } else {
+    res.send({ loggedIn: false });
+  }
+});
+
 module.exports = router;

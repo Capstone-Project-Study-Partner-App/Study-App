@@ -127,6 +127,29 @@ const deleteRsvp = async ({ user_id, event_id }) => {
   }
 };
 
+// Check if an RSVP instance exists for a user_id and event_id
+const checkIfRsvpExists = async ({ user_id, event_id }) => {
+  try {
+    const result = await client.query(
+      `
+        SELECT EXISTS (
+          SELECT 1
+          FROM rsvps
+          WHERE user_id = $1
+          AND event_id = $2
+        ) AS exists;
+      `,
+      [user_id, event_id]
+    );
+
+    // The result will have a single row with a boolean column 'exists'
+    // Return the boolean value (true if a row exists, false if not)
+    return result.rows[0].exists;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getAllRsvps,
   getRsvpById,
@@ -135,4 +158,5 @@ module.exports = {
   getRsvpByUserId,
   createRsvp,
   deleteRsvp,
+  checkIfRsvpExists,
 };
