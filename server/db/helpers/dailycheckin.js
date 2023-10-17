@@ -2,7 +2,7 @@ const client = require("../client");
 
 const createCheckIn = async ({
     user_id,
-    date,
+    submit_date,
     response,
   }) => {
     try {
@@ -10,11 +10,11 @@ const createCheckIn = async ({
         rows: [checkin],
       } = await client.query(
         `
-          INSERT INTO daily_check_in(user_id, date, response)
+          INSERT INTO daily_check_in(user_id, submit_date, response)
           VALUES($1, $2, $3)
           RETURNING *;
         `,
-        [user_id, date, response]
+        [user_id, submit_date, response]
       );
       return checkin;
     } catch (error) {
@@ -32,8 +32,7 @@ const createCheckIn = async ({
           SELECT *
           FROM daily_check_in
           WHERE user_id = $1
-          ORDER BY date DESC
-          LIMIT 1;
+          ORDER BY submit_date DESC;
         `,
         [user_id]
       );

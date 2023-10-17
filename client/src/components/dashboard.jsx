@@ -8,6 +8,7 @@ import {
 } from "../fetching";
 import { LOGIN_ROUTE } from "./login";
 import { Link, useNavigate } from "react-router-dom";
+import CheckIn from "./dailycheckin";
 
 export default function UserDashboard() {
   const [user, setUser] = useState(null);
@@ -106,12 +107,13 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="h-screen  bg-white mt-8 ">
+  
+    <div className="h-screen bg-white mt-8 ">
       <div className="grid grid-cols-1  lg:grid-cols-3 md:grid-cols-2 ">
         
-        <div className="post p-5 lg:p-1 rounded-md">
+        <div className="post p-5 lg:p-4 rounded-md">
           <div className="lg:col-span-2 p-4 bg-white pb-20">
-            <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full mb-4 mt-16">
+            <div className="bg-sky-50 p-8 rounded-lg shadow-lg max-w-md w-full mb-4 mt-16">
               {/* <!-- Banner Profile --> */}
               <div className="relative">
                 <img
@@ -134,112 +136,38 @@ export default function UserDashboard() {
               {/* <!-- Bio --> */}
               <p className="text-gray-700 mt-2"> {user.about_me} </p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full lg:col-span-2  mt-3">
-              <form>
-                {/* <!-- DAILY CHECK IN --> */}
-                <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-2">
-                  <img
-                    src="https://img.freepik.com/premium-photo/3d-calendar-with-alarm-clock-icon_356415-1854.jpg?w=360"
-                    alt="Check in icon"
-                    className="w-24 h-24 rounded-full"
-                  />
-                  <div>
-                    <p className="text-gray-800 font-semibold">
-                      Daily Check in:
-                    </p>
-                    <p className="text-gray-500 text-sm">
-                      How are you feeling today?
-                    </p>
-                  </div>
+            {/* <!-- DAILY CHECK IN --> */}
+            <div className="bg-sky-50 p-8 rounded-lg shadow-md max-w-md w-full lg:col-span-2  mt-3">
+            <div className="flex items-center justify-between mb-4">
+                 
+                 <div className="flex items-center space-x-2">
+                   <img
+                     src="https://img.freepik.com/premium-photo/3d-calendar-with-alarm-clock-icon_356415-1854.jpg?w=360"
+                     alt="Check in icon"
+                     className="w-24 h-24 rounded-full"
+                   />
+                   <div>
+                     <p className="text-gray-800 font-semibold">
+                       Daily Check in:
+                     </p>
+                     <p className="text-gray-500 text-sm">
+                       How are you feeling today?
+                     </p>
+                   </div>
+                 </div>
+               </div>
+            <div className="mb-2 ">
+              <CheckIn
+                user_id={user.user_id}
+                />
                 </div>
-              </div>
-                <div className="mb-2 ">
-                  <ul className="grid grid-cols-2 gap-2 items-stretch">
-                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center space-x-4 ">
-                      <input
-                        id="vue-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 "
-                      />
-                      <label htmlFor="vue-checkbox" className="w-full text-xs font-medium text-gray-900">
-                        <img
-                          src="https://i.ibb.co/qnhwVB4/1-removebg-preview.png"
-                          alt=" option 1"
-                          className="w-24 h-24 rounded-full"
-                        />
-                      </label>
-                    </li>
-                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center space-x-4">
-                      <input
-                        id="react-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                      />
-                      <label htmlFor="react-checkbox" className="w-full text-xs font-medium text-gray-900">
-                        <img
-                          src="https://i.ibb.co/GVBc2fT/2-removebg-preview.png"
-                          alt=" option 2"
-                          className="w-24 h-24 rounded-full"
-                        />
-                      </label>
-                    </li>
-                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center space-x-4">
-                      <input
-                        id="angular-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                      />
-                      <label htmlFor="angular-checkbox" className="w-full text-xs font-medium text-gray-900">
-                        <img
-                          src="https://i.ibb.co/BTSBbJ2/3-removebg-preview.png"
-                          alt="option 3"
-                          className="w-24 h-24 rounded-full"
-                        />
-                      </label>
-                    </li>
-                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center space-x-4">
-                      <input
-                        id="laravel-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                      />
-                      <label htmlFor="laravel-checkbox" className="w-full text-xs font-medium text-gray-900">
-                        <img
-                          src="https://i.ibb.co/8YDrMgj/4-removebg-preview.png"
-                          alt="option 4"
-                          className="w-24 h-24 rounded-full"
-                        />
-                      </label>
-                    </li>
-                  </ul>
-                </div>
-                {/* <!-- Submit Button--> */}
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="flex justify-center items-center bg-teal-300 hover:bg-teal-400 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"
-                  >
-                    {" "}
-                    Submit{" "}
-                    <img
-                      src="https://i.ibb.co/vVyRfG6/pngtree-pencil-icon-vector-png-educational-icons-with-trendy-and-modern-colors-png-image-5062809-rem.png"
-                      className="w-8 h-8"
-                    />
-                  </button>
-                </div>
-              </form>
             </div>
           </div>
         </div>
         {/* <!-- First Column / EVENT INFO--> */}
         <div className="lg:col-span-2 p-4 bg-white mt-3" id="posted">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="bg-white p-8 rounded-lg shadow-md max-w-md">
+            <div className="bg-sky-50 p-8 rounded-lg shadow-md max-w-md">
               {/* <!-- User Info with Three-Dot Menu --> */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
@@ -287,7 +215,7 @@ export default function UserDashboard() {
             </div>
 
             {/* <!-- Second Column / RATING--> */}
-            <div className="bg-white p-8 shadow-md rounded-lg max-w-md">
+            <div className="bg-sky-50 p-8 shadow-md rounded-lg max-w-md">
               {/* <!-- User Info with Three-Dot Menu --> */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
@@ -321,7 +249,7 @@ export default function UserDashboard() {
               </div>
             </div>
             {/* <!-- PARTNERS--> */}
-            <div className="bg-white p-8 rounded-lg shadow-md max-w-md">
+            <div className="bg-sky-50 p-8 rounded-lg shadow-md max-w-md">
               {/* <!-- User Info with Three-Dot Menu --> */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
@@ -375,7 +303,7 @@ export default function UserDashboard() {
             </div>
             {/* <!-- UNREAD MESSAGES--> */}
             {/* <!-- Second Column --> */}
-            <div className="bg-white p-8 rounded-lg shadow-md max-w-md">
+            <div className="bg-sky-50 p-8 rounded-lg shadow-md max-w-md">
               {/* <!-- User Info with Three-Dot Menu --> */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
@@ -431,5 +359,6 @@ export default function UserDashboard() {
         </div>
       </div>
     </div>
+  
   );
 }
