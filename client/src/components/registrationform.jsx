@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createUser } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import ImageUploading from "react-images-uploading";
 
 // import { getEducation } from "../fetching.js";
 
@@ -25,12 +26,25 @@ export default function RegistrationForm({ setLoggedIn }) {
   const [times_available, setTimes_available] = useState([]);
   const [timezone, setTimezone] = useState("");
   const [interests, setInterests] = useState("");
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [study_habits, setStudy_habits] = useState("");
   const [major, setMajor] = useState("");
   const [age, setAge] = useState("");
   const [work, setWork] = useState("");
+
+  const [imageDataURL, setImageDataURL] = useState(null);
+  const maxNumber = 1;
+
+  const onChange = (imageList, addUpdateIndex) => {
+    console.log(imageList, addUpdateIndex);
+    if (imageList.length > 0) {
+      setImageDataURL(imageList[0].data_url);
+    } else {
+      setImageDataURL(null);
+    }
+    setPhoto(imageList);
+  };
 
   // const [selectedDayOptions, setSelectedDayOptions] = useState();
   const [selectedTimezoneOptions, setSelectedTimezoneOptions] = useState();
@@ -122,7 +136,7 @@ export default function RegistrationForm({ setLoggedIn }) {
         ),
         timezone: timezone,
         interests: [interests],
-        photo: photo,
+        photo: imageDataURL,
         languages: languages.map((language_option) => language_option.value),
         study_habits: study_habits,
         major: major,
@@ -323,7 +337,67 @@ export default function RegistrationForm({ setLoggedIn }) {
                   Photo
                 </label>
                 <div className="mt-2 sm:col-span-2 sm:mt-0">
-                  <input
+                  <div className="register_photo">
+                    <ImageUploading
+                      multiple
+                      value={photo}
+                      onChange={onChange}
+                      maxNumber={maxNumber}
+                      dataURLKey="data_url"
+                    >
+                      {({
+                        imageList,
+                        onImageUpload,
+                        onImageRemoveAll,
+                        onImageUpdate,
+                        onImageRemove,
+                        isDragging,
+                        dragProps,
+                      }) => (
+                        // write your building UI
+                        <div className="upload__image-wrapper">
+                          <label
+                            htmlFor="photo"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                          >
+                            Photo
+                          </label>
+                          <div className="mt-2 sm:col-span-2 sm:mt-0">
+                            <button
+                              style={isDragging ? { color: "red" } : undefined}
+                              onClick={onImageUpload}
+                              {...dragProps}
+                            >
+                              Click or Drop here
+                            </button>
+                            &nbsp;
+                            <button onClick={onImageRemoveAll}>
+                              Remove all images
+                            </button>
+                            {imageList.map((image, index) => (
+                              <div key={index} className="image-item">
+                                <img
+                                  src={image["data_url"]}
+                                  alt=""
+                                  width="100"
+                                />
+                                <div className="image-item__btn-wrapper">
+                                  <button onClick={() => onImageUpdate(index)}>
+                                    Update
+                                  </button>
+                                  <button onClick={() => onImageRemove(index)}>
+                                    Remove
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </ImageUploading>
+                  </div>
+
+                  {/* <input
                     id="photo"
                     className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={photo}
@@ -332,7 +406,8 @@ export default function RegistrationForm({ setLoggedIn }) {
                     placeholder="Photo URL"
                     onChange={(e) => setPhoto(e.target.value)}
                     required
-                  />
+                  /> */}
+
                   <p className="mt-3 text-sm leading-6 text-gray-600">
                     Please input a image URL for your profile picture.
                   </p>

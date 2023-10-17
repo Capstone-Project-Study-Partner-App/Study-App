@@ -393,7 +393,7 @@ apiRouter.get("/chat/:sender/:receiver", async (req, res, next) => {
   }
 });
 
-// // Get unread messages
+// Get unread messages
 apiRouter.get("/messages/unread/:id", async (req, res, next) => {
   try {
     const result = await getUnreadMessages(req.params.id);
@@ -402,6 +402,8 @@ apiRouter.get("/messages/unread/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+
 
 
 //Mark message as read
@@ -416,6 +418,7 @@ apiRouter.put("/messages/:receiver/markasread/:message_id", async (req, res, nex
     next(error);
   }
 });
+
 
 //RATINGS
 

@@ -7,8 +7,7 @@ import {
   LinkIcon,
 } from "@heroicons/react/outline";
 import EventComments from "./AllComments";
-import DeleteEvent from './eventdelete'
-
+import DeleteEvent from "./eventdelete";
 
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
@@ -200,14 +199,23 @@ export default function Event() {
           <p>{event.description}</p>
         </div>
       </div>
-      <div>
-          <button>
-            <Link to={`/edit_event/${id}`}>
-              <h2>Edit Event</h2>
+      <div className="mt-6 flex items-center justify-center gap-x-6 text-white">
+        <div>
+          <button
+            type="button"
+            className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            style={{ color: "white" }}
+          >
+            <Link to={`/edit_event/${id}` }>
+              Edit Event
             </Link>
           </button>
-          <DeleteEvent event_id={id} />
         </div>
+        <DeleteEvent event_id={id} />
+      </div>
+      <br />
+      <br />
+      <br />
       <div>
         <EventComments event_id={id} />
       </div>

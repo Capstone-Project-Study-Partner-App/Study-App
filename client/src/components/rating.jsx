@@ -73,7 +73,7 @@ export default function Rating({userId, currentUser}) {
       <p>Rating Star: <StarRating averageRating={parseInt(rating.rating_star)} /></p>
       
       {/* {currentUser && currentUser.id === rating.creator_id && ( */}
-        <div>
+        <div className="event_edit_button">
           <button>
             <Link to={`/ratings/${rating.rating_id}`}>
               <h2>Edit Rating</h2>

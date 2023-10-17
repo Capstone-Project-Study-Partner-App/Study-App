@@ -82,6 +82,10 @@ button:focus-visible {
   padding-bottom: 1em;
 }
 
+.event_edit_button{
+  color:white !important;
+}
+
 .profile {
   padding-top: 1em;
   padding-left: 2em;
