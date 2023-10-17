@@ -97,8 +97,8 @@ export default function AllMessages() {
   return (
     <div className="shadow-lg rounded-lg">
       {/* Header */}
-      <div className="px-5 py-5 flex justify-between items-center bg-indigo-600 border-b-2">
-        <div className="font-semibold text-2xl text-white">Messages:</div>
+      <div className="px-5 py-5 flex justify-between items-center bg-sky-100 border-b-2">
+        <div className="font-semibold text-2xl text-gray-800">Messages:</div>
         <div className="h-12 p-2 rounded-full text-white font-semibold flex items-center justify-center">
           <img
             className="object-cover h-10 w-12"
