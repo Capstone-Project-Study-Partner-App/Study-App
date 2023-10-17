@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createRating } from "../fetching";
-import * as React from 'react';
+import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
@@ -8,9 +8,14 @@ import StarIcon from "@mui/icons-material/Star";
 export default function RatingCreate({ userId }) {
   const [ratingAddShow, setRatingAddShow] = useState(false);
   const [rating_content, setRating_content] = useState("");
-  const [posted_at, setPosted_at] = useState(getCurrentDateTime());
+  // const [posted_at, setPosted_at] = useState(getCurrentDateTime());
   const [rating_star, setRating_star] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
+
+  // function getCurrentDateTime() {
+  //   const now = new Date().toISOString().slice(0, 16);
+  //   return now;
+  // }
 
   const labels = {
     1: "Poor",
@@ -20,21 +25,17 @@ export default function RatingCreate({ userId }) {
     5: "Excellent",
   };
   function getLabelText(rating_star) {
-    return `${rating_star} Star${rating_star !== 1 ? "s" : ""}, ${labels[rating_star]}`;
-  }
-
-  function getCurrentDateTime() {
-    const now = new Date().toISOString().slice(0, 16);
-    return now;
+    return `${rating_star} Star${rating_star !== 1 ? "s" : ""}, ${
+      labels[rating_star]
+    }`;
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     let ratingData = {
       user_id: userId,
-      creator_id: currentUser.id,
       rating_content: rating_content,
-      posted_at: posted_at,
+      // posted_at: posted_at,
       rating_star: rating_star,
     };
     try {
@@ -84,7 +85,6 @@ export default function RatingCreate({ userId }) {
               name="hover-feedback"
               value={rating_star}
               precision={1}
-            
               getLabelText={getLabelText}
               onChange={(event, newValue) => {
                 setRating_star(newValue);
@@ -98,9 +98,12 @@ export default function RatingCreate({ userId }) {
               required
             />
             {rating_star !== null && (
-              <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : rating_star]}</Box>
+              <Box sx={{ ml: 2 }}>
+                {labels[hover !== -1 ? hover : rating_star]}
+              </Box>
             )}
           </Box>
+
           <div>
             <button type="submit">Submit</button>
           </div>

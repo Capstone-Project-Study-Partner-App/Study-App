@@ -436,7 +436,7 @@ export async function getUnreadMessages(receiver) {
     const response = await fetch(`${api_root}/messages/unread/${receiver}`);
     if (response.ok) {
       const result = await response.json();
-      return result.unread_count;
+      return result;
     } else {
       throw new Error('Failed to fetch unread message count');
     }
@@ -551,6 +551,36 @@ export async function getRatingByUserId(user_id) {
   const json = await resp.json();
   return json;
 }
+
+// export async function getRatingsForUser(user_id) {
+//   const resp = await fetch(`${api_root}/users/${user_id}/ratings`);
+//   const json = await resp.json();
+//   return json;
+// }
+
+// -------Registration Form FETCHES-------
+
+// const educationURL =
+//   "https://parseapi.back4app.com/classes/University?limit=0&keys=name";
+
+// export async function getEducation() {
+//   const educationOption = {
+//     method: "GET",
+//     headers: {
+//       "X-Parse-Application-Id": "Ipq7xXxHYGxtAtrDgCvG0hrzriHKdOsnnapEgcbe",
+//       "X-Parse-Master-Key": "HNodr26mkits5ibQx2rIi0GR9pVCwOSEAkqJjgVp",
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(educationURL, educationOption);
+//     const result = await response.text();
+//     console.log(result);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 
 // -------COMMENT FETCHES-------
 export async function createComment(

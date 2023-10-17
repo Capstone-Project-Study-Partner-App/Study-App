@@ -72,7 +72,7 @@ export default function Rating({userId, currentUser}) {
       <p>Posted: {formatDateTime(rating.posted_at)}</p>
       <p>Rating Star: <StarRating averageRating={parseInt(rating.rating_star)} /></p>
       
-      {currentUser && currentUser.id === rating.creator_id && (
+      {/* {currentUser && currentUser.id === rating.creator_id && ( */}
         <div>
           <button>
             <Link to={`/ratings/${rating.rating_id}`}>
@@ -81,7 +81,7 @@ export default function Rating({userId, currentUser}) {
           </button>
           <DeleteRating rating_id={rating.rating_id} />
         </div>
-      )}
+      {/* )} */}
     </div>
   ))}
 </div>

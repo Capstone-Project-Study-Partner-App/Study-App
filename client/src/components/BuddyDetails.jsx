@@ -142,8 +142,8 @@ export default function User({currentUser}) {
           </div>
         </div>
       </div>
-      <Rating currentUser={currentUser}/>
-      <RatingCreate userId={user.user_id} currentUser={currentUser}/>
+      <Rating />
+      <RatingCreate userId={user.user_id} />
     </div>
   );
 } 
