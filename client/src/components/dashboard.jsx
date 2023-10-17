@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import StarRating from "./ratingstar";
 import CheckIn from "./dailycheckin";
 
-export default function UserDashboard() {
+export default function UserDashboard({ setLoggedIn }) {
   const [user, setUser] = useState(null);
   const [rsvps, setRsvps] = useState([]);
   const [error, setError] = useState(null);
@@ -40,6 +40,7 @@ export default function UserDashboard() {
       try {
         const response = await getProfile();
         setUser(response);
+        setLoggedIn(true);
       } catch (err) {
         if (err instanceof AuthError) {
           navigate(LOGIN_ROUTE);

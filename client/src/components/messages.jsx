@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getUserMessages, getProfile } from "../fetching";
 import MessageThread from "./Thread";
 
-export default function AllMessages() {
+export default function AllMessages({ setLoggedIn }) {
   const [messages, setMessages] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
@@ -50,6 +50,7 @@ export default function AllMessages() {
       try {
         const response = await getUserMessages(currentUser.user_id);
         setMessages(response);
+        setLoggedIn(true);
         console.log("All Messages:", response);
       } catch (error) {
         setError(error.message);
