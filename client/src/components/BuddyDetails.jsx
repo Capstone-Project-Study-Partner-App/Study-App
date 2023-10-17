@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import Rating from "./rating";
 import RatingCreate from "./ratingcreate";
 
-export default function User() {
+export default function User({currentUser}) {
   const [user, setUser] = useState(null);
   const [liked, setLiked] = useState(false);
 
@@ -142,8 +142,8 @@ export default function User() {
           </div>
         </div>
       </div>
-      <Rating/>
-      <RatingCreate userId={user.user_id}/>
+      <Rating currentUser={currentUser}/>
+      <RatingCreate userId={user.user_id} currentUser={currentUser}/>
     </div>
   );
 } 
