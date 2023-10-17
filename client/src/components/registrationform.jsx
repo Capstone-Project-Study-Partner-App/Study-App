@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createUser, checkLoginStatus } from "../fetching.js";
+import { createUser } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
@@ -149,13 +149,6 @@ export default function RegistrationForm({ setLoggedIn }) {
       setPasswordError(""); // Clear the error message when the password is valid
     }
   };
-
-  //IF SIGNED IN, NOT ABLE TO REGISTER. REROUTES TO BUDDIES
-  useEffect(() => {
-    if (checkLoginStatus()) {
-      navigate("/users");
-    }
-  }, [navigate]);
 
   // useEffect(()=>{
   //   async function fetchData(){
