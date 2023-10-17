@@ -20,7 +20,7 @@ const createComment = async ({ user_id, event_id, comment_content }) => {
   } catch (error) {
     throw error;
   }
-};
+}
 
 
 // Get comments by Event ID
