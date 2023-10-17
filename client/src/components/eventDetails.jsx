@@ -7,6 +7,7 @@ import {
   LinkIcon,
 } from "@heroicons/react/outline";
 import EventComments from "./AllComments";
+import DeleteEvent from './eventdelete'
 
 
 // Define a mapping of topic names to image URLs
@@ -199,6 +200,14 @@ export default function Event() {
           <p>{event.description}</p>
         </div>
       </div>
+      <div>
+          <button>
+            <Link to={`/edit_event/${id}`}>
+              <h2>Edit Event</h2>
+            </Link>
+          </button>
+          <DeleteEvent event_id={id} />
+        </div>
       <div>
         <EventComments event_id={id} />
       </div>

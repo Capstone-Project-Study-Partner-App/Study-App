@@ -16,6 +16,7 @@ import Home from "./components/home";
 import UserDashboard from "./components/dashboard";
 import PopUpThread from "./components/PopUpThread";
 import EditRating from "./components/ratingedit";
+import EventEdit from "./components/eventedit";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/users" element={<Buddies />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<Event />} />
+          <Route path="/edit_event/:id" element={<EventEdit />} />
           <Route path="/events/new_event_form" element={<NewEventForm />} />
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />

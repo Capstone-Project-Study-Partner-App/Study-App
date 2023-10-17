@@ -243,8 +243,8 @@ export async function getRsvpsForEvent(event_id) {
   return json;
 }
 
-export async function getEventById(user_id) {
-  const resp = await fetch(`${api_root}/events/${user_id}`);
+export async function getEventById(event_id) {
+  const resp = await fetch(`${api_root}/events/${event_id}`);
   const json = await resp.json();
   return json;
 }
@@ -284,11 +284,19 @@ export async function updateEvent(event_id, updatedEventData) {
 }
 
 export async function deleteEvent(event_id) {
-  const resp = await fetch(`${api_root}/events/${event_id}`, {
-    method: "DELETE",
-  });
-  const json = await resp.json();
-  return json;
+  try {
+    const resp = await fetch(`${api_root}/events/${event_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await resp.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function getRsvpByEventId(event_id) {
@@ -420,7 +428,6 @@ export async function getExistingThread(sender, receiver) {
   }
 }
 
-
 export const markMessageAsRead = async (receiver, message_id) => {
   try {
     await fetch(`${api_root}/messages/${receiver}/markasread/${message_id}`, {
@@ -438,14 +445,13 @@ export async function getUnreadMessages(receiver) {
       const result = await response.json();
       return result;
     } else {
-      throw new Error('Failed to fetch unread message count');
+      throw new Error("Failed to fetch unread message count");
     }
   } catch (error) {
     console.error(error);
     throw error;
   }
 }
-
 
 // -------RATING FETCHES-------
 
@@ -458,27 +464,25 @@ export async function getUnreadMessages(receiver) {
 //   return json;
 // }
 
-export async function deleteRating (rating_id) {
-  try{
-      const response=await fetch (`${api_root}/ratings/${rating_id}`, {
-          method:'DELETE',
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      });
-      const result = await response.json();
-      console.log(result);
-      return result;
-  } catch (error){
-      console.error (error);
+export async function deleteRating(rating_id) {
+  try {
+    const response = await fetch(`${api_root}/ratings/${rating_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
   }
 }
 
-
-
 export async function updateRating(rating_id, updatedRatingData) {
   try {
-    console.log ("entering update rating in fetching")
+    console.log("entering update rating in fetching");
     const response = await fetch(`${api_root}/ratings/${rating_id}`, {
       method: "PUT",
       headers: {
@@ -523,11 +527,11 @@ export async function getAllRatings() {
   return json;
 }
 
-export async function getRatingById (rating_id){
-  try{
-    const response=await fetch(`${api_root}/ratings/${rating_id}`)
-    const result=await response.json();
-    return result
+export async function getRatingById(rating_id) {
+  try {
+    const response = await fetch(`${api_root}/ratings/${rating_id}`);
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.error(error);
     return error;
@@ -580,7 +584,6 @@ export async function getRatingByUserId(user_id) {
 //     console.error(error);
 //   }
 // }
-
 
 // -------COMMENT FETCHES-------
 export async function createComment(

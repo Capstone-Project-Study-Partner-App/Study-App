@@ -28,11 +28,11 @@ export default function EditRating() {
 
   const { rating_id } = useParams();
 
-  function getCurrentDateTime() {
-    const now = new Date().toISOString();
-    // .slice(0, 16);
-    return now;
-  }
+  // function getCurrentDateTime() {
+  //   const now = new Date().toISOString();
+  //   // .slice(0, 16);
+  //   return now;
+  // }
 
   useEffect(() => {
     async function fetchRatingData() {
@@ -47,12 +47,12 @@ export default function EditRating() {
     fetchRatingData();
   }, [rating_id]);
 
-  useEffect(() => {
-    setRating((prevRating) => ({
-      ...prevRating,
-      posted_at: getCurrentDateTime(),
-    }));
-  }, []);
+  // useEffect(() => {
+  //   setRating((prevRating) => ({
+  //     ...prevRating,
+  //     posted_at: getCurrentDateTime(),
+  //   }));
+  // }, []);
 
   async function handleEdit(e) {
     e.preventDefault();
