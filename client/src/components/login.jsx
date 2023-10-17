@@ -39,7 +39,7 @@ export default function Login({ setLoggedIn }) {
                 const { success } = await logInUser({ email, password });
                 if (success) {
                   setLoggedIn(true);
-                  navigate("/users");
+                  navigate("/dashboard");
                 }
                 setPending(false);
               }}
