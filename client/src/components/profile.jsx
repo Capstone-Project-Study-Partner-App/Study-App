@@ -4,7 +4,7 @@ import { getProfile, updateUser, AuthError } from "../fetching";
 import { LOGIN_ROUTE } from "./login";
 import { useNavigate } from "react-router-dom";
 
-export default function UpdateProfile({ user_id }) {
+export default function UpdateProfile({ user_id, setLoggedIn }) {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ export default function UpdateProfile({ user_id }) {
         const response = await getProfile();
         console.log("Fetched user data:", response);
         setUser(response);
+        setLoggedIn(true);
         // setUser((prevUser) => ({ ...prevUser, ...current_user }));
       } catch (err) {
         if (err instanceof AuthError) {
@@ -60,7 +61,7 @@ export default function UpdateProfile({ user_id }) {
       console.error("oopsie prof updates a no-go", error);
       setError("failed to update profile");
     }
-    window.location.reload();
+    // window.location.reload();
     alert("Your changes have been saved!");
   }
 

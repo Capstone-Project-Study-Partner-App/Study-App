@@ -44,7 +44,7 @@ function getImageUrl(topic) {
   );
 }
 
-export default function Event({setLoggedIn}) {
+export default function Event({ setLoggedIn }) {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null);
   const [rsvp, setRsvp] = useState(false);
@@ -225,9 +225,8 @@ export default function Event({setLoggedIn}) {
           <button
             type="button"
             className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            
           >
-            <Link to={`/edit_event/${id}` } style={{ color: "white" }}>
+            <Link to={`/edit_event/${id}`} style={{ color: "white" }}>
               Edit Event
             </Link>
           </button>

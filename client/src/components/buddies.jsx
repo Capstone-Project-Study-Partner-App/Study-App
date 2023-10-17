@@ -43,7 +43,7 @@ function undefinedIfEmpty(arr) {
   return arr;
 }
 
-export default function Buddies() {
+export default function Buddies({ setLoggedIn }) {
   const [user, setUser] = useState(null);
   const [ageFilter, setAgeFilter] = useState([]);
   const [edLevelFilter, setEdLevelFilter] = useState([]);
@@ -103,6 +103,7 @@ export default function Buddies() {
         },
       });
       setAllUsers(users);
+      setLoggedIn(true);
     } catch (err) {
       if (err instanceof AuthError) {
         navigate(LOGIN_ROUTE);

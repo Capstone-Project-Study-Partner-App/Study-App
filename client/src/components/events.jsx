@@ -75,7 +75,7 @@ function getImageUrl(topic) {
   );
 }
 
-export default function Events() {
+export default function Events({ setLoggedIn }) {
   const [topicFilter, setTopicFilter] = useState([]);
   const [virtualFilter, setVirtualFilter] = useState([]);
   const [groupFilter, setGroupFilter] = useState([]);
@@ -108,6 +108,7 @@ export default function Events() {
         const eventsWithRsvps = await Promise.all(rsvpPromises);
 
         setAllEvents(eventsWithRsvps);
+        setLoggedIn(true);
       } catch (err) {
         if (err instanceof AuthError) {
           navigate(LOGIN_ROUTE);

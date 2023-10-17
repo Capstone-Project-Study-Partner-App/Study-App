@@ -31,12 +31,24 @@ function App() {
             path={LOGIN_ROUTE}
             element={<Login setLoggedIn={setLoggedIn} />}
           />
-          <Route path="/users" element={<Buddies />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/:id" element={<Event />} />
+          <Route
+            path="/users"
+            element={<Buddies setLoggedIn={setLoggedIn} />}
+          />
+          <Route
+            path="/events"
+            element={<Events setLoggedIn={setLoggedIn} />}
+          />
+          <Route
+            path="/events/:id"
+            element={<Event setLoggedIn={setLoggedIn} />}
+          />
           <Route path="/edit_event/:id" element={<EventEdit />} />
           <Route path="/events/new_event_form" element={<NewEventForm />} />
-          <Route path="/:id/messages" element={<Messages />} />
+          <Route
+            path="/:id/messages"
+            element={<Messages setLoggedIn={setLoggedIn} />}
+          />
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/chat/:sender/:receiver" element={<PopUpThread />} />
           <Route
@@ -47,10 +59,16 @@ function App() {
             path="/register"
             element={<RegistrationForm setLoggedIn={setLoggedIn} />}
           />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={<Profile setLoggedIn={setLoggedIn} />}
+          />
           <Route path="/ratings/:rating_id" element={<EditRating />} />
           <Route path="/" element={<Home loggedIn={loggedIn} />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route
+            path="/dashboard"
+            element={<UserDashboard setLoggedIn={setLoggedIn} />}
+          />
           {/* <Route path="/users/:id" element={<Profile />} /> */}
         </Routes>
       </div>
