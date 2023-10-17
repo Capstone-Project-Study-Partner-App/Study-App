@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { logInUser, checkLoginStatus } from "../fetching";
+import { logInUser } from "../fetching";
 import { useNavigate } from "react-router-dom";
 import Buttonlink from "./registerbutton";
 
@@ -52,7 +52,7 @@ export default function Login({ setLoggedIn }) {
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form
               className="space-y-6"
-              onSubmit={(evt) => {
+              onSubmit={async (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
                 setPending(true);

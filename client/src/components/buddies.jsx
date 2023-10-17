@@ -10,7 +10,7 @@ import {
 } from "../fetching";
 import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "./login";
-import { HeartIcon } from "@heroicons/react/outline";
+import { HeartIcon, UsersIcon } from "@heroicons/react/outline";
 import PopUpThread from "./PopUpThread";
 
 function MultiCheckboxSelect({ selectedOpts, setSelectedOpts, options }) {
