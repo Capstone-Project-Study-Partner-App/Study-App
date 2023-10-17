@@ -2,24 +2,27 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createComment} from "../fetching";
 
-export default function NewComment({ user_id, event_id }) {
+export default function NewComment({ user_id, event_id, newComment }) {
   const [comment_content, setCommentContent] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+  
     if (!comment_content) {
       return;
     }
+  
     try {
-
       const commentData = await createComment(user_id, event_id, comment_content);
       console.log("Comment sent:", commentData);
+  
+      // comments update without refreshing browser
+      newComment(commentData)
+  
       setCommentContent("");
-      const eventId = commentData.event_id;
-      navigate(`/events/${eventId}`);
-      window.location.reload();
+      // const eventId = commentData.event_id;
+      // navigate(`/events/${eventId}`);
     } catch (error) {
       console.error("There was an error sending your comment!", error);
     }

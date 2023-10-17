@@ -40,7 +40,13 @@ export default function EventComments({event_id}) {
     }
     getCurrentUser();
   }, []);
+
+  const handleNewComment = (commentData) => {
+    setComments([...comments, commentData]);
+  };
+
     return (
+
         <div class="antialiased mx-auto max-w-screen-sm shadow-lg px-10 mb-10">
   <h3 class="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
           {comments.map((comment) => ( 
@@ -67,7 +73,11 @@ export default function EventComments({event_id}) {
             </div>
             ))}
                 {currentUser ? (
-    <NewComment user_id={currentUser.user_id} event_id={event_id} />
+    <NewComment 
+    user_id={currentUser.user_id} 
+    event_id={event_id} 
+    newComment={handleNewComment}
+    />
     ) : (
       <p>Please log in to leave a comment.</p>
       )}
