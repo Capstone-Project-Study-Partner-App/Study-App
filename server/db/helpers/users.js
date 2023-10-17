@@ -360,7 +360,8 @@ const getUserMessages = async (user_id) => {
               r.photo AS receiver_photo,
               r.age AS receiver_age,
               r.education_level AS receiver_education_level,
-              m.thread_id
+              m.thread_id,
+              m.is_read
           FROM
               messages m
           INNER JOIN

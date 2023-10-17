@@ -59,6 +59,10 @@ const {
   getCommentsByEventId,
   deleteComment,
  } = require("../db/helpers/comments");
+ const { 
+  createCheckIn,
+  getCheckInByUserId,
+ } = require("../db/helpers/dailycheckin");
 
 // Create a subrouter for the '/api/' subroute
 const apiRouter = express.Router();
@@ -393,7 +397,7 @@ apiRouter.get("/chat/:sender/:receiver", async (req, res, next) => {
   }
 });
 
-// // Get unread messages
+// Get unread messages
 apiRouter.get("/messages/unread/:id", async (req, res, next) => {
   try {
     const result = await getUnreadMessages(req.params.id);
@@ -402,6 +406,8 @@ apiRouter.get("/messages/unread/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+
 
 
 //Mark message as read
@@ -530,6 +536,28 @@ apiRouter.delete("/comments/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+// DAILY CHECK IN 
+//Create Check In --POST
+apiRouter.post("/dailycheckin", async (req, res, next) => {
+	try {
+	  console.log("req", req.body);
+	  const checkin = await createCheckIn(req.body);
+	  res.send(checkin);
+  } catch (error) {
+    next(error);
+  }
+});
+
+	  //Get check in  by user ID 
+    apiRouter.get("/dailycheckin/:id", async (req, res, next) => {
+      try {
+        const checkin = await getCheckInByUserId(req.params.id);
+        res.send(checkin);
+      } catch (error) {
+        next(error);
+      }
+    });
 
 apiRouter.get("/health", (req, res, next) => {
   res.send("All healthy and ready to go!");
