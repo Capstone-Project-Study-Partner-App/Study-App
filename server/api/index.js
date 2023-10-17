@@ -23,6 +23,7 @@ const {
   deleteRsvp,
   updateRsvp,
   getRsvpByUserId,
+  checkIfRsvpExists,
 } = require("../db/helpers/rsvps");
 const {
   deleteMessage,
@@ -110,8 +111,8 @@ apiRouter.post("/users/search", async (req, res, next) => {
 //Get User by ID
 apiRouter.get("/users/:id", async (req, res, next) => {
   try {
-    const users = await getUserById(req.params.id);
-    res.send(users);
+    const user = await getUserById(req.params.id, req.user.user_id);
+    res.send(user);
   } catch (error) {
     next(error);
   }
@@ -235,6 +236,19 @@ apiRouter.get("/events/:id/rsvps", async (req, res, next) => {
     const rsvps = await getRsvpsForEvent(event_id);
 
     res.json(rsvps);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Check to see if a RSVP exists in the table for a certain user_id & event_id instance
+apiRouter.get("/events/:id/confirm_rsvp", async (req, res, next) => {
+  try {
+    const exists = await checkIfRsvpExists({
+      user_id: req.user.user_id,
+      event_id: req.params.id,
+    });
+    res.json({ exists });
   } catch (error) {
     next(error);
   }

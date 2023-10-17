@@ -1,5 +1,5 @@
-import React from "react";
-import { logInUser } from "../fetching";
+import React, { useState, useEffect } from "react";
+import { logInUser, checkLoginStatus } from "../fetching";
 import { useNavigate } from "react-router-dom";
 import Buttonlink from "./registerbutton";
 
@@ -8,11 +8,31 @@ export const LOGIN_ROUTE = "/login";
 export default function Login({ setLoggedIn }) {
   const navigate = useNavigate();
 
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
 
-  const [pending, setPending] = React.useState(false);
-  const disabled = pending;
+  // const handleLogin = async () => {
+  //   setPending(true);
+  //   setError(""); // Clear any previous error messages
+
+  //   const { success, error } = await logInUser({ email, password });
+
+  //   if (success) {
+  //     navigate("/users");
+  //   } else {
+  //     setError(error); // Set the error message
+  //   }
+
+  //   setPending(false);
+  // };
+
+  // useEffect(() => {
+  //   if (checkLoginStatus()) {
+  //     navigate("/users");
+  //   }
+  // }, [navigate]);
 
   return (
     <>
@@ -32,7 +52,7 @@ export default function Login({ setLoggedIn }) {
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form
               className="space-y-6"
-              onSubmit={async (evt) => {
+              onSubmit={(evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
                 setPending(true);
@@ -60,7 +80,7 @@ export default function Login({ setLoggedIn }) {
                     required
                     value={email}
                     onChange={(evt) => setEmail(evt.target.value)}
-                    disabled={disabled}
+                    disabled={pending}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -82,10 +102,11 @@ export default function Login({ setLoggedIn }) {
                     required
                     value={password}
                     onChange={(evt) => setPassword(evt.target.value)}
-                    disabled={disabled}
+                    disabled={pending}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+                {error && <p className="mt-2 text-red-600">{error}</p>}
               </div>
 
               <div>
@@ -93,7 +114,7 @@ export default function Login({ setLoggedIn }) {
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    disabled={disabled}
+                    disabled={pending}
                   >
                     Sign in
                   </button>

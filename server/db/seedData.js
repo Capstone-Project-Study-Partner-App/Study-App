@@ -23,7 +23,7 @@ const users = [
       "https://marvel-b1-cdn.bc0a.com/f00000000181213/www.valpo.edu/college-of-engineering/files/2019/08/Alec-Senior-Profile-photo-size-for-webpage-800x800.jpg",
     languages: ["English", "Spanish"],
     study_habits: "Semi-Chill",
-    major: "Business",
+    major: "Mathematics/Statistics",
     age: "18-24",
     work: null,
   },
@@ -48,7 +48,7 @@ const users = [
       "https://www.csw.utk.edu/wp-content/uploads/sites/92/Newsletter-Haiden-Lancaster-Student-Profile.jpg",
     languages: ["English"],
     study_habits: "Grind",
-    major: "Science",
+    major: "Science/Engineering/Psychology",
     age: "18-24",
     work: null,
   },
@@ -74,7 +74,7 @@ const users = [
       "https://www.birmingham.ac.uk/Images/College-EPS-only/international/Student-Profiles/justin-220x220.png",
     languages: ["English", "Arabic"],
     study_habits: "Semi-Grind",
-    major: "Computer Science",
+    major: "Computer Science/Data Science",
     age: "18-24",
     work: null,
   },
@@ -99,7 +99,7 @@ const users = [
       "https://socialwelfare.berkeley.edu/sites/default/files/styles/openberkeley_brand_widgets_square/public/neldeeb_headshot_1.jpg?itok=b4dg0YzR",
     languages: ["English", "Mandarin"],
     study_habits: "Semi-Chill",
-    major: "Art",
+    major: "Art/Music",
     age: "25-29",
     work: null,
   },
@@ -113,8 +113,8 @@ const users = [
     location: "01234",
     about_me:
       "I am a motivated learner who is always seeking opportunities for growth and improvement.",
-    education: "Boston University",
-    education_level: "College Freshman",
+    education: null,
+    education_level: "High School",
     classes: "Calculus",
     days_available: ["Monday", "Saturday"],
     times_available: ["Morning", "Afternoon"],
@@ -124,8 +124,8 @@ const users = [
       "https://vrs.amsi.org.au/wp-content/uploads/sites/84/2017/12/tobinsouth_vrs_2017-18.jpeg",
     languages: ["English", "French"],
     study_habits: "Semi-Grind",
-    major: "Mathematics",
-    age: "18-24",
+    major: null,
+    age: "15-17",
     work: null,
   },
   {
@@ -149,7 +149,7 @@ const users = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTebR4rjb4duj3lY4-6hESqj8fwblmBxa4bO5zhJYcskZJxdLdODJuXwCD-yPK2cub0XRU&usqp=CAU",
     languages: ["English", "Spanish"],
     study_habits: "Chill",
-    major: "Business",
+    major: "Business/Finance/Econ/Marketing",
     age: "18-24",
     work: null,
   },
@@ -173,7 +173,7 @@ const users = [
       "https://media.licdn.com/dms/image/D4E03AQHTe4lcqE-iNg/profile-displayphoto-shrink_800_800/0/1686153051429?e=2147483647&v=beta&t=yCtCczPrVONHrsjbtox9eWqrLaWIrZF7tGLMrjXsc5s",
     languages: ["English", "Mandarin"],
     study_habits: "Chill",
-    major: "Social Studies",
+    major: "Social Studies/Humanities",
     age: "18-24",
     work: null,
   },
@@ -222,7 +222,7 @@ const users = [
       "https://www.gtc.ox.ac.uk/wp-content/uploads/2019/09/William-Leben-feature.jpg",
     languages: ["English", "French"],
     study_habits: "Semi-Grind",
-    major: "Social Studies",
+    major: "Social Studies/Humanities",
     age: "18-24",
     work: null,
   },
@@ -246,7 +246,7 @@ const users = [
       "https://studyoverseasinfo.com/wp-content/uploads/2020/08/logo_maxwell.jpg",
     languages: ["English", "Other"],
     study_habits: "Semi-Chill",
-    major: "English",
+    major: "Literature",
     age: "18-24",
     work: null,
   },
@@ -265,7 +265,7 @@ const events = [
     timezone: "EST",
     virtual: true,
     comments: "So excited for this event!",
-    topic: "Social Studies",
+    topic: "Social Studies/Humanities",
     duration: 30,
     gender: "Male",
     group: true,
@@ -283,7 +283,7 @@ const events = [
     timezone: "EST",
     virtual: true,
     comments: "So excited for this event!",
-    topic: "Mathematics",
+    topic: "Mathematics/Statistics",
     duration: 60,
     gender: "Female",
     group: true,
@@ -300,7 +300,7 @@ const events = [
     timezone: "PST",
     virtual: true,
     comments: "I'm thrilled to be a part of this event!",
-    topic: "Science",
+    topic: "Science/Engineering/Psychology",
     duration: 90,
     gender: null,
     group: true,
@@ -317,7 +317,7 @@ const events = [
     timezone: "EST",
     virtual: true,
     comments: "Counting down the days until the event!",
-    topic: "Science",
+    topic: "Science/Engineering/Psychology",
     duration: 60,
     gender: "Male",
     group: true,
@@ -335,7 +335,7 @@ const events = [
     timezone: "EST",
     virtual: false,
     comments: "This event is going to be amazing!",
-    topic: "Art",
+    topic: "Art/Music",
     duration: 90,
     gender: null,
     group: true,
@@ -353,7 +353,7 @@ const events = [
     timezone: "HST",
     virtual: true,
     comments: "So excited for this event!",
-    topic: "Computer Science",
+    topic: "Computer Science/Data Science",
     duration: 120,
     gender: null,
     group: true,
@@ -371,7 +371,7 @@ const events = [
     timezone: "PST",
     virtual: false,
     comments: "This event is going to be amazing!",
-    topic: "Science",
+    topic: "Science/Engineering/Psychology",
     duration: 120,
     gender: null,
     group: true,
@@ -388,7 +388,7 @@ const events = [
     timezone: "EST",
     virtual: true,
     comments: "I can't wait to attend!",
-    topic: "Business",
+    topic: "Business/Finance/Econ/Marketing",
     duration: 90,
     gender: null,
     group: true,
@@ -406,7 +406,7 @@ const events = [
     timezone: "EST",
     virtual: false,
     comments: "I'm thrilled to be a part of this event!",
-    topic: "Social Studies",
+    topic: "Social Studies/Humanities",
     duration: 60,
     gender: null,
     group: true,
@@ -478,7 +478,7 @@ const events = [
     timezone: "CST",
     virtual: true,
     comments: "So excited for this event!",
-    topic: "Business",
+    topic: "Business/Finance/Econ/Marketing",
     duration: 90,
     gender: "Female",
     group: true,
@@ -579,92 +579,200 @@ const messages = [
 
 //rating
 const ratings = [
-  { id: 1, user_id: 1, creator_id: 3, rating_content: "This study partner is like a human encyclopedia! I'm just here for moral support.", posted_at: "2023-08-27 13:30:00", rating_star: 4},
-  { id: 2, user_id: 1, creator_id:1, rating_content: "One does not simply give up on a problem.", posted_at: "2023-07-11 17:45:00", rating_star: 5},
-  { id: 3, user_id: 2, creator_id: 3, rating_content: "They've made 'procrastination' an art form. Picasso would be proud.", posted_at: "2023-02-23 13:30:00", rating_star: 1},
-  { id: 4, user_id: 2, creator_id: 5, rating_content: "Study sessions are like a mystery novel - you never know if they'll show up for the next chapter.", posted_at: "2023-06-03 22:30:12", rating_star: 2},
-  { id: 5, user_id: 2, creator_id: 8, rating_content: "Their idea of brainstorming involves brainstorming about what to eat for lunch. We're still hungry for knowledge.", posted_at: "2023-09-05 22:45:41", rating_star: 2},
-  { id: 6, user_id: 3, creator_id: 10, rating_content: "So study. Much knowledge. Wow.", posted_at: "2023-03-21 04:17:16", rating_star: 5},
-  { id: 7, user_id: 3,creator_id: 7,  rating_content: "As reliable as your Wi-Fi connection during a thunderstorm. Occasionally great, often mysterious.", posted_at: "2023-05-28 15:59:12", rating_star: 3},
-  { id: 8, user_id: 3, creator_id: 8, rating_content: "We either have an 'Aha!' moment or press the 'Let's Google It' button together.", posted_at: "2023-06-26 14:03:59", rating_star: 4},
-  { id: 9, user_id: 4, creator_id: 3, rating_content: "They bring more snacks to our study sessions than a squirrel hoarding acorns for winter. Study time is snack time!", posted_at: "2023-06-11 03:34:45", rating_star: 5},
-  { id: 10, user_id: 5, creator_id: 3, rating_content: "F is for friends who study together.", posted_at: "2023-07-31 09:35:20", rating_star: 1},
-  { id: 11, user_id: 6, creator_id: 3, rating_content: "Their attention span is shorter than a squirrel's on an espresso binge.", posted_at: "2023-08-01 10:40:43", rating_star: 1},
-  { id: 12, user_id: 7, creator_id: 3, rating_content: "Always brings snacks to study sessions. Snack game = A+!", posted_at: "2023-03-14 23:13:26", rating_star: 4},
-  { id: 13, user_id: 8, creator_id: 3, rating_content: "Their brain works faster than Google's search algorithm. They answer questions before I even finish asking them!", posted_at: "2023-05-24 12:22:27", rating_star: 5},
-  { id: 14, user_id: 9, creator_id: 3, rating_content: "They show up to study sessions, and... well, that's about it.", posted_at: "2023-08-28 17:03:22", rating_star: 3},
+  {
+    id: 1,
+    user_id: 1,
+    creator_id: 3,
+    rating_content:
+      "This study partner is like a human encyclopedia! I'm just here for moral support.",
+    posted_at: "2023-08-27 13:30:00",
+    rating_star: 4,
+  },
+  {
+    id: 2,
+    user_id: 1,
+    creator_id: 1,
+    rating_content: "One does not simply give up on a problem.",
+    posted_at: "2023-07-11 17:45:00",
+    rating_star: 5,
+  },
+  {
+    id: 3,
+    user_id: 2,
+    creator_id: 3,
+    rating_content:
+      "They've made 'procrastination' an art form. Picasso would be proud.",
+    posted_at: "2023-02-23 13:30:00",
+    rating_star: 1,
+  },
+  {
+    id: 4,
+    user_id: 2,
+    creator_id: 5,
+    rating_content:
+      "Study sessions are like a mystery novel - you never know if they'll show up for the next chapter.",
+    posted_at: "2023-06-03 22:30:12",
+    rating_star: 2,
+  },
+  {
+    id: 5,
+    user_id: 2,
+    creator_id: 8,
+    rating_content:
+      "Their idea of brainstorming involves brainstorming about what to eat for lunch. We're still hungry for knowledge.",
+    posted_at: "2023-09-05 22:45:41",
+    rating_star: 2,
+  },
+  {
+    id: 6,
+    user_id: 3,
+    creator_id: 10,
+    rating_content: "So study. Much knowledge. Wow.",
+    posted_at: "2023-03-21 04:17:16",
+    rating_star: 5,
+  },
+  {
+    id: 7,
+    user_id: 3,
+    creator_id: 7,
+    rating_content:
+      "As reliable as your Wi-Fi connection during a thunderstorm. Occasionally great, often mysterious.",
+    posted_at: "2023-05-28 15:59:12",
+    rating_star: 3,
+  },
+  {
+    id: 8,
+    user_id: 3,
+    creator_id: 8,
+    rating_content:
+      "We either have an 'Aha!' moment or press the 'Let's Google It' button together.",
+    posted_at: "2023-06-26 14:03:59",
+    rating_star: 4,
+  },
+  {
+    id: 9,
+    user_id: 4,
+    creator_id: 3,
+    rating_content:
+      "They bring more snacks to our study sessions than a squirrel hoarding acorns for winter. Study time is snack time!",
+    posted_at: "2023-06-11 03:34:45",
+    rating_star: 5,
+  },
+  {
+    id: 10,
+    user_id: 5,
+    creator_id: 3,
+    rating_content: "F is for friends who study together.",
+    posted_at: "2023-07-31 09:35:20",
+    rating_star: 1,
+  },
+  {
+    id: 11,
+    user_id: 6,
+    creator_id: 3,
+    rating_content:
+      "Their attention span is shorter than a squirrel's on an espresso binge.",
+    posted_at: "2023-08-01 10:40:43",
+    rating_star: 1,
+  },
+  {
+    id: 12,
+    user_id: 7,
+    creator_id: 3,
+    rating_content: "Always brings snacks to study sessions. Snack game = A+!",
+    posted_at: "2023-03-14 23:13:26",
+    rating_star: 4,
+  },
+  {
+    id: 13,
+    user_id: 8,
+    creator_id: 3,
+    rating_content:
+      "Their brain works faster than Google's search algorithm. They answer questions before I even finish asking them!",
+    posted_at: "2023-05-24 12:22:27",
+    rating_star: 5,
+  },
+  {
+    id: 14,
+    user_id: 9,
+    creator_id: 3,
+    rating_content:
+      "They show up to study sessions, and... well, that's about it.",
+    posted_at: "2023-08-28 17:03:22",
+    rating_star: 3,
+  },
 ];
 
 const comments = [
   {
     event_id: 1,
     comment_content: "So excited for this event!",
-    user_id: 1
+    user_id: 1,
   },
   {
     event_id: 1,
     comment_content: "Same!",
-    user_id: 2
+    user_id: 2,
   },
   {
     event_id: 2,
     comment_content: "So excited for this event!",
-    user_id: 2
+    user_id: 2,
   },
   {
     event_id: 3,
     comment_content: "I'm thrilled to be a part of this event!",
-    user_id: 3
+    user_id: 3,
   },
   {
-    event_id: 4, 
+    event_id: 4,
     comment_content: "Counting down the days until the event!",
-    user_id: 4
+    user_id: 4,
   },
   {
     event_id: 5,
     comment_content: "This event is going to be amazing!",
-    user_id: 5
+    user_id: 5,
   },
   {
     event_id: 12,
     comment_content: "So excited for this event!",
-    user_id: 6
+    user_id: 6,
   },
   {
     event_id: 6,
     comment_content: "This event is going to be amazing!",
-    user_id: 7
+    user_id: 7,
   },
   {
     event_id: 7,
     comment_content: "I can't wait to attend!",
-    user_id: 8
+    user_id: 8,
   },
   {
     event_id: 8,
     comment_content: "I'm thrilled to be a part of this event!",
-    user_id: 9
+    user_id: 9,
   },
   {
     event_id: 9,
     comment_content: "I'm thrilled to be a part of this event!",
-    user_id: 10
+    user_id: 10,
   },
   {
     event_id: 11,
     comment_content: "So excited for this event!",
-    user_id: 9
+    user_id: 9,
   },
   {
     event_id: 10,
     comment_content: "So excited for this event!",
-    user_id: 8
+    user_id: 8,
   },
   {
     event_id: 13,
     comment_content: "So excited for this event!",
-    user_id: 7
+    user_id: 7,
   },
 ];
 

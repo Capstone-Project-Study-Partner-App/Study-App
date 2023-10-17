@@ -6,7 +6,7 @@ import {
   deleteFavorite,
   createFavorite,
   getUserById,
-  getProfile
+  getProfile,
 } from "../fetching";
 import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "./login";
@@ -59,8 +59,7 @@ export default function Buddies() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
-
-
+  const [searchParam, setSearchParam] = useState("");
 
   useEffect(() => {
     async function getCurrentUser() {
@@ -79,8 +78,6 @@ export default function Buddies() {
     getCurrentUser();
   }, []);
 
-
-
   const handleUserSelect = (user) => {
     setSelectedUser(user);
   };
@@ -88,8 +85,6 @@ export default function Buddies() {
   const closeChat = () => {
     setIsChatOpen(false);
   };
-
-
 
   const [liked, setLiked] = useState(false);
 
@@ -146,6 +141,14 @@ export default function Buddies() {
     await fetchData();
   };
 
+  // SEARCH BAR
+  const buddiesToDisplay = searchParam
+    ? allUsers.filter((user) => {
+        return user.first_name
+          .toLowerCase()
+          .includes(searchParam.toLowerCase());
+      })
+    : allUsers;
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -163,7 +166,7 @@ export default function Buddies() {
               options={["15-17", "18-24", "25-29", "30+"]}
             />
 
-            {/* Location */}
+            {/* Location
             <h2 className="text-xl font-semibold mb-4">Location</h2>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               <input
@@ -173,7 +176,7 @@ export default function Buddies() {
               <span className="ml-2 text-indigo">Zipcode: </span>
             </label>
 
-            {/* Institution */}
+            {/* Institution
             <h2 className="text-xl font-semibold mb-4">Institution</h2>
             <label className="flex items-center">
               <input
@@ -181,7 +184,7 @@ export default function Buddies() {
                 className="form-checkbox text-indigo-600"
               />
               <span className="ml-2">University Name: </span>
-            </label>
+            </label> */}
 
             <h2 className="text-xl font-semibold mb-4">Education Level</h2>
             <MultiCheckboxSelect
@@ -190,7 +193,7 @@ export default function Buddies() {
               options={[
                 "High School",
                 "College Freshman",
-                "College Sophmore",
+                "College Sophomore",
                 "College Junior",
                 "College Senior",
                 "Masters",
@@ -247,14 +250,14 @@ export default function Buddies() {
               selectedOpts={majorFilter}
               setSelectedOpts={setMajorFilter}
               options={[
-                "Computer Science",
-                "Business",
-                "Art",
-                "Science",
-                "Mathematics",
+                "Computer Science/Data Science",
+                "Business/Finance/Econ/Marketing",
+                "Art/Music",
+                "Science/Engineering/Psychology",
+                "Mathematics/Statistics",
                 "Literature",
                 "Foreign Language",
-                "Social Studies",
+                "Social Studies/Humanities",
               ]}
             />
 
@@ -272,9 +275,28 @@ export default function Buddies() {
       <div className="flex-1 justify-center items-center p-10">
         <div className="border-b border-gray-200 pb-5">
           <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
-            <h1 className="ml-2 mt-2  font-semibold leading-6 text-indigo-500">
+            <h1 className="ml-2 mt-2 font-semibold leading-6 text-indigo-500">
               All Buddies
             </h1>
+            <div className="mt-2 flex rounded-md shadow-sm ml-auto">
+              <div className="relative flex flex-grow items-stretch">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <UsersIcon
+                    className="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <input
+                  type="name"
+                  name="name"
+                  id="name"
+                  className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded-r-md"
+                  placeholder="Search Buddies"
+                  value={searchParam}
+                  onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <br></br>
@@ -282,10 +304,10 @@ export default function Buddies() {
           role="list"
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
-          {allUsers.map((user) => (
+          {buddiesToDisplay.map((user) => (
             <li
               key={user.email}
-              className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow-md"
+              className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow-md"
             >
               <Link
                 key={user.user_id}
@@ -317,28 +339,10 @@ export default function Buddies() {
               {/* CONNECT */}
 
               <div>
-                <div className="-mt-px flex divide-x divide-gray-200">
-                  <div className="flex w-0 flex-1">
-                    {/* Heart button */}
-                    <button
-                      className={`center bg-blue-400 focus:outline-none text-white`}
-                      onClick={() => toggleLike(user.user_id)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill={liked[user.user_id] ? "red" : "black"}
-                        className="w-6 h-6"
-                      >
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                      </svg>
-                      Like
-                    </button>
-                  </div>
-
+                <div className="-mt-px flex">
                   {/* open pop up / connect button */}
                   <div className="ml-px flex w-0 flex-1">
                     <a
-                     
                       onClick={() => {
                         setIsChatOpen(true);
                         handleUserSelect(user);
@@ -353,15 +357,16 @@ export default function Buddies() {
               <div>
                 {isChatOpen && selectedUser === user && (
                   <div className="fixed bottom-0 right-0 z-50">
-                          <PopUpThread
-                            sender={currentUser.user_id}
-                            receiver={selectedUser.user_id}
-                            currentUser={currentUser}
-                            selectedUser={selectedUser}
-                            closeChat={closeChat}
-                          />
-                        </div>
-                )}  </div>
+                    <PopUpThread
+                      sender={currentUser.user_id}
+                      receiver={selectedUser.user_id}
+                      currentUser={currentUser}
+                      selectedUser={selectedUser}
+                      closeChat={closeChat}
+                    />
+                  </div>
+                )}{" "}
+              </div>
             </li>
           ))}
         </ul>
