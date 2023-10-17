@@ -6,7 +6,7 @@ import {
   getAllMyFavorites,
   getUnreadMessages,
   getAllRatings,
-  getRatingsForUser
+  getRatingsForUser,
 } from "../fetching";
 import { LOGIN_ROUTE } from "./login";
 import { Link, useNavigate } from "react-router-dom";
@@ -293,31 +293,33 @@ export default function UserDashboard() {
               </div>
               {/* <!-- Message --> */}
               <div className="flex flex-col gap-4">
-                {ratings.map((rating,index) => (
+                {rsvps.map((event) => (
                   <div
-                    key={index}
+                    key={event.event_id}
                     className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-green-50  px-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
                   >
                     <div className="min-w-0 flex-1">
                       <Link
-                        to={`/users/${user.user_id}`}
+                        to={`/events/${event.event_id}`}
                         className="w-1/ p-2"
                       >
                         <span className="absolute inset-0" aria-hidden="true" />
                         <p className="truncate text-xs text-gray-500">
-                        {<StarRating averageRating= {parseInt(rating.rating_star)}/>}
-                        </p>
-                        <p className="truncate text-xs text-gray-500">
-                        {formatDateTime(rating.posted_at)}
+                          {new Date(event.datetime).toLocaleString()}{" "}
+                          {event.timezone}
                         </p>
                         <p className="text-md font-medium text-gray-900">
-                          {rating.rating_content}
+                          {event.title}
                         </p>
-
+                        <p className="truncate text-xs text-emerald-600 italic">
+                          {!event.location &&
+                            !event.address &&
+                            event.virtual && <p>Virtual {event.virtual}</p>}
+                        </p>
                       </Link>
                     </div>
                   </div>
-                                ))}
+                ))}
               </div>
             </div>
 
