@@ -112,7 +112,7 @@ const createTables = async () => {
           CREATE TABLE daily_check_in (
             checkin_id SERIAL PRIMARY KEY,
             user_id INTEGER REFERENCES users(user_id),
-            date TIMESTAMPTZ DEFAULT NOW(),
+            submit_date TIMESTAMPTZ DEFAULT NOW(),
             response text
           )
       `);

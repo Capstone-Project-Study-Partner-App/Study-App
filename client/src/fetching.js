@@ -628,8 +628,8 @@ export async function deleteComment(comment_id) {
 // -------CHECK IN FETCHES-------
 export async function createCheckIn(
   user_id,
-  date,
-  response
+  response,
+  submit_date
 ) {
   try {
     const resp = await fetch(`${api_root}/dailycheckin`, {
@@ -639,8 +639,8 @@ export async function createCheckIn(
       },
       body: JSON.stringify({
         user_id,
-        date,
-        response
+        response,
+        submit_date
       }),
     });
     const json = await resp.json();
