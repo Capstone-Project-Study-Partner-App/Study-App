@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createRating } from "../fetching";
 import * as React from "react";
+import { useNavigate } from "react-router";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
@@ -11,6 +12,8 @@ export default function RatingCreate({ userId }) {
   // const [posted_at, setPosted_at] = useState(getCurrentDateTime());
   const [rating_star, setRating_star] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
+
+  const navigate=useNavigate();
 
   // function getCurrentDateTime() {
   //   const now = new Date().toISOString().slice(0, 16);
@@ -40,7 +43,9 @@ export default function RatingCreate({ userId }) {
     };
     try {
       await createRating(ratingData);
-      window.location.reload();
+
+      navigate(0);
+      // window.location.reload();
     } catch (error) {
       console.error("There was an error creating a new rating!", error);
     }

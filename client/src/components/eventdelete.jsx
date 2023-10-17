@@ -10,13 +10,13 @@ export default function DeleteEvent({event_id}){
         e.preventDefault();
         try{
             await deleteEvent(event_id);
-            window.location.href='/events';
-
+            // window.location.href='/events';
+            navigate('/events');
 
         }catch (error){
             console.error(error);
         }
-        // useNavigate('/events');
+        // 
     }
 
 return(

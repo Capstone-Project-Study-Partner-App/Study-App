@@ -13,7 +13,7 @@ import RatingCreate from "./ratingcreate";
 import PopUpThread from "./PopUpThread";
 
 
-export default function User() {
+export default function User({setLoggedIn}) {
   const [user, setUser] = useState(null);
   const [liked, setLiked] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -25,6 +25,7 @@ export default function User() {
     async function fetchUser() {
       const singleUser = await getUserById(id);
       setUser(singleUser);
+      setLoggedIn(true);
     }
     fetchUser();
   }, [id]);

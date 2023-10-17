@@ -86,6 +86,10 @@ button:focus-visible {
   color:white !important;
 }
 
+.edit_event_submit{
+  color:white !important;
+}
+
 .profile {
   padding-top: 1em;
   padding-left: 2em;

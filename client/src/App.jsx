@@ -39,7 +39,7 @@ function App() {
           <Route path="/:id/messages" element={<Messages />} />
           <Route path="/thread/:id" element={<MessageThread />} />
           <Route path="/chat/:sender/:receiver" element={<PopUpThread />} />
-          <Route path="/users/:id" element={<User />} />
+          <Route path="/users/:id" element={<User setLoggedIn={setLoggedIn} />} />
           <Route
             path="/register"
             element={<RegistrationForm setLoggedIn={setLoggedIn} />}
