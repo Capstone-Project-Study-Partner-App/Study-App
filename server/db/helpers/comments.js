@@ -2,23 +2,25 @@ const client = require("../client");
 
 
 // Create comment
-const createComment = async ({user_id, event_id, comment_content}) => {
+const createComment = async ({ user_id, event_id, comment_content }) => {
   try {
+
     const {
-      rows: [comment],
+      rows: [commentWithPhoto],
     } = await client.query(
       `
-        INSERT INTO comments(user_id, event_id, comment_content)
-        VALUES($1, $2, $3)
-        RETURNING *;
+      INSERT INTO comments(user_id, event_id, comment_content)
+      VALUES($1, $2, $3)
+      RETURNING *, (SELECT photo FROM users WHERE user_id = $1) AS user_photo;
       `,
       [user_id, event_id, comment_content]
     );
-    return comment;
+
+    return commentWithPhoto;
   } catch (error) {
     throw error;
   }
-};
+}
 
 
 // Get comments by Event ID

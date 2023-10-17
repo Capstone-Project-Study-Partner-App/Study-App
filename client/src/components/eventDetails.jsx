@@ -49,6 +49,7 @@ export default function Event({ setLoggedIn }) {
   const [host, setHost] = useState(null);
   const [rsvp, setRsvp] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [comments, setComments] = useState([]);
 
   const { id } = useParams();
 
@@ -104,6 +105,11 @@ export default function Event({ setLoggedIn }) {
       alert("Meeting link is not available");
     }
   };
+
+  //handle new comments
+  const handleNewComment = (commentData) => {
+    setComments([...comments, commentData]);
+  }
 
   return (
     <div>
