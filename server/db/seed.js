@@ -23,6 +23,7 @@ const dropTables = async () => {
           DROP TABLE IF EXISTS favorite_buddies CASCADE;
           DROP TABLE IF EXISTS ratings CASCADE;
           DROP TABLE IF EXISTS comments CASCADE;
+          DROP TABLE IF EXISTS daily_check_in CASCADE;
       `);
     console.log("Tables dropped!");
   } catch (error) {
@@ -108,6 +109,12 @@ const createTables = async () => {
             comment_content text,
             created_at TIMESTAMPTZ DEFAULT NOW()
           );  
+          CREATE TABLE daily_check_in (
+            checkin_id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(user_id),
+            date TIMESTAMPTZ DEFAULT NOW(),
+            response text
+          )
       `);
   console.log("Tables built!");
 };
@@ -186,6 +193,7 @@ const createInitialComments = async () => {
     throw error;
   }
 };
+
 
 //Call all my functions and 'BUILD' my database
 const rebuildDb = async () => {

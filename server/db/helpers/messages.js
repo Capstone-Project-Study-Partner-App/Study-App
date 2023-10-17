@@ -47,7 +47,8 @@ const getExistingThread = async (sender, receiver) => {
         r.user_id AS receiver,
         r.first_name AS receiver_first_name,
         r.photo AS receiver_photo,
-        m.thread_id
+        m.thread_id,
+        m.is_read
       FROM
         messages m
       INNER JOIN
@@ -142,7 +143,8 @@ const getMessagesByThread = async (thread_id) => {
       r.user_id AS receiver,
       r.first_name AS receiver_first_name,
       r.photo AS receiver_photo,
-      m.thread_id
+      m.thread_id,
+      m.is_read
     FROM
       messages m
     INNER JOIN
@@ -164,13 +166,18 @@ const getMessagesByThread = async (thread_id) => {
 // Get unread messages
 const getUnreadMessages = async (receiver) => {
   try {
+    // Fetch the unread messages
     const { rows: unreadMessages } = await client.query(
       `
       SELECT
         m.message_id,
         m.sender AS sender_id,
         m.message_content AS message_content,
-        u.first_name AS sender_first_name
+        m.thread_id AS thread_id,
+        m.created_at AS created_at,
+        u.first_name AS sender_first_name,
+        u.photo AS sender_photo,
+        m.is_read
       FROM messages m
       INNER JOIN users u ON m.sender = u.user_id
       WHERE m.receiver = $1 AND m.is_read = FALSE;
@@ -178,6 +185,8 @@ const getUnreadMessages = async (receiver) => {
       [receiver]
     );
 
+
+    // Calculate the unread count
     const { rows: unreadCount } = await client.query(
       `
       SELECT COUNT(*) as unread_count
@@ -186,6 +195,7 @@ const getUnreadMessages = async (receiver) => {
       `,
       [receiver]
     );
+
 
     return {
       unread_count: unreadCount[0].unread_count,
@@ -196,21 +206,34 @@ const getUnreadMessages = async (receiver) => {
   }
 };
 
-// Update Message to Mark as Read
+
+
+// Mark message as read
 const markMessageAsRead = async (receiver, message_id) => {
   try {
-    await client.query(
+    const result = await client.query(
       `
       UPDATE messages
       SET is_read = TRUE
-      WHERE message_id = $1 AND receiver = $2;
+      WHERE message_id = $1 AND receiver = $2
+      RETURNING *;  
       `,
-      [receiver, message_id]
+      [message_id, receiver]
     );
+
+
+    if (result.rows.length === 0) {
+      // Handle the case where no message was updated (e.g., message with given ID and receiver not found)
+      return null; // You can return null or an error message
+    }
+
+
+    return result.rows[0]; // Return the updated message
   } catch (error) {
     throw error;
   }
 };
+
 
 
 

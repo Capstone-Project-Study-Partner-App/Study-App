@@ -436,7 +436,7 @@ export async function getUnreadMessages(receiver) {
     const response = await fetch(`${api_root}/messages/unread/${receiver}`);
     if (response.ok) {
       const result = await response.json();
-      return result.unread_count;
+      return result;
     } else {
       throw new Error('Failed to fetch unread message count');
     }
@@ -621,6 +621,39 @@ export async function deleteComment(comment_id) {
   const resp = await fetch(`${api_root}/users/${comment_id}`, {
     method: "DELETE",
   });
+  const json = await resp.json();
+  return json;
+}
+
+// -------CHECK IN FETCHES-------
+export async function createCheckIn(
+  user_id,
+  date,
+  response
+) {
+  try {
+    const resp = await fetch(`${api_root}/dailycheckin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id,
+        date,
+        response
+      }),
+    });
+    const json = await resp.json();
+    console.log("Daily check In submitted:", json);
+    return json;
+  } catch (error) {
+    console.error("Error submitting daily check in:", error);
+    return error;
+  }
+}
+
+export async function getCheckInByUserId(user_id) {
+  const resp = await fetch(`${api_root}/dailycheckin/${user_id}`);
   const json = await resp.json();
   return json;
 }
