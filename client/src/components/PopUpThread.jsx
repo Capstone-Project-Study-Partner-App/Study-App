@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getExistingThread, getProfile, AuthError, createMessage } from "../fetching";
-import NewMessage from "./NewMessage";
+
 
 
 
@@ -83,16 +83,16 @@ export default function PopUpThread({ sender, receiver, currentUser, selectedUse
 
   return isChatOpen ? (
     
-<div class="w-80 h-96 flex flex-col border shadow-md bg-white">
-  <div class="flex items-center justify-between border-b p-2">
+<div className="w-80 h-96 flex flex-col border shadow-md bg-white">
+  <div className="flex items-center justify-between border-b p-2">
     
     {/* <!-- user info --> */}
-    <div class="flex items-center">
-      <img class="rounded-full w-10 h-10"
+    <div className="flex items-center">
+      <img className="rounded-full w-10 h-10"
         src={selectedUser.photo} />
-      <div class="pl-2">
-        <div class="font-semibold">
-          <a class="hover:underline" href={`/users/${selectedUser.user_id}`}>{selectedUser.first_name}</a>
+      <div className="pl-2">
+        <div className="font-semibold">
+          <a className="hover:underline" href={`/users/${selectedUser.user_id}`}>{selectedUser.first_name}</a>
         </div>
        
       </div>
@@ -104,9 +104,9 @@ export default function PopUpThread({ sender, receiver, currentUser, selectedUse
 
       <button
       onClick={handleClosePopUp}
-       class="inline-flex hover:bg-indigo-50 rounded-full p-2" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       className="inline-flex hover:bg-indigo-50 rounded-full p-2" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 stroke-2 stroke-current rounded-linecap rounded-linejoin" fill="none" viewBox="0 0 24 24" >
+          <path d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
@@ -156,7 +156,7 @@ export default function PopUpThread({ sender, receiver, currentUser, selectedUse
 
           <div className="w-full mx-2">
             <form onSubmit={handleSubmit}>
-              <input className="w-full rounded-full border border-gray-200" type="text" value={message_content} onChange={(e) => setMessageContent(e.target.value)} placeholder="Message..." autofocus />
+              <input className="w-full rounded-full border border-gray-200" type="text" value={message_content} onChange={(e) => setMessageContent(e.target.value)} placeholder="Message..." autoFocus />
 
             </form>
           </div>
@@ -167,8 +167,8 @@ export default function PopUpThread({ sender, receiver, currentUser, selectedUse
             <button 
             onClick={handleSubmit}
             className="inline-flex hover:bg-indigo-50 rounded-full p-2" type="button">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 stroke-2 stroke-current rounded-linecap rounded-linejoin"  fill="none" viewBox="0 0 24 24">
+                <path  
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </button>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUserMessages, getProfile } from "../fetching";
+import { getUserMessages, getProfile, getUnreadMessages } from "../fetching";
 import MessageThread from "./Thread";
 
 export default function AllMessages() {
@@ -9,6 +9,7 @@ export default function AllMessages() {
   const [error, setError] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
 
 
   const handleMessageClick = (message) => {
@@ -62,7 +63,21 @@ export default function AllMessages() {
   // if (messages.length === 0) {
   //   return <p>No messages found.</p>;
   // }
+  useEffect(() => {
+    async function getUnreadCount() {
+      try {
+        const response = await getUnreadMessages(currentUser.user_id);
+        setUnreadMessageCount(response.unread_count);
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+    if (currentUser) {
+      getUnreadCount();
+    }
+  }, [currentUser]);
 
+  
 
   // Display most recent message in each thread
   const threadMessages = {};
@@ -73,6 +88,7 @@ export default function AllMessages() {
     if (!threadMessages[threadId] || message.created_at > threadMessages[threadId].created_at) {
       threadMessages[threadId] = message;
     }
+    
   }
 
   // Filter by user name
@@ -93,7 +109,9 @@ export default function AllMessages() {
       );
     })
     : Object.values(threadMessages);
-
+    if (messages.is_read === false) {
+      return <p>UNREAD</p>;
+    }
   return (
     <div className="shadow-lg rounded-lg">
       {/* Header */}

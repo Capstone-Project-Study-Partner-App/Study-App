@@ -47,7 +47,8 @@ const getExistingThread = async (sender, receiver) => {
         r.user_id AS receiver,
         r.first_name AS receiver_first_name,
         r.photo AS receiver_photo,
-        m.thread_id
+        m.thread_id,
+        m.is_read
       FROM
         messages m
       INNER JOIN
@@ -142,7 +143,8 @@ const getMessagesByThread = async (thread_id) => {
       r.user_id AS receiver,
       r.first_name AS receiver_first_name,
       r.photo AS receiver_photo,
-      m.thread_id
+      m.thread_id,
+      m.is_read
     FROM
       messages m
     INNER JOIN

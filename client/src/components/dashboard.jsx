@@ -137,77 +137,77 @@ export default function UserDashboard() {
               <form>
                 {/* <!-- DAILY CHECK IN --> */}
                 <div className="mb-2">
-  <label htmlFor="postContent" className="block text-gray-700 text-sm font-bold mb-1">
-    Daily Check in:
-  </label>
+                  <label htmlFor="postContent" className="block text-gray-700 text-sm font-bold mb-1">
+                    Daily Check in:
+                  </label>
 
-  <h3 className="mb-2 font-semibold text-gray-900 text-sm">
-    How are you feeling today?
-  </h3>
-  <ul className="grid grid-cols-2 gap-2 items-stretch">
-    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1 ">
-      <input
-        id="vue-checkbox"
-        type="checkbox"
-        value=""
-        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 "
-      />
-      <label htmlFor="vue-checkbox" className="w-full text-xs font-medium text-gray-900">
-        <img
-          src="https://i.ibb.co/qnhwVB4/1-removebg-preview.png"
-          alt=" option 1"
-          className="w-18 h-18 rounded-full"
-        />
-      </label>
-    </li>
-    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
-      <input
-        id="react-checkbox"
-        type="checkbox"
-        value=""
-        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-      />
-      <label htmlFor="react-checkbox" className="w-full text-xs font-medium text-gray-900">
-        <img
-          src="https://i.ibb.co/GVBc2fT/2-removebg-preview.png"
-          alt=" option 2"
-          className="w-18 h-18 rounded-full"
-        />
-      </label>
-    </li>
-    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
-      <input
-        id="angular-checkbox"
-        type="checkbox"
-        value=""
-        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-      />
-      <label htmlFor="angular-checkbox" className="w-full text-xs font-medium text-gray-900">
-        <img
-          src="https://i.ibb.co/BTSBbJ2/3-removebg-preview.png"
-          alt="option 3"
-          className="w-18 h-18 rounded-full"
-        />
-      </label>
-    </li>
-    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
-      <input
-        id="laravel-checkbox"
-        type="checkbox"
-        value=""
-        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-      />
-      <label htmlFor="laravel-checkbox" className="w-full text-xs font-medium text-gray-900">
-        <img
-          src="https://i.ibb.co/8YDrMgj/4-removebg-preview.png"
-          alt="option 4"
-          className="w-18 h-18 rounded-full"
-        />
-      </label>
-    </li>
-  </ul>
-</div>
-                {/* <!-- Submit Button and Character Limit Section --> */}
+                  <h3 className="mb-2 font-semibold text-gray-900 text-sm">
+                    How are you feeling today?
+                  </h3>
+                  <ul className="grid grid-cols-2 gap-2 items-stretch">
+                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1 ">
+                      <input
+                        id="vue-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 "
+                      />
+                      <label htmlFor="vue-checkbox" className="w-full text-xs font-medium text-gray-900">
+                        <img
+                          src="https://i.ibb.co/qnhwVB4/1-removebg-preview.png"
+                          alt=" option 1"
+                          className="w-18 h-18 rounded-full"
+                        />
+                      </label>
+                    </li>
+                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
+                      <input
+                        id="react-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                      />
+                      <label htmlFor="react-checkbox" className="w-full text-xs font-medium text-gray-900">
+                        <img
+                          src="https://i.ibb.co/GVBc2fT/2-removebg-preview.png"
+                          alt=" option 2"
+                          className="w-18 h-18 rounded-full"
+                        />
+                      </label>
+                    </li>
+                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
+                      <input
+                        id="angular-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                      />
+                      <label htmlFor="angular-checkbox" className="w-full text-xs font-medium text-gray-900">
+                        <img
+                          src="https://i.ibb.co/BTSBbJ2/3-removebg-preview.png"
+                          alt="option 3"
+                          className="w-18 h-18 rounded-full"
+                        />
+                      </label>
+                    </li>
+                    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
+                      <input
+                        id="laravel-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                      />
+                      <label htmlFor="laravel-checkbox" className="w-full text-xs font-medium text-gray-900">
+                        <img
+                          src="https://i.ibb.co/8YDrMgj/4-removebg-preview.png"
+                          alt="option 4"
+                          className="w-18 h-18 rounded-full"
+                        />
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+                {/* <!-- Submit Button--> */}
                 <div className="flex justify-end">
                   <button
                     type="submit"
@@ -218,7 +218,7 @@ export default function UserDashboard() {
                     <img
                       src="https://i.ibb.co/vVyRfG6/pngtree-pencil-icon-vector-png-educational-icons-with-trendy-and-modern-colors-png-image-5062809-rem.png"
                       className="w-8 h-8"
-                      />
+                    />
                   </button>
                 </div>
               </form>
