@@ -109,7 +109,7 @@ export default function Event({ setLoggedIn }) {
   //handle new comments
   const handleNewComment = (commentData) => {
     setComments([...comments, commentData]);
-  }
+  };
 
   return (
     <div>
@@ -158,13 +158,13 @@ export default function Event({ setLoggedIn }) {
 
           <div className="grid grid-rows-2 gap-4">
             {/* Link Button */}
-            <button
+            {/* <button
               className="bg-gray-400 text-white px-3 py-3 rounded-lg shadow-md  focus:outline-none flex items-center"
               onClick={() => alert("Copy Link When Clicked")}
             >
               <LinkIcon className="-ml-0.5 h-5" aria-hidden="true" />
               <span className="ml-2">Share</span>
-            </button>
+            </button> */}
 
             {/* RSVP Button */}
             <button

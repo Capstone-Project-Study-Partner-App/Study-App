@@ -111,7 +111,7 @@ export default function User({ setLoggedIn }) {
                   {/* Message button */}
                   <img
                     src="https://img1.cgtrader.com/items/840184/022253b90f/large/web-icon-mail-3d-model-obj-fbx-ma-mb-mtl.jpg"
-                    className={`ml-4 w-14 h-13 rounded-md hover:border-red-400 cursor-pointer`}
+                    className={`ml-2 w-15 h-12 rounded-md hover:border-red-400 cursor-pointer`}
                     onClick={() => {
                       setIsChatOpen(true);
                       setSelectedUser(user);
