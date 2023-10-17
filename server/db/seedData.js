@@ -579,19 +579,20 @@ const messages = [
 
 //rating
 const ratings = [
-  { id: 1, user_id: 1, rating_content: "This study partner is like a human encyclopedia! I'm just here for moral support.", posted_at: "2023-08-27 13:30:00", rating_star: 4},
-  { id: 2, user_id: 1, rating_content: "One does not simply give up on a problem.", posted_at: "2023-07-11 17:45:00", rating_star: 5},
-  { id: 3, user_id: 2, rating_content: "They've made 'procrastination' an art form. Picasso would be proud.", posted_at: "2023-02-23 13:30:00", rating_star: 1},
-  { id: 4, user_id: 2, rating_content: "Study sessions are like a mystery novel - you never know if they'll show up for the next chapter.", posted_at: "2023-06-03 22:30:12", rating_star: 2},
-  { id: 5, user_id: 2, rating_content: "Their idea of brainstorming involves brainstorming about what to eat for lunch. We're still hungry for knowledge.", posted_at: "2023-09-05 22:45:41", rating_star: 2},
-  { id: 6, user_id: 3, rating_content: "They show up to study sessions, and... well, that's about it.", posted_at: "2023-03-21 04:17:16", rating_star: 3},
-  { id: 7, user_id: 4, rating_content: "As reliable as your Wi-Fi connection during a thunderstorm. Occasionally great, often mysterious.", posted_at: "2023-06-11 03:34:45", rating_star: 3},
-  { id: 8, user_id: 5, rating_content: "F is for friends who study together.", posted_at: "2023-07-31 09:35:20", rating_star: 1},
-  { id: 9, user_id: 6, rating_content: "Their attention span is shorter than a squirrel's on an espresso binge.", posted_at: "2023-08-01 10:40:43", rating_star: 1},
-  { id: 10, user_id: 7, rating_content: "Always brings snacks to study sessions. Snack game = A+!", posted_at: "2023-03-14 23:13:26", rating_star: 4},
-  { id: 11, user_id: 8, rating_content: "Their brain works faster than Google's search algorithm. They answer questions before I even finish asking them!", posted_at: "2023-05-24 12:22:27", rating_star: 5},
-  { id: 12, user_id: 9, rating_content: "So study. Much knowledge. Wow.", posted_at: "2023-08-28 17:03:22", rating_star: 5},
-  { id: 13, user_id: 10, rating_content: "We either have an 'Aha!' moment or press the 'Let's Google It' button together.", posted_at: "2023-06-11 03:34:45", rating_star: 4},
+  { id: 1, user_id: 1, creator_id: 3, rating_content: "This study partner is like a human encyclopedia! I'm just here for moral support.", posted_at: "2023-08-27 13:30:00", rating_star: 4},
+  { id: 2, user_id: 1, creator_id:1, rating_content: "One does not simply give up on a problem.", posted_at: "2023-07-11 17:45:00", rating_star: 5},
+  { id: 3, user_id: 2, creator_id: 3, rating_content: "They've made 'procrastination' an art form. Picasso would be proud.", posted_at: "2023-02-23 13:30:00", rating_star: 1},
+  { id: 4, user_id: 2, creator_id: 5, rating_content: "Study sessions are like a mystery novel - you never know if they'll show up for the next chapter.", posted_at: "2023-06-03 22:30:12", rating_star: 2},
+  { id: 5, user_id: 2, creator_id: 8, rating_content: "Their idea of brainstorming involves brainstorming about what to eat for lunch. We're still hungry for knowledge.", posted_at: "2023-09-05 22:45:41", rating_star: 2},
+  { id: 6, user_id: 3, creator_id: 10, rating_content: "So study. Much knowledge. Wow.", posted_at: "2023-03-21 04:17:16", rating_star: 5},
+  { id: 7, user_id: 3,creator_id: 7,  rating_content: "As reliable as your Wi-Fi connection during a thunderstorm. Occasionally great, often mysterious.", posted_at: "2023-05-28 15:59:12", rating_star: 3},
+  { id: 8, user_id: 3, creator_id: 8, rating_content: "We either have an 'Aha!' moment or press the 'Let's Google It' button together.", posted_at: "2023-06-26 14:03:59", rating_star: 4},
+  { id: 9, user_id: 4, creator_id: 3, rating_content: "They bring more snacks to our study sessions than a squirrel hoarding acorns for winter. Study time is snack time!", posted_at: "2023-06-11 03:34:45", rating_star: 5},
+  { id: 10, user_id: 5, creator_id: 3, rating_content: "F is for friends who study together.", posted_at: "2023-07-31 09:35:20", rating_star: 1},
+  { id: 11, user_id: 6, creator_id: 3, rating_content: "Their attention span is shorter than a squirrel's on an espresso binge.", posted_at: "2023-08-01 10:40:43", rating_star: 1},
+  { id: 12, user_id: 7, creator_id: 3, rating_content: "Always brings snacks to study sessions. Snack game = A+!", posted_at: "2023-03-14 23:13:26", rating_star: 4},
+  { id: 13, user_id: 8, creator_id: 3, rating_content: "Their brain works faster than Google's search algorithm. They answer questions before I even finish asking them!", posted_at: "2023-05-24 12:22:27", rating_star: 5},
+  { id: 14, user_id: 9, creator_id: 3, rating_content: "They show up to study sessions, and... well, that's about it.", posted_at: "2023-08-28 17:03:22", rating_star: 3},
 ];
 
 const comments = [

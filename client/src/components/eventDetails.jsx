@@ -7,7 +7,7 @@ import {
   LinkIcon,
 } from "@heroicons/react/outline";
 import EventComments from "./AllComments";
-
+import DeleteEvent from "./eventdelete";
 
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
@@ -37,7 +37,7 @@ function getImageUrl(topic) {
   );
 }
 
-export default function Event() {
+export default function Event({setLoggedIn}) {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null);
   const [rsvp, setRsvp] = useState(false);
@@ -49,6 +49,7 @@ export default function Event() {
     async function fetchEvent() {
       const singleEvent = await getEventById(id);
       setEvent(singleEvent);
+      setLoggedIn(true);
 
       // Fetch the host's information based on host_id
       const hostId = singleEvent.host_id;
@@ -199,6 +200,23 @@ export default function Event() {
           <p>{event.description}</p>
         </div>
       </div>
+      <div className="mt-6 flex items-center justify-center gap-x-6 text-white">
+        <div>
+          <button
+            type="button"
+            className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            
+          >
+            <Link to={`/edit_event/${id}` } style={{ color: "white" }}>
+              Edit Event
+            </Link>
+          </button>
+        </div>
+        <DeleteEvent event_id={id} />
+      </div>
+      <br />
+      <br />
+      <br />
       <div>
         <EventComments event_id={id} />
       </div>

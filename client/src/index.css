@@ -76,10 +76,33 @@ button:focus-visible {
   padding-bottom: 1em;
 }
 
+.edit_event_form {
+  padding-top: 1em;
+  padding-left: 2em;
+  padding-bottom: 1em;
+}
+
+.event_edit_button{
+  color:white !important;
+}
+
+.edit_event_submit{
+  color:white !important;
+}
+
 .profile {
   padding-top: 1em;
   padding-left: 2em;
   padding-bottom: 1em;
+}
+
+.edit_rating_button{
+  background-color: #e2e8f0;
+}
+
+.delete_rating_button{
+  background-color: #e2e8f0;
+  color: #535bf2;
 }
 
 #days_available {

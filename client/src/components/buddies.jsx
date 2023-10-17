@@ -149,7 +149,7 @@ export default function Buddies() {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="w-1/4 bg-gray-800 text-white p-4">
+      <div className="w-1/4 bg-sky-100 text-indigo p-4">
         <h1 className="text-xxl font-semibold mb-4">Filters</h1>
         <div
           className="filter-scrollable"
@@ -170,7 +170,7 @@ export default function Buddies() {
                 type="checkbox"
                 className="form-checkbox text-indigo-600"
               />
-              <span className="ml-2 text-white">Zipcode: </span>
+              <span className="ml-2 text-indigo">Zipcode: </span>
             </label>
 
             {/* Institution */}

@@ -129,7 +129,7 @@ export default function Events() {
     <div className="flex">
       {/* SIDEBAR SECTION */}
 
-      <div className="filter-section w-1/4 bg-gray-800 text-white p-4">
+      <div className="filter-section w-1/4 bg-sky-100 text-indigo p-4">
         <div
           className="filter-scrollable"
           style={{ height: "calc(100vh - 64px)", overflowY: "auto" }}

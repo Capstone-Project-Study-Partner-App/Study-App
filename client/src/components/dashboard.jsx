@@ -4,10 +4,13 @@ import {
   getProfile,
   getRsvpByUserId,
   getAllMyFavorites,
-  getUnreadMessages
+  getUnreadMessages,
+  getAllRatings,
+  getRatingsForUser,
 } from "../fetching";
 import { LOGIN_ROUTE } from "./login";
 import { Link, useNavigate } from "react-router-dom";
+import StarRating from "./ratingstar";
 import CheckIn from "./dailycheckin";
 
 export default function UserDashboard() {
@@ -15,13 +18,22 @@ export default function UserDashboard() {
   const [rsvps, setRsvps] = useState([]);
   const [error, setError] = useState(null);
   const [favoriteUsers, setFavoriteUsers] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const [events, setEvents] = useState([]);
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
   const [unreadMessageContent, setUnreadMessageContent] = useState([]);
   const [unreadThreadCount, setUnreadThreadCount] = useState(0);
   const navigate = useNavigate();
 
-
+  const formatDateTime = (date) => {
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    };
+    const formattedDate = new Date(date).toLocaleDateString(undefined, options);
+    return formattedDate.replace(",", "");
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -66,6 +78,31 @@ export default function UserDashboard() {
     }
     getAllEvents();
   }, [user]);
+
+  useEffect(() => {
+    async function getAllRatings() {
+      try {
+        if (user) {
+          const response = await getRatingsForUser(user.user_id);
+          setRatings(response);
+          console.log("RatingsL", response);
+        }
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+    getAllRatings();
+  },[user]);
+
+    let avg = 0;
+
+    if (ratings&&ratings.length > 0) {
+      const totalStars = ratings.reduce(
+        (total, rating) => total + rating.rating_star,
+        0
+      );
+      avg = totalStars / ratings.length;
+    }
 
   useEffect(() => {
     async function fetchUnreadMessageCount() {
@@ -226,26 +263,44 @@ export default function UserDashboard() {
                   />
                   <div>
                     <p className="text-gray-800 font-semibold">Ratings</p>
-                    <p className="text-gray-500 text-sm">
-                      List of all your ratings
-                    </p>
+                    <p className="text-gray-500 text-sm">Current Ratings</p>
                   </div>
                 </div>
               </div>
               {/* <!-- Message --> */}
               <div className="mb-4">
                 <a href="" className="text-blue-600">
-                  user?
+                {avg===0?null:<StarRating averageRating={avg}/>}
                 </a>
-                <p className="text-gray-800">rating?</p>
+                <p className="text-gray-800">Average Rating: {avg===0?'No Rating Available': avg.toFixed(2)}</p>
               </div>
-              {/* <!-- Image --> */}
-              <div className="mb-4">
-                <img
-                  src="https://i.scdn.co/image/ab67616d00001e02da3d7774dfff7799598fa07b"
-                  alt="Post Image"
-                  className="w-full h-48 object-cover rounded-md"
-                />
+   {/* <!-- Message --> */}
+   <div className="flex flex-col gap-4">
+                {ratings.map((rating,index) => (
+                  <div
+                    key={index}
+                    className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-green-50  px-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <Link
+                        to={`/users/${user.user_id}`}
+                        className="w-1/ p-2"
+                      >
+                        <span className="absolute inset-0" aria-hidden="true" />
+                        <p className="truncate text-xs text-gray-500">
+                        {<StarRating averageRating= {parseInt(rating.rating_star)}/>}
+                        </p>
+                        <p className="truncate text-xs text-gray-500">
+                        {formatDateTime(rating.posted_at)}
+                        </p>
+                        <p className="text-md font-medium text-gray-900">
+                          {rating.rating_content}
+                        </p>
+
+                      </Link>
+                    </div>
+                  </div>
+                                ))}
               </div>
             </div>
             {/* <!-- PARTNERS--> */}

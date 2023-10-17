@@ -251,6 +251,15 @@ const deleteEvent = async (event_id) => {
       `
       DELETE FROM rsvps
       WHERE event_id = $1
+      RETURNING *;
+      `,
+      [event_id]
+    );
+    client.query(
+      `
+      DELETE FROM comments
+      WHERE event_id = $1
+      RETURNING *;
       `,
       [event_id]
     );
@@ -258,6 +267,7 @@ const deleteEvent = async (event_id) => {
       `
         DELETE FROM events
         WHERE event_id = $1
+        RETURNING *;
       `,
       [event_id]
     );

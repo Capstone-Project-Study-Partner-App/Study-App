@@ -55,7 +55,7 @@ export default function UpdateProfile({ user_id }) {
       console.error("oopsie prof updates a no-go", error);
       setError("failed to update profile");
     }
-    // window.location.reload();
+    window.location.reload();
     alert("Your changes have been saved!");
   }
 

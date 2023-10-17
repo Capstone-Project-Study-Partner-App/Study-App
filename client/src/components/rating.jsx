@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import { getRatingsForUser } from "../fetching";
 import { useParams, Routes, Route, Link } from "react-router-dom";
+import { getProfile } from "../fetching";
 import DeleteRating from "./ratingdelete";
+import StarRating from "./ratingstar";
 
-export default function Rating() {
+export default function Rating({userId}) {
   const [ratings, setRatings] = useState(null);
   const { id } = useParams();
+  const [currentUser, setCurrentUser] = useState({});
+
+console.log ("ratings",ratings)
+console.log ("user",currentUser)
 
   const formatDateTime = (date) => {
     const options = {
@@ -20,7 +26,35 @@ export default function Rating() {
     return formattedDate.replace(",", "");
   };
 
+//   const fullStars=Math.floor(starAverage);
+//   const starArr=[]
+// for (leti=1;i<=fullStars;i++){
+//   starArr.push(1);
+// }
+// if (starAverage<5){
+//   const partialStar=starAverage-fullStars;
+//   starArr.push(partialStar);  
 
+// for (let i=1; i<=emptyStars;i++){
+//   starArr.push(0);
+// }
+// }
+
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const response = await getProfile();
+      setCurrentUser(response);
+    } catch (err) {
+      if (err instanceof AuthError) {
+        navigate(LOGIN_ROUTE);
+      } else {
+        throw err;
+      }
+    }
+  }
+  fetchData();
+}, []);
   
   useEffect(() => {
     async function fetchRating() {
@@ -35,7 +69,7 @@ export default function Rating() {
 
   let avg = 0;
 
-  if (ratings.length > 0) {
+  if (ratings&&ratings.length > 0) {
     const totalStars = ratings.reduce(
       (total, rating) => total + rating.rating_star,
       0
@@ -43,24 +77,36 @@ export default function Rating() {
     avg = totalStars / ratings.length;
   }
 
+  
+
   return (
-    <div>
-      <h1>Average Rating: {avg.toFixed(2)}</h1>
-      {ratings.map((rating, index) => (
-        <div key={index}>
-          <p>{rating.rating_content}</p>
-          <p>Posted: {formatDateTime(rating.posted_at)}</p>
-          <p>Rating Star: {parseInt(rating.rating_star)}</p>
-          <button>
-          <Link to={`/ratings/${rating.rating_id}`}>
-            <h2>Edit Rating</h2>
+<div>
+  <div>
+    <h1>Average Rating</h1>
+    {avg === 0 ? null : <StarRating averageRating={avg} />}
+    <h1>{avg === 0 ? 'No Rating Available' : avg.toFixed(2)}</h1>
+  </div>
+  {ratings.map((rating, index) => (
+    <div key={index}>
+      <p>{rating.rating_content}</p>
+      <p>Posted: {formatDateTime(rating.posted_at)}</p>
+      <p>Rating Star: <StarRating averageRating={parseInt(rating.rating_star)} /></p>
+      
+      {currentUser.user_id === rating.creator_id && 
+        <div className="event_edit_button">
+          <button className="edit_rating_button">
+            <Link to={`/ratings/${rating.rating_id}`}>
+              <h2>Edit Rating</h2>
             </Link>
-      </button>
-
-      <DeleteRating rating_id={rating.rating_id}/>
+          </button>
+          <br></br>
+<div>          
+  <DeleteRating rating_id={rating.rating_id} />
         </div>
-      ))}
-
+        </div>
+      }
     </div>
-  );
-}
+  ))}
+</div>
+)
+      }

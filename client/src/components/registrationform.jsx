@@ -115,13 +115,13 @@ export default function RegistrationForm({ setLoggedIn }) {
         about_me: about_me,
         education: education,
         education_level: education_level,
-        classes: classes,
+        classes: [classes],
         days_available: days_available.map((day_option) => day_option.value),
         times_available: times_available.map(
           (time_option) => time_option.value
         ),
         timezone: timezone,
-        interests: interests,
+        interests: [interests],
         photo: photo,
         languages: languages.map((language_option) => language_option.value),
         study_habits: study_habits,

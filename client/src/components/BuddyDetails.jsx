@@ -12,14 +12,15 @@ import Rating from "./rating";
 import RatingCreate from "./ratingcreate";
 import PopUpThread from "./PopUpThread";
 
-export default function User({ setLoggedIn }) {
-  const [user, setUser] = useState(null);
+
+export default function User({setLoggedIn}) {
+  const [user, setUser] = useState({});
   const [liked, setLiked] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const { id } = useParams();
-
+console.log (user)
   useEffect(() => {
     async function fetchUser() {
       const singleUser = await getUserById(id);
@@ -168,16 +169,16 @@ export default function User({ setLoggedIn }) {
                     <b>Classes Taken:</b> {user.classes}
                   </p>
                   <p className="mb-2">
-                    <b>Days Available:</b> {user.days_available.join(", ")}
+                    <b>Days Available:</b> {user.days_available?.join(", ")}
                   </p>
                   <p className="mb-2">
-                    <b>Times Available:</b> {user.times_available.join(", ")}
+                    <b>Times Available:</b> {user.times_available?.join(", ")}
                   </p>
                   <p className="mb-2">
                     <b>Interests:</b> {user.interests}
                   </p>
                   <p className="mb-2">
-                    <b>Languages:</b> {user.languages.join(", ")}
+                    <b>Languages:</b> {user.languages?.join(", ")}
                   </p>
                   <p className="mb-2">
                     <b>Current Study Mode:</b> {user.study_habits}
@@ -189,7 +190,7 @@ export default function User({ setLoggedIn }) {
         </div>
       </div>
       <Rating />
-      <RatingCreate userId={user.user_id} />
+      <RatingCreate userId={user.user_id} currentUser={currentUser.user_id} />
     </div>
   );
 }
