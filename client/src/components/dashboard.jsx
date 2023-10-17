@@ -4,7 +4,7 @@ import {
   getProfile,
   getRsvpByUserId,
   getAllMyFavorites,
-  getUnreadMessages 
+  getUnreadMessages
 } from "../fetching";
 import { LOGIN_ROUTE } from "./login";
 import { Link, useNavigate } from "react-router-dom";
@@ -106,10 +106,10 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="h-screen  bg-white mt-16">
+    <div className="h-screen  bg-white mt-8 ">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 lg:gap-8">
         <div className="post p-5 lg:p-1 rounded-md">
-          <div className="lg:fixed lg:top-7 lg:left-14 lg:w-3/12 md:fixed md:w-5/12">
+          <div className="lg:fixed lg:top-10 lg:left-14 lg:w-3/12 md:fixed md:w-5/12 h-min">
             <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full mb-4 mt-16">
               {/* <!-- Banner Profile --> */}
               <div className="relative">
@@ -133,106 +133,92 @@ export default function UserDashboard() {
               {/* <!-- Bio --> */}
               <p className="text-gray-700 mt-2"> {user.about_me} </p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+            <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full lg:col-span-2  mt-3">
               <form>
-                {/* <!-- Post Content Section --> */}
-                <div className="mb-6">
-                  <label
-                    htmlFor="postContent"
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                  >
-                    Daily Check in:
-                  </label>
+                {/* <!-- DAILY CHECK IN --> */}
+                <div className="mb-2">
+  <label htmlFor="postContent" className="block text-gray-700 text-sm font-bold mb-1">
+    Daily Check in:
+  </label>
 
-                  <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
-                    whatever
-                  </h3>
-                  <ul className="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                      <div className="flex items-center pl-3">
-                        <input
-                          id="vue-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="vue-checkbox"
-                          className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          option 1
-                        </label>
-                      </div>
-                    </li>
-                    <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                      <div className="flex items-center pl-3">
-                        <input
-                          id="react-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="react-checkbox"
-                          className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          option 2
-                        </label>
-                      </div>
-                    </li>
-                    <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                      <div className="flex items-center pl-3">
-                        <input
-                          id="angular-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="angular-checkbox"
-                          className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          option 3
-                        </label>
-                      </div>
-                    </li>
-                    <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                      <div className="flex items-center pl-3">
-                        <input
-                          id="laravel-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="laravel-checkbox"
-                          className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          option 4
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+  <h3 className="mb-2 font-semibold text-gray-900 text-sm">
+    How are you feeling today?
+  </h3>
+  <ul className="grid grid-cols-2 gap-2 items-stretch">
+    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1 ">
+      <input
+        id="vue-checkbox"
+        type="checkbox"
+        value=""
+        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 "
+      />
+      <label htmlFor="vue-checkbox" className="w-full text-xs font-medium text-gray-900">
+        <img
+          src="https://i.ibb.co/qnhwVB4/1-removebg-preview.png"
+          alt=" option 1"
+          className="w-18 h-18 rounded-full"
+        />
+      </label>
+    </li>
+    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
+      <input
+        id="react-checkbox"
+        type="checkbox"
+        value=""
+        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+      />
+      <label htmlFor="react-checkbox" className="w-full text-xs font-medium text-gray-900">
+        <img
+          src="https://i.ibb.co/GVBc2fT/2-removebg-preview.png"
+          alt=" option 2"
+          className="w-18 h-18 rounded-full"
+        />
+      </label>
+    </li>
+    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
+      <input
+        id="angular-checkbox"
+        type="checkbox"
+        value=""
+        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+      />
+      <label htmlFor="angular-checkbox" className="w-full text-xs font-medium text-gray-900">
+        <img
+          src="https://i.ibb.co/BTSBbJ2/3-removebg-preview.png"
+          alt="option 3"
+          className="w-18 h-18 rounded-full"
+        />
+      </label>
+    </li>
+    <li className="border bg-teal-100 border-gray-200 rounded-lg flex items-center p-1">
+      <input
+        id="laravel-checkbox"
+        type="checkbox"
+        value=""
+        className="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+      />
+      <label htmlFor="laravel-checkbox" className="w-full text-xs font-medium text-gray-900">
+        <img
+          src="https://i.ibb.co/8YDrMgj/4-removebg-preview.png"
+          alt="option 4"
+          className="w-18 h-18 rounded-full"
+        />
+      </label>
+    </li>
+  </ul>
+</div>
                 {/* <!-- Submit Button and Character Limit Section --> */}
-                <div className="flex items-center justify-between">
+                <div className="flex justify-end">
                   <button
                     type="submit"
-                    className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"
+                    className="flex justify-center items-center bg-teal-300 hover:bg-teal-400 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"
                   >
                     {" "}
                     Submit{" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19"
-                      height="19"
-                      viewBox="0 0 24 24"
-                      id="send"
-                      fill="#fff"
-                    >
-                      <path fill="none" d="M0 0h24v24H0V0z"></path>
-                      <path d="M3.4 20.4l17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"></path>
-                    </svg>
+                    <img
+                      src="https://i.ibb.co/vVyRfG6/pngtree-pencil-icon-vector-png-educational-icons-with-trendy-and-modern-colors-png-image-5062809-rem.png"
+                      className="w-8 h-8"
+                      />
                   </button>
                 </div>
               </form>
@@ -392,7 +378,7 @@ export default function UserDashboard() {
                       Messages
                     </p>
                     <p className="text-gray-500 text-sm">
-                    You have {unreadThreadCount} unread messages
+                      You have {unreadThreadCount} unread messages
                     </p>
                   </div>
                 </div>
@@ -419,7 +405,7 @@ export default function UserDashboard() {
                       >
                         <span className="absolute inset-0" aria-hidden="true" />
                         <p className="text-sm font-medium text-gray-900">
-                          {message.sender_first_name} 
+                          {message.sender_first_name}
                         </p>
                         <p className="truncate text-xs text-gray-500">
                           {message.message_content}
@@ -433,6 +419,6 @@ export default function UserDashboard() {
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
