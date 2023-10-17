@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function Home({ loggedIn }) {
   return (
     <>
       <div className="relative bg-gray-900">
@@ -55,6 +55,25 @@ export default function Home() {
               or meet new partners from around the world.
             </p>
             <div className="mt-8 flex gap-3 justify-center">
+              {loggedIn ? null : ( // Render nothing if logged in
+                // Render login and register buttons if not logged in
+                <>
+                  <Link
+                    to={`/login`}
+                    className="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    LOG IN
+                  </Link>
+                  <Link
+                    to={`/register`}
+                    className="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    REGISTER
+                  </Link>
+                </>
+              )}
+            </div>
+            {/* <div className="mt-8 flex gap-3 justify-center">
               <Link
                 to={`/login`}
                 className="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -67,7 +86,7 @@ export default function Home() {
               >
                 REGISTER
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
