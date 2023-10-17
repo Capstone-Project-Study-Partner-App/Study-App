@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { getProfile, updateUser } from "../fetching";
+import { getProfile, updateUser, AuthError } from "../fetching";
 // import Select from "react-select";
-// import { useNavigate } from "react-router-dom";
+import { LOGIN_ROUTE } from "./login";
+import { useNavigate } from "react-router-dom";
 
-export default function UpdateProfile({ user_id }) {
+export default function UpdateProfile({ user_id, setLoggedIn }) {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -14,9 +15,14 @@ export default function UpdateProfile({ user_id }) {
         const response = await getProfile();
         console.log("Fetched user data:", response);
         setUser(response);
+        setLoggedIn(true);
         // setUser((prevUser) => ({ ...prevUser, ...current_user }));
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
       }
     }
     fetchUserData();
@@ -55,7 +61,7 @@ export default function UpdateProfile({ user_id }) {
       console.error("oopsie prof updates a no-go", error);
       setError("failed to update profile");
     }
-    window.location.reload();
+    // window.location.reload();
     alert("Your changes have been saved!");
   }
 

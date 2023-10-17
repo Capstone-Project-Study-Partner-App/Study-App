@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { getEventById, getUserById, createRsvp, deleteRsvp } from "../fetching";
+import {
+  getEventById,
+  getUserById,
+  createRsvp,
+  deleteRsvp,
+  checkIfRsvpExists,
+} from "../fetching";
 import { useParams, Link } from "react-router-dom";
 import {
   VideoCameraIcon,
@@ -11,20 +17,21 @@ import DeleteEvent from "./eventdelete";
 
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
-  Science:
+  "Science/Engineering/Psychology":
     "https://e0.pxfuel.com/wallpapers/135/1007/desktop-wallpaper-science-background-vectors-stock-psd-social-science.jpg",
-  Mathematics:
+  "Mathematics/Statistics":
     "https://t4.ftcdn.net/jpg/02/05/76/23/360_F_205762306_KCw2syVz457NVnZNQCgFdeWW0MRKqlt0.jpg",
-  Art: "https://i.pinimg.com/736x/cb/2c/13/cb2c130454e570e4d6a2896928b9a1d0.jpg",
-  "Social Studies":
+  "Art/Music":
+    "https://i.pinimg.com/736x/cb/2c/13/cb2c130454e570e4d6a2896928b9a1d0.jpg",
+  "Social Studies/Humanities":
     "https://www.oksd.wednet.edu/cms/lib/WA01001356/Centricity/Domain/78/geography-555x370.jpg",
   Literature:
     "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGl0ZXJhdHVyZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
   "Foreign Language":
     "https://media.istockphoto.com/id/493800479/photo/thank-you.webp?b=1&s=170667a&w=0&k=20&c=3NBo_wEnJ7AEZ2mDuyGKZqmZssmKNN7sUOYX7xKjdpo=",
-  "Computer Science":
+  "Computer Science/Data Science":
     "https://t4.ftcdn.net/jpg/02/38/56/37/360_F_238563715_TT246ABsfPc7OMkIASI5wTOYiwwlf8Yz.jpg",
-  Business:
+  "Business/Finance/Econ/Marketing":
     "https://thumbs.dreamstime.com/b/infographic-showing-economics-trends-39390289.jpg",
 };
 
@@ -37,7 +44,7 @@ function getImageUrl(topic) {
   );
 }
 
-export default function Event({setLoggedIn}) {
+export default function Event({ setLoggedIn }) {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null);
   const [rsvp, setRsvp] = useState(false);
@@ -59,6 +66,19 @@ export default function Event({setLoggedIn}) {
     }
     fetchEvent();
   }, [id]);
+
+  // Check if the favorite exists when the component mounts
+  useEffect(() => {
+    async function fetchRsvpExists() {
+      const exists = await checkIfRsvpExists(id);
+      setRsvp(exists); // Set the rsvp'd state based on the result
+    }
+    fetchRsvpExists();
+  }, [id]);
+
+  if (event === null) {
+    return null;
+  }
 
   const imageUrl = getImageUrl(event.topic);
 
@@ -211,9 +231,8 @@ export default function Event({setLoggedIn}) {
           <button
             type="button"
             className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            
           >
-            <Link to={`/edit_event/${id}` } style={{ color: "white" }}>
+            <Link to={`/edit_event/${id}`} style={{ color: "white" }}>
               Edit Event
             </Link>
           </button>

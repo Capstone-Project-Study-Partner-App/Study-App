@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createUser } from "../fetching.js";
+import { createUser, checkLoginStatus } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
@@ -31,6 +31,7 @@ export default function RegistrationForm({ setLoggedIn }) {
   const [major, setMajor] = useState("");
   const [age, setAge] = useState("");
   const [work, setWork] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   // const [selectedDayOptions, setSelectedDayOptions] = useState();
   const [selectedTimezoneOptions, setSelectedTimezoneOptions] = useState();
@@ -136,6 +137,26 @@ export default function RegistrationForm({ setLoggedIn }) {
     }
   }
 
+  //PASSWORD MINIMUM CHARACTER LIMIT
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+
+    // Check password length
+    if (newPassword.length < 8) {
+      setPasswordError("8 character minimum");
+    } else {
+      setPasswordError(""); // Clear the error message when the password is valid
+    }
+  };
+
+  //IF SIGNED IN, NOT ABLE TO REGISTER. REROUTES TO BUDDIES
+  useEffect(() => {
+    if (checkLoginStatus()) {
+      navigate("/users");
+    }
+  }, [navigate]);
+
   // useEffect(()=>{
   //   async function fetchData(){
   //     try{
@@ -207,12 +228,15 @@ export default function RegistrationForm({ setLoggedIn }) {
                     id="password"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     value={password}
-                    type="text"
+                    type="password" // Change input type to password
                     name="password"
                     placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handlePasswordChange} // Use the handler for password change
                     required
                   />
+                  {passwordError && (
+                    <div className="text-red-600 mt-2">{passwordError}</div>
+                  )}
                 </div>
               </div>
               <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">

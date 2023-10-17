@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import StarRating from "./ratingstar";
 import CheckIn from "./dailycheckin";
 
-export default function UserDashboard() {
+export default function UserDashboard({ setLoggedIn }) {
   const [user, setUser] = useState(null);
   const [rsvps, setRsvps] = useState([]);
   const [error, setError] = useState(null);
@@ -40,6 +40,7 @@ export default function UserDashboard() {
       try {
         const response = await getProfile();
         setUser(response);
+        setLoggedIn(true);
       } catch (err) {
         if (err instanceof AuthError) {
           navigate(LOGIN_ROUTE);
@@ -92,17 +93,17 @@ export default function UserDashboard() {
       }
     }
     getAllRatings();
-  },[user]);
+  }, [user]);
 
-    let avg = 0;
+  let avg = 0;
 
-    if (ratings&&ratings.length > 0) {
-      const totalStars = ratings.reduce(
-        (total, rating) => total + rating.rating_star,
-        0
-      );
-      avg = totalStars / ratings.length;
-    }
+  if (ratings && ratings.length > 0) {
+    const totalStars = ratings.reduce(
+      (total, rating) => total + rating.rating_star,
+      0
+    );
+    avg = totalStars / ratings.length;
+  }
 
   useEffect(() => {
     async function fetchUnreadMessageCount() {
@@ -112,7 +113,7 @@ export default function UserDashboard() {
           setUnreadMessageCount(unread.unread_count);
           // show only by thread
           const groupedUnreadMessages = {};
-          unread.unread_messages.forEach(message => {
+          unread.unread_messages.forEach((message) => {
             if (!groupedUnreadMessages[message.thread_id]) {
               groupedUnreadMessages[message.thread_id] = message;
             }
@@ -123,13 +124,13 @@ export default function UserDashboard() {
 
           // number of threads with unread messages
           const uniqueThreadIds = new Set(
-            unreadMessagesArray.map(message => message.thread_id)
+            unreadMessagesArray.map((message) => message.thread_id)
           );
           setUnreadThreadCount(uniqueThreadIds.size);
 
-          console.log('Unread messages total:', unread.unread_count);
-          console.log('Unread messages content:', unreadMessagesArray);
-          console.log('Threads with unread messages:', uniqueThreadIds.size);
+          console.log("Unread messages total:", unread.unread_count);
+          console.log("Unread messages content:", unreadMessagesArray);
+          console.log("Threads with unread messages:", uniqueThreadIds.size);
         } catch (error) {
           console.error(error);
         }
@@ -144,10 +145,8 @@ export default function UserDashboard() {
   }
 
   return (
-  
     <div className="h-screen bg-white mt-8 ">
       <div className="grid grid-cols-1  lg:grid-cols-3 md:grid-cols-2 ">
-        
         <div className="post p-5 lg:p-4 rounded-md">
           <div className="lg:col-span-2 p-4 bg-white pb-20">
             <div className="bg-sky-50 p-8 rounded-lg shadow-lg max-w-md w-full mb-4 mt-16">
@@ -175,29 +174,26 @@ export default function UserDashboard() {
             </div>
             {/* <!-- DAILY CHECK IN --> */}
             <div className="bg-sky-50 p-8 rounded-lg shadow-md max-w-md w-full lg:col-span-2  mt-3">
-            <div className="flex items-center justify-between mb-4">
-                 
-                 <div className="flex items-center space-x-2">
-                   <img
-                     src="https://img.freepik.com/premium-photo/3d-calendar-with-alarm-clock-icon_356415-1854.jpg?w=360"
-                     alt="Check in icon"
-                     className="w-24 h-24 rounded-full"
-                   />
-                   <div>
-                     <p className="text-gray-800 font-semibold">
-                       Daily Check in:
-                     </p>
-                     <p className="text-gray-500 text-sm">
-                       How are you feeling today?
-                     </p>
-                   </div>
-                 </div>
-               </div>
-            <div className="mb-2 ">
-              <CheckIn
-                user_id={user.user_id}
-                />
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-2">
+                  <img
+                    src="https://img.freepik.com/premium-photo/3d-calendar-with-alarm-clock-icon_356415-1854.jpg?w=360"
+                    alt="Check in icon"
+                    className="w-24 h-24 rounded-full"
+                  />
+                  <div>
+                    <p className="text-gray-800 font-semibold">
+                      Daily Check in:
+                    </p>
+                    <p className="text-gray-500 text-sm">
+                      How are you feeling today?
+                    </p>
+                  </div>
                 </div>
+              </div>
+              <div className="mb-2 ">
+                <CheckIn user_id={user.user_id} />
+              </div>
             </div>
           </div>
         </div>
@@ -270,39 +266,43 @@ export default function UserDashboard() {
               {/* <!-- Message --> */}
               <div className="mb-4">
                 <a href="" className="text-blue-600">
-                {avg===0?null:<StarRating averageRating={avg}/>}
+                  {avg === 0 ? null : <StarRating averageRating={avg} />}
                 </a>
-                <p className="text-gray-800">Average Rating: {avg===0?'No Rating Available': avg.toFixed(2)}</p>
+                <p className="text-gray-800">
+                  Average Rating:{" "}
+                  {avg === 0 ? "No Rating Available" : avg.toFixed(2)}
+                </p>
               </div>
-   {/* <!-- Message --> */}
-   <div className="flex flex-col gap-4">
-                {ratings.map((rating,index) => (
+              {/* <!-- Message --> */}
+              <div className="flex flex-col gap-4">
+                {ratings.map((rating, index) => (
                   <div
                     key={index}
                     className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-green-50  px-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
                   >
                     <div className="min-w-0 flex-1">
-                      <Link
-                        to={`/users/${user.user_id}`}
-                        className="w-1/ p-2"
-                      >
+                      <Link to={`/users/${user.user_id}`} className="w-1/ p-2">
                         <span className="absolute inset-0" aria-hidden="true" />
                         <p className="truncate text-xs text-gray-500">
-                        {<StarRating averageRating= {parseInt(rating.rating_star)}/>}
+                          {
+                            <StarRating
+                              averageRating={parseInt(rating.rating_star)}
+                            />
+                          }
                         </p>
                         <p className="truncate text-xs text-gray-500">
-                        {formatDateTime(rating.posted_at)}
+                          {formatDateTime(rating.posted_at)}
                         </p>
                         <p className="text-md font-medium text-gray-900">
                           {rating.rating_content}
                         </p>
-
                       </Link>
                     </div>
                   </div>
-                                ))}
+                ))}
               </div>
             </div>
+
             {/* <!-- PARTNERS--> */}
             <div className="bg-sky-50 p-8 rounded-lg shadow-md max-w-md">
               {/* <!-- User Info with Three-Dot Menu --> */}
@@ -368,9 +368,7 @@ export default function UserDashboard() {
                     className="w-24 h-24 rounded-full"
                   />
                   <div>
-                    <p className="text-gray-800 font-semibold">
-                      Messages
-                    </p>
+                    <p className="text-gray-800 font-semibold">Messages</p>
                     <p className="text-gray-500 text-sm">
                       You have {unreadThreadCount} unread messages
                     </p>
@@ -414,6 +412,5 @@ export default function UserDashboard() {
         </div>
       </div>
     </div>
-  
   );
 }

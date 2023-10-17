@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import { getUserMessages, getProfile } from "../fetching";
 import MessageThread from "./Thread";
 
-export default function AllMessages() {
+export default function AllMessages({ setLoggedIn }) {
   const [messages, setMessages] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
 
   const handleMessageClick = (message) => {
     setSelectedMessage({
@@ -51,6 +50,7 @@ export default function AllMessages() {
       try {
         const response = await getUserMessages(currentUser.user_id);
         setMessages(response);
+        setLoggedIn(true);
         console.log("All Messages:", response);
       } catch (error) {
         setError(error.message);
@@ -63,6 +63,8 @@ export default function AllMessages() {
   //   return <p>No messages found.</p>;
   // }
 
+  // const getMostRecentMessages = () => {
+  //   const messageMap = new Map();
 
   // Display most recent message in each thread
   const threadMessages = {};
@@ -70,7 +72,10 @@ export default function AllMessages() {
   for (const message of messages) {
     const threadId = message.thread_id;
 
-    if (!threadMessages[threadId] || message.created_at > threadMessages[threadId].created_at) {
+    if (
+      !threadMessages[threadId] ||
+      message.created_at > threadMessages[threadId].created_at
+    ) {
       threadMessages[threadId] = message;
     }
   }
@@ -78,20 +83,20 @@ export default function AllMessages() {
   // Filter by user name
   const messagesToDisplay = searchParam
     ? Object.values(threadMessages).filter((message) => {
-      const senderName = message.sender_first_name.toLowerCase();
-      const receiverName = message.receiver_first_name.toLowerCase();
+        const senderName = message.sender_first_name.toLowerCase();
+        const receiverName = message.receiver_first_name.toLowerCase();
 
-      return (
-        (message.sender !== currentUser.user_id &&
-          message.receiver === currentUser.user_id &&
-          (senderName.includes(searchParam.toLowerCase()) ||
-            receiverName.includes(searchParam.toLowerCase()))) ||
-        (message.sender === currentUser.user_id &&
-          message.receiver !== currentUser.user_id &&
-          (senderName.includes(searchParam.toLowerCase()) ||
-            receiverName.includes(searchParam.toLowerCase())))
-      );
-    })
+        return (
+          (message.sender !== currentUser.user_id &&
+            message.receiver === currentUser.user_id &&
+            (senderName.includes(searchParam.toLowerCase()) ||
+              receiverName.includes(searchParam.toLowerCase()))) ||
+          (message.sender === currentUser.user_id &&
+            message.receiver !== currentUser.user_id &&
+            (senderName.includes(searchParam.toLowerCase()) ||
+              receiverName.includes(searchParam.toLowerCase())))
+        );
+      })
     : Object.values(threadMessages);
 
   return (
@@ -146,7 +151,9 @@ export default function AllMessages() {
                     : message.sender_first_name}
                   :
                 </div>
-                <span className="truncate ... text-sm text-gray-500">{message.message_content}</span>
+                <span className="truncate ... text-sm text-gray-500">
+                  {message.message_content}
+                </span>
               </div>
             ))}
           </div>
@@ -155,12 +162,13 @@ export default function AllMessages() {
         {/* End chat list */}
         {/* Message thread */}
         <div className="w-full px-5 flex flex-col justify-between">
-          {selectedMessage &&
+          {selectedMessage && (
             <MessageThread
               selectedMessage={selectedMessage}
               currentUser={currentUser}
               className="absolute inset-x-0 bottom-0 h-16 ..."
-            />}
+            />
+          )}
         </div>
         {/* End message thread */}
         {/* Profile info */}
@@ -192,9 +200,3 @@ export default function AllMessages() {
     </div>
   );
 }
-
-
-
-
-
-

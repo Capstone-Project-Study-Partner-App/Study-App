@@ -34,7 +34,7 @@ export class AuthError extends Error {}
 export async function getProfile() {
   const resp = await fetch(`${api_root}/profile`);
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create an Account");
   }
   const json = await resp.json();
   return json;
@@ -52,7 +52,7 @@ export async function getUsersMatchingFilters(filters) {
   // get the AuthError so they can be redirected
   // add this to every fetch request
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
@@ -64,14 +64,14 @@ export async function getAllUsers() {
   // get the AuthError so they can be redirected
   // add this to every fetch request
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
 }
 
 export async function getUserById(user_id) {
-  const resp = await fetch(`${api_root}/users/${user_id}`);
+  const resp = await fetch(`${api_root}/users/${user_id}`, {});
   const json = await resp.json();
   return json;
 }
@@ -92,20 +92,21 @@ export async function createUser(userData) {
 }
 
 export async function updateUser(user_id, updatedUserData) {
-  try {
-    const response = await fetch(`${api_root}/edit_user/${user_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedUserData),
-    });
-    const result = await response.json();
-    console.log("result", result);
-    return result;
-  } catch (error) {
-    console.error(error);
+  const response = await fetch(`${api_root}/edit_user/${user_id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedUserData),
+  });
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (response.status === 401) {
+    throw new AuthError("Sign in or Create An Account");
   }
+  const json = await response.json();
+  return json;
 }
 
 export async function deleteUser(user_id) {
@@ -117,15 +118,15 @@ export async function deleteUser(user_id) {
 }
 
 export async function getUserMessages(user_id) {
-  try {
-    const response = await fetch(`${api_root}/${user_id}/messages`);
-    const result = await response.json();
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.error(error);
-    return error;
+  const response = await fetch(`${api_root}/${user_id}/messages`);
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (response.status === 401) {
+    throw new AuthError("Sign in or Create An Account");
   }
+  const json = await response.json();
+  return json;
 }
 
 export async function logInUser(user) {
@@ -136,8 +137,14 @@ export async function logInUser(user) {
     },
     body: JSON.stringify(user),
   });
+
+  if (!resp.ok) {
+    // Handle login failure
+    return { success: false, error: "Invalid Login" };
+  }
+
   const json = await resp.json();
-  return json;
+  return { success: true, user: json };
 }
 
 export async function logOutUser() {
@@ -152,6 +159,17 @@ export async function logOutUser() {
   return json;
 }
 
+export async function checkLoginStatus() {
+  const resp = await fetch(`${api_root}/auth/status`);
+  const json = await resp.json();
+
+  if (json.loggedIn) {
+    return true;
+  } else {
+    throw new AuthError("Sign in or Create An Account");
+  }
+}
+
 ////Mark as favorited AKA "Like someone"
 export async function createFavorite(userId) {
   const resp = await fetch(`${api_root}/users/${userId}/like`, {
@@ -161,7 +179,7 @@ export async function createFavorite(userId) {
     },
   });
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
@@ -176,7 +194,7 @@ export async function deleteFavorite(userId) {
     },
   });
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
@@ -191,7 +209,7 @@ export async function checkIfFavoriteExists(user_id) {
     },
   });
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json.exists; // Return the boolean value directly
@@ -214,6 +232,12 @@ export async function getAllMyFavorites() {
 
 export async function getAllEvents() {
   const resp = await fetch(`${api_root}/events`);
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (resp.status === 401) {
+    throw new AuthError("Sign in or Create An Account");
+  }
   const json = await resp.json();
   return json;
 }
@@ -231,7 +255,7 @@ export async function getEventsMatchingFilters(filters) {
   // get the AuthError so they can be redirected
   // add this to every fetch request
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
@@ -247,6 +271,21 @@ export async function getEventById(event_id) {
   const resp = await fetch(`${api_root}/events/${event_id}`);
   const json = await resp.json();
   return json;
+}
+
+//Check if a rsvp instance exists for a user_id and event_id
+export async function checkIfRsvpExists(event_id) {
+  const resp = await fetch(`${api_root}/events/${event_id}/confirm_rsvp`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (resp.status === 401) {
+    throw new AuthError("Sign in or Create An Account");
+  }
+  const json = await resp.json();
+  return json.exists; // Return the boolean value directly
 }
 
 export async function createEvent(eventData) {
@@ -314,7 +353,7 @@ export async function createRsvp(event_id) {
     },
   });
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
@@ -329,7 +368,7 @@ export async function deleteRsvp(event_id) {
     },
   });
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
@@ -362,6 +401,12 @@ export async function getRsvpByUserId(user_id) {
 
 export async function getMessageById(message_id) {
   const resp = await fetch(`${api_root}/messages/${message_id}`);
+  // this if statement makes sure un-logged in users
+  // get the AuthError so they can be redirected
+  // add this to every fetch request
+  if (resp.status === 401) {
+    throw new AuthError("Sign in or Create An Account");
+  }
   const json = await resp.json();
   return json;
 }
@@ -521,7 +566,7 @@ export async function getAllRatings() {
   // get the AuthError so they can be redirected
   // add this to every fetch request
   if (resp.status === 401) {
-    throw new AuthError("User not logged in");
+    throw new AuthError("Sign in or Create An Account");
   }
   const json = await resp.json();
   return json;
@@ -629,11 +674,7 @@ export async function deleteComment(comment_id) {
 }
 
 // -------CHECK IN FETCHES-------
-export async function createCheckIn(
-  user_id,
-  response,
-  submit_date
-) {
+export async function createCheckIn(user_id, response, submit_date) {
   try {
     const resp = await fetch(`${api_root}/dailycheckin`, {
       method: "POST",
@@ -643,7 +684,7 @@ export async function createCheckIn(
       body: JSON.stringify({
         user_id,
         response,
-        submit_date
+        submit_date,
       }),
     });
     const json = await resp.json();
