@@ -4,6 +4,7 @@ import {
   getProfile,
   getRsvpByUserId,
   getAllMyFavorites,
+  getUnreadMessages 
 } from "../fetching";
 import { LOGIN_ROUTE } from "./login";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +15,10 @@ export default function UserDashboard() {
   const [error, setError] = useState(null);
   const [favoriteUsers, setFavoriteUsers] = useState([]);
   const [events, setEvents] = useState([]);
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
   const navigate = useNavigate();
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -58,6 +62,22 @@ export default function UserDashboard() {
       }
     }
     getAllEvents();
+  }, [user]);
+
+  useEffect(() => {
+    async function fetchUnreadMessageCount() {
+      if (user) {
+        try {
+          const count = await getUnreadMessages(user.user_id);
+          setUnreadMessageCount(count);
+          console.log('Unread messages:', count)
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+
+    fetchUnreadMessageCount();
   }, [user]);
 
   if (!user) {
@@ -341,22 +361,22 @@ export default function UserDashboard() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
                   <img
-                    src="https://banner2.cleanpng.com/20180916/stl/kisspng-learning-reading-comprehension-study-skills-educat-5b9e58993816a4.9541511015371040252298.jpg"
+                    src="https://static.vecteezy.com/system/resources/previews/010/915/785/non_2x/3d-business-mail-send-icon-or-3d-business-important-mail-send-concept-icon-or-3d-mail-envelope-icon-free-png.png"
                     alt="User Avatar"
                     className="w-24 h-24 rounded-full"
                   />
                   <div>
                     <p className="text-gray-800 font-semibold">
-                      Something else?
+                      Messages
                     </p>
-                    <p className="text-gray-500 text-sm">idk</p>
+                    <p className="text-gray-500 text-sm">Unread messages:</p>
                   </div>
                 </div>
               </div>
               {/* <!-- Message --> */}
               <div className="mb-4">
                 <a href="" className="text-blue-600">
-                  ???
+                You have {unreadMessageCount} unread messages.
                 </a>
                 <p className="text-gray-800">maybe not</p>
               </div>

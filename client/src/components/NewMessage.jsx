@@ -3,11 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createMessage } from "../fetching";
 
 
-export default function NewMessage({sender, receiver, thread_id, updateMessages}) {
-    // const [sender, setSenderId] = useState(null);
-    // const [receiver, setReceiverId] = useState(null);
-    // const [thread_id, setThreadId] = useState("");
-    // const { thread_id } = useParams();
+export default function NewMessage({sender, receiver, thread_id, updateMessages,}) {
     const [message_content, setMessageContent] = useState("");
     const navigate = useNavigate();
 
@@ -26,12 +22,12 @@ export default function NewMessage({sender, receiver, thread_id, updateMessages}
                 data = await createMessage(sender, receiver, message_content, thread_id)
 
                 if (updateMessages) {
-                    updateMessages(data); // Pass the new message data to updateMessages
+                    updateMessages(data); // Pass new message data to updateMessages
                   }
             } else {
                 data = await createMessage(sender, receiver, message_content,)
             }
-                console.log("message sent:", data);
+                console.log("Message sent:", data);
                 setMessageContent("");
                 // navigate(`/:id/messages`);
                    
@@ -41,18 +37,18 @@ export default function NewMessage({sender, receiver, thread_id, updateMessages}
     };
 
     return (
-        <div className="py-5">
+        <div className="py-5 border-t p-2">
             <form onSubmit={handleSubmit}>
                 <input
-                    className="w-full bg-gray-300 py-5 px-3 rounded-xl"
+                    className="w-full bg-gray-300 py-5 px-3 rounded-xl "
                     type="text"
-                    placeholder="type message here"
+                    placeholder="Message..."
                     value={message_content}
                     onChange={(e) => setMessageContent(e.target.value)}
                 />
                 <br />
                 <div>
-                    {/* <button type="submit">send</button> */}
+                 
                 </div>
             </form>
             <div>

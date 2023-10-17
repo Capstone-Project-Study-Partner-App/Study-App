@@ -29,6 +29,9 @@ const {
   createMessage,
   getMessageById,
   getMessagesByThread,
+  getExistingThread,
+  getUnreadMessages,
+  markMessageAsRead
 } = require("../db/helpers/messages");
 const {
   deleteFavorite,
@@ -41,6 +44,7 @@ const {
   updateRating,
   createRating,
   getAllRatings,
+  getRatingById,
   getRatingByUserId,
   getRatingsForUser,
 } = require("../db/helpers/ratings");
@@ -50,6 +54,11 @@ const {
   authNotRequired,
   addReqUser,
 } = require("./utils");
+const { 
+  createComment,
+  getCommentsByEventId,
+  deleteComment,
+ } = require("../db/helpers/comments");
 
 // Create a subrouter for the '/api/' subroute
 const apiRouter = express.Router();
@@ -371,8 +380,8 @@ apiRouter.get("/thread/:id", async (req, res, next) => {
   }
 });
 
-// // Get existing thread
-apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
+// // Get existing thread in chat pop up
+apiRouter.get("/chat/:sender/:receiver", async (req, res, next) => {
   try {
     const message = await getExistingThread(
       req.params.sender,
@@ -384,9 +393,42 @@ apiRouter.get("/thread/:sender/:receiver", async (req, res, next) => {
   }
 });
 
+// // Get unread messages
+apiRouter.get("/messages/unread/:id", async (req, res, next) => {
+  try {
+    const result = await getUnreadMessages(req.params.id);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+//Mark message as read
+apiRouter.put("/messages/:receiver/markasread/:message_id", async (req, res, next) => {
+  try {
+    const message = await markMessageAsRead(
+      req.params.receiver,
+    req.params.message_id
+    );
+    res.status(200).send("Message marked as read");
+  } catch (error) {
+    next(error);
+  }
+});
+
 //RATINGS
 
 // Delete Rating
+// apiRouter.delete("/ratings/:id", async (req, res, next) => {
+//   try {
+//     const rating = await deleteRating(req.params.id);
+//     res.send(rating);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 apiRouter.delete("/ratings/:id", async (req, res, next) => {
   try {
     const rating = await deleteRating(req.params.id);
@@ -397,14 +439,16 @@ apiRouter.delete("/ratings/:id", async (req, res, next) => {
 });
 
 // Edit rating --PUT
-apiRouter.put("/edit_rating/:id", async (req, res, next) => {
+apiRouter.put("/ratings/:id", async (req, res, next) => {
   try {
+    console.log("entering put in api");
     const rating = await updateRating(req.params.id, req.body);
     res.send(rating);
-  } catch (error) {
+} catch (error) {
     next(error);
-  }
+}
 });
+
 
 //Create rating -- POST
 apiRouter.post("/ratings", async (req, res, next) => {
@@ -421,6 +465,16 @@ apiRouter.post("/ratings", async (req, res, next) => {
 apiRouter.get("/ratings", async (req, res) => {
   const ratings = await getAllRatings();
   res.json(ratings);
+});
+
+//Get Rating by ID
+apiRouter.get("/ratings/:id", async (req, res, next) => {
+  try {
+    const rating = await getRatingById(req.params.id);
+    res.send(rating);
+  } catch (error) {
+    next(error);
+  }
 });
 
 //Get rating by user ID ********************************************
@@ -440,6 +494,38 @@ apiRouter.get("/users/:id/ratings", async (req, res, next) => {
     const ratings = await getRatingsForUser(user_id);
 
     res.json(ratings);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// COMMENTS
+//Create Message --POST
+apiRouter.post("/comments", async (req, res, next) => {
+	try {
+	  console.log("req", req.body);
+	  const comment = await createComment(req.body);
+	  res.send(comment);
+  } catch (error) {
+    next(error);
+  }
+});
+
+	  //Get comments by event ID 
+apiRouter.get("/comments/:id", async (req, res, next) => {
+	try {
+	  const comments = await getCommentsByEventId(req.params.id);
+	  res.send(comments);
+  } catch (error) {
+    next(error);
+  }
+});
+
+	  // Delete comment
+apiRouter.delete("/comments/:id", async (req, res, next) => {
+	try {
+	  const comment = await deleteComment(req.params.id);
+	  res.send(comment);
   } catch (error) {
     next(error);
   }

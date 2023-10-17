@@ -408,19 +408,78 @@ export async function getMessagesByThread(thread_id) {
   }
 }
 
+export async function getExistingThread(sender, receiver) {
+  try {
+    const response = await fetch(`${api_root}/chat/${sender}/${receiver}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+
+export const markMessageAsRead = async (receiver, message_id) => {
+  try {
+    await fetch(`${api_root}/messages/${receiver}/markasread/${message_id}`, {
+      method: "PUT",
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export async function getUnreadMessages(receiver) {
+  try {
+    const response = await fetch(`${api_root}/messages/unread/${receiver}`);
+    if (response.ok) {
+      const result = await response.json();
+      return result.unread_count;
+    } else {
+      throw new Error('Failed to fetch unread message count');
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+
 // -------RATING FETCHES-------
 
-export async function deleteRating(rating_id) {
-  const resp = await fetch(`${api_root}/ratings/${rating_id}`, {
-    method: "DELETE",
-  });
-  const json = await resp.json();
-  return json;
+// export async function deleteRating(rating_id) {
+//   const resp = await fetch(`${api_root}/ratings/${rating_id}`, {
+//     method: "DELETE",
+//   });
+//   console.log("deleting rating")
+//   const json = await resp.json();
+//   return json;
+// }
+
+export async function deleteRating (rating_id) {
+  try{
+      const response=await fetch (`${api_root}/ratings/${rating_id}`, {
+          method:'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+      const result = await response.json();
+      console.log(result);
+      return result;
+  } catch (error){
+      console.error (error);
+  }
 }
+
+
 
 export async function updateRating(rating_id, updatedRatingData) {
   try {
-    const response = await fetch(`${api_root}/edit_rating/${rating_id}`, {
+    console.log ("entering update rating in fetching")
+    const response = await fetch(`${api_root}/ratings/${rating_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -462,6 +521,17 @@ export async function getAllRatings() {
   }
   const json = await resp.json();
   return json;
+}
+
+export async function getRatingById (rating_id){
+  try{
+    const response=await fetch(`${api_root}/ratings/${rating_id}`)
+    const result=await response.json();
+    return result
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 }
 
 export async function getRatingsForUser(user_id) {
@@ -510,3 +580,47 @@ export async function getRatingByUserId(user_id) {
 //     console.error(error);
 //   }
 // }
+
+
+// -------COMMENT FETCHES-------
+export async function createComment(
+  user_id,
+  event_id,
+  comment_content,
+  created_at
+) {
+  try {
+    const resp = await fetch(`${api_root}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id,
+        event_id,
+        comment_content,
+        created_at,
+      }),
+    });
+    const json = await resp.json();
+    console.log("comment sent:", json);
+    return json;
+  } catch (error) {
+    console.error("error sending comment:", error);
+    return error;
+  }
+}
+
+export async function getCommentsByEventId(event_id) {
+  const resp = await fetch(`${api_root}/comments/${event_id}`);
+  const json = await resp.json();
+  return json;
+}
+
+export async function deleteComment(comment_id) {
+  const resp = await fetch(`${api_root}/users/${comment_id}`, {
+    method: "DELETE",
+  });
+  const json = await resp.json();
+  return json;
+}

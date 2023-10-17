@@ -6,6 +6,8 @@ import {
   CheckCircleIcon,
   LinkIcon,
 } from "@heroicons/react/outline";
+import EventComments from "./AllComments";
+
 
 // Define a mapping of topic names to image URLs
 const topicImageMapping = {
@@ -39,6 +41,7 @@ export default function Event() {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null);
   const [rsvp, setRsvp] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const { id } = useParams();
 
@@ -68,6 +71,17 @@ export default function Event() {
     }
     // Toggle the attending state
     setRsvp(!rsvp);
+  };
+
+  // Function for google meet link
+  const meetingLink = event.meeting_link;
+
+  const joinMeeting = () => {
+    if (meetingLink) {
+      window.open(meetingLink);
+    } else {
+      alert("Meeting link is not available");
+    }
   };
 
   return (
@@ -139,13 +153,18 @@ export default function Event() {
             </button>
 
             {/* Join Button */}
-            <button
-              className="bg-green-600 text-white px-8 py-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none flex items-center"
-              onClick={() => alert("Reroute to Google Meet When Clicked")}
-            >
-              <VideoCameraIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-              <span className="ml-2">Join the Meeting</span>
-            </button>
+            {meetingLink && (
+              <button
+                className="bg-green-600 text-white px-8 py-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none flex items-center"
+                onClick={joinMeeting}
+              >
+                <VideoCameraIcon
+                  className="-ml-0.5 h-5 w-5"
+                  aria-hidden="true"
+                />
+                <span className="ml-2">Join the Meeting</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -179,6 +198,9 @@ export default function Event() {
         <div className="mt-8 text-xl text-gray-800">
           <p>{event.description}</p>
         </div>
+      </div>
+      <div>
+        <EventComments event_id={id} />
       </div>
     </div>
   );
