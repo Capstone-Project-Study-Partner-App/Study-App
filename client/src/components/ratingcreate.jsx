@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createRating } from "../fetching";
 import * as React from "react";
 import { useNavigate } from "react-router";
@@ -16,10 +16,7 @@ export default function RatingCreate({ userId }) {
   const [rating_star, setRating_star] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
 
-  const navigate=useNavigate();
-
-
-
+  const navigate = useNavigate();
 
   // function getCurrentDateTime() {
   //   const now = new Date().toISOString().slice(0, 16);
@@ -55,19 +52,18 @@ export default function RatingCreate({ userId }) {
     fetchData();
   }, []);
 
-
   async function handleSubmit(e) {
     e.preventDefault();
     let ratingData = {
       user_id: userId,
-      creator_id:currentUser.user_id,
+      creator_id: currentUser.user_id,
       rating_content: rating_content,
       posted_at: new Date().toISOString(),
       rating_star: rating_star,
     };
     try {
       await createRating(ratingData);
-console.log(ratingData)
+      console.log(ratingData);
       navigate(0);
       // window.location.reload();
     } catch (error) {
@@ -77,23 +73,62 @@ console.log(ratingData)
 
   return (
     <div>
-      <button onClick={() => setRatingAddShow(!ratingAddShow)}>
-        Rate This Buddy!
-      </button>
-      {ratingAddShow ? (
-        <form onSubmit={handleSubmit}>
-          <textarea
-            id="rating_content"
-            className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={rating_content}
-            type="text"
-            rows={3}
-            name="rating_content"
-            placeholder="Write your review"
-            onChange={(e) => setRating_content(e.target.value)}
-            required
-          />
-          {/* <input
+      <div>
+        <div className="flex items-center xl:col-span-1 justify-center mt-10 space-y-6 pb-12 sm:space-y-0 mt-10 sm:pb-0">
+          <button
+            id="rating-create-button"
+            className="bg-green-600 text-white px-5 py-2 mt-3 rounded-lg shadow-md hover:bg-green-700 focus:outline-none flex items-center text-base "
+            style={{ margin: "0" }}
+            onClick={() => setRatingAddShow(!ratingAddShow)}
+          >
+            Rate This Buddy!
+          </button>
+        </div>
+        <div className="mx-auto pt-8 lg:max-w-7xl lg:px-8">
+          {ratingAddShow ? (
+            <form onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  width: 200,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Rating
+                  name="hover-feedback"
+                  value={rating_star}
+                  precision={1}
+                  getLabelText={getLabelText}
+                  onChange={(event, newValue) => {
+                    setRating_star(newValue);
+                  }}
+                  onChangeActive={(event, newHover) => {
+                    setHover(newHover);
+                  }}
+                  emptyIcon={
+                    <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                  }
+                  required
+                />
+                {rating_star !== null && (
+                  <Box sx={{ ml: 2 }}>
+                    {labels[hover !== -1 ? hover : rating_star]}
+                  </Box>
+                )}
+              </Box>
+              <div className="pt-5">
+                <textarea
+                  id="rating_content"
+                  className="block w-full max-w-2xl rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-7"
+                  value={rating_content}
+                  type="text"
+                  rows={3}
+                  name="rating_content"
+                  placeholder="Write your review"
+                  onChange={(e) => setRating_content(e.target.value)}
+                  required
+                />
+                {/* <input
             id="posted_at"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             value={posted_at}
@@ -103,41 +138,19 @@ console.log(ratingData)
             onChange={(e) => setPosted_at(e.target.value)}
             required
           /> */}
-          <Box
-            sx={{
-              width: 200,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Rating
-              name="hover-feedback"
-              value={rating_star}
-              precision={1}
-              getLabelText={getLabelText}
-              onChange={(event, newValue) => {
-                setRating_star(newValue);
-              }}
-              onChangeActive={(event, newHover) => {
-                setHover(newHover);
-              }}
-              emptyIcon={
-                <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-              }
-              required
-            />
-            {rating_star !== null && (
-              <Box sx={{ ml: 2 }}>
-                {labels[hover !== -1 ? hover : rating_star]}
-              </Box>
-            )}
-          </Box>
-
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      ) : null}
+              </div>
+              <div className="mt-5">
+                <button
+                  type="submit"
+                  className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          ) : null}
+        </div>
+      </div>
     </div>
   );
 }
