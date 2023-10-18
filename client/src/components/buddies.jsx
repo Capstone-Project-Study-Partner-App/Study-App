@@ -348,7 +348,7 @@ export default function Buddies({ setLoggedIn }) {
                         setIsChatOpen(true);
                         handleUserSelect(user);
                       }}
-                      className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg bg-indigo-800 border border-transparent py-4 text-sm font-semibold text-white"
+                      className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg bg-indigo-800 border border-transparent py-4 text-sm font-semibold text-white"
                     >
                       Message
                     </a>

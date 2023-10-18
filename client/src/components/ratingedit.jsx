@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams,useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { updateRating, getRatingById } from "../fetching";
 import { getProfile } from "../fetching";
 import * as React from "react";
@@ -12,8 +12,8 @@ export default function EditRating() {
   const [error, setError] = useState(null);
   const [hover, setHover] = React.useState(-1);
   const [currentUser, setCurrentUser] = useState({});
-  
-  const navigate=useNavigate();
+
+  const navigate = useNavigate();
 
   const labels = {
     1: "Poor",
@@ -52,7 +52,6 @@ export default function EditRating() {
     fetchData();
   }, []);
 
-
   useEffect(() => {
     async function fetchRatingData() {
       try {
@@ -86,7 +85,7 @@ export default function EditRating() {
       const response = await updateRating(rating.rating_id, updatedRatingData);
       console.log("rating updated", response);
       setRating(response);
-      navigate(`/users/${rating.user_id}`)
+      navigate(`/users/${rating.user_id}`);
     } catch (error) {
       console.error("oopsie rating updates a no-go", error);
       setError("failed to update rating");
@@ -97,14 +96,53 @@ export default function EditRating() {
   // console.log(updatedRatingData.creator_id)
 
   return (
-    <div>
+    <div className="mx-auto pt-8 lg:max-w-7xl lg:px-8">
+      
       <div>
-        <h2>Edit Rating</h2>
+        <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+          
+          <h2 className="text-3xl text-lg font-medium text-gray-900">
+            Edit Buddy Rating
+          </h2>
+        </div>
         <form onSubmit={handleEdit}>
           {/* {error && <p>{error}</p>} */}
+
+          <Box
+            sx={{
+              width: 200,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Rating
+              id="rating_star"
+              value={parseInt(rating.rating_star) || 0}
+              getLabelText={getLabelText}
+              precision={1}
+              name="rating_star"
+              placeholder="Rating Star"
+              onChange={(event) =>
+                setRating({ ...rating, rating_star: event.target.value })
+              }
+              onChangeActive={(event, newHover) => {
+                setHover(newHover);
+              }}
+              emptyIcon={
+                <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+              }
+              required
+            />
+            {rating.rating_star !== null && (
+              <Box sx={{ ml: 2 }}>
+                {labels[hover !== -1 ? hover : rating.rating_star]}
+              </Box>
+            )}
+          </Box>
+          <div className="mt-5">
           <textarea
             id="rating_content"
-            className="block w-full max-w-2xl rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            className="block w-full max-w-2xl rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-7"
             value={rating.rating_content || ""}
             type="text"
             rows={3}
@@ -126,39 +164,15 @@ export default function EditRating() {
               setRating({ ...rating, posted_at: e.target.value })
             }
           /> */}
-          <Box
-            sx={{
-              width: 200,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Rating
-              id="rating_star"
-              value={parseInt(rating.rating_star) || 0}
-              getLabelText={getLabelText}
-              precision={1}
-              name="rating_star"
-              placeholder="Rating Star"
-              onChange={(event) =>
-                setRating({ ...rating, rating_star: event.target.value})
-              }
-              onChangeActive={(event, newHover) => {
-                setHover(newHover);
-              }}
-              emptyIcon={
-                <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-              }
-              required
-            />
-            {rating.rating_star !== null && (
-              <Box sx={{ ml: 2 }}>
-                {labels[hover !== -1 ? hover : rating.rating_star]}
-              </Box>
-            )}
-          </Box>
-          <div>
-            <button type="submit">Submit</button>
+          </div>
+          <div className="mt-5">
+            
+            <button
+              type="submit"
+              className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>

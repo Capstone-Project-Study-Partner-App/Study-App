@@ -188,9 +188,10 @@ export default function User({ setLoggedIn }) {
             </div>
           </div>
         </div>
-      </div>
-      <Rating />
+        <Rating />
       <RatingCreate userId={user.user_id} currentUser={currentUser.user_id} />
+      </div>
+      
     </div>
   );
 }
