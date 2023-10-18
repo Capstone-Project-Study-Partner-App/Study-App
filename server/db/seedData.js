@@ -250,6 +250,29 @@ const users = [
     age: "18-24",
     work: null,
   },
+  {
+    first_name: "Ani",
+    last_name: "Loo",
+    email: "anagabrieleloor@outlook.com",
+    gender: "Female",
+    password: "secret123",
+    location: "1221",
+    about_me: "Art school burnout turned software engineer.",
+    education: "Grace Hopper Program",
+    education_level: "Other",
+    classes: null,
+    days_available: ["Monday", "Tuesday", "Wednesday"],
+    times_available: ["Afternoon", "Evening"],
+    timezone: "EST",
+    interests: "Art, Fashion, Computer Science",
+    photo:
+      "https://i.ibb.co/0MC5dMJ/profpic.jpg",
+    languages: ["English", "Spanish"],
+    study_habits: "Chill",
+    major: null,
+    age: "30+",
+    work: null,
+  },
 ];
 
 //Events
