@@ -24,7 +24,7 @@ router.post("/login", async (req, res, next) => {
 router.post("/logout", async (req, res, next) => {
   try {
     res.clearCookie("token", {
-      sameSite: "strict",
+      sameSite: "None",
       httpOnly: true,
       signed: true,
     });
