@@ -47,8 +47,8 @@ export default function Home({ loggedIn }) {
               Binder Buddies
             </p>
             <p className="mt-6 text-base leading-7 text-gray-300">
-              Binder Buddies is the essential app for students seeking to
-              enhance their academic journey. Stay motivated in your studies
+              Binder Buddies is the essential app for people seeking to
+              enhance their learning journey. Stay motivated in your studies
               with a study partner. Filter potential partners by age, gender,
               study subject, expertise level, location, and availability. Reach
               out by message to coordinate times and explore interests. Create
