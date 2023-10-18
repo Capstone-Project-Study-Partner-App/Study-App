@@ -69,7 +69,7 @@ export default function EventEdit() {
     <div>
       <section className="edit_event_form">
         <h2 className="text-4xl font-bold tracking-tight text-black sm:text-4xl text-center">
-          Update Event
+          Edit Existing Event
         </h2>
         <br />
         <form onSubmit={handleEdit} className="space-y-6 sm:space-y-8">
@@ -232,7 +232,7 @@ export default function EventEdit() {
                           <input
                             id="virtual"
                             className="h-4 w-4 rounded border-gray-600 text-indigo-600 focus:ring-indigo-600"
-                            value={event.virtual}
+                            checked={event.virtual}
                             type="checkbox"
                             name="virtual"
                             placeholder="Virtual"
@@ -389,7 +389,7 @@ export default function EventEdit() {
                       <input
                         id="group"
                         className="h-4 w-4 rounded border-gray-600 text-indigo-600 focus:ring-indigo-600"
-                        value={event.group}
+                        checked={event.group}
                         type="checkbox"
                         name="group"
                         placeholder="Group"

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { createEvent } from "../fetching.js";
 import { useNavigate } from "react-router-dom";
+import { getProfile } from "../fetching";
 
 export default function NewEventForm() {
   const [title, setTitle] = useState("");
@@ -17,6 +18,23 @@ export default function NewEventForm() {
   const [gender, setGender] = useState("");
   const [group, setGroup] = useState(false);
 
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getProfile();
+        setCurrentUser(response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    fetchData();
+  }, []);
   const navigate = useNavigate();
 
   const handleTopicChange = (e) => {
@@ -48,7 +66,7 @@ export default function NewEventForm() {
       duration: duration,
       gender: gender,
       group: group,
-      // host_id: host_id,
+      host_id: currentUser.user_id,
     };
 
     try {

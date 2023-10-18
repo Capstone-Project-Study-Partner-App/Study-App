@@ -96,13 +96,25 @@ button:focus-visible {
   padding-bottom: 1em;
 }
 
-.edit_rating_button{
-  background-color: #e2e8f0;
+.average-rating{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.delete_rating_button{
-  background-color: #e2e8f0;
-  color: #535bf2;
+.stars-center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.rating-create-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding-top: -10em; */
 }
 
 #days_available {
