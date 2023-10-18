@@ -100,7 +100,7 @@ export default function CheckIn({ user_id }) {
         >
                                   <label htmlFor="vue-checkbox" className="w-full text-xs font-medium text-gray-900">
                         <img
-                          src="https://i.ibb.co/8YDrMgj/4-removebg-preview.png"
+                          src="https://i.ibb.co/3WPb1yg/4-removebg-preview-removebg-preview.png"
                           alt=" option 1"
                           className="w-24 h-24 rounded-full"
                         />

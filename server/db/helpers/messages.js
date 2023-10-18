@@ -176,6 +176,7 @@ const getUnreadMessages = async (receiver) => {
         m.thread_id AS thread_id,
         m.created_at AS created_at,
         u.first_name AS sender_first_name,
+        u.last_name AS sender_last_name,
         u.photo AS sender_photo,
         m.is_read
       FROM messages m
@@ -186,7 +187,7 @@ const getUnreadMessages = async (receiver) => {
     );
 
 
-    // Calculate the unread count
+    // Calculate unread count
     const { rows: unreadCount } = await client.query(
       `
       SELECT COUNT(*) as unread_count
@@ -223,12 +224,11 @@ const markMessageAsRead = async (receiver, message_id) => {
 
 
     if (result.rows.length === 0) {
-      // Handle the case where no message was updated (e.g., message with given ID and receiver not found)
-      return null; // You can return null or an error message
+      return null; 
     }
 
 
-    return result.rows[0]; // Return the updated message
+    return result.rows[0];
   } catch (error) {
     throw error;
   }

@@ -397,7 +397,7 @@ export default function UserDashboard({ setLoggedIn }) {
                       >
                         <span className="absolute inset-0" aria-hidden="true" />
                         <p className="text-sm font-medium text-gray-900">
-                          {message.sender_first_name}
+                          {message.sender_first_name} {message.sender_last_name}
                         </p>
                         <p className="truncate text-xs text-gray-500">
                           {message.message_content}

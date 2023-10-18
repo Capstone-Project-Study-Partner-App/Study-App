@@ -6,21 +6,23 @@ const createComment = async ({ user_id, event_id, comment_content }) => {
   try {
 
     const {
-      rows: [commentWithPhoto],
+      rows: [commentWithUserData],
     } = await client.query(
       `
       INSERT INTO comments(user_id, event_id, comment_content)
       VALUES($1, $2, $3)
-      RETURNING *, (SELECT photo FROM users WHERE user_id = $1) AS user_photo;
+      RETURNING *,
+        (SELECT first_name FROM users WHERE user_id = $1) AS user_first_name,
+        (SELECT photo FROM users WHERE user_id = $1) AS user_photo;
       `,
       [user_id, event_id, comment_content]
     );
 
-    return commentWithPhoto;
+    return commentWithUserData;
   } catch (error) {
     throw error;
   }
-}
+};
 
 
 // Get comments by Event ID
