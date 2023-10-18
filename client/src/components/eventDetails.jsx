@@ -5,6 +5,7 @@ import {
   createRsvp,
   deleteRsvp,
   checkIfRsvpExists,
+  getProfile
 } from "../fetching";
 import { useParams, Link } from "react-router-dom";
 import {
@@ -48,8 +49,9 @@ export default function Event({ setLoggedIn }) {
   const [event, setEvent] = useState([]);
   const [host, setHost] = useState(null);
   const [rsvp, setRsvp] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState([]);
   const [comments, setComments] = useState([]);
+  
 
   const { id } = useParams();
 
@@ -79,6 +81,22 @@ export default function Event({ setLoggedIn }) {
   if (event === null) {
     return null;
   }
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getProfile();
+        setCurrentUser(response);
+      } catch (err) {
+        if (err instanceof AuthError) {
+          navigate(LOGIN_ROUTE);
+        } else {
+          throw err;
+        }
+      }
+    }
+    fetchData();
+  }, []);
 
   const imageUrl = getImageUrl(event.topic);
 
@@ -226,6 +244,7 @@ export default function Event({ setLoggedIn }) {
           <p>{event.description}</p>
         </div>
       </div>
+      {currentUser.user_id === event.host_id && (
       <div className="mt-6 flex items-center justify-center gap-x-6 text-white">
         <div>
           <button
@@ -239,6 +258,7 @@ export default function Event({ setLoggedIn }) {
         </div>
         <DeleteEvent event_id={id} />
       </div>
+      )}
       <br />
       <br />
       <br />
