@@ -43,6 +43,7 @@ function setLoginCookie(res, user) {
     sameSite: "None",
     httpOnly: true,
     signed: true,
+    secure: true,
   });
 }
 

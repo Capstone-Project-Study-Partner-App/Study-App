@@ -27,6 +27,7 @@ router.post("/logout", async (req, res, next) => {
       sameSite: "None",
       httpOnly: true,
       signed: true,
+      secure: true,
     });
     res.send({
       loggedIn: false,
