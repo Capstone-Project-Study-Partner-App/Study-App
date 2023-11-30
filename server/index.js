@@ -9,12 +9,13 @@ app.use(cookieParser(COOKIE_SECRET));
 
 // init cors
 const cors = require("cors");
-app.use(
-  cors({
-    origin: process.env.CORS_ALLOW || "https://binderbuddies-n5d9.onrender.com",
-    credentials: true, // Allow cookies to be sent
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: process.env.CORS_ALLOW || "http://localhost:5173",
+//     credentials: true, // Allow cookies to be sent
+//   })
+// );
 
 const port = 8080;
 
