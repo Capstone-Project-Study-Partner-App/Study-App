@@ -11,7 +11,7 @@ app.use(cookieParser(COOKIE_SECRET));
 const cors = require("cors");
 app.use(
   cors({
-    origin: process.env.CORS_ALLOW ||`postgres://studyapp_user:nhMppEiSGlXAJtFkf0vR3DSgPBaxYLda@dpg-clkbgdd8td7s73cehcig-a/studyapp`,
+    origin: process.env.CORS_ALLOW || "http://localhost:5173",
     credentials: true, // Allow cookies to be sent
   })
 );
