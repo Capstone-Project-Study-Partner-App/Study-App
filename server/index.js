@@ -11,7 +11,7 @@ app.use(cookieParser(COOKIE_SECRET));
 const cors = require("cors");
 app.use(
   cors({
-    origin: process.env.CORS_ALLOW || "http://localhost:5173",
+    origin: process.env.CORS_ALLOW || "https://binderbuddies-n5d9.onrender.com",
     credentials: true, // Allow cookies to be sent
   })
 );
