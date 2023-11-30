@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 const api_root = import.meta.env.VITE_API_BASE || 
-"https://binderbuddies-v8dl.onrender.com" ;
+"https://binderbuddies-v8dl.onrender.com/api" ;
 // "http://localhost:8080/api";
 // "https://binder-buddies.onrender.com";
 
