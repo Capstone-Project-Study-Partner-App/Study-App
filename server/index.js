@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 8080;
+const PORT = process.env.PORT || 8080;
 
 // app.use(express.json());
 
@@ -45,6 +45,6 @@ app.use("/api", require("./api/index"));
 // app.use("/api", apiRouter);
 
 // Start the Express server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
