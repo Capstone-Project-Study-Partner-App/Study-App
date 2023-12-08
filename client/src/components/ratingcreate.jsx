@@ -64,8 +64,8 @@ export default function RatingCreate({ userId }) {
     try {
       await createRating(ratingData);
       console.log(ratingData);
-      navigate(0);
-      // window.location.reload();
+      // navigate(0);
+      window.location.reload();
     } catch (error) {
       console.error("There was an error creating a new rating!", error);
     }
