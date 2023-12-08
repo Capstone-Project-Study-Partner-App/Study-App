@@ -23,7 +23,10 @@ app.use(cookieParser(COOKIE_SECRET));
 
 // init cors
 const cors = require('cors');
-app.use(cors());
+app.use(cors({
+  origin: 'https://binderbuddies-03bu.onrender.com',
+  credentials: true,
+}));
 
 // const cors = require("cors");
 // app.use(
