@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
+const {authRequired} = require("./api/utils");
+
+const client = require('./db/client');
+client.connect();
 
 // app.use(express.json());
 
@@ -20,9 +24,6 @@ app.use(cookieParser(COOKIE_SECRET));
 // init cors
 const cors = require('cors');
 app.use(cors());
-
-const client = require('./db/client');
-client.connect();
 
 // const cors = require("cors");
 // app.use(
