@@ -578,4 +578,4 @@ apiRouter.get("/health", (req, res, next) => {
   res.send("All healthy and ready to go!");
 });
 
-module.exports = { apiRouter };
+module.exports = apiRouter;
