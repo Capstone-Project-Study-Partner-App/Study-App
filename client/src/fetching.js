@@ -5,20 +5,20 @@ const api_root = "https://binderbuddies-api.onrender.com/api";
 
 // import.meta.env.VITE_API_BASE || 
 
-// (() => {
-//   const original_fetch = window.fetch;
-//   window.fetch = (url, opts, ...args) => {
-//     return original_fetch(
-//       url,
-//       {
-//         mode: "cors",
-//         credentials: "include",
-//         ...opts,
-//       },
-//       ...args
-//     );
-//   };
-// })();
+(() => {
+  const original_fetch = window.fetch;
+  window.fetch = (url, opts, ...args) => {
+    return original_fetch(
+      url,
+      {
+        mode: "cors",
+        credentials: "include",
+        ...opts,
+      },
+      ...args
+    );
+  };
+})();
 
 export class AuthError extends Error {}
 
