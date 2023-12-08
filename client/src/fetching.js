@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-undef
-const api_root = "https://binderbuddies-api.onrender.com"; 
+const api_root = "https://binderbuddies-api.onrender.com/api"; 
 // "http://localhost:8080/api";
 // "https://binder-buddies.onrender.com";
 
